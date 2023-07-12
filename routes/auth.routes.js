@@ -23,6 +23,9 @@ const nodemailer = require("nodemailer");
 // unique string
 const { v4: uuidv4 } = require("uuid");
 
+// _id value to UUID convert
+const ObjectId = require("bson-objectid");
+
 // env variables
 require("dotenv").config();
 
@@ -118,21 +121,27 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
 });
 
 // send verification email
-function sendVerificationEmail({ _id, email }, res) {
+const sendVerificationEmail = ({ _id, email }, res) => {
   //url to be used in the email
-  // const currentUrl = "http://localhost:3000";
-
   const baseURL = "http://localhost:3000";
 
   console.log("_id:", _id);
-  const uniqueString = uuidv4() + _id;
+  console.log("email:", email);
+  // const uniqueString = uuidv4() + _id;
+  const uniqueString = uuidv4() + new ObjectId(_id).toHexString();
+
   console.log("uniqueString:", uniqueString);
   // mail options
   const mailOptions = {
     from: process.env.AUTH_EMAIL,
     to: email,
     subject: "Verify Your Email",
-    html: `<p>Verify your email adress to complete the signup and login into your account. </p><p>This link  <b>expires in 6 hours.</b></p><p>Press <a href="${baseURL}/auth/verified/${_id}/${uniqueString}">here</a> to proceed </p>`,
+
+    html: `
+    <p>Verify your email address to complete the signup and login into your account.</p><p>This link <b>expires in 6 hours</b>.</p><p>Press <a href=${
+      baseURL + "/auth/verified?id=" + _id + "&uniqueString=" + uniqueString
+    }>here</a>to proceed.</p>
+    `,
   };
 
   // hash the uniqueString
@@ -181,7 +190,7 @@ function sendVerificationEmail({ _id, email }, res) {
         message: "An error occured while hashing email data!",
       });
     });
-}
+};
 //id : 64ae8da6398b85ef27be201d
 //uniqueStr : 7ac74947-0be5-438f-a571-a5410e7ef78c64ae8da6398b85ef27be201d
 // http://localhost:3000/auth/verified/error=true&message=Invalid%20verification%20details%20passed.Check%20your%20inbox.
@@ -279,10 +288,12 @@ router.get("/verified/:userId/:uniqueString", (req, res) => {
       res.redirect(`/auth/verified/error=true&message=${message}`);
     });
 });
-
-// verified page route
+// _id: new ObjectId("64af0e8fa2f0e8a4a4a4ccda")
+// uniqueString: 1bd02ed4-4b28-4891-a8da-c7cf1f85228964af0e8fa2f0e8a4a4a4ccda
+// // verified page route
 router.get("/verified", (req, res) => {
-  res.render("auth/verified");
+  const { error, message } = req.query;
+  res.render("auth/verified", { error, message });
 });
 
 // GET /auth/login
