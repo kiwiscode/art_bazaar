@@ -191,9 +191,6 @@ const sendVerificationEmail = ({ _id, email }, res) => {
       });
     });
 };
-//id : 64ae8da6398b85ef27be201d
-//uniqueStr : 7ac74947-0be5-438f-a571-a5410e7ef78c64ae8da6398b85ef27be201d
-// http://localhost:3000/auth/verified/error=true&message=Invalid%20verification%20details%20passed.Check%20your%20inbox.
 
 // verify email
 router.get("/verified/:userId/:uniqueString", (req, res) => {
@@ -208,7 +205,8 @@ router.get("/verified/:userId/:uniqueString", (req, res) => {
         if (expiresAt < Date.now()) {
           // record has expired so we delete it
           UserVerification.deleteOne({ userId })
-            .then(() => {
+            .then((result) => {
+              console.log(result);
               User.deleteOne({ _id: userId })
                 .then(() => {
                   let message = "Link has expired.Please sign up again.";
@@ -236,12 +234,12 @@ router.get("/verified/:userId/:uniqueString", (req, res) => {
               console.log(result, "rrrrrrrrrrrrr");
               if (result) {
                 // strings match
-
-                User.deleteOne({ _id: userId }, { verified: true })
+                User.findByIdAndUpdate({ _id: userId }, { verified: true })
                   .then(() => {
                     UserVerification.deleteOne({ userId })
                       .then(() => {
                         console.log(userId);
+                        console.log("Email verification successful");
                         res.redirect("/auth/verified");
                       })
                       .catch((error) => {
@@ -262,7 +260,7 @@ router.get("/verified/:userId/:uniqueString", (req, res) => {
                     );
                   });
               } else {
-                // // existing record but incorrect verification details passed
+                // existing record but incorrect verification details passed
                 let message =
                   "Invalid verification details passed.Check your inbox.";
                 res.redirect(`/auth/verified/error=true&message=${message}`);
@@ -288,9 +286,7 @@ router.get("/verified/:userId/:uniqueString", (req, res) => {
       res.redirect(`/auth/verified/error=true&message=${message}`);
     });
 });
-// _id: new ObjectId("64af0e8fa2f0e8a4a4a4ccda")
-// uniqueString: 1bd02ed4-4b28-4891-a8da-c7cf1f85228964af0e8fa2f0e8a4a4a4ccda
-// // verified page route
+
 router.get("/verified", (req, res) => {
   const { error, message } = req.query;
   res.render("auth/verified", { error, message });
@@ -327,36 +323,12 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   User.findOne({ email })
     .then((user) => {
       // check if user verified
+      console.log("email hasn't been verified yet : ", !user.verified);
       if (!user.verified) {
         res.json({
           status: "FAILED",
           message: "Email hasn't been verified yet.Check your inbox",
         });
-      } else {
-        // const hashedPassword = user[0].password;
-        bcrypt
-          .compare(password)
-          .then((result) => {
-            if (result) {
-              res.json({
-                status: "SUCCESS",
-                message: "Login succesful",
-                user: user,
-              });
-            } else {
-              res.json({
-                status: "FAILED",
-                message: "Invalid password entered!",
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-            res.json({
-              status: "FAILED",
-              message: "An error occured while comparing passwords",
-            });
-          });
       }
 
       // If the user isn't found, send an error message that user provided wrong credentials
@@ -382,6 +354,8 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           req.session.currentUser = user.toObject();
           // Remove the password field
           delete req.session.currentUser.password;
+
+          console.log("email verified : ", user.verified);
 
           const loggedInUsername = username;
           const userOnline = req.session.currentUser;
