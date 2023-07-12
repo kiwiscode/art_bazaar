@@ -1,7 +1,12 @@
 <h1>{{appTitle}} 🚀</h1>
 
-<a href="/auth/signup" class="nav-btn">Signup</a>
-<a href="/auth/login" class="nav-btn">Login</a>
-{{! sonradan eklendi }}
-<a href="/auth/logout" class="nav-btn">Logout</a>
-<p>Welcome {{loggedInUsername}}</p>
+{{#if loggedInUsername}}
+  <p>Welcome {{loggedInUsername}}</p>
+  <a href="/auth/logout" class="nav-btn">Logout</a>
+  <a href="/products">All Products</a>
+  <a href="/carts">Shopping Cart</a>
+{{else}}
+  <a href="/products">All Products</a>
+  <a href="/auth/signup" class="nav-btn">Signup</a>
+  <a href="/auth/login" class="nav-btn">Login</a>
+{{/if}}
