@@ -24,7 +24,7 @@ const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require("uuid");
 
 // _id value to UUID convert
-const ObjectId = require("bson-objectid");
+// const ObjectId = require("bson-objectid");
 
 // env variables
 require("dotenv").config();
@@ -125,11 +125,10 @@ const sendVerificationEmail = ({ _id, email }, res) => {
   //url to be used in the email
   const baseURL = "http://localhost:3000";
 
-  console.log("_id:", _id);
-  console.log("email:", email);
   // const uniqueString = uuidv4() + _id;
-  const uniqueString = uuidv4() + new ObjectId(_id).toHexString();
-
+  const uniqueString = uuidv4() + _id;
+  console.log("email:", email);
+  console.log("_id:", _id);
   console.log("uniqueString:", uniqueString);
   // mail options
   const mailOptions = {
@@ -139,47 +138,40 @@ const sendVerificationEmail = ({ _id, email }, res) => {
 
     html: `
     <p>Verify your email address to complete the signup and login into your account.</p><p>This link <b>expires in 6 hours</b>.</p><p>Press <a href=${
-      baseURL + "/auth/verified?id=" + _id + "&uniqueString=" + uniqueString
+      baseURL + "/auth/verified/" + _id + "/" + uniqueString
     }>here</a>to proceed.</p>
     `,
   };
 
   // hash the uniqueString
-  const saltRounds = 10;
-  bcrypt
-    .hash(uniqueString, saltRounds)
-    .then((hashedUniqueString) => {
-      const newVerification = new UserVerification({
-        userId: _id,
-        uniqueString: hashedUniqueString,
-        createdAt: Date.now(),
-        expiresAt: Date.now() + 21600000,
-      });
-      newVerification
-        .save()
+  // const saltRounds = 10;
+  // bcrypt
+  //   .hash(uniqueString, saltRounds)
+  // .then((hashedUniqueString) =>
+  // {
+  const newVerification = new UserVerification({
+    userId: _id,
+    uniqueString: uniqueString,
+    createdAt: Date.now(),
+    expiresAt: Date.now() + 21600000,
+  });
+  newVerification
+    .save()
+    .then(() => {
+      transporter
+        .sendMail(mailOptions)
         .then(() => {
-          transporter
-            .sendMail(mailOptions)
-            .then(() => {
-              // email sent and verification record saved
-              res.json({
-                status: "PENDING",
-                message: "Verification email sent",
-              });
-            })
-            .catch((error) => {
-              console.log(error);
-              res.json({
-                status: "FAILED",
-                message: "Verification email failed!",
-              });
-            });
+          // email sent and verification record saved
+          res.json({
+            status: "PENDING",
+            message: "Verification email sent",
+          });
         })
         .catch((error) => {
           console.log(error);
           res.json({
             status: "FAILED",
-            message: "Couldn't save verification email data!",
+            message: "Verification email failed!",
           });
         });
     })
@@ -187,27 +179,43 @@ const sendVerificationEmail = ({ _id, email }, res) => {
       console.log(error);
       res.json({
         status: "FAILED",
-        message: "An error occured while hashing email data!",
+        message: "Couldn't save verification email data!",
       });
     });
+  // })
+  // .catch((error) => {
+  //   console.log(error);
+  //   res.json({
+  //     status: "FAILED",
+  //     message: "An error occured while hashing email data!",
+  //   });
+  // });
 };
+
+// UserVerification._id : ObjectID("64b000414e7da6728b6eb147")
+// UserVerification.userId : "64b000404e7da6728b6eb145"
+// User._id : ObjectId("64b000404e7da6728b6eb145")
 
 // verify email
 router.get("/verified/:userId/:uniqueString", (req, res) => {
+  console.log(req.params);
   let { userId, uniqueString } = req.params;
-  UserVerification.findById({ userId })
+  UserVerification.findOne({ userId })
     .then((result) => {
       // if (result.length > 0)
       if (result) {
         // user verification record exists so we proceed
-        const { expiresAt } = result[0];
-        const hashedUniqueString = result[0].uniqueString;
+        const { expiresAt } = result;
+        // const hashedUniqueString = result.uniqueString;
+        const uniqueStringFromDB = result.uniqueString;
+
         // checking for expired unique string
         if (expiresAt < Date.now()) {
           // record has expired so we delete it
           UserVerification.findOneAndDelete({ userId })
             .then((result) => {
               console.log(result);
+              console.log(userId);
               User.findByIdAndUpdate({ _id: userId })
                 .then(() => {
                   let message = "Link has expired.Please sign up again.";
@@ -227,52 +235,53 @@ router.get("/verified/:userId/:uniqueString", (req, res) => {
             });
         } else {
           // hata buradan kaynaklanıyor
-          console.log("compare", uniqueString, hashedUniqueString);
-          console.log("compare", uniqueString === hashedUniqueString);
-          bcrypt
-            .compare(req.params.uniqueString, hashedUniqueString)
-            .then((result) => {
-              console.log(result, "rrrrrrrrrrrrr");
-              if (result) {
-                // strings match
-                User.findByIdAndUpdate({ _id: userId }, { verified: true })
+          console.log("compare", uniqueString, uniqueStringFromDB);
+
+          // bcrypt
+          //   .compare(uniqueString, hashedUniqueString)
+          //   .then((result) => {
+          //     console.log(result, "rrrrrrrrrrrrr");
+          if (uniqueString === uniqueStringFromDB) {
+            // strings match
+            // User.findByIdAndUpdate(userId, { verified: true })
+
+            User.findByIdAndUpdate(userId, { verified: true })
+              .then(() => {
+                console.log(userId);
+                UserVerification.findOneAndDelete({ userId })
                   .then(() => {
-                    UserVerification.findOneAndDelete({ userId })
-                      .then(() => {
-                        console.log(userId);
-                        console.log("Email verification successful");
-                        res.redirect("/auth/verified");
-                      })
-                      .catch((error) => {
-                        console.log(error);
-                        let message =
-                          "An error occured while finalizing succesful verification";
-                        res.redirect(
-                          `/auth/verified/error=true&message=${message}`
-                        );
-                      });
+                    console.log(userId);
+                    console.log("Email verification successful");
+                    res.render("auth/verified");
                   })
                   .catch((error) => {
                     console.log(error);
                     let message =
-                      "An error occured while updating user record to show verified";
+                      "An error occured while finalizing succesful verification";
                     res.redirect(
                       `/auth/verified/error=true&message=${message}`
                     );
                   });
-              } else {
-                // existing record but incorrect verification details passed
+              })
+              .catch((error) => {
+                console.log(error);
                 let message =
-                  "Invalid verification details passed.Check your inbox.";
+                  "An error occured while updating user record to show verified";
                 res.redirect(`/auth/verified/error=true&message=${message}`);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-              let message = "An error occured while comparing unique strings";
-              res.redirect(`auth/verified/error=true&message=${message}`);
-            });
+              });
+          } else {
+            // existing record but incorrect verification details passed
+            let message =
+              "Invalid verification details passed.Check your inbox.";
+            res.redirect(`/auth/verified/error=true&message=${message}`);
+          }
         }
+        // )
+        // .catch((err) => {
+        //   console.log(err);
+        //   let message = "An error occured while comparing unique strings";
+        //   res.redirect(`auth/verified/error=true&message=${message}`);
+        // });
       } else {
         // user verification record doesn't exist
         let message =

@@ -4,7 +4,9 @@ const { Schema, model } = require("mongoose");
 const userVerificationSchema = new Schema(
   {
     userId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      // type: String,
       required: false,
       unique: true,
       trim: true,
