@@ -17,6 +17,13 @@ const app = express();
 
 const session = require("express-session");
 
+const methodOverride = require("method-override");
+
+// 1. require the body-parser
+const bodyParser = require("body-parser");
+// 2. let know your app you will be using it
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(
   session({
     secret: "UserName",
@@ -29,6 +36,13 @@ app.use((req, res, next) => {
   res.locals.loggedInUsername = req.session.loggedInUsername;
   next();
 });
+
+hbs.registerHelper("priceSum", function (arr) {
+  const totalPrice = arr.reduce((acc, curr) => acc + curr.price, 0);
+  return totalPrice.toFixed(2);
+});
+
+app.use(methodOverride("_method"));
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
@@ -44,6 +58,18 @@ app.use("/", indexRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
+
+const productRoutes = require("./routes/products.routes");
+app.use("/products", productRoutes);
+
+const cartRoutes = require("./routes/carts.routes");
+app.use("/carts", cartRoutes);
+
+const checkoutRoutes = require("./routes/checkout.routes");
+app.use("/checkout", checkoutRoutes);
+
+const verifiedRoutes = require("./routes/verified.routes");
+app.use("/verified", verifiedRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
