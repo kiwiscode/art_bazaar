@@ -8,14 +8,14 @@ const mongoose = require("mongoose");
 // How many rounds should bcrypt run the salt (default - 10 rounds)
 const saltRounds = 10;
 
-// Require the User model in order to interact with the database
+// Require the models in order to interact with the database
 const User = require("../models/User.model");
+const UserVerification = require("../models/UserVerification.model");
 
 // path for static verified page
 const path = require("path");
 
 // mongodb user verification model
-const UserVerification = require("../models/UserVerification.model");
 
 // email handler
 const nodemailer = require("nodemailer");
@@ -195,19 +195,20 @@ const sendVerificationEmail = ({ _id, email }, res) => {
 // verify email
 router.get("/verified/:userId/:uniqueString", (req, res) => {
   let { userId, uniqueString } = req.params;
-  UserVerification.find({ userId })
+  UserVerification.findById({ userId })
     .then((result) => {
-      if (result.length > 0) {
+      // if (result.length > 0)
+      if (result) {
         // user verification record exists so we proceed
         const { expiresAt } = result[0];
         const hashedUniqueString = result[0].uniqueString;
         // checking for expired unique string
         if (expiresAt < Date.now()) {
           // record has expired so we delete it
-          UserVerification.deleteOne({ userId })
+          UserVerification.findOneAndDelete({ userId })
             .then((result) => {
               console.log(result);
-              User.deleteOne({ _id: userId })
+              User.findByIdAndUpdate({ _id: userId })
                 .then(() => {
                   let message = "Link has expired.Please sign up again.";
                   res.redirect(`/auth/verified/error=true&message=${message}`);
@@ -229,14 +230,14 @@ router.get("/verified/:userId/:uniqueString", (req, res) => {
           console.log("compare", uniqueString, hashedUniqueString);
           console.log("compare", uniqueString === hashedUniqueString);
           bcrypt
-            .compare(uniqueString, hashedUniqueString)
+            .compare(req.params.uniqueString, hashedUniqueString)
             .then((result) => {
               console.log(result, "rrrrrrrrrrrrr");
               if (result) {
                 // strings match
                 User.findByIdAndUpdate({ _id: userId }, { verified: true })
                   .then(() => {
-                    UserVerification.deleteOne({ userId })
+                    UserVerification.findOneAndDelete({ userId })
                       .then(() => {
                         console.log(userId);
                         console.log("Email verification successful");
