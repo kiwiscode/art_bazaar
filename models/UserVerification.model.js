@@ -1,30 +1,29 @@
 const { Schema, model } = require("mongoose");
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
-const userSchema = new Schema(
+const userVerificationSchema = new Schema(
   {
-    username: {
-      type: String,
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      // type: String,
       required: false,
       unique: true,
       trim: true,
     },
-    email: {
+    uniqueString: {
       type: String,
       required: true,
       unique: true,
       trim: true,
       lowercase: true,
     },
-    password: {
-      type: String,
+    createdAt: {
+      type: Date,
       required: true,
     },
-    verified: { type: Boolean, default: false },
-    carts: [{ type: Schema.Types.ObjectId, ref: "Product" }],
-    active: {
-      type: Boolean,
-      default: false,
+    expiresAt: {
+      type: Date,
     },
   },
 
@@ -34,6 +33,6 @@ const userSchema = new Schema(
   }
 );
 
-const User = model("User", userSchema);
+const UserVerification = model("UserVerification", userVerificationSchema);
 
-module.exports = User;
+module.exports = UserVerification;
