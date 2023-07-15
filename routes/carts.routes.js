@@ -3,6 +3,8 @@ const router = express.Router();
 const Product = require("../models/Product.model");
 const User = require("../models/User.model");
 
+const ObjectId = require("mongoose").Types.ObjectId;
+
 router.get("/", (req, res, next) => {
   const userId = req.session.currentUser._id;
   User.findById(userId)
@@ -21,8 +23,18 @@ router.delete("/:id", (req, res, next) => {
   const userId = req.session.currentUser._id;
   const productId = req.params.id;
 
-  User.findByIdAndUpdate(userId, { $pull: { carts: productId } })
+  User.findById(userId)
+    .then((user) => {
+      const index = user.carts.findIndex(
+        (cart) => cart.toString() === productId
+      );
+      if (index !== -1) {
+        user.carts.splice(index, 1);
+      }
+      return user.save();
+    })
     .then(() => {
+      console.log(productId);
       res.redirect("/carts");
     })
     .catch((err) => {
