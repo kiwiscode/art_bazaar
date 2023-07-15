@@ -2,6 +2,11 @@ const { Schema, model } = require("mongoose");
 
 const productSchema = new Schema(
   {
+    // productId: {
+    //   type: Schema.Types.ObjectId,
+    //   required: true,
+    //   unique: true,
+    // },
     title: {
       type: String,
       required: true,
