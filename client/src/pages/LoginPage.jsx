@@ -44,6 +44,7 @@ function LoginPage() {
       .then(() => {
         console.log(username);
         setError("");
+        <p>Welcome {username}</p>;
         navigate("/");
       })
       .catch((error) => {
