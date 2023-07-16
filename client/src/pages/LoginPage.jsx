@@ -43,6 +43,7 @@ function LoginPage() {
 
       .then(() => {
         console.log(username);
+        console.log(username, setUsername);
         setError("");
         navigate("/");
       })
@@ -61,7 +62,6 @@ function LoginPage() {
   return (
     <div>
       <h1>Login Page</h1>
-
       <input
         type="text"
         value={username}
