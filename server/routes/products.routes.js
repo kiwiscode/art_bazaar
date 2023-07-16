@@ -25,7 +25,8 @@ router.get("/:id", (req, res, next) => {
   console.log(productId);
   Product.findById(productId)
     .then((product) => {
-      res.render("product-details", { product: product });
+      // res.render("product-details", { product: product });
+      res.json(product);
     })
     .catch((err) => {
       console.log(
