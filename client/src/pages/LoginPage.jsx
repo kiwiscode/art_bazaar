@@ -2,8 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// const API_URL = "http://localhost:3000";
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+const API_URL = "http://localhost:3000";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ function LoginPage() {
       .then(() => {
         console.log(username);
         setError("");
-        <p>Welcome {username}</p>;
         navigate("/");
       })
       .catch((error) => {
