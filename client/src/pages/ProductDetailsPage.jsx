@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
 // const API_URL = "http://localhost:3000";
 const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
