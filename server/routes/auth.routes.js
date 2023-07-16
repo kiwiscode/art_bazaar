@@ -310,6 +310,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   User.findOne({ email })
     .then((user) => {
       // check if user verified
+      console.log("user : ", user);
       console.log("email hasn't been verified yet : ", !user.verified);
       if (!user.verified) {
         res.json({
