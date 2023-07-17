@@ -7,7 +7,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 router.get("/", (req, res, next) => {
   Product.find()
     .then((productsFromDataBase) => {
-      console.log(productsFromDataBase);
+      // console.log(productsFromDataBase);
       // res.render("products", { productArray: productsFromDataBase });
       res.json(productsFromDataBase);
     })

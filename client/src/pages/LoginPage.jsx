@@ -1,18 +1,26 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../components/UserContext";
 
-// const API_URL = "http://localhost:3000";
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// when working on local version
+const API_URL = "http://localhost:3000";
+
+// when working on deployment version
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const { updateUser } = useContext(UserContext);
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = (event) => {
+    event.preventDefault();
+
     if (username === "" || email === "" || password === "") {
       setError(
         "All fields are mandatory. Please provide your username, email and password."
@@ -38,23 +46,23 @@ function LoginPage() {
       setError("Please provide a valid email address.");
       return;
     }
+
     axios
       .post(`${API_URL}/auth/login`, { username, email, password })
-
       .then(() => {
         console.log(username);
-        console.log(username, setUsername);
+        setUsername(username);
+        updateUser(username);
         setError("");
         navigate("/");
       })
       .catch((error) => {
-        console.log(error, "Signup error");
         if (error.response) {
+          console.log(error.response.status);
           console.log(error.response);
-          console.log(error.response.data);
         }
         setError(
-          "Username or password wrong. Provide a valid username or password."
+          "Username or password wrong or email hasn't been verified yet. Provide a valid username or password."
         );
       });
   };

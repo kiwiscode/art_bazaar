@@ -69,8 +69,11 @@ module.exports = (app) => {
   //CORS MIDDLEWARE INSIDE module.exports TO ALLOW CROSS-ORIGIN INTERACTION:
   app.use(
     cors({
-      // origin: "http://localhost:5173", // <== URL of our future React app
-      origin: "https://regal-bubblegum-257fbb.netlify.app",
+      // when working on local version
+      origin: "http://localhost:5173", // <== URL of our future React app
+
+      // when working on deployment version
+      // origin: "https://regal-bubblegum-257fbb.netlify.app",
     })
   );
 };
