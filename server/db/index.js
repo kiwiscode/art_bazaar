@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
 
 const MONGO_URI =
   // when working on deployment version
-  // process.env.MONGODB_URI;
-  // when working on locally
-  "mongodb://127.0.0.1:27017/my-fullstack-project";
+  process.env.MONGODB_URI;
+// when working on locally
+// "mongodb://127.0.0.1:27017/my-fullstack-project";
 
 mongoose
   .connect(MONGO_URI)
