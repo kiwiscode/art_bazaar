@@ -2,8 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate'ı burada import ettiğinizden emin olun
 
-const API_URL = "http://localhost:3000";
-// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "http://localhost:3000";
+const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function SignUpPage() {
   const navigate = useNavigate();
