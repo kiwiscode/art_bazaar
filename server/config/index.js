@@ -32,6 +32,7 @@ const MongoStore = require("connect-mongo");
 const MONGO_URI =
   // when working on deployment version
   process.env.MONGODB_URI;
+
 // when working on locally
 // "mongodb://127.0.0.1:27017/my-fullstack-project";
 
