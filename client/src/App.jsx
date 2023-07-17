@@ -10,23 +10,25 @@ import SignupPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import Signed from "./pages/EmailVerifiedPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import { UserProvider } from "./components/UserContext";
 
 function App() {
   return (
-    <div className="App">
-      {/* <Navbar /> */}
-      <div>
-        <Navbar />{" "}
+    <UserProvider>
+      <div className="App">
+        <div>
+          <Navbar />
+        </div>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/auth/signup" element={<SignupPage />} />
+          <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/signed" element={<Signed />}></Route>
+          <Route path="/products/:id" element={<ProductDetailsPage />} />
+        </Routes>
       </div>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/auth/signup" element={<SignupPage />} />
-        <Route path="/auth/login" element={<LoginPage />} />
-        <Route path="/signed" element={<Signed />}></Route>
-        <Route path="/products/:id" element={<ProductDetailsPage />} />
-      </Routes>
-    </div>
+    </UserProvider>
   );
 }
 
