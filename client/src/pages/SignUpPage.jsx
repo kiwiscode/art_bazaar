@@ -64,6 +64,7 @@ function SignUpPage() {
 
   return (
     <div>
+      <h1>Signup Page</h1>
       <input
         type="text"
         value={username}

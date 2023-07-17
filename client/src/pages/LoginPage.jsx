@@ -11,7 +11,7 @@ const API_URL = "http://localhost:3000";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { updateUser } = useContext(UserContext); // UserContext'ı kullanma
+  const { updateUser } = useContext(UserContext);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -49,7 +49,6 @@ function LoginPage() {
 
     axios
       .post(`${API_URL}/auth/login`, { username, email, password })
-
       .then(() => {
         console.log(username);
         setUsername(username);
@@ -58,13 +57,12 @@ function LoginPage() {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error, "Signup error");
         if (error.response) {
+          console.log(error.response.status);
           console.log(error.response);
-          console.log(error.response.data);
         }
         setError(
-          "Username or password wrong. Provide a valid username or password."
+          "Username or password wrong or email hasn't been verified yet. Provide a valid username or password."
         );
       });
   };

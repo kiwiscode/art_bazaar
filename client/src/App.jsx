@@ -11,6 +11,7 @@ import LoginPage from "./pages/LoginPage";
 import Signed from "./pages/EmailVerifiedPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { UserProvider } from "./components/UserContext";
+import Cart from "./pages/CartPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/signed" element={<Signed />}></Route>
           <Route path="/products/:id" element={<ProductDetailsPage />} />
+          <Route path="/carts" element={<Cart />} />
         </Routes>
       </div>
     </UserProvider>

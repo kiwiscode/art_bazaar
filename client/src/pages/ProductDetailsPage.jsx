@@ -21,7 +21,6 @@ function ProductDetailsPage() {
     axios
       .get(`${API_URL}/products/${id}`)
       .then((response) => {
-        console.log(response.data);
         setProduct(response.data);
       })
       .catch((error) => console.log(error));
@@ -33,10 +32,15 @@ function ProductDetailsPage() {
 
   const handleAddToCart = () => {
     if (username2) {
-      // Kullanıcı giriş yapmışsa, ürünü sepete ekleme işlemini gerçekleştir
-      // ...
+      axios
+        .post(`${API_URL}/products/${id}/carts`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
-      // Kullanıcı giriş yapmamışsa, login sayfasına yönlendir
       navigate("/auth/login");
     }
   };
@@ -51,7 +55,6 @@ function ProductDetailsPage() {
         <p>${product.price}</p>
         <p>{product.description}</p>
 
-        {/* <button onClick={addToCart}>Add to Cart</button> */}
         <button onClick={handleAddToCart}>Add to cart</button>
       </div>
     </div>

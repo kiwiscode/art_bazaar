@@ -11,7 +11,8 @@ const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setUsername(""); // Kullanıcı adını boş hale getirerek çıkış yapılmasını sağlar
+    // setUsername("");
+    setUsername("");
   };
 
   return (
