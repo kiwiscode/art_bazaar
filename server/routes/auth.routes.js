@@ -117,8 +117,9 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
 
 // send verification email
 const sendVerificationEmail = ({ _id, email }, res) => {
-  //url to be used in the email
+  // when working on locally
   // const baseURL = "http://localhost:3000";
+  // when working on deployment version
   const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
   // const uniqueString = uuidv4() + _id;
@@ -313,10 +314,10 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       console.log("user : ", user);
       console.log("email hasn't been verified yet : ", !user.verified);
       if (!user.verified) {
-        res.json({
-          status: "FAILED",
-          message: "Email hasn't been verified yet.Check your inbox",
+        res.status(400).render("auth/login", {
+          errorMessage: "Email hasn't been verified yet. Check your inbox.",
         });
+        return;
       }
 
       // If the user isn't found, send an error message that user provided wrong credentials
@@ -358,7 +359,8 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           console.log("//................//");
           // showing the cookie on the console
           console.log("Active User :", req.session);
-
+          user.active = true;
+          user.save();
           // res.redirect("/");
           res.render("index", { loggedInUsername });
         })
@@ -379,6 +381,7 @@ router.get("/logout", isLoggedIn, (req, res) => {
       req.session.destroy((err) => {
         if (err) {
           res.status(500).render("auth/logout", { errorMessage: err.message });
+          req.session.currentUser.active = false;
           return;
         }
 

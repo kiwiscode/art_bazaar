@@ -2,7 +2,10 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate'ı burada import ettiğinizden emin olun
 
+// when working on local version
 // const API_URL = "http://localhost:3000";
+
+// when working on deployment version
 const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function SignUpPage() {
@@ -61,6 +64,7 @@ function SignUpPage() {
 
   return (
     <div>
+      <h1>Signup Page</h1>
       <input
         type="text"
         value={username}
