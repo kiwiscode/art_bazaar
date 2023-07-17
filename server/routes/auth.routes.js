@@ -118,8 +118,12 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
 // send verification email
 const sendVerificationEmail = ({ _id, email }, res) => {
   //url to be used in the email
-  // const baseURL = "http://localhost:3000";
-  const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
+
+  // when working on local version
+  const baseURL = "http://localhost:3000";
+
+  // when working on deployment version
+  // const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
   // const uniqueString = uuidv4() + _id;
   const uniqueString = uuidv4() + _id;
@@ -307,7 +311,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 
   // Search the database for a user with the email submitted in the form
-  User.findOne({ email })
+  User.findOne({ username, email })
     .then((user) => {
       // check if user verified
       console.log("user : ", user);
@@ -356,16 +360,13 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           console.log("//................//");
           console.log("USER ID:", req.session.currentUser._id);
           console.log("//................//");
-          // showing the cookie on the console
           console.log("Active User :", req.session);
-
-          // res.redirect("/");
           res.render("index", { loggedInUsername });
+          user.active = true;
+          user.save();
         })
-        // .then(() => {
-        //   res.redirect("/");
-        // })
-        .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
+
+        .catch((err) => next(err));
     })
     .catch((err) => next(err));
 });
@@ -375,7 +376,9 @@ router.get("/logout", isLoggedIn, (req, res) => {
   // Update the user's active status to false
 
   User.findByIdAndUpdate(req.session.currentUser._id, { active: false })
-    .then(() => {
+    .then((user) => {
+      user.active = false;
+      user.save();
       req.session.destroy((err) => {
         if (err) {
           res.status(500).render("auth/logout", { errorMessage: err.message });
