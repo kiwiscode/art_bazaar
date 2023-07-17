@@ -117,11 +117,8 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
 
 // send verification email
 const sendVerificationEmail = ({ _id, email }, res) => {
-  //url to be used in the email
-
-  // when working on local version
+  // when working on locally
   const baseURL = "http://localhost:3000";
-
   // when working on deployment version
   // const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
@@ -311,16 +308,16 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 
   // Search the database for a user with the email submitted in the form
-  User.findOne({ username, email })
+  User.findOne({ email })
     .then((user) => {
       // check if user verified
       console.log("user : ", user);
       console.log("email hasn't been verified yet : ", !user.verified);
       if (!user.verified) {
-        res.json({
-          status: "FAILED",
-          message: "Email hasn't been verified yet.Check your inbox",
+        res.status(400).render("auth/login", {
+          errorMessage: "Email hasn't been verified yet. Check your inbox.",
         });
+        return;
       }
 
       // If the user isn't found, send an error message that user provided wrong credentials
@@ -360,13 +357,17 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           console.log("//................//");
           console.log("USER ID:", req.session.currentUser._id);
           console.log("//................//");
+          // showing the cookie on the console
           console.log("Active User :", req.session);
-          res.render("index", { loggedInUsername });
           user.active = true;
           user.save();
+          // res.redirect("/");
+          res.render("index", { loggedInUsername });
         })
-
-        .catch((err) => next(err));
+        // .then(() => {
+        //   res.redirect("/");
+        // })
+        .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
     })
     .catch((err) => next(err));
 });
@@ -376,12 +377,11 @@ router.get("/logout", isLoggedIn, (req, res) => {
   // Update the user's active status to false
 
   User.findByIdAndUpdate(req.session.currentUser._id, { active: false })
-    .then((user) => {
-      user.active = false;
-      user.save();
+    .then(() => {
       req.session.destroy((err) => {
         if (err) {
           res.status(500).render("auth/logout", { errorMessage: err.message });
+          req.session.currentUser.active = false;
           return;
         }
 
