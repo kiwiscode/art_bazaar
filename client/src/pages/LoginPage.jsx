@@ -4,17 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function LoginPage() {
   const navigate = useNavigate();
   const { updateUser } = useContext(UserContext);
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -49,10 +49,13 @@ function LoginPage() {
 
     axios
       .post(`${API_URL}/auth/login`, { username, email, password })
-      .then(() => {
-        console.log(username);
-        setUsername(username);
-        updateUser(username);
+      .then((response) => {
+        const { token, user } = response.data;
+        console.log(user);
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("userInfo", JSON.stringify(user));
+        updateUser(user);
         setError("");
         navigate("/");
       })

@@ -4,19 +4,30 @@ import PropTypes from "prop-types";
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [username2, setUsername] = useState("");
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    email: "",
+    userId: "",
+    carts: [],
+    active: false,
+  });
 
-  const updateUser = (newUsername) => {
-    setUsername(newUsername);
+  const updateUser = (newUserInfo) => {
+    setUserInfo(() => newUserInfo);
   };
 
   const logout = () => {
-    // setUsername("");
-    setUsername("");
+    setUserInfo({
+      username: "",
+      email: "",
+      userId: "",
+      carts: [],
+      active: false,
+    });
   };
 
   return (
-    <UserContext.Provider value={{ username2, updateUser, logout }}>
+    <UserContext.Provider value={{ userInfo, updateUser, logout }}>
       {children}
     </UserContext.Provider>
   );

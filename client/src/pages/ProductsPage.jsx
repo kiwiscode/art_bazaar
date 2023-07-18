@@ -3,10 +3,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 function ProductsPage() {
   const [products, setProducts] = useState([]);
 
