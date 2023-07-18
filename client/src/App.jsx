@@ -12,6 +12,7 @@ import Signed from "./pages/EmailVerifiedPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { UserProvider } from "./components/UserContext";
 import Cart from "./pages/CartPage";
+import LogoutPage from "./pages/LogoutPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/auth/signup" element={<SignupPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/logout" element={<LogoutPage />} />
           <Route path="/signed" element={<Signed />}></Route>
           <Route path="/products/:id" element={<ProductDetailsPage />} />
           <Route path="/carts" element={<Cart />} />
