@@ -118,9 +118,9 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
 // send verification email
 const sendVerificationEmail = ({ _id, email }, res) => {
   // when working on locally
-  // const baseURL = "http://localhost:3000";
+  const baseURL = "http://localhost:3000";
   // when working on deployment version
-  const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
+  // const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
   // const uniqueString = uuidv4() + _id;
   const uniqueString = uuidv4() + _id;
