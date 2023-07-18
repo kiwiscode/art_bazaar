@@ -31,9 +31,9 @@ const MongoStore = require("connect-mongo");
 // Connects the mongo uri to maintain the same naming structure
 const MONGO_URI =
   // when working on deployment version
-  process.env.MONGODB_URI;
-// when working on locally
-// "mongodb://127.0.0.1:27017/my-fullstack-project";
+  // process.env.MONGODB_URI;
+  // when working on locally
+  "mongodb://127.0.0.1:27017/my-fullstack-project";
 
 // Middleware configuration
 module.exports = (app) => {
@@ -73,10 +73,10 @@ module.exports = (app) => {
   app.use(
     cors({
       // when working on local version
-      // origin: "http://localhost:5173", // <== URL of our future React app
+      origin: "http://localhost:5173", // <== URL of our future React app
 
       // when working on deployment version
-      origin: "https://chimerical-boba-692180.netlify.app",
+      // origin: "https://chimerical-boba-692180.netlify.app",
     })
   );
 };

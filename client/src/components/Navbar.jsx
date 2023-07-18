@@ -1,25 +1,43 @@
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function Navbar() {
   const navigate = useNavigate();
 
-  const { username2, logout } = useContext(UserContext);
+  const { userInfo, logout } = useContext(UserContext);
+  const { active, username } = userInfo;
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    setCartItems(storedCartItems);
+  }, []);
+
+  console.log(userInfo);
 
   const handleLogout = () => {
+    const token = localStorage.getItem("token");
     axios
-      .post(`${API_URL}/auth/logout`)
+      .post(`${API_URL}/auth/logout`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(res);
+        userInfo.active = false;
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("token");
+        localStorage.removeItem("cartItems");
         logout();
         navigate("/");
       })
@@ -30,10 +48,6 @@ function Navbar() {
 
   return (
     <div>
-      <p>Deploy version</p>
-      <p>Hello World</p>
-      {username2 ? <p>Logged in as: {username2}</p> : <p></p>}
-
       <nav>
         <NavLink to="/">
           <button>Home</button>
@@ -42,24 +56,28 @@ function Navbar() {
           <button>Products</button>
         </NavLink>
 
-        <button onClick={handleLogout}>Logout</button>
-        {username2 ? (
-          <>
-            <button onClick={handleLogout}>Logout</button>
-
+        {active && (
+          <div>
+            <p>Welcome, {username}</p>
+            <p>Status : {active ? "online" : ""}</p>
             <NavLink to="/carts">
-              <button>Shopping Cart</button>
+              <button>Shopping Cart ({cartItems.length})</button>
             </NavLink>
-          </>
-        ) : (
-          <>
+            <NavLink>
+              <button onClick={handleLogout}>Logout</button>
+            </NavLink>
+          </div>
+        )}
+
+        {!active && (
+          <div>
             <NavLink to="/auth/signup">
               <button>Signup</button>
             </NavLink>
             <NavLink to="/auth/login">
               <button>Login</button>
             </NavLink>
-          </>
+          </div>
         )}
       </nav>
     </div>

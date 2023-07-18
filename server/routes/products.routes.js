@@ -40,10 +40,12 @@ router.get("/:id", (req, res, next) => {
 router.post("/:id/carts", isLoggedIn, (req, res, next) => {
   const productId = req.params.id;
   const userId = req.session.currentUser._id;
+  console.log("PRODUCT ID", productId);
 
   User.findById(userId)
     .populate("carts")
     .then((user) => {
+      console.log("USER CARTS:", user.carts);
       user.carts.push(productId);
       return user.save();
     })
