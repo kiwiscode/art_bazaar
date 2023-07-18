@@ -30,6 +30,7 @@ function Navbar() {
 
   return (
     <div>
+      <p>Hello World</p>
       {username2 ? <p>Logged in as: {username2}</p> : <p></p>}
 
       <nav>
