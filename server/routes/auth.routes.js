@@ -114,7 +114,7 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
       }
     });
 });
-
+//
 // send verification email
 const sendVerificationEmail = ({ _id, email }, res) => {
   // when working on locally

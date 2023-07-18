@@ -76,8 +76,7 @@ module.exports = (app) => {
       origin: "http://localhost:5173", // <== URL of our future React app
 
       // when working on deployment version
-      // origin: "https://regal-bubblegum-257fbb.netlify.app",
+      // origin: "https://chimerical-boba-692180.netlify.app/",
     })
   );
 };
-////
