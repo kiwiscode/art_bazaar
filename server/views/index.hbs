@@ -2,7 +2,10 @@
 
 {{#if loggedInUsername}}
   <p>Welcome {{loggedInUsername}}</p>
-  <a href="/auth/logout" class="nav-btn">Logout</a>
+  {{! <a href="/auth/logout" class="nav-btn">Logout</a> }}
+  <form action="/auth/logout" method="POST">
+    <button type="submit" class="nav-btn">Logout</button>
+  </form>
   <a href="/products">All Products</a>
   <a href="/carts">Shopping Cart</a>
 {{else}}
