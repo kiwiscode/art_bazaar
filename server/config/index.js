@@ -74,10 +74,10 @@ module.exports = (app) => {
   app.use(
     cors({
       // when working on local version
-      origin: "http://localhost:5173", // <== URL of our future React app
+      // origin: "http://localhost:5173", // <== URL of our future React app
 
       // when working on deployment version
-      // origin: "https://regal-bubblegum-257fbb.netlify.app",
+      origin: "https://regal-bubblegum-257fbb.netlify.app",
     })
   );
 };
