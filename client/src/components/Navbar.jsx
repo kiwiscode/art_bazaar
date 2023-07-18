@@ -5,10 +5,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -17,8 +17,9 @@ function Navbar() {
 
   const handleLogout = () => {
     axios
-      .get(`${API_URL}/auth/logout`)
-      .then(() => {
+      .post(`${API_URL}/auth/logout`)
+      .then((res) => {
+        console.log(res);
         logout();
         navigate("/");
       })
@@ -39,11 +40,11 @@ function Navbar() {
           <button>Products</button>
         </NavLink>
 
+        <button onClick={handleLogout}>Logout</button>
         {username2 ? (
           <>
-            <NavLink onClick={handleLogout} to="/">
-              <button>Logout</button>
-            </NavLink>
+            {/* <NavLink to="/auth/logout"> */}
+            {/* </NavLink> */}
             <NavLink to="/carts">
               <button>Shopping Cart</button>
             </NavLink>
