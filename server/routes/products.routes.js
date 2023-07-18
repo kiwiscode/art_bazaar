@@ -47,9 +47,9 @@ router.post("/:id/carts", isLoggedIn, (req, res, next) => {
       user.carts.push(productId);
       return user.save();
     })
-    .then(() => {
-      res.redirect("/carts");
-    })
+    // .then(() => {
+    //   res.redirect("/carts");
+    // })
     .catch((err) => {
       console.log(
         "An error occurred while adding the product to the cart:",

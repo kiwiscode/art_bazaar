@@ -32,6 +32,7 @@ function ProductDetailsPage() {
 
   const handleAddToCart = () => {
     if (username2) {
+      console.log(username2);
       axios
         .post(`${API_URL}/products/${id}/carts`)
         .then((response) => {

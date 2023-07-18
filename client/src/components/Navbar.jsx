@@ -14,10 +14,10 @@ function Navbar() {
   const navigate = useNavigate();
 
   const { username2, logout } = useContext(UserContext);
-
+  console.log(username2);
   const handleLogout = () => {
     axios
-      .post(`${API_URL}/auth/logout`)
+      .post(`${API_URL}/auth/logout`, null, { maxRedirects: 0 })
       .then((res) => {
         console.log(res);
         logout();
@@ -41,7 +41,6 @@ function Navbar() {
           <button>Products</button>
         </NavLink>
 
-        <button onClick={handleLogout}>Logout</button>
         {username2 ? (
           <>
             <button onClick={handleLogout}>Logout</button>

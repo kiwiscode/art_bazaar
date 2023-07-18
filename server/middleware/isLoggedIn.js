@@ -6,3 +6,11 @@ module.exports = (req, res, next) => {
 
   next();
 };
+
+// front end kısmından gelen console log
+// POST /auth/logout 302 0.550 ms - 33
+// GET /auth/login 304 5.346 ms - -
+
+// back end kısmından gelen console log
+// POST /auth/logout 302 8.901 ms - 46
+// GET / 304 4.617 ms - -
