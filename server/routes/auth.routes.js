@@ -118,9 +118,9 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
 // send verification email
 const sendVerificationEmail = ({ _id, email }, res) => {
   // when working on locally
-  // const baseURL = "http://localhost:3000";
+  const baseURL = "http://localhost:3000";
   // when working on deployment version
-  const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
+  // const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
   // const uniqueString = uuidv4() + _id;
   const uniqueString = uuidv4() + _id;
@@ -368,25 +368,6 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         //   res.redirect("/");
         // })
         .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
-    })
-    .catch((err) => next(err));
-});
-
-// GET /auth/logout
-router.get("/logout", isLoggedIn, (req, res) => {
-  // Update the user's active status to false
-
-  User.findByIdAndUpdate(req.session.currentUser._id, { active: false })
-    .then(() => {
-      req.session.destroy((err) => {
-        if (err) {
-          res.status(500).render("auth/logout", { errorMessage: err.message });
-          req.session.currentUser.active = false;
-          return;
-        }
-
-        res.redirect("/");
-      });
     })
     .catch((err) => next(err));
 });
