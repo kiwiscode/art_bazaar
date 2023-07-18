@@ -40,11 +40,10 @@ function Navbar() {
           <button>Products</button>
         </NavLink>
 
-        <button onClick={handleLogout}>Logout</button>
         {username2 ? (
           <>
-            {/* <NavLink to="/auth/logout"> */}
-            {/* </NavLink> */}
+            <button onClick={handleLogout}>Logout</button>
+
             <NavLink to="/carts">
               <button>Shopping Cart</button>
             </NavLink>
