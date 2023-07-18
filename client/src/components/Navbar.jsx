@@ -44,13 +44,8 @@ function Navbar() {
         <button onClick={handleLogout}>Logout</button>
         {username2 ? (
           <>
-<<<<<<< HEAD
-            {/* <NavLink to="/auth/logout"> */}
-            {/* </NavLink> */}
-=======
             <button onClick={handleLogout}>Logout</button>
 
->>>>>>> main
             <NavLink to="/carts">
               <button>Shopping Cart</button>
             </NavLink>
