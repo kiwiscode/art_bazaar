@@ -3,11 +3,11 @@
 const mongoose = require("mongoose");
 const Product = require("../models/Product.model");
 
-const MONGO_URI =
-  // when working on deployment version
-  process.env.MONGODB_URI;
+// when working on deployment version
+const MONGO_URI = process.env.MONGODB_URI;
+
 // when working on locally
-// "mongodb://127.0.0.1:27017/my-fullstack-project";
+// const MONGO_URI = "mongodb://127.0.0.1:27017/my-fullstack-project";
 
 let fakeStoreProducts = [];
 
