@@ -2,13 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product.model");
 const User = require("../models/User.model");
-const isLoggedIn = require("../middleware/isLoggedIn");
+const authenticateToken = require("../middleware/jwtMiddleware");
 
 router.get("/", (req, res, next) => {
   Product.find()
     .then((productsFromDataBase) => {
-      // console.log(productsFromDataBase);
-      // res.render("products", { productArray: productsFromDataBase });
       res.json(productsFromDataBase);
     })
     .catch((err) => {
@@ -25,7 +23,6 @@ router.get("/:id", (req, res, next) => {
   console.log(productId);
   Product.findById(productId)
     .then((product) => {
-      // res.render("product-details", { product: product });
       res.json(product);
     })
     .catch((err) => {
@@ -37,14 +34,17 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-router.post("/:id/carts", isLoggedIn, (req, res, next) => {
+router.post("/:id/carts", authenticateToken, (req, res, next) => {
   const productId = req.params.id;
-  const userId = req.session.currentUser._id;
-  console.log("PRODUCT ID", productId);
+  const userId = req.user.userId; // authenticateToken middleware'ı tarafından sağlanan kullanıcı bilgilerini kullanın
 
   User.findById(userId)
     .populate("carts")
     .then((user) => {
+      if (!user.active) {
+        return res.status(401).json({ message: "User is not active" });
+      }
+
       console.log("USER CARTS:", user.carts);
       user.carts.push(productId);
       return user.save();

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
 
 // when working on local version
@@ -12,9 +12,11 @@ const API_URL = "http://localhost:3000";
 function ProductDetailsPage() {
   const [product, setProduct] = useState({});
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, updateUser } = useContext(UserContext);
+
   console.log(userInfo);
+  console.log(userInfo.carts);
+  console.log(userInfo.carts.length);
 
   const getProductDetails = () => {
     axios
@@ -23,6 +25,37 @@ function ProductDetailsPage() {
         setProduct(response.data);
       })
       .catch((error) => console.log(error));
+  };
+
+  const addToCart = () => {
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .post(`${API_URL}/products/${id}/carts`, null, config)
+      .then((response) => {
+        console.log(response);
+        const updatedUserInfo = {
+          ...userInfo,
+          carts: [...userInfo.carts, product],
+        };
+        updateUser(updatedUserInfo);
+
+        localStorage.setItem(
+          "cartItems",
+          JSON.stringify(updatedUserInfo.carts)
+        );
+      })
+      .catch((error) => {
+        console.log(
+          "An error occurred while adding the product to the cart:",
+          error
+        );
+      });
   };
 
   useEffect(() => {
@@ -38,8 +71,9 @@ function ProductDetailsPage() {
         <h2>{product.title}</h2>
         <p>${product.price}</p>
         <p>{product.description}</p>
+        <p>{product._id}</p>
 
-        <button>Add to Cart</button>
+        <button onClick={addToCart}>Add to Cart</button>
       </div>
     </div>
   );

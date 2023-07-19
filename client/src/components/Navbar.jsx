@@ -61,7 +61,7 @@ function Navbar() {
             <p>Welcome, {username}</p>
             <p>Status : {active ? "online" : ""}</p>
             <NavLink to="/carts">
-              <button>Shopping Cart ({cartItems.length})</button>
+              <button>Shopping Cart ({userInfo.carts.length})</button>
             </NavLink>
             <NavLink>
               <button onClick={handleLogout}>Logout</button>
