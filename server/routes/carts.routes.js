@@ -24,13 +24,23 @@ router.delete("/:id", authenticateToken, (req, res, next) => {
   const userId = req.user.userId;
   const productId = req.params.id;
 
+  // User.findById(userId)
+  //   .then((user) => {
+  //     const index = user.carts.findIndex(
+  //       (cart) => cart.toString() === productId
+  //     );
+  //     if (index !== -1) {
+  //       user.carts.pull(productId); // Değişiklik burada
+  //     }
+  //     return user.save();
+  //   })
   User.findById(userId)
     .then((user) => {
       const index = user.carts.findIndex(
         (cart) => cart.toString() === productId
       );
       if (index !== -1) {
-        user.carts.pull(productId); // Değişiklik burada
+        user.carts.splice(index, 1); // Sadece bir öğeyi silmek için
       }
       return user.save();
     })
@@ -40,7 +50,7 @@ router.delete("/:id", authenticateToken, (req, res, next) => {
         message: "ITEM DELETED",
       });
     })
-    .catch((err) => {
+    .catch(() => {
       res.json({
         status: "FAILED",
         message: "There is a problem deleting",

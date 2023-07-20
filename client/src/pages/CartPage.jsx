@@ -9,7 +9,6 @@ const API_URL = "http://localhost:3000";
 // const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function CartPage() {
-  // const { getToken } = useContext(UserContext);
   const { getToken, userInfo, updateUser } = useContext(UserContext);
 
   const [cartItems, setCartItems] = useState([]);
@@ -42,13 +41,8 @@ function CartPage() {
     return uniqueItems;
   };
 
-  useEffect(() => {
+  const fetchCartData = () => {
     const token = getToken();
-    if (!token) {
-      return;
-    } else {
-      console.log("USER ACTIVE WITH A TOKEN");
-    }
 
     axios
       .get(`${API_URL}/carts`, {
@@ -61,20 +55,35 @@ function CartPage() {
         const uniqueCartItems = getUniqueCartItems(cartItemsArray);
         setCartItems(uniqueCartItems);
         calculateTotalPrice(uniqueCartItems);
-        console.log(response);
       })
       .catch((error) => {
-        // Hata durumunda uygun işlemi yapabilirsiniz (ör. hata mesajı gösterme).
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token) {
+      return;
+    } else {
+      console.log("USER ACTIVE WITH A TOKEN");
+    }
+
+    // İlk yükleme sırasında ve her post/delete işleminden sonra güncel verileri alma
+    fetchCartData();
   }, [getToken]);
 
   const handleIncreaseQuantity = (itemId) => {
     const updatedCartItems = [...cartItems];
     const itemIndex = updatedCartItems.findIndex((item) => item._id === itemId);
+    const product = updatedCartItems.find((item) => item._id === itemId);
 
+    console.log(itemIndex);
+    console.log(product);
     if (itemIndex !== -1) {
+      const newItem = cartItems.find((item) => item._id === itemId);
       updatedCartItems[itemIndex].quantity += 1;
+      updatedCartItems.push(newItem);
     } else {
       const newItem = cartItems.find((item) => item._id === itemId);
       updatedCartItems.push(newItem);
@@ -89,13 +98,25 @@ function CartPage() {
         Authorization: `Bearer ${token}`,
       },
     };
-
+    console.log(cartItems);
     axios
       .post(`${API_URL}/products/${itemId}/carts`, null, config)
-      .then((response) => {
-        console.log(response);
-        // yeni eklendi
-        updateUser({ ...userInfo, carts: response.data.carts });
+      .then(() => {
+        const updatedUserInfo = {
+          ...userInfo,
+          carts: [...userInfo.carts, product],
+        };
+        updateUser(updatedUserInfo);
+        console.log(updatedUserInfo);
+        console.log(updatedUserInfo.carts);
+        console.log(updatedCartItems);
+
+        localStorage.setItem(
+          "cartItems",
+          JSON.stringify(updatedUserInfo.carts)
+        );
+
+        // fetchCartData();
       })
       .catch((error) => {
         console.log(
@@ -108,29 +129,36 @@ function CartPage() {
   const handleDecreaseQuantity = (itemId) => {
     const updatedCartItems = [...cartItems];
     const itemIndex = updatedCartItems.findIndex((item) => item._id === itemId);
+    const product = updatedCartItems.find((item) => item._id === itemId);
 
+    console.log(itemIndex);
+    console.log(product);
     if (itemIndex !== -1) {
+      console.log("function called");
       if (updatedCartItems[itemIndex].quantity > 1) {
+        console.log("function is called: ");
         updatedCartItems[itemIndex].quantity -= 1;
       } else {
+        console.log("hello world 1");
+        const userInfoItemIndex = userInfo.carts.findIndex(
+          (item) => item._id === itemId
+        );
+        console.log("hello world 2");
+
+        if (userInfoItemIndex !== -1) {
+          const updatedUserInfoCarts = [...userInfo.carts];
+          updatedUserInfoCarts.splice(userInfoItemIndex, 1);
+          updateUser({ ...userInfo, carts: updatedUserInfoCarts });
+          console.log("hello world 3");
+        }
+
         updatedCartItems.splice(itemIndex, 1);
+        console.log("hello world 4");
       }
     }
-
     setCartItems(updatedCartItems);
     calculateTotalPrice(updatedCartItems);
-  };
-
-  const handleDelete = (itemId) => {
-    console.log("Deleting item with ID:", itemId);
-
-    const index = cartItems.findIndex((item) => item._id === itemId);
-
-    if (index !== -1) {
-      cartItems.splice(index, 1);
-    }
-
-    setCartItems([...cartItems]);
+    console.log(updatedCartItems);
 
     axios
       .delete(`${API_URL}/carts/${itemId}`, {
@@ -138,25 +166,42 @@ function CartPage() {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      .then((response) => {
-        console.log(response);
-        const updatedUserInfo = { ...userInfo };
-        const deletedItem = userInfo.carts.find((item) => item._id === itemId);
+      .then(() => {
+        const userInfoItemIndex = userInfo.carts.findIndex(
+          (item) => item._id === itemId
+        );
+        const updatedUserInfoCarts = [...userInfo.carts];
+        updatedUserInfoCarts.splice(userInfoItemIndex, 1);
+        updateUser({ ...userInfo, carts: updatedUserInfoCarts });
+        console.log("hello world 3");
+        // const updatedUserInfo = {
+        //   ...userInfo,
+        //   // carts: [...userInfo.carts, product],
 
-        if (deletedItem) {
-          updatedUserInfo.carts = updatedUserInfo.carts.filter(
-            (item) => item._id !== itemId
-          );
-          // updatedUserInfo.carts.length -= deletedItem.quantity;
-          updateUser(updatedUserInfo);
-        }
+        // };
+        // updateUser(updatedUserInfo);
+
+        // localStorage.setItem(
+        //   "cartItems",
+        //   JSON.stringify(updatedUserInfo.carts)
+        // );
+
+        fetchCartData();
       })
       .catch((error) => {
         console.log(error);
       });
+    console.log(updatedCartItems);
+
+    console.log(userInfo.carts);
+    console.log(userInfo);
+    console.log("NAVBAR CARTS LENGTH : ", userInfo.carts.length);
+    console.log("CART PAGE CARTS LENGTH: ", cartItems.length);
+    console.log(cartItems);
   };
 
-  console.log(totalPrice);
+  // Diğer fonksiyonlar burada...
+
   return (
     <div>
       <h1>Cart</h1>
@@ -171,7 +216,7 @@ function CartPage() {
               <p>${item.price}</p>
               <p>
                 Quantity : {item.quantity}{" "}
-                <button onClick={() => handleDelete(item._id)}>Delete</button>{" "}
+                {/* <button onClick={() => handleDelete(item._id)}>Delete</button>{" "} */}
               </p>
 
               <button onClick={() => handleIncreaseQuantity(item._id)}>
