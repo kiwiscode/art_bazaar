@@ -1,17 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const Product = require("../models/Product.model");
 const User = require("../models/User.model");
+const authenticateToken = require("../middleware/jwtMiddleware");
 
 const ObjectId = require("mongoose").Types.ObjectId;
 
-router.get("/", (req, res, next) => {
-  const userId = req.session.currentUser._id;
+router.get("/", authenticateToken, (req, res, next) => {
+  // Rotaya JWT doğrulaması eklendiği için, req.user üzerinden kullanıcının bilgilerine erişebilirsiniz
+  const userId = req.user.userId;
+
   User.findById(userId)
-    .populate("carts") // carts dizisindeki ürünleri popüle ediyoruz
+    .populate("carts")
     .then((user) => {
-      // { _id, title, description, price, category, rating, image, quantity }
-      res.render("carts", { user: user }); // carts.hbs şablonuna kullanıcıyı ve sepeti geçiriyoruz
+      res.json({ carts: user.carts });
     })
     .catch((err) => {
       console.log("An error occurred while fetching the cart:", err);
@@ -19,29 +20,41 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.delete("/:id", (req, res, next) => {
-  const userId = req.session.currentUser._id;
+router.delete("/:id", authenticateToken, (req, res, next) => {
+  const userId = req.user.userId;
   const productId = req.params.id;
 
+  // User.findById(userId)
+  //   .then((user) => {
+  //     const index = user.carts.findIndex(
+  //       (cart) => cart.toString() === productId
+  //     );
+  //     if (index !== -1) {
+  //       user.carts.pull(productId); // Değişiklik burada
+  //     }
+  //     return user.save();
+  //   })
   User.findById(userId)
     .then((user) => {
       const index = user.carts.findIndex(
         (cart) => cart.toString() === productId
       );
       if (index !== -1) {
-        user.carts.splice(index, 1);
+        user.carts.splice(index, 1); // Sadece bir öğeyi silmek için
       }
       return user.save();
     })
     .then(() => {
-      console.log(productId);
-      res.redirect("/carts");
+      res.json({
+        status: "DONE",
+        message: "ITEM DELETED",
+      });
     })
-    .catch((err) => {
-      console.log(
-        "An error occurred while removing the product from cart:",
-        err
-      );
+    .catch(() => {
+      res.json({
+        status: "FAILED",
+        message: "There is a problem deleting",
+      });
       res
         .status(500)
         .send("An error occurred while removing the product from cart");

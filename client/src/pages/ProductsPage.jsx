@@ -24,8 +24,6 @@ function ProductsPage() {
     getAllProduts();
   }, []);
 
-  console.log(setProducts);
-
   return (
     <div>
       <h1>All Products</h1>
