@@ -71,13 +71,14 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <h1>Login Page</h1>
+    <div className="login-container">
+      <h1 className="login-title">Login Page</h1>
       <input
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Username"
+        className="login-input"
       />
       <input
         type="email"
@@ -86,15 +87,19 @@ function LoginPage() {
         placeholder="Email"
         pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
         title="Please provide a valid email address."
+        className="login-input"
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        className="login-input"
       />
-      {error && <p>{error}</p>}
-      <button onClick={handleLogin}>Log in</button>
+      {error && <p className="login-error">{error}</p>}
+      <button onClick={handleLogin} className="login-button">
+        Log in
+      </button>
     </div>
   );
 }

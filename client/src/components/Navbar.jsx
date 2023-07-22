@@ -12,7 +12,6 @@ const API_URL = "http://localhost:3000";
 
 function Navbar() {
   const navigate = useNavigate();
-
   const { userInfo, logout } = useContext(UserContext);
   const { active, username } = userInfo;
   const [cartItems, setCartItems] = useState([]);
@@ -38,6 +37,7 @@ function Navbar() {
         localStorage.removeItem("userInfo");
         localStorage.removeItem("token");
         localStorage.removeItem("cartItems");
+
         logout();
         navigate("/");
       })
@@ -48,40 +48,55 @@ function Navbar() {
 
   return (
     <div>
-      <nav>
-        <NavLink to="/">
-          <button>Home</button>
-        </NavLink>
-        <NavLink to="/products">
-          <button>Products</button>
-        </NavLink>
-
+      <div className="container">
         {active && (
           <div>
-            <p>Welcome, {username}</p>
-            <p>Status : {active ? "online" : ""}</p>
-            <NavLink to="/carts">
-              <button>Shopping Cart ({userInfo.carts.length})</button>
-            </NavLink>
-            <NavLink>
-              <button onClick={handleLogout}>Logout</button>
-            </NavLink>
-          </div>
-        )}
+            <p>
+              Welcome, {username}
+              <span className="online-status" />{" "}
+              <span className="online-text">Online</span>
+            </p>
 
-        {!active && (
-          <div>
-            <NavLink to="/auth/signup">
-              <button>Signup</button>
+            <NavLink to="/carts" className="cart-icon">
+              <span className="cart-item-count">{userInfo.carts.length}</span>
+              🛒
             </NavLink>
+
             <NavLink to="/auth/login">
-              <button>Login</button>
+              <button className="bottom-right" onClick={handleLogout}>
+                Logout
+              </button>
             </NavLink>
           </div>
         )}
+        <div className="hover-container">
+          <h1 id="title">CANVAS</h1>
+        </div>
+      </div>
+      <nav>
+        <div className="nav-links">
+          <NavLink to="/">
+            <button className="top-left">Home</button>
+          </NavLink>
+
+          <NavLink to="/products">
+            <button className="top-right">Products</button>
+          </NavLink>
+
+          {!active && (
+            <div>
+              <NavLink to="/auth/signup">
+                <button className="bottom-left">Signup</button>
+              </NavLink>
+              <NavLink to="/auth/login">
+                <button className="bottom-right">Login</button>
+              </NavLink>
+            </div>
+          )}
+        </div>
       </nav>
     </div>
   );
 }
-//
+
 export default Navbar;

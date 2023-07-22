@@ -9,7 +9,12 @@ const API_URL = "http://localhost:3000";
 // const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 function ProductsPage() {
   const [products, setProducts] = useState([]);
-
+  const buttonStyle = {
+    fontSize: "20px",
+    borderRadius: "40px",
+    color: "black",
+    background: "white",
+  };
   const getAllProduts = () => {
     axios
       .get(`${API_URL}/products`)
@@ -26,23 +31,19 @@ function ProductsPage() {
 
   return (
     <div>
-      <h1>All Products</h1>
+      <h1 className="product-title">All Products</h1>
 
       <ul className="products">
         {products.map((product) => (
-          <li
-            key={product._id}
-            style={{ listStyleType: "none" }}
-            className="product"
-          >
+          <li key={product._id} className="product">
             <img src={product.image} alt="product" />
             <p>{product.title}</p>
             <p>${product.price}</p>
             <p>{[product.description]}</p>
             <Link to={`/products/${product._id}`}>
-              <button>BUY NOW</button>
+              <button style={buttonStyle}>BUY NOW</button>
             </Link>
-            <hr />
+            <hr className="hr-product" />
           </li>
         ))}
       </ul>

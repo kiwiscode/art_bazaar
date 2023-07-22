@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../components/UserContext";
 
+import { NavLink } from "react-router-dom";
+
 // when working on local version
 const API_URL = "http://localhost:3000";
 
@@ -13,7 +15,12 @@ function CartPage() {
 
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  const buttonStyle = {
+    fontSize: "20px",
+    borderRadius: "40px",
+    color: "black",
+    background: "white",
+  };
   const calculateTotalPrice = (array) => {
     let total = 0;
     array.forEach((item) => {
@@ -116,7 +123,7 @@ function CartPage() {
           JSON.stringify(updatedUserInfo.carts)
         );
 
-        // fetchCartData();
+        fetchCartData();
       })
       .catch((error) => {
         console.log(
@@ -174,17 +181,6 @@ function CartPage() {
         updatedUserInfoCarts.splice(userInfoItemIndex, 1);
         updateUser({ ...userInfo, carts: updatedUserInfoCarts });
         console.log("hello world 3");
-        // const updatedUserInfo = {
-        //   ...userInfo,
-        //   // carts: [...userInfo.carts, product],
-
-        // };
-        // updateUser(updatedUserInfo);
-
-        // localStorage.setItem(
-        //   "cartItems",
-        //   JSON.stringify(updatedUserInfo.carts)
-        // );
 
         fetchCartData();
       })
@@ -200,37 +196,61 @@ function CartPage() {
     console.log(cartItems);
   };
 
-  // Diğer fonksiyonlar burada...
+  const getCheckout = () => {
+    const token = getToken();
+
+    axios
+      .get(`${API_URL}/carts/checkout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div>
-      <h1>Cart</h1>
+      <h1 className="product-details-title">Cart</h1>
       {cartItems.length === 0 ? (
         <p>No items in the cart</p>
       ) : (
-        <ul style={{ listStyle: "none" }}>
+        <ul className="cart-list">
           {cartItems.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} className="cart-item">
               <img src={item.image} alt={item.title} />
-              <h3>{item.title}</h3>
-              <p>${item.price}</p>
-              <p>
-                Quantity : {item.quantity}{" "}
-                {/* <button onClick={() => handleDelete(item._id)}>Delete</button>{" "} */}
-              </p>
-
-              <button onClick={() => handleIncreaseQuantity(item._id)}>
-                +
-              </button>
-              <button onClick={() => handleDecreaseQuantity(item._id)}>
-                -
-              </button>
+              <div className="cart-item-content">
+                <h3>{item.title}</h3>
+                <p>${item.price}</p>
+                <p>
+                  Quantity : {item.quantity}{" "}
+                  <button
+                    className="quantity-btn"
+                    onClick={() => handleIncreaseQuantity(item._id)}
+                  >
+                    +
+                  </button>
+                  <button
+                    className="quantity-btn"
+                    onClick={() => handleDecreaseQuantity(item._id)}
+                  >
+                    -
+                  </button>
+                </p>
+              </div>
             </li>
           ))}
-          <>
-            <p>Total Price: ${totalPrice.toFixed(2)}</p>
-          </>
-          <button>Proceed to checkout</button>
+          <p className="total-price">Total Price: ${totalPrice.toFixed(2)}</p>
+          <NavLink to="/checkout">
+            <button className="proceed-to-checkout-btn" onClick={getCheckout}>
+              Proceed to checkout
+            </button>
+          </NavLink>
         </ul>
       )}
     </div>

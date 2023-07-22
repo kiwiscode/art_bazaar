@@ -3,8 +3,6 @@ const router = express.Router();
 const User = require("../models/User.model");
 const authenticateToken = require("../middleware/jwtMiddleware");
 
-const ObjectId = require("mongoose").Types.ObjectId;
-
 router.get("/", authenticateToken, (req, res, next) => {
   // Rotaya JWT doğrulaması eklendiği için, req.user üzerinden kullanıcının bilgilerine erişebilirsiniz
   const userId = req.user.userId;
@@ -61,13 +59,15 @@ router.delete("/:id", authenticateToken, (req, res, next) => {
     });
 });
 
-router.get("/checkout", (req, res, next) => {
-  const userId = req.session.currentUser._id;
-
+router.get("/checkout", authenticateToken, (req, res, next) => {
+  // const userId = req.session.currentUser._id;
+  const userId = req.user.userId;
   User.findById(userId)
     .populate("carts")
     .then((user) => {
-      res.render("checkout", { user: user });
+      console.log(user);
+      // res.render("checkout", { user: user });
+      res.json({ carts: user.carts });
     })
     .catch((err) => {
       console.log(

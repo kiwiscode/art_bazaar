@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
 
 // when working on local version
@@ -10,13 +10,11 @@ const API_URL = "http://localhost:3000";
 // const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function ProductDetailsPage() {
+  const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const { id } = useParams();
   const { userInfo, updateUser } = useContext(UserContext);
-
-  console.log(userInfo);
-  console.log(userInfo.carts);
-  console.log(userInfo.carts.length);
+  const { active, username } = userInfo;
 
   const getProductDetails = () => {
     axios
@@ -61,21 +59,32 @@ function ProductDetailsPage() {
   useEffect(() => {
     getProductDetails();
   }, []);
-
+  console.log(userInfo);
   return (
-    <div>
-      <h1>Product Details</h1>
-
+    <>
       <div>
-        <img src={product.image} alt="product" />
-        <h2>{product.title}</h2>
-        <p>${product.price}</p>
-        <p>{product.description}</p>
-        <p>{product._id}</p>
+        <h1 className="product-details-title">Product Details</h1>
 
-        <button onClick={addToCart}>Add to Cart</button>
+        <div className="product-details-container">
+          <img src={product.image} alt="product" />
+          <h2>{product.title}</h2>
+          <p>${product.price}</p>
+          <p>{product.description}</p>
+          {!active && (
+            <div>
+              <NavLink to="/auth/login">
+                <button className="bottom-left">Add to cart</button>
+              </NavLink>
+            </div>
+          )}
+
+          <button onClick={addToCart}>
+            {" "}
+            <i className="add-cart">🛒</i> Add to Cart
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
