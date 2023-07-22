@@ -15,8 +15,6 @@ function SignUpPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  console.log(history);
-
   const handleSignUp = () => {
     if (username === "" || email === "" || password === "") {
       setError(
@@ -63,13 +61,14 @@ function SignUpPage() {
   };
 
   return (
-    <div>
-      <h1>Signup Page</h1>
+    <div className="sign-up-container">
+      <h1 className="signup-title">Create account</h1>
       <input
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Username"
+        className="signup-input"
       />
       <input
         type="email"
@@ -78,16 +77,54 @@ function SignUpPage() {
         placeholder="Email"
         pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
         title="Please provide a valid email address."
+        className="signup-input"
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        className="signup-input"
       />
       {error && <p>{error}</p>}
 
-      <button onClick={handleSignUp}>Sign Up</button>
+      <button onClick={handleSignUp} className="signup-button">
+        Verify email
+      </button>
+      <p>
+        By creating an account, you agree to Canvas's <br />
+        <a href="" className="signup-link">
+          Conditions of Use
+        </a>{" "}
+        and{" "}
+        <a href="" className="signup-link">
+          Privacy Notice.
+        </a>{" "}
+      </p>
+      <hr className="hr-signup" />
+      <p>
+        Already have an account?{" "}
+        <a href="" className="signup-link">
+          Sign in ‣
+        </a>
+      </p>
+      <p>
+        Buying for work?{" "}
+        <a href="" className="signup-link">
+          Create a free business account ‣{" "}
+        </a>{" "}
+      </p>
+      <hr className="hr-signup" />
+      <a href="" className="signup-link">
+        Conditions of use
+      </a>
+      <a href="" className="signup-link">
+        Privacy Notice
+      </a>
+      <a href="" className="signup-link">
+        Help
+      </a>
+      <p>© 2023, Canvas, Inc. or its affiliates</p>
     </div>
   );
 }

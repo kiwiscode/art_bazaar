@@ -2,7 +2,7 @@
 
 import "./App.css";
 
-import { Routes, Route } from "react-router-dom"; // <== IMPORT
+import { Routes, Route, Link } from "react-router-dom"; // <== IMPORT
 import Navbar from "./components/Navbar"; // <== IMPORT
 import HomePage from "./pages/HomePage"; // <== IMPORT
 import ProductsPage from "./pages/ProductsPage";
@@ -13,7 +13,7 @@ import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { UserProvider } from "./components/UserContext";
 import Cart from "./pages/CartPage";
 import LogoutPage from "./pages/LogoutPage";
-
+import Checkout from "./pages/CheckoutPage";
 function App() {
   return (
     <UserProvider>
@@ -30,10 +30,10 @@ function App() {
           <Route path="/signed" element={<Signed />}></Route>
           <Route path="/products/:id" element={<ProductDetailsPage />} />
           <Route path="/carts" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </div>
     </UserProvider>
   );
 }
-
 export default App;

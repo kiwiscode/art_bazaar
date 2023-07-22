@@ -14,3 +14,52 @@ h1 {
 img {
   max-width: 200px;
 }
+
+/* Header stilleri */
+.verification-title {
+  color: #4caf50;
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* İkon stilleri */
+.verification-icon {
+  display: block;
+  margin: 30px auto;
+  max-width: 100px;
+}
+
+/* Mesaj stilleri */
+.verification-message {
+  text-align: center;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Giriş bağlantısı stilleri */
+.login-link {
+  display: block;
+  text-align: center;
+  background-color: #4caf50;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 20px auto;
+  width: 200px;
+  border-radius: 5px;
+}
+
+.login-link:hover {
+  background-color: #45a049;
+}
+
+/* Sayfa genel stilleri */
+.verification-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
