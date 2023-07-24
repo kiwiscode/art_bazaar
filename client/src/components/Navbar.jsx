@@ -14,7 +14,7 @@ function Navbar() {
   const { userInfo, logout } = useContext(UserContext);
   const { active, username } = userInfo;
   const [cartItems, setCartItems] = useState([]);
-
+  //
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCartItems(storedCartItems);
