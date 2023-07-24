@@ -13,8 +13,7 @@ import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { UserProvider } from "./components/UserContext";
 import Cart from "./pages/CartPage";
 import LogoutPage from "./pages/LogoutPage";
-import Checkout from "./pages/CheckoutPage";
-import Payment from "./pages/PaymentPage";
+import CheckoutSuccess from "./pages/CheckoutSuccessPage";
 function App() {
   return (
     <UserProvider>
@@ -31,8 +30,7 @@ function App() {
           <Route path="/signed" element={<Signed />}></Route>
           <Route path="/products/:id" element={<ProductDetailsPage />} />
           <Route path="/carts" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route path="/checkout-success" element={<CheckoutSuccess />}></Route>
         </Routes>
       </div>
     </UserProvider>

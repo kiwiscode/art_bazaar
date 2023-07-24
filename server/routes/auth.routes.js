@@ -211,33 +211,30 @@ router.post("/login", (req, res, next) => {
             return;
           }
           user.active = true;
-          user.save();
+          user.save().then((updatedUser) => {
+            updatedUser.populate("carts").then((populatedUser) => {
+              const { _id, username, email, carts, userId, active } =
+                populatedUser;
+              // with token
+              const token = jwt.sign({ userId: _id }, process.env.JWT_SECRET, {
+                expiresIn: "24h", // Token süresi
+              });
+              console.log("email verified : ", user.verified);
 
-          const userId = user._id;
-          const username = user.username;
-          const email = user.email;
-          const carts = user.carts;
-          const active = user.active;
-
-          const userInfo = {
-            username,
-            email,
-            carts,
-            userId,
-            active,
-          };
-          // with token
-          const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "24h", // Token süresi
+              res.json({
+                token,
+                user: {
+                  _id,
+                  username,
+                  email,
+                  carts,
+                  userId,
+                  active,
+                },
+              });
+            });
           });
-          console.log(userInfo);
-          console.log("email verified : ", user.verified);
-
-          res.json({ token, user: userInfo });
         })
-        // .then(() => {
-        //   res.redirect("/");
-        // })
         .catch((err) => next(err));
     })
     .catch((err) => next(err));

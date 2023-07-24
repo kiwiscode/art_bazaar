@@ -26,7 +26,7 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    orders: [{ type: Schema.Types.ObjectId, ref: "Purchase" }],
+    // orders: [{ type: Schema.Types.ObjectId, ref: "Purchase" }],
   },
 
   {

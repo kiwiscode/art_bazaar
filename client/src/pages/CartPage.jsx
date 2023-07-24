@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../components/UserContext";
 
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
+import PayButton from "../components/PayButton";
 
 // when working on local version
 const API_URL = "http://localhost:3000";
@@ -15,7 +16,7 @@ function CartPage() {
 
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  console.log(cartItems);
   const calculateTotalPrice = (array) => {
     let total = 0;
     array.forEach((item) => {
@@ -184,30 +185,6 @@ function CartPage() {
         console.log(error);
       });
     console.log(updatedCartItems);
-
-    console.log(userInfo.carts);
-    console.log(userInfo);
-    console.log("NAVBAR CARTS LENGTH : ", userInfo.carts.length);
-    console.log("CART PAGE CARTS LENGTH: ", cartItems.length);
-    console.log(cartItems);
-  };
-
-  const getCheckout = () => {
-    const token = getToken();
-
-    axios
-      .get(`${API_URL}/carts/checkout`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (
@@ -242,11 +219,13 @@ function CartPage() {
             </li>
           ))}
           <p className="total-price">Total Price: ${totalPrice.toFixed(2)}</p>
-          <NavLink to="/checkout">
+          {/* <NavLink to="/checkout">
             <button className="proceed-to-checkout-btn" onClick={getCheckout}>
               Proceed to checkout
             </button>
-          </NavLink>
+          </NavLink> */}
+
+          <PayButton cartItems={cartItems} />
         </ul>
       )}
     </div>

@@ -36,7 +36,7 @@ function Navbar() {
         localStorage.removeItem("userInfo");
         localStorage.removeItem("token");
         localStorage.removeItem("cartItems");
-        localStorage.removeItem("address");
+        // localStorage.removeItem("address");
         logout();
         navigate("/");
       })
