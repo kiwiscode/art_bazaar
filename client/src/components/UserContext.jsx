@@ -13,6 +13,7 @@ const UserProvider = ({ children }) => {
         userId: "",
         carts: [],
         active: false,
+        address: "",
       }
     );
   });
@@ -32,6 +33,7 @@ const UserProvider = ({ children }) => {
       userId: "",
       carts: [],
       active: false,
+      address: "",
     });
     localStorage.removeItem("userInfo");
     localStorage.removeItem("token");
@@ -44,7 +46,7 @@ const UserProvider = ({ children }) => {
   const getToken = () => {
     return localStorage.getItem("token");
   };
-
+  console.log(userInfo);
   return (
     <UserContext.Provider
       value={{

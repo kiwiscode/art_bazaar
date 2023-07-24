@@ -2,9 +2,9 @@
 
 import "./App.css";
 
-import { Routes, Route, Link } from "react-router-dom"; // <== IMPORT
-import Navbar from "./components/Navbar"; // <== IMPORT
-import HomePage from "./pages/HomePage"; // <== IMPORT
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import SignupPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
@@ -14,6 +14,7 @@ import { UserProvider } from "./components/UserContext";
 import Cart from "./pages/CartPage";
 import LogoutPage from "./pages/LogoutPage";
 import Checkout from "./pages/CheckoutPage";
+import Payment from "./pages/PaymentPage";
 function App() {
   return (
     <UserProvider>
@@ -31,6 +32,7 @@ function App() {
           <Route path="/products/:id" element={<ProductDetailsPage />} />
           <Route path="/carts" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </div>
     </UserProvider>

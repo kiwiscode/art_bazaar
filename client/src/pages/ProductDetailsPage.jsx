@@ -20,6 +20,7 @@ function ProductDetailsPage() {
     axios
       .get(`${API_URL}/products/${id}`)
       .then((response) => {
+        console.log(response.data);
         setProduct(response.data);
       })
       .catch((error) => console.log(error));

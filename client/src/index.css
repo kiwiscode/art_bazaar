@@ -550,3 +550,85 @@ body {
 .market-button:hover {
   background-color: #0056b3;
 }
+
+
+/* payment page style */
+
+/* Payment.css */
+
+.payment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
+  background-color: #f2f2f2;
+}
+
+.tab.active {
+  background-color: #fff;
+}
+
+.content-container {
+  border: 1px solid #ccc;
+  border-radius: 0 0 4px 4px;
+  width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.address-form,
+.payment-options {
+  display: ${(props) => (props.show ? "block" : "none")};
+}
+
+.address-form div,
+.payment-options div {
+  margin-bottom: 15px;
+}
+
+.address-form label,
+.payment-options label {
+  font-weight: bold;
+}
+
+.address-form input,
+.payment-options input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 90%;
+  font-size: 16px;
+}
+
+.address-form button,
+.payment-options button {
+  background-color: #f0c14b;
+  color: #111;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  width: 97%;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.address-form button:hover,
+.payment-options button:hover {
+  background-color: #d9a641;
+}

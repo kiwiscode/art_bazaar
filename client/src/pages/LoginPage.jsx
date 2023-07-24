@@ -52,9 +52,12 @@ function LoginPage() {
       .then((response) => {
         const { token, user } = response.data;
         console.log(user);
+        console.log(response);
 
         localStorage.setItem("token", token);
         localStorage.setItem("userInfo", JSON.stringify(user));
+        localStorage.setItem("cartItems", JSON.stringify(user.carts));
+        console.log(user.carts);
         updateUser(user);
         setError("");
         navigate("/");

@@ -15,12 +15,7 @@ function CartPage() {
 
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const buttonStyle = {
-    fontSize: "20px",
-    borderRadius: "40px",
-    color: "black",
-    background: "white",
-  };
+
   const calculateTotalPrice = (array) => {
     let total = 0;
     array.forEach((item) => {
@@ -58,6 +53,8 @@ function CartPage() {
         },
       })
       .then((response) => {
+        console.log(response);
+
         const cartItemsArray = Object.values(response.data.carts);
         const uniqueCartItems = getUniqueCartItems(cartItemsArray);
         setCartItems(uniqueCartItems);
@@ -88,12 +85,11 @@ function CartPage() {
     console.log(itemIndex);
     console.log(product);
     if (itemIndex !== -1) {
-      const newItem = cartItems.find((item) => item._id === itemId);
       updatedCartItems[itemIndex].quantity += 1;
-      updatedCartItems.push(newItem);
     } else {
-      const newItem = cartItems.find((item) => item._id === itemId);
-      updatedCartItems.push(newItem);
+      // const newItem = cartItems.find((item) => item._id === itemId);
+      // updatedCartItems.push(newItem);
+      return;
     }
 
     setCartItems(updatedCartItems);
