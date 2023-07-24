@@ -60,14 +60,14 @@ router.delete("/:id", authenticateToken, (req, res, next) => {
 });
 
 router.get("/checkout", authenticateToken, (req, res, next) => {
-  // const userId = req.session.currentUser._id;
   const userId = req.user.userId;
+  console.log("USER ID ", userId);
   User.findById(userId)
     .populate("carts")
     .then((user) => {
-      console.log(user);
-      // res.render("checkout", { user: user });
+      console.log("USER BURADA ", user);
       res.json({ carts: user.carts });
+      console.log("USER CARTI BURADA", user.carts);
     })
     .catch((err) => {
       console.log(

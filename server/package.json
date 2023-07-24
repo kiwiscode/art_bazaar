@@ -28,6 +28,7 @@
     "proxy": "^2.1.1",
     "react-router-dom": "^6.14.1",
     "serve-favicon": "^2.5.0",
+    "stripe": "^12.14.0",
     "styled-components": "^6.0.4",
     "uuid": "^9.0.0"
   },

@@ -74,6 +74,15 @@ app.use("/verified", verifiedRoutes);
 const logoutRoutes = require("./routes/logout.routes");
 app.use("/auth/logout", logoutRoutes);
 
+const paymentRoutes = require("./routes/payment.routes");
+app.use("/payment", paymentRoutes);
+
+const successRoutes = require("./routes/success.routes");
+app.use("/success", successRoutes);
+
+const cancelRoutes = require("./routes/cancel.routes");
+app.use("/cancel", cancelRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
