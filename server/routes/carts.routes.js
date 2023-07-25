@@ -61,13 +61,10 @@ router.delete("/:id", authenticateToken, (req, res, next) => {
 
 router.get("/checkout", authenticateToken, (req, res, next) => {
   const userId = req.user.userId;
-  console.log("USER ID ", userId);
   User.findById(userId)
     .populate("carts")
     .then((user) => {
-      console.log("USER BURADA ", user);
       res.json({ carts: user.carts });
-      console.log("USER CARTI BURADA", user.carts);
     })
     .catch((err) => {
       console.log(

@@ -20,7 +20,6 @@ function ProductDetailsPage() {
     axios
       .get(`${API_URL}/products/${id}`)
       .then((response) => {
-        console.log(response.data);
         setProduct(response.data);
       })
       .catch((error) => console.log(error));
@@ -36,8 +35,7 @@ function ProductDetailsPage() {
 
     axios
       .post(`${API_URL}/products/${id}/carts`, null, config)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         const updatedUserInfo = {
           ...userInfo,
           carts: [...userInfo.carts, product],
@@ -60,7 +58,7 @@ function ProductDetailsPage() {
   useEffect(() => {
     getProductDetails();
   }, []);
-  console.log(userInfo);
+
   return (
     <>
       <div>
@@ -78,11 +76,12 @@ function ProductDetailsPage() {
               </NavLink>
             </div>
           )}
-
-          <button onClick={addToCart}>
-            {" "}
-            <i className="add-cart">🛒</i> Add to Cart
-          </button>
+          {active && (
+            <button onClick={addToCart}>
+              {" "}
+              <i className="add-cart">🛒</i> Add to Cart
+            </button>
+          )}
         </div>
       </div>
     </>

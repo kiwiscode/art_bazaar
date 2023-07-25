@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const capitalize = require("../utils/capitalize");
+
 // ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
@@ -47,10 +49,12 @@ router.get("/signup", (req, res) => {
 
 // POST /auth/signup
 router.post("/signup", (req, res, next) => {
-  const { username, email, password } = req.body;
+  let { name, username, email, password } = req.body;
+
+  name = capitalize(name);
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
+  if (username === "" || email === "" || password === "" || name === "") {
     res.status(400).render("auth/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
@@ -81,6 +85,7 @@ router.post("/signup", (req, res, next) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       return User.create({
+        name,
         username,
         email,
         password: hashedPassword,
@@ -91,7 +96,6 @@ router.post("/signup", (req, res, next) => {
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
         expiresIn: "24h", // Token süresi
       });
-      console.log("Token", token);
       sendVerificationEmail(user, res, token);
     })
     .catch((error) => {
@@ -213,23 +217,32 @@ router.post("/login", (req, res, next) => {
           user.active = true;
           user.save().then((updatedUser) => {
             updatedUser.populate("carts").then((populatedUser) => {
-              const { _id, username, email, carts, userId, active } =
-                populatedUser;
+              const {
+                _id,
+                name,
+                username,
+                email,
+                carts,
+                userId,
+                active,
+                order,
+              } = populatedUser;
               // with token
               const token = jwt.sign({ userId: _id }, process.env.JWT_SECRET, {
                 expiresIn: "24h", // Token süresi
               });
-              console.log("email verified : ", user.verified);
 
               res.json({
                 token,
                 user: {
                   _id,
+                  name,
                   username,
                   email,
                   carts,
                   userId,
                   active,
+                  order,
                 },
               });
             });

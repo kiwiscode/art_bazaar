@@ -14,9 +14,10 @@ function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [name, setName] = useState("");
 
   const handleSignUp = () => {
-    if (username === "" || email === "" || password === "") {
+    if (username === "" || email === "" || password === "" || name === "") {
       setError(
         "All fields are mandatory. Please provide your username, email and password."
       );
@@ -42,9 +43,8 @@ function SignUpPage() {
       return;
     }
     axios
-      .post(`${API_URL}/auth/signup`, { username, email, password })
-      .then((response) => {
-        console.log(response, "Email verification link has been sent");
+      .post(`${API_URL}/auth/signup`, { username, name, email, password })
+      .then(() => {
         setError("");
         navigate("/signed");
       })
@@ -63,6 +63,13 @@ function SignUpPage() {
   return (
     <div className="sign-up-container">
       <h1 className="signup-title">Create account</h1>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
+        className="signup-input"
+      />
       <input
         type="text"
         value={username}

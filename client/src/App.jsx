@@ -4,7 +4,6 @@ import "./App.css";
 
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import SignupPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
@@ -14,6 +13,7 @@ import { UserProvider } from "./components/UserContext";
 import Cart from "./pages/CartPage";
 import LogoutPage from "./pages/LogoutPage";
 import CheckoutSuccess from "./pages/CheckoutSuccessPage";
+import Orders from "./pages/OrderPage";
 function App() {
   return (
     <UserProvider>
@@ -22,7 +22,7 @@ function App() {
           <Navbar />
         </div>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<ProductsPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/auth/signup" element={<SignupPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
@@ -31,6 +31,7 @@ function App() {
           <Route path="/products/:id" element={<ProductDetailsPage />} />
           <Route path="/carts" element={<Cart />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />}></Route>
+          <Route path="/orders" element={<Orders />}></Route>
         </Routes>
       </div>
     </UserProvider>

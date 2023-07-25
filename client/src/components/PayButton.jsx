@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import axios from "axios";
 import { UserContext } from "./UserContext";
 
@@ -10,10 +10,6 @@ const API_URL = "http://localhost:3000";
 
 const PayButton = ({ cartItems }) => {
   const { getToken, userInfo } = useContext(UserContext);
-  console.log(userInfo);
-  const [user, setUser] = useState(null); // Initialize the state with null or the appropriate initial value
-  console.log(cartItems);
-  console.log(userInfo);
 
   const handleCheckout = () => {
     axios
@@ -27,18 +23,21 @@ const PayButton = ({ cartItems }) => {
         }
       )
       .then((response) => {
-        console.log(response);
         if (response.data.url) {
           window.location.href = response.data.url;
         }
-        console.log(cartItems);
       })
       .catch((err) => console.log(err.message));
   };
 
   return (
     <>
-      <button onClick={() => handleCheckout()}>Proceed to check out</button>
+      <button
+        className="proceed-to-checkout-btn"
+        onClick={() => handleCheckout()}
+      >
+        Proceed to check out
+      </button>
     </>
   );
 };

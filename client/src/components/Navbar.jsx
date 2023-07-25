@@ -12,15 +12,14 @@ const API_URL = "http://localhost:3000";
 function Navbar() {
   const navigate = useNavigate();
   const { userInfo, logout } = useContext(UserContext);
-  const { active, username } = userInfo;
+  const { active, name } = userInfo;
   const [cartItems, setCartItems] = useState([]);
-  //
+
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
     setCartItems(storedCartItems);
   }, []);
-
-  console.log(userInfo);
 
   const handleLogout = () => {
     const token = localStorage.getItem("token");
@@ -30,13 +29,12 @@ function Navbar() {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         userInfo.active = false;
         localStorage.removeItem("userInfo");
         localStorage.removeItem("token");
         localStorage.removeItem("cartItems");
-        // localStorage.removeItem("address");
+        localStorage.removeItem("order");
         logout();
         navigate("/");
       })
@@ -52,7 +50,7 @@ function Navbar() {
           {active && (
             <div>
               <p>
-                Welcome, {username}
+                Welcome, {name}
                 <span className="online-status" />{" "}
                 <span className="online-text">Online</span>
               </p>
@@ -69,6 +67,7 @@ function Navbar() {
               </NavLink>
             </div>
           )}
+
           <div className="hover-container">
             <h1 id="title">CANVAS</h1>
           </div>
