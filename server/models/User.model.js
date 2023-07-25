@@ -3,6 +3,12 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
     username: {
       type: String,
       required: false,
@@ -26,7 +32,15 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    // orders: [{ type: Schema.Types.ObjectId, ref: "Purchase" }],
+    order: [
+      {
+        title: { type: String, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number, required: true },
+        // You can add other relevant fields as needed for the order
+      },
+    ],
   },
 
   {

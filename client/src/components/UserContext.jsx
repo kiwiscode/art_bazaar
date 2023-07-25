@@ -13,7 +13,7 @@ const UserProvider = ({ children }) => {
         userId: "",
         carts: [],
         active: false,
-        address: "",
+        order: [],
       }
     );
   });
@@ -22,8 +22,15 @@ const UserProvider = ({ children }) => {
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
   }, [userInfo]);
 
+  // const updateUser = (newUserInfo) => {
+  //   setUserInfo(newUserInfo);
+  // };
+
   const updateUser = (newUserInfo) => {
-    setUserInfo(newUserInfo);
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      ...newUserInfo,
+    }));
   };
 
   const logout = () => {
@@ -33,7 +40,7 @@ const UserProvider = ({ children }) => {
       userId: "",
       carts: [],
       active: false,
-      address: "",
+      order: [],
     });
     localStorage.removeItem("userInfo");
     localStorage.removeItem("token");
@@ -46,7 +53,7 @@ const UserProvider = ({ children }) => {
   const getToken = () => {
     return localStorage.getItem("token");
   };
-  console.log(userInfo);
+
   return (
     <UserContext.Provider
       value={{

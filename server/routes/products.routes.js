@@ -20,7 +20,6 @@ router.get("/", (req, res, next) => {
 
 router.get("/:id", (req, res, next) => {
   const productId = req.params.id;
-  console.log(productId);
   Product.findById(productId)
     .then((product) => {
       res.json(product);
@@ -45,7 +44,6 @@ router.post("/:id/carts", authenticateToken, (req, res, next) => {
         return res.status(401).json({ message: "User is not active" });
       }
 
-      console.log("USER CARTS:", user.carts);
       user.carts.push(productId);
       return user.save();
     })

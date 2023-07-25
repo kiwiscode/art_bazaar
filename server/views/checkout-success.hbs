@@ -1,0 +1,11 @@
+<h1>Order Information</h1>
+<ul>
+  {{#each order}}
+    <li>
+      <p>Title: {{this.title}}</p>
+      <p>Image: {{this.image}}</p>
+      <p>Price: {{this.price}}</p>
+      <p>Quantity: {{this.quantity}}</p>
+    </li>
+  {{/each}}
+</ul>

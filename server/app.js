@@ -77,8 +77,8 @@ app.use("/auth/logout", logoutRoutes);
 const stripeRoutes = require("./routes/stripe.routes");
 app.use("/stripe", stripeRoutes);
 
-const successRoutes = require("./routes/success.routes");
-app.use("/checkout-success", successRoutes);
+// const successRoutes = require("./routes/stripe.routes");
+// app.use("/stripe/checkout-success", successRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../components/UserContext";
-
-// import { NavLink } from "react-router-dom";
 import PayButton from "../components/PayButton";
 
 // when working on local version
@@ -16,7 +14,7 @@ function CartPage() {
 
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  console.log(cartItems);
+
   const calculateTotalPrice = (array) => {
     let total = 0;
     array.forEach((item) => {
@@ -54,15 +52,13 @@ function CartPage() {
         },
       })
       .then((response) => {
-        console.log(response);
-
         const cartItemsArray = Object.values(response.data.carts);
         const uniqueCartItems = getUniqueCartItems(cartItemsArray);
         setCartItems(uniqueCartItems);
         calculateTotalPrice(uniqueCartItems);
       })
       .catch((error) => {
-        console.log(error);
+        return error;
       });
   };
 
@@ -70,8 +66,6 @@ function CartPage() {
     const token = getToken();
     if (!token) {
       return;
-    } else {
-      console.log("USER ACTIVE WITH A TOKEN");
     }
 
     // İlk yükleme sırasında ve her post/delete işleminden sonra güncel verileri alma
@@ -83,13 +77,9 @@ function CartPage() {
     const itemIndex = updatedCartItems.findIndex((item) => item._id === itemId);
     const product = updatedCartItems.find((item) => item._id === itemId);
 
-    console.log(itemIndex);
-    console.log(product);
     if (itemIndex !== -1) {
       updatedCartItems[itemIndex].quantity += 1;
     } else {
-      // const newItem = cartItems.find((item) => item._id === itemId);
-      // updatedCartItems.push(newItem);
       return;
     }
 
@@ -102,7 +92,7 @@ function CartPage() {
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log(cartItems);
+
     axios
       .post(`${API_URL}/products/${itemId}/carts`, null, config)
       .then(() => {
@@ -111,9 +101,6 @@ function CartPage() {
           carts: [...userInfo.carts, product],
         };
         updateUser(updatedUserInfo);
-        console.log(updatedUserInfo);
-        console.log(updatedUserInfo.carts);
-        console.log(updatedCartItems);
 
         localStorage.setItem(
           "cartItems",
@@ -133,36 +120,25 @@ function CartPage() {
   const handleDecreaseQuantity = (itemId) => {
     const updatedCartItems = [...cartItems];
     const itemIndex = updatedCartItems.findIndex((item) => item._id === itemId);
-    const product = updatedCartItems.find((item) => item._id === itemId);
-
-    console.log(itemIndex);
-    console.log(product);
     if (itemIndex !== -1) {
-      console.log("function called");
       if (updatedCartItems[itemIndex].quantity > 1) {
-        console.log("function is called: ");
         updatedCartItems[itemIndex].quantity -= 1;
       } else {
-        console.log("hello world 1");
         const userInfoItemIndex = userInfo.carts.findIndex(
           (item) => item._id === itemId
         );
-        console.log("hello world 2");
 
         if (userInfoItemIndex !== -1) {
           const updatedUserInfoCarts = [...userInfo.carts];
           updatedUserInfoCarts.splice(userInfoItemIndex, 1);
           updateUser({ ...userInfo, carts: updatedUserInfoCarts });
-          console.log("hello world 3");
         }
 
         updatedCartItems.splice(itemIndex, 1);
-        console.log("hello world 4");
       }
     }
     setCartItems(updatedCartItems);
     calculateTotalPrice(updatedCartItems);
-    console.log(updatedCartItems);
 
     axios
       .delete(`${API_URL}/carts/${itemId}`, {
@@ -174,17 +150,16 @@ function CartPage() {
         const userInfoItemIndex = userInfo.carts.findIndex(
           (item) => item._id === itemId
         );
+
         const updatedUserInfoCarts = [...userInfo.carts];
         updatedUserInfoCarts.splice(userInfoItemIndex, 1);
         updateUser({ ...userInfo, carts: updatedUserInfoCarts });
-        console.log("hello world 3");
 
         fetchCartData();
       })
       .catch((error) => {
         console.log(error);
       });
-    console.log(updatedCartItems);
   };
 
   return (
@@ -213,17 +188,12 @@ function CartPage() {
                     onClick={() => handleDecreaseQuantity(item._id)}
                   >
                     -
-                  </button>
+                  </button>{" "}
                 </p>
               </div>
             </li>
           ))}
           <p className="total-price">Total Price: ${totalPrice.toFixed(2)}</p>
-          {/* <NavLink to="/checkout">
-            <button className="proceed-to-checkout-btn" onClick={getCheckout}>
-              Proceed to checkout
-            </button>
-          </NavLink> */}
 
           <PayButton cartItems={cartItems} />
         </ul>
