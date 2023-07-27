@@ -18,7 +18,7 @@ import ArtistPage from "./pages/ArtistPage";
 import ArtistProfilePage from "./pages/ArtistProfilePage";
 import ProductCreatePage from "./pages/ProductCreatePage";
 import MyWorks from "./pages/My-WorksPage";
-
+import GetArtistWorks from "./pages/ArtistWorksPage";
 function App() {
   return (
     <UserProvider>
@@ -41,6 +41,10 @@ function App() {
           <Route path="/profile" element={<ArtistProfilePage />}></Route>
           <Route path="/create" element={<ProductCreatePage />}></Route>
           <Route path="/my-works" element={<MyWorks />}></Route>
+          <Route
+            path="/auth/artists/:id/works"
+            element={<GetArtistWorks />}
+          ></Route>
         </Routes>
       </div>
     </UserProvider>

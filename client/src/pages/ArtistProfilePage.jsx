@@ -19,8 +19,6 @@ function ArtistProfilePage() {
   const [linkedinLink, setLinkedinLink] = useState("");
   const [editing, setEditing] = useState(true); // Default olarak input alanlarını gösterelim
 
-  console.log(userInfo);
-
   if (!userInfo) {
     return <div>Loading...</div>;
   }

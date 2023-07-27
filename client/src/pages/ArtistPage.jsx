@@ -1,7 +1,7 @@
 // All artist profiles
-
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 // when working on local version
 const API_URL = "http://localhost:3000";
@@ -11,7 +11,8 @@ const API_URL = "http://localhost:3000";
 
 function ArtistPage() {
   const [artists, setArtists] = useState([]);
-
+  console.log(artists);
+  // console.log(artists[0]._id);
   useEffect(() => {
     // Backend'den artist kullanıcıları çekmek için API endpoint'ini çağırıyoruz
     axios
@@ -23,6 +24,7 @@ function ArtistPage() {
         console.log(error);
       });
   }, []);
+
   return (
     <div className="artists-container">
       <h1>Artists</h1>
@@ -54,11 +56,11 @@ function ArtistPage() {
                 </div>
               )}
             </div>
-            {/* Butonu artiste ait ürünlerin sergilendiği sayfaya yönlendirecek şekilde düzenleyebilirsiniz */}
+
             <div className="artist-button">
-              <button onClick={() => handleProductsClick(artist._id)}>
-                View Products
-              </button>
+              <Link to={`/auth/artists/${artist._id}/works`}>
+                <button>View Products</button>
+              </Link>
             </div>
           </div>
         ))}

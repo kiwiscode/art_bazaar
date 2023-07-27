@@ -85,36 +85,18 @@ function ProductsPage() {
           </option>
         </select>
       </div>
-
-      {/* <ul className="products">
-        {products.map((product) => (
-          <li key={product._id} className="product">
-            <img src={product.image} alt="product" />
-            <p>{product.title}</p>
-            <p>{product.artist}</p>
-            <p>${product.price}</p>
-            <p>{product.category}</p>
-            <p>{[product.description]}</p>
-            <Link to={`/products/${product._id}`}>
-              <button>BUY NOW</button>
-            </Link>
-            <hr className="hr-product" />
-          </li>
-        ))}
-      </ul> */}
-
       <ul className="products">
         {products.map((product) => (
           <li key={product._id} className="product">
             {!product.rating && <span className="artist-badge">Artist</span>}
-            {/* Rest of the product details */}
+
             <img src={product.image} alt="product" />
             <p>{product.title}</p>
             <p>{product.artist}</p>
             <p>${product.price}</p>
             <p>{product.category}</p>
             <p>{[product.description]}</p>
-            {/* ... (rest of the code) ... */}
+
             <Link to={`/products/${product._id}`}>
               <button>BUY NOW</button>
             </Link>

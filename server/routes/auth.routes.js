@@ -288,7 +288,24 @@ router.get("/verify", (req, res) => {
 router.get("/artists", (req, res, next) => {
   User.find({ isArtist: true }) // isArtist değeri true olan kullanıcıları çekiyoruz
     .then((artists) => {
+      console.log(artists);
       res.json(artists);
+    })
+    .catch((error) => next(error));
+});
+
+router.get("/artists/:id/works", (req, res, next) => {
+  const artistId = req.params.id;
+
+  User.findById(artistId)
+    .populate("works")
+    .then((artist) => {
+      if (!artist) {
+        return res.status(404).json({ message: "Artist not found" });
+      }
+
+      console.log(artist.works);
+      res.json(artist.works);
     })
     .catch((error) => next(error));
 });
