@@ -11,8 +11,7 @@ const API_URL = "http://localhost:3000";
 
 function ArtistPage() {
   const [artists, setArtists] = useState([]);
-  console.log(artists);
-  // console.log(artists[0]._id);
+
   useEffect(() => {
     // Backend'den artist kullanıcıları çekmek için API endpoint'ini çağırıyoruz
     axios
