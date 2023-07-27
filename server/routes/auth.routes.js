@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const capitalize = require("../utils/capitalize");
+
 // ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
@@ -10,7 +12,6 @@ const saltRounds = 10;
 
 // Require the models in order to interact with the database
 const User = require("../models/User.model");
-const UserVerification = require("../models/UserVerification.model");
 
 // path for static verified page
 const path = require("path");
@@ -18,11 +19,9 @@ const path = require("path");
 // email handler
 const nodemailer = require("nodemailer");
 
-// unique string
-const { v4: uuidv4 } = require("uuid");
+const jwt = require("jsonwebtoken");
 
-// _id value to UUID convert
-// const ObjectId = require("bson-objectid");
+const authenticateToken = require("../middleware/jwtMiddleware");
 
 // env variables
 require("dotenv").config();
@@ -40,27 +39,24 @@ transporter.verify((error, success) => {
   if (error) {
     console.log(error);
   } else {
-    console.log("Ready for messages");
     console.log(success);
   }
 });
 
-// Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
-const isLoggedOut = require("../middleware/isLoggedOut");
-const isLoggedIn = require("../middleware/isLoggedIn");
-
 // GET /auth/signup
-router.get("/signup", isLoggedOut, (req, res) => {
+router.get("/signup", (req, res) => {
   res.render("auth/signup");
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, (req, res, next) => {
-  const { username, email, password } = req.body;
+router.post("/signup", (req, res, next) => {
+  let { name, username, email, password, isArtist } = req.body;
+
+  name = capitalize(name);
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
-    res.status(400).render("auth/signup", {
+  if (username === "" || email === "" || password === "" || name === "") {
+    res.status(403).render("auth/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
     });
@@ -69,17 +65,16 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
   }
 
   if (password.length < 6) {
-    res.status(400).render("auth/signup", {
+    res.status(402).render("auth/signup", {
       errorMessage: "Your password needs to be at least 6 characters long.",
     });
 
     return;
   }
-  //   ! This regular expression checks password for special characters and minimum length
 
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
-    res.status(400).render("auth/signup", {
+    res.status(402).render("auth/signup", {
       errorMessage:
         "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
@@ -90,22 +85,30 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
     .genSalt(saltRounds)
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
-      // Create a user and save it in the database
       return User.create({
+        name,
         username,
         email,
         password: hashedPassword,
         verified: false,
+        isArtist,
       });
     })
     .then((user) => {
-      sendVerificationEmail(user, res);
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "24h", // Token süresi
+      });
+      sendVerificationEmail(user, res, token);
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.status(500).render("auth/signup", { errorMessage: error.message });
+        // res.status(500).render("auth/signup", { errorMessage: error.message });
+        res.status(501).render("auth/signup", {
+          errorMessage:
+            "Username and email need to be unique. Provide a valid username or email.",
+        });
       } else if (error.code === 11000) {
-        res.status(500).render("auth/signup", {
+        res.status(501).render("auth/signup", {
           errorMessage:
             "Username and email need to be unique. Provide a valid username or email.",
         });
@@ -114,59 +117,43 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
       }
     });
 });
-//
-// send verification email
-const sendVerificationEmail = ({ _id, email }, res) => {
+
+const sendVerificationEmail = ({ _id, email }, res, token) => {
   // when working on locally
   const baseURL = "http://localhost:3000";
   // when working on deployment version
   // const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
-  // const uniqueString = uuidv4() + _id;
-  const uniqueString = uuidv4() + _id;
-  console.log("email:", email);
-  console.log("_id:", _id);
-  console.log("uniqueString:", uniqueString);
-  // mail options
+  // mail options with token
   const mailOptions = {
     from: process.env.AUTH_EMAIL,
     to: email,
     subject: "Verify Your Email",
 
     html: `
-    <p>Verify your email address to complete the signup and login into your account.</p><p>This link <b>expires in 6 hours</b>.</p><p>Press <a href=${
-      baseURL + "/auth/verified/" + _id + "/" + uniqueString
-    }>here</a>to proceed.</p>
+    <p>Verify your email adress to complete the signup and login into your account.</p>
+    <p>This link expires in <b>6 hours.</b></p>
+    <p>Press : <a href="${baseURL}/auth/verify?token=${token}"> here </a>to proceed.</p>
+
+
     `,
   };
 
-  const newVerification = new UserVerification({
-    userId: _id,
-    uniqueString: uniqueString,
-    createdAt: Date.now(),
-    expiresAt: Date.now() + 21600000,
-  });
-  newVerification
-    .save()
+  transporter
+    .sendMail(mailOptions)
     .then(() => {
-      transporter
-        .sendMail(mailOptions)
-        .then(() => {
-          res.json({
-            status: "PENDING",
-            message: "Verification email sent",
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-          res.json({
-            status: "FAILED",
-            message: "Verification email failed!",
-          });
-        });
+      res.json({
+        status: "PENDING",
+        message: "Verification email sent",
+      });
     })
     .catch((error) => {
-      console.log(error);
+      res.json({
+        status: "FAILED",
+        message: "Verification email failed!",
+      });
+    })
+    .catch((error) => {
       res.json({
         status: "FAILED",
         message: "Couldn't save verification email data!",
@@ -174,124 +161,22 @@ const sendVerificationEmail = ({ _id, email }, res) => {
     });
 };
 
-// verify email
-router.get("/verified/:userId/:uniqueString", (req, res) => {
-  console.log(req.params);
-  let { userId, uniqueString } = req.params;
-  UserVerification.findOne({ userId })
-    .then((result) => {
-      // if (result.length > 0)
-      if (result) {
-        // user verification record exists so we proceed
-        const { expiresAt } = result;
-        // const hashedUniqueString = result.uniqueString;
-        const uniqueStringFromDB = result.uniqueString;
-
-        // checking for expired unique string
-        if (expiresAt < Date.now()) {
-          // record has expired so we delete it
-          UserVerification.findOneAndDelete({ userId })
-            .then((result) => {
-              console.log(result);
-              console.log(userId);
-              User.findByIdAndUpdate({ _id: userId })
-                .then(() => {
-                  let message = "Link has expired.Please sign up again.";
-                  res.redirect(`/auth/verified/error=true&message=${message}`);
-                })
-                .catch((error) => {
-                  console.log(error);
-                  let message = "Clearing user with expired unique string";
-                  res.redirect(`/auth/verified/error=true&message=${message}`);
-                });
-            })
-            .catch((error) => {
-              console.log(error);
-              let message =
-                "An error occured while clearing expired user verification record";
-              res.redirect(`/auth/verified/error=true&message=${message}`);
-            });
-        } else {
-          // hata buradan kaynaklanıyor
-          console.log("compare", uniqueString, uniqueStringFromDB);
-
-          // bcrypt
-          //   .compare(uniqueString, hashedUniqueString)
-          //   .then((result) => {
-          //     console.log(result, "rrrrrrrrrrrrr");
-          if (uniqueString === uniqueStringFromDB) {
-            // strings match
-            // User.findByIdAndUpdate(userId, { verified: true })
-
-            User.findByIdAndUpdate(userId, { verified: true })
-              .then(() => {
-                console.log(userId);
-                UserVerification.findOneAndDelete({ userId })
-                  .then(() => {
-                    console.log(userId);
-                    console.log("Email verification successful");
-                    res.render("auth/verified");
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                    let message =
-                      "An error occured while finalizing succesful verification";
-                    res.redirect(
-                      `/auth/verified/error=true&message=${message}`
-                    );
-                  });
-              })
-              .catch((error) => {
-                console.log(error);
-                let message =
-                  "An error occured while updating user record to show verified";
-                res.redirect(`/auth/verified/error=true&message=${message}`);
-              });
-          } else {
-            // existing record but incorrect verification details passed
-            let message =
-              "Invalid verification details passed.Check your inbox.";
-            res.redirect(`/auth/verified/error=true&message=${message}`);
-          }
-        }
-        // )
-        // .catch((err) => {
-        //   console.log(err);
-        //   let message = "An error occured while comparing unique strings";
-        //   res.redirect(`auth/verified/error=true&message=${message}`);
-        // });
-      } else {
-        // user verification record doesn't exist
-        let message =
-          "Account record doesn't exist or has been verified already.Please sign up or log in.";
-        res.redirect(`/auth/verified/error=true&message=${message}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      let message =
-        "An error occured while checking for existing user verification record";
-      res.redirect(`/auth/verified/error=true&message=${message}`);
-    });
-});
-
 router.get("/verified", (req, res) => {
   const { error, message } = req.query;
   res.render("auth/verified", { error, message });
 });
 
 // GET /auth/login
-router.get("/login", isLoggedOut, (req, res) => {
+router.get("/login", (req, res) => {
   res.render("auth/login");
 });
 
 // POST /auth/login
-router.post("/login", isLoggedOut, (req, res, next) => {
+router.post("/login", (req, res, next) => {
   const { username, email, password } = req.body;
 
-  // Check that username, email, and password are provided
   if (username === "" || email === "" || password === "") {
-    res.status(400).render("auth/login", {
+    res.status(403).render("auth/login", {
       errorMessage:
         "All fields are mandatory. Please provide username, email and password.",
     });
@@ -299,20 +184,14 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     return;
   }
 
-  // Here we use the same logic as above
-  // - either length based parameters or we check the strength of a password
   if (password.length < 6) {
-    return res.status(400).render("auth/login", {
+    return res.status(402).render("auth/login", {
       errorMessage: "Your password needs to be at least 6 characters long.",
     });
   }
 
-  // Search the database for a user with the email submitted in the form
   User.findOne({ email })
     .then((user) => {
-      // check if user verified
-      console.log("user : ", user);
-      console.log("email hasn't been verified yet : ", !user.verified);
       if (!user.verified) {
         res.status(400).render("auth/login", {
           errorMessage: "Email hasn't been verified yet. Check your inbox.",
@@ -320,10 +199,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         return;
       }
 
-      // If the user isn't found, send an error message that user provided wrong credentials
       if (!user) {
         res
-          .status(400)
+          .status(401)
           .render("auth/login", { errorMessage: "Wrong credentials." });
         return;
       }
@@ -332,44 +210,139 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       bcrypt
         .compare(password, user.password)
         .then((isSamePassword) => {
-          if (!isSamePassword) {
+          if (
+            !isSamePassword ||
+            user.username !== username ||
+            user.email !== email
+          ) {
             res
-              .status(400)
+              .status(401)
               .render("auth/login", { errorMessage: "Wrong credentials." });
             return;
           }
-
-          // Add the user object to the session object
-          req.session.currentUser = user.toObject();
-          // Remove the password field
-          delete req.session.currentUser.password;
-
-          console.log("email verified : ", user.verified);
-
-          const loggedInUsername = username;
-          const userOnline = req.session.currentUser;
-
-          req.session.userOnline = userOnline;
-          req.session.loggedInUsername = loggedInUsername;
-          req.session.currentUser.active = true;
-
-          console.log("USER:", req.session.currentUser);
-          console.log("//................//");
-          console.log("USER ID:", req.session.currentUser._id);
-          console.log("//................//");
-          // showing the cookie on the console
-          console.log("Active User :", req.session);
           user.active = true;
-          user.save();
-          // res.redirect("/");
-          res.render("index", { loggedInUsername });
+          user.save().then((updatedUser) => {
+            updatedUser.populate("carts").then((populatedUser) => {
+              const {
+                _id,
+                name,
+                username,
+                email,
+                carts,
+                userId,
+                active,
+                order,
+                isArtist,
+                contact,
+                works,
+              } = populatedUser;
+              // with token
+              const token = jwt.sign({ userId: _id }, process.env.JWT_SECRET, {
+                expiresIn: "24h", // Token süresi
+              });
+
+              res.json({
+                token,
+                user: {
+                  _id,
+                  name,
+                  username,
+                  email,
+                  carts,
+                  userId,
+                  active,
+                  order,
+                  isArtist,
+                  contact,
+                  works,
+                },
+              });
+            });
+          });
         })
-        // .then(() => {
-        //   res.redirect("/");
-        // })
-        .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
+        .catch((err) => next(err));
     })
     .catch((err) => next(err));
+});
+
+// with token
+router.get("/verify", (req, res) => {
+  const token = req.query.token;
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      res.redirect("/auth/verified?error=true&message=Invalid token");
+    } else {
+      const userId = decoded.userId;
+      User.findByIdAndUpdate(userId, { verified: true })
+        .then(() => {
+          res.render("auth/verified");
+        })
+        .catch((error) => {});
+    }
+  });
+});
+
+// GET /auth/artists
+router.get("/artists", (req, res, next) => {
+  User.find({ isArtist: true }) // isArtist değeri true olan kullanıcıları çekiyoruz
+    .then((artists) => {
+      res.json(artists);
+    })
+    .catch((error) => next(error));
+});
+
+router.get("/artists/:id/works", (req, res, next) => {
+  const artistId = req.params.id;
+
+  User.findById(artistId)
+    .populate("works")
+    .then((artist) => {
+      if (!artist) {
+        return res.status(404).json({ message: "Artist not found" });
+      }
+
+      res.json(artist.works);
+    })
+    .catch((error) => next(error));
+});
+
+// Update profile route
+router.post("/update/profile", authenticateToken, (req, res) => {
+  const { linkedin, instagram } = req.body;
+
+  // Check if the request contains both linkedin and instagram links
+  if (!linkedin || !instagram) {
+    return res
+      .status(400)
+      .json({ message: "LinkedIn and Instagram links are required." });
+  }
+
+  const userId = req.user.userId;
+
+  // Find the user by their ID
+  User.findByIdAndUpdate(
+    userId,
+    {
+      $set: {
+        contact: [
+          { platform: "linkedin", link: linkedin },
+          { platform: "instagram", link: instagram },
+        ],
+      },
+    },
+    { new: true }
+  )
+    .select("-password")
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Server error" });
+    });
 });
 
 module.exports = router;

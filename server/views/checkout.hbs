@@ -14,7 +14,7 @@
     {{/each}}
   </ul>
   <p>Total Price: ${{priceSum carts}}</p>
-  <form action="">
-    <button>PURCHASE</button>
+  <form method="GET" action="/payment">
+    <button>Payment</button>
   </form>
 {{/with}}

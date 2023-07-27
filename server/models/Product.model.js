@@ -2,11 +2,6 @@ const { Schema, model } = require("mongoose");
 
 const productSchema = new Schema(
   {
-    // productId: {
-    //   type: Schema.Types.ObjectId,
-    //   required: true,
-    //   unique: true,
-    // },
     title: {
       type: String,
       required: true,
@@ -32,6 +27,20 @@ const productSchema = new Schema(
       type: Number,
       min: 0,
       default: 1,
+    },
+    artist: {
+      type: String,
+      required: true,
+    },
+    period: {
+      type: String,
+    },
+    signature: {
+      type: String,
+      required: true,
+    },
+    technique: {
+      type: String,
     },
   },
   {

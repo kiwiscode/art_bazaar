@@ -14,8 +14,6 @@ let fakeStoreProducts = [];
 mongoose
   .connect(MONGO_URI)
   .then((x) => {
-    console.log(`Connected to Mongo database: "${x.connections[0].name}"`);
-
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
       .then((json) => {

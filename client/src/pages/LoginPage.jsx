@@ -13,25 +13,13 @@ function LoginPage() {
   const navigate = useNavigate();
   const { updateUser } = useContext(UserContext);
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleLogin = (event) => {
     event.preventDefault();
-
-    if (username === "" || email === "" || password === "") {
-      setError(
-        "All fields are mandatory. Please provide your username, email and password."
-      );
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Your password needs to be at least 6 characters long.");
-      return;
-    }
 
     const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!passwordRegex.test(password)) {
@@ -49,32 +37,50 @@ function LoginPage() {
 
     axios
       .post(`${API_URL}/auth/login`, { username, email, password })
-      .then(() => {
-        console.log(username);
-        setUsername(username);
-        updateUser(username);
+      .then((response) => {
+        const { token, user } = response.data;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("userInfo", JSON.stringify(user));
+        localStorage.setItem("cartItems", JSON.stringify(user.carts));
+        localStorage.setItem("order", JSON.stringify(user.order));
+        console.log(user);
+
+        updateUser(user);
         setError("");
         navigate("/");
       })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.response.status);
-          console.log(error.response);
+        console.log(error);
+        if (error.message === "Request failed with status code 400") {
+          setError("Email hasn't been verified yet. Check your inbox.");
         }
-        setError(
-          "Username or password wrong or email hasn't been verified yet. Provide a valid username or password."
-        );
+        if (error.message === "Request failed with status code 401") {
+          setError("Wrong credentials.");
+        }
+        if (error.message === "Request failed with status code 402") {
+          setError("Your password needs to be at least 6 characters long.");
+        }
+        if (error.message === "Request failed with status code 403") {
+          setError(
+            "All fields are mandatory. Please provide username, email and password."
+          );
+        }
+        if (error.message === "Request failed with status code 500") {
+          setError("An error occurred. Please try again later.");
+        }
       });
   };
 
   return (
-    <div>
-      <h1>Login Page</h1>
+    <div className="login-container">
+      <h1 className="login-title">Login Page</h1>
       <input
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Username"
+        className="login-input"
       />
       <input
         type="email"
@@ -83,15 +89,19 @@ function LoginPage() {
         placeholder="Email"
         pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
         title="Please provide a valid email address."
+        className="login-input"
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        className="login-input"
       />
-      {error && <p>{error}</p>}
-      <button onClick={handleLogin}>Log in</button>
+      {error && <p className="login-error">{error}</p>}
+      <button onClick={handleLogin} className="login-button">
+        Log in
+      </button>
     </div>
   );
 }

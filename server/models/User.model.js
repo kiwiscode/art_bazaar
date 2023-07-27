@@ -1,8 +1,14 @@
 const { Schema, model } = require("mongoose");
-
+//
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
     username: {
       type: String,
       required: false,
@@ -20,11 +26,40 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+
+    works: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+
     verified: { type: Boolean, default: false },
     carts: [{ type: Schema.Types.ObjectId, ref: "Product" }],
     active: {
       type: Boolean,
       default: false,
+    },
+
+    order: [
+      {
+        title: { type: String, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number, required: true },
+        // You can add other relevant fields as needed for the order
+      },
+    ],
+    isArtist: {
+      type: Boolean,
+      default: false,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    contact: {
+      type: [
+        {
+          platform: String,
+          link: String,
+        },
+      ],
     },
   },
 
