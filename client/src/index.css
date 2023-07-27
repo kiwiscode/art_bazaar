@@ -858,3 +858,49 @@ body {
   margin-right: 5px;
   font-size: 12px;
 }
+
+@media (max-width: 480px) {
+  #title {
+    font-size: 48px;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links button {
+    margin-top: 10px;
+  }
+
+  .product {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .product-details-container {
+    max-width: 100%;
+  }
+
+  .artist-profile {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .create-container form {
+    margin-right: 0;
+  }
+
+  .label-input-container {
+    flex-basis: 100%;
+  }
+
+  .label-input-container input {
+    margin-top: 10px;
+  }
+}

@@ -5,9 +5,9 @@ const Product = require("../models/Product.model");
 
 const MONGO_URI =
   // when working on deployment version
-  // process.env.MONGODB_URI;
-  // when working on locally
-  "mongodb://127.0.0.1:27017/my-fullstack-project";
+  process.env.MONGODB_URI;
+// when working on locally
+// "mongodb://127.0.0.1:27017/my-fullstack-project";
 
 let fakeStoreProducts = [];
 

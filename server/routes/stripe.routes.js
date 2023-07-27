@@ -85,8 +85,14 @@ router.post(
       line_items,
       mode: "payment",
       // this can change on deploy version
-      success_url: "http://localhost:5173/checkout-success",
-      cancel_url: "http://localhost:5173/carts",
+
+      // when working on locally
+      // success_url: "http://localhost:5173/checkout-success",
+      // cancel_url: "http://localhost:5173/carts",
+
+      // when working on deployment version
+      success_url: "https://kiwiscode-canvas.netlify.app/checkout-success",
+      cancel_url: "https://kiwiscode-canvas.netlify.app/carts",
     });
 
     response.send({ url: session.url });

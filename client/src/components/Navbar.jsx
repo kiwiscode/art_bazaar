@@ -4,11 +4,12 @@ import { UserContext } from "./UserContext";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintBrush } from "@fortawesome/free-solid-svg-icons";
+
 // when working on local version
-const API_URL = "http://localhost:3000";
+// const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function Navbar() {
   const navigate = useNavigate();
