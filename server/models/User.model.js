@@ -26,12 +26,16 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+
+    works: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+
     verified: { type: Boolean, default: false },
     carts: [{ type: Schema.Types.ObjectId, ref: "Product" }],
     active: {
       type: Boolean,
       default: false,
     },
+
     order: [
       {
         title: { type: String, required: true },
@@ -41,6 +45,22 @@ const userSchema = new Schema(
         // You can add other relevant fields as needed for the order
       },
     ],
+    isArtist: {
+      type: Boolean,
+      default: false,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    contact: {
+      type: [
+        {
+          platform: String,
+          link: String,
+        },
+      ],
+    },
   },
 
   {

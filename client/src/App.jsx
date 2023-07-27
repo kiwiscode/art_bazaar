@@ -14,6 +14,11 @@ import Cart from "./pages/CartPage";
 import LogoutPage from "./pages/LogoutPage";
 import CheckoutSuccess from "./pages/CheckoutSuccessPage";
 import Orders from "./pages/OrderPage";
+import ArtistPage from "./pages/ArtistPage";
+import ArtistProfilePage from "./pages/ArtistProfilePage";
+import ProductCreatePage from "./pages/ProductCreatePage";
+import MyWorks from "./pages/My-WorksPage";
+
 function App() {
   return (
     <UserProvider>
@@ -32,6 +37,10 @@ function App() {
           <Route path="/carts" element={<Cart />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />}></Route>
           <Route path="/orders" element={<Orders />}></Route>
+          <Route path="/auth/artists" element={<ArtistPage />}></Route>
+          <Route path="/profile" element={<ArtistProfilePage />}></Route>
+          <Route path="/create" element={<ProductCreatePage />}></Route>
+          <Route path="/my-works" element={<MyWorks />}></Route>
         </Routes>
       </div>
     </UserProvider>

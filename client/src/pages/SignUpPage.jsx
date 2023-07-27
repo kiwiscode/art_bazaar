@@ -16,6 +16,20 @@ function SignUpPage() {
   const [error, setError] = useState("");
   const [name, setName] = useState("");
 
+  {
+    /* Artist mod geliştiriciliği */
+  }
+
+  const [isArtist, setIsArtist] = useState(false);
+  const handleArtistCheckboxChange = (e) => {
+    setIsArtist(e.target.checked);
+    console.log("isArtist:", e.target.checked);
+  };
+
+  {
+    /* Artist mod geliştiriciliği */
+  }
+
   const handleSignUp = () => {
     if (username === "" || email === "" || password === "" || name === "") {
       setError(
@@ -43,7 +57,13 @@ function SignUpPage() {
       return;
     }
     axios
-      .post(`${API_URL}/auth/signup`, { username, name, email, password })
+      .post(`${API_URL}/auth/signup`, {
+        username,
+        name,
+        email,
+        password,
+        isArtist,
+      })
       .then(() => {
         setError("");
         navigate("/signed");
@@ -63,6 +83,7 @@ function SignUpPage() {
   return (
     <div className="sign-up-container">
       <h1 className="signup-title">Create account</h1>
+
       <input
         type="text"
         value={name}
@@ -95,6 +116,17 @@ function SignUpPage() {
       />
       {error && <p>{error}</p>}
 
+      {/* Artist mod geliştiriciliği */}
+      <div className="artist-checkbox">
+        <label htmlFor="isArtist">Are you an artist?</label>
+        <input
+          type="checkbox"
+          id="isArtist"
+          name="isArtist"
+          checked={isArtist}
+          onChange={handleArtistCheckboxChange}
+        />
+      </div>
       <button onClick={handleSignUp} className="signup-button">
         Verify email
       </button>

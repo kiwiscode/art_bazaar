@@ -28,6 +28,20 @@ const productSchema = new Schema(
       min: 0,
       default: 1,
     },
+    artist: {
+      type: String,
+      required: true,
+    },
+    period: {
+      type: String,
+    },
+    signature: {
+      type: String,
+      required: true,
+    },
+    technique: {
+      type: String,
+    },
   },
   {
     timestamps: true,

@@ -13,6 +13,8 @@ const express = require("express");
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
 
+const cors = require("cors"); // Import the cors middleware
+
 const app = express();
 
 const session = require("express-session");
@@ -23,6 +25,8 @@ const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
 // 2. let know your app you will be using it
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
 
 app.use(
   session({
@@ -59,6 +63,9 @@ app.use("/", indexRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
+const createProductRoutes = require("./routes/create.routes");
+app.use("/create", createProductRoutes);
+
 const productRoutes = require("./routes/products.routes");
 app.use("/products", productRoutes);
 
@@ -77,9 +84,8 @@ app.use("/auth/logout", logoutRoutes);
 const stripeRoutes = require("./routes/stripe.routes");
 app.use("/stripe", stripeRoutes);
 
-// const successRoutes = require("./routes/stripe.routes");
-// app.use("/stripe/checkout-success", successRoutes);
-
+const profileRoutes = require("./routes/profile.routes");
+app.use("/profile", profileRoutes);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

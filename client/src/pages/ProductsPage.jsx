@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { UserContext } from "../components/UserContext";
 
 // when working on local version
 const API_URL = "http://localhost:3000";
@@ -10,8 +11,9 @@ const API_URL = "http://localhost:3000";
 function ProductsPage() {
   const [sortBy, setSortBy] = useState("asc"); // asc: ucuzdan pahalıya, desc: pahalıdan ucuza
   const [products, setProducts] = useState([]);
-
-  const getAllProduts = () => {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const { userInfo } = useContext(UserContext);
+  const getAllProducts = () => {
     axios
       .get(`${API_URL}/products`)
       .then((response) => {
@@ -32,8 +34,31 @@ function ProductsPage() {
     }
   };
 
+  const handleCategoryChange = (e) => {
+    const selectedCategory = e.target.value;
+    setSelectedCategory(selectedCategory);
+    console.log(selectedCategory);
+    if (selectedCategory === "") {
+      // Eğer "All Categories" seçildiyse, tüm ürünleri göster
+      getAllProducts();
+      console.log(products);
+    } else {
+      // Seçilen kategoriye ait ürünleri filtrele ve güncelle
+      console.log("PRODUCTS : ", products);
+      const filteredProducts = products.filter(
+        (products) => products.category === selectedCategory
+      );
+      const newArr = filteredProducts;
+      console.log(filteredProducts);
+      console.log(newArr);
+      setProducts(newArr);
+      console.log("PRODUCTS : ", products);
+    }
+  };
+
   useEffect(() => {
-    getAllProduts();
+    console.log("USE EFFECT WORKS FIRST");
+    getAllProducts();
   }, []);
 
   return (
@@ -50,29 +75,49 @@ function ProductsPage() {
 
         <select
           className="category-select"
-          // value={selectedCategory}
-          // onChange={handleCategoryChange}
+          value={selectedCategory}
+          onChange={handleCategoryChange}
         >
           <option value="">All Categories</option>
-          <option value="Classical Art">Classical Art</option>
+          <option value="Classical Artworks">Classical Art</option>
           <option value="Modern & Contemporary Art">
             Modern & Contemporary Art
           </option>
         </select>
       </div>
 
-      <ul className="products">
+      {/* <ul className="products">
         {products.map((product) => (
           <li key={product._id} className="product">
             <img src={product.image} alt="product" />
             <p>{product.title}</p>
             <p>{product.artist}</p>
             <p>${product.price}</p>
+            <p>{product.category}</p>
             <p>{[product.description]}</p>
             <Link to={`/products/${product._id}`}>
               <button>BUY NOW</button>
             </Link>
             <hr className="hr-product" />
+          </li>
+        ))}
+      </ul> */}
+
+      <ul className="products">
+        {products.map((product) => (
+          <li key={product._id} className="product">
+            {!product.rating && <span className="artist-badge">Artist</span>}
+            {/* Rest of the product details */}
+            <img src={product.image} alt="product" />
+            <p>{product.title}</p>
+            <p>{product.artist}</p>
+            <p>${product.price}</p>
+            <p>{product.category}</p>
+            <p>{[product.description]}</p>
+            {/* ... (rest of the code) ... */}
+            <Link to={`/products/${product._id}`}>
+              <button>BUY NOW</button>
+            </Link>
           </li>
         ))}
       </ul>

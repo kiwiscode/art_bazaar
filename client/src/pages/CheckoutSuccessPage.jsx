@@ -16,6 +16,10 @@ const CheckoutSuccess = () => {
     localStorage.setItem("cartItems", JSON.stringify([]));
   };
 
+  const clearOrder = () => {
+    localStorage.setItem("order", JSON.stringify([]));
+  };
+
   const mergeOrderItems = (order) => {
     const mergedOrder = [];
 
@@ -58,6 +62,7 @@ const CheckoutSuccess = () => {
             localStorage.setItem("order", JSON.stringify(response.data.order));
 
             clearCart();
+            clearOrder();
           })
           .catch((error) => {
             console.log(error);

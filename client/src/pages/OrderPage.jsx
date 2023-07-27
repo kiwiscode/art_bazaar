@@ -15,6 +15,7 @@ function Orders() {
   const clearCart = () => {
     localStorage.setItem("cartItems", JSON.stringify([]));
   };
+
   const mergeOrderItems = (order) => {
     const mergedOrder = [];
 

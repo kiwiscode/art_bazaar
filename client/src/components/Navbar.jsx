@@ -2,7 +2,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import axios from "axios";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaintBrush } from "@fortawesome/free-solid-svg-icons";
 // when working on local version
 const API_URL = "http://localhost:3000";
 
@@ -12,14 +13,25 @@ const API_URL = "http://localhost:3000";
 function Navbar() {
   const navigate = useNavigate();
   const { userInfo, logout } = useContext(UserContext);
-  const { active, name } = userInfo;
+  const { active, name, isArtist } = userInfo;
   const [cartItems, setCartItems] = useState([]);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
+  console.log(userInfo);
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
     setCartItems(storedCartItems);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
+  const handleScroll = () => {
+    // Eğer sayfanın yatay scroll pozisyonu 400 pikselden büyükse oku göster
+    setShowScrollToTop(window.scrollY > 275);
+  };
 
   const handleLogout = () => {
     const token = localStorage.getItem("token");
@@ -50,7 +62,7 @@ function Navbar() {
           {active && (
             <div>
               <p>
-                Welcome, {name}
+                Welcome, {name} {isArtist ? "(Artist)" : ""}
                 <span className="online-status" />{" "}
                 <span className="online-text">Online</span>
               </p>
@@ -82,6 +94,11 @@ function Navbar() {
               <button className="top-right">Products</button>
             </NavLink>
 
+            {userInfo.isArtist && ( // Kullanıcı artist olarak giriş yapmışsa "Profile" menüsünü gösterelim
+              <NavLink to="/profile">
+                <button className="bottom-left">Profile</button>
+              </NavLink>
+            )}
             {!active && (
               <div>
                 <NavLink to="/auth/signup">
@@ -92,8 +109,32 @@ function Navbar() {
                 </NavLink>
               </div>
             )}
+            {/* Add the "Artists" section for both artists and non-artists */}
+
+            {active && (
+              <NavLink to="/auth/artists">
+                <button>{isArtist ? "Other Artists" : "Artists"}</button>
+              </NavLink>
+            )}
+            {/* Add the Orders section */}
+            {active && (
+              <NavLink to="/orders">
+                <button>Orders</button>
+              </NavLink>
+            )}
           </div>
         </nav>
+        {/* Scroll to top okunu göster */}
+        {showScrollToTop && (
+          <div
+            className="scroll-to-top"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            {" "}
+            <FontAwesomeIcon icon={faPaintBrush} />
+            <i className="fa fa-chevron-up"></i>
+          </div>
+        )}
       </div>{" "}
     </div>
   );

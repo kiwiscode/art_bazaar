@@ -4,35 +4,6 @@ const Product = require("../models/Product.model");
 const User = require("../models/User.model");
 const authenticateToken = require("../middleware/jwtMiddleware");
 
-router.get("/", (req, res, next) => {
-  Product.find()
-    .then((productsFromDataBase) => {
-      res.json(productsFromDataBase);
-    })
-    .catch((err) => {
-      console.log(
-        "An error occurred while fetching products from the DB:",
-        err
-      );
-      res.status(500).send("An error occurred while fetching products");
-    });
-});
-
-router.get("/:id", (req, res, next) => {
-  const productId = req.params.id;
-  Product.findById(productId)
-    .then((product) => {
-      res.json(product);
-    })
-    .catch((err) => {
-      console.log(
-        "An error occurred while fetching the product from the DB:",
-        err
-      );
-      res.status(500).send("An error occurred while fetching the product");
-    });
-});
-
 router.post("/:id/carts", authenticateToken, (req, res, next) => {
   const productId = req.params.id;
   const userId = req.user.userId; // authenticateToken middleware'ı tarafından sağlanan kullanıcı bilgilerini kullanın
@@ -58,6 +29,34 @@ router.post("/:id/carts", authenticateToken, (req, res, next) => {
       res
         .status(500)
         .send("An error occurred while adding the product to the cart");
+    });
+});
+
+router.get("/:id", (req, res, next) => {
+  const productId = req.params.id;
+  Product.findById(productId)
+    .then((product) => {
+      res.json(product);
+    })
+    .catch((err) => {
+      console.log(
+        "An error occurred while fetching the product from the DB:",
+        err
+      );
+      res.status(500).send("An error occurred while fetching the product");
+    });
+});
+router.get("/", (req, res, next) => {
+  Product.find()
+    .then((productsFromDataBase) => {
+      res.json(productsFromDataBase);
+    })
+    .catch((err) => {
+      console.log(
+        "An error occurred while fetching products from the DB:",
+        err
+      );
+      res.status(500).send("An error occurred while fetching products");
     });
 });
 

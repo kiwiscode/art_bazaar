@@ -21,6 +21,8 @@ const nodemailer = require("nodemailer");
 
 const jwt = require("jsonwebtoken");
 
+const authenticateToken = require("../middleware/jwtMiddleware");
+
 // env variables
 require("dotenv").config();
 
@@ -49,8 +51,8 @@ router.get("/signup", (req, res) => {
 
 // POST /auth/signup
 router.post("/signup", (req, res, next) => {
-  let { name, username, email, password } = req.body;
-
+  let { name, username, email, password, isArtist } = req.body;
+  console.log(isArtist);
   name = capitalize(name);
 
   // Check that username, email, and password are provided
@@ -90,6 +92,7 @@ router.post("/signup", (req, res, next) => {
         email,
         password: hashedPassword,
         verified: false,
+        isArtist,
       });
     })
     .then((user) => {
@@ -208,7 +211,11 @@ router.post("/login", (req, res, next) => {
       bcrypt
         .compare(password, user.password)
         .then((isSamePassword) => {
-          if (!isSamePassword) {
+          if (
+            !isSamePassword ||
+            user.username !== username ||
+            user.email !== email
+          ) {
             res
               .status(400)
               .render("auth/login", { errorMessage: "Wrong credentials." });
@@ -226,6 +233,9 @@ router.post("/login", (req, res, next) => {
                 userId,
                 active,
                 order,
+                isArtist,
+                contact,
+                works,
               } = populatedUser;
               // with token
               const token = jwt.sign({ userId: _id }, process.env.JWT_SECRET, {
@@ -243,6 +253,9 @@ router.post("/login", (req, res, next) => {
                   userId,
                   active,
                   order,
+                  isArtist,
+                  contact,
+                  works,
                 },
               });
             });
@@ -269,6 +282,53 @@ router.get("/verify", (req, res) => {
         .catch((error) => {});
     }
   });
+});
+
+// GET /auth/artists
+router.get("/artists", (req, res, next) => {
+  User.find({ isArtist: true }) // isArtist değeri true olan kullanıcıları çekiyoruz
+    .then((artists) => {
+      res.json(artists);
+    })
+    .catch((error) => next(error));
+});
+
+// Update profile route
+router.post("/update/profile", authenticateToken, (req, res) => {
+  const { linkedin, instagram } = req.body;
+  console.log(linkedin, instagram);
+  // Check if the request contains both linkedin and instagram links
+  if (!linkedin || !instagram) {
+    return res
+      .status(400)
+      .json({ message: "LinkedIn and Instagram links are required." });
+  }
+
+  const userId = req.user.userId;
+  console.log(userId);
+  // Find the user by their ID
+  User.findByIdAndUpdate(
+    userId,
+    {
+      $set: {
+        contact: [
+          { platform: "linkedin", link: linkedin },
+          { platform: "instagram", link: instagram },
+        ],
+      },
+    },
+    { new: true }
+  )
+    .select("-password")
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Server error" });
+    });
 });
 
 module.exports = router;
