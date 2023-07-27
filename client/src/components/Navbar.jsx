@@ -18,7 +18,6 @@ function Navbar() {
   const [cartItems, setCartItems] = useState([]);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
 
-  console.log(userInfo);
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
@@ -52,7 +51,7 @@ function Navbar() {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        error;
       });
   };
 

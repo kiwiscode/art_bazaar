@@ -22,7 +22,7 @@ function ProductDetailsPage() {
       .then((response) => {
         setProduct(response.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => error);
   };
 
   const addToCart = () => {
@@ -48,10 +48,7 @@ function ProductDetailsPage() {
         );
       })
       .catch((error) => {
-        console.log(
-          "An error occurred while adding the product to the cart:",
-          error
-        );
+        error;
       });
   };
 

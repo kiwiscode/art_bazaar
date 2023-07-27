@@ -20,7 +20,7 @@ function ArtistPage() {
         setArtists(response.data); // Çekilen artist kullanıcılarını state'e kaydediyoruz
       })
       .catch((error) => {
-        console.log(error);
+        error;
       });
   }, []);
 

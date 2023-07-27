@@ -23,7 +23,6 @@ function SignUpPage() {
   const [isArtist, setIsArtist] = useState(false);
   const handleArtistCheckboxChange = (e) => {
     setIsArtist(e.target.checked);
-    console.log("isArtist:", e.target.checked);
   };
 
   {
@@ -69,10 +68,8 @@ function SignUpPage() {
         navigate("/signed");
       })
       .catch((error) => {
-        console.log(error, "Signup error");
         if (error.response) {
-          console.log(error.response);
-          console.log(error.response.data);
+          return;
         }
         setError(
           "Username and email need to be unique. Provide a valid username or email."

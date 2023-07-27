@@ -38,8 +38,6 @@ const CheckoutSuccess = () => {
     return mergedOrder;
   };
 
-  console.log(userInfo);
-
   useEffect(() => {
     userInfo.carts = [];
     // Make a GET request to the backend to fetch the user's order information
@@ -65,7 +63,7 @@ const CheckoutSuccess = () => {
             clearOrder();
           })
           .catch((error) => {
-            console.log(error);
+            error;
           });
       })
       .then((response) => {

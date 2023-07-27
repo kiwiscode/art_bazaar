@@ -27,7 +27,7 @@ const PayButton = ({ cartItems }) => {
           window.location.href = response.data.url;
         }
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => err.message);
   };
 
   return (

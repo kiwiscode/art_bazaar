@@ -12,17 +12,14 @@ function GetArtistWorks() {
   const { id } = useParams();
   const [works, setWorks] = useState([]);
 
-  console.log(id);
   const getArtistWorks = () => {
     axios
       .get(`${API_URL}/auth/artists/${id}/works`)
       .then((response) => {
-        console.log(response);
         setWorks(response.data);
-        console.log(works);
       })
       .catch((error) => {
-        console.log(error);
+        error;
       });
   };
 

@@ -38,9 +38,7 @@ function ArtistProfilePage() {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        console.log(response);
-        console.log("Profile links saved successfully!");
+      .then(() => {
         setEditing(false);
       })
       .catch((error) => {

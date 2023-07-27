@@ -21,7 +21,6 @@ function ProductCreatePage() {
   const [technique, setTechnique] = useState("");
   const { userInfo } = useContext(UserContext);
 
-  console.log(userInfo);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -39,20 +38,7 @@ function ProductCreatePage() {
       username: userInfo.username,
       userId: userInfo._id,
     };
-    console.log(
-      title,
-      description,
-      price,
-      category,
-      image,
-      quantity,
-      artist,
-      period,
-      signature,
-      technique,
-      data.username,
-      data.userId
-    );
+
     const token = localStorage.getItem("token");
 
     axios
@@ -63,7 +49,7 @@ function ProductCreatePage() {
         },
       })
       .then((response) => {
-        console.log("Product created successfully!", response.data);
+        response.data;
       })
       .catch((error) => {
         console.error("Error creating product:", error);

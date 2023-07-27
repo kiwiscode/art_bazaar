@@ -110,10 +110,7 @@ function CartPage() {
         fetchCartData();
       })
       .catch((error) => {
-        console.log(
-          "An error occurred while adding the product to the cart:",
-          error
-        );
+        error;
       });
   };
 
@@ -158,7 +155,7 @@ function CartPage() {
         fetchCartData();
       })
       .catch((error) => {
-        console.log(error);
+        error;
       });
   };
 

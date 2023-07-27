@@ -22,10 +22,6 @@ router.post("/:id/carts", authenticateToken, (req, res, next) => {
       res.redirect("/carts");
     })
     .catch((err) => {
-      console.log(
-        "An error occurred while adding the product to the cart:",
-        err
-      );
       res
         .status(500)
         .send("An error occurred while adding the product to the cart");
@@ -39,10 +35,6 @@ router.get("/:id", (req, res, next) => {
       res.json(product);
     })
     .catch((err) => {
-      console.log(
-        "An error occurred while fetching the product from the DB:",
-        err
-      );
       res.status(500).send("An error occurred while fetching the product");
     });
 });
@@ -52,10 +44,6 @@ router.get("/", (req, res, next) => {
       res.json(productsFromDataBase);
     })
     .catch((err) => {
-      console.log(
-        "An error occurred while fetching products from the DB:",
-        err
-      );
       res.status(500).send("An error occurred while fetching products");
     });
 });

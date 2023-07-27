@@ -20,7 +20,7 @@ function ProductsPage() {
       .then((response) => {
         setProducts(response.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => error);
   };
 
   const handleSortByChange = (e) => {
@@ -38,27 +38,23 @@ function ProductsPage() {
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
     setSelectedCategory(selectedCategory);
-    console.log(selectedCategory);
+
     if (selectedCategory === "") {
       // Eğer "All Categories" seçildiyse, tüm ürünleri göster
       getAllProducts();
-      console.log(products);
     } else {
       // Seçilen kategoriye ait ürünleri filtrele ve güncelle
-      console.log("PRODUCTS : ", products);
+
       const filteredProducts = products.filter(
         (products) => products.category === selectedCategory
       );
       const newArr = filteredProducts;
-      console.log(filteredProducts);
-      console.log(newArr);
+
       setProducts(newArr);
-      console.log("PRODUCTS : ", products);
     }
   };
 
   useEffect(() => {
-    console.log("USE EFFECT WORKS FIRST");
     getAllProducts();
   }, []);
 

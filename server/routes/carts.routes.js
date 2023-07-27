@@ -13,7 +13,6 @@ router.get("/", authenticateToken, (req, res, next) => {
       res.json({ carts: user.carts });
     })
     .catch((err) => {
-      console.log("An error occurred while fetching the cart:", err);
       res.status(500).send("An error occurred while fetching the cart");
     });
 });
@@ -67,10 +66,6 @@ router.get("/checkout", authenticateToken, (req, res, next) => {
       res.json({ carts: user.carts });
     })
     .catch((err) => {
-      console.log(
-        "An error occurred while fetching the cart for checkout:",
-        err
-      );
       res
         .status(500)
         .send("An error occurred while fetching the cart for checkout");

@@ -7,9 +7,6 @@ const User = require("../models/User.model");
 router.use(express.json());
 
 router.post("/", authenticateToken, (req, res) => {
-  console.log("Received POST request to /create");
-  console.log("Request body:", req.body);
-  console.log(req.user.userId);
   let {
     title,
     description,
@@ -24,20 +21,6 @@ router.post("/", authenticateToken, (req, res) => {
     username,
     userId,
   } = req.body;
-  console.log(
-    title,
-    description,
-    price,
-    category,
-    image,
-    quantity,
-    artist,
-    period,
-    signature,
-    technique,
-    username,
-    userId
-  );
 
   const newProduct = new Product({
     userId: req.body.userId,
@@ -61,12 +44,10 @@ router.post("/", authenticateToken, (req, res) => {
         { $push: { works: product } },
         { new: true }
       ).then((updatedUser) => {
-        console.log(updatedUser);
         res.status(201).json(product);
       });
     })
     .catch((error) => {
-      console.log(error);
       res.status(500).json({ message: "Server error" });
     });
 });

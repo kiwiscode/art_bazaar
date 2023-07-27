@@ -11,7 +11,7 @@ const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 const MyWorksPage = () => {
   const { userInfo } = useContext(UserContext);
   const [works, setWorks] = useState([]);
-  console.log(works);
+
   useEffect(() => {
     if (userInfo) {
       const token = localStorage.getItem("token");
@@ -22,7 +22,6 @@ const MyWorksPage = () => {
           },
         })
         .then((response) => {
-          console.log(response);
           // İstek başarılı olduysa çalışmaları alıp state'e kaydedelim
           setWorks(response.data);
         })

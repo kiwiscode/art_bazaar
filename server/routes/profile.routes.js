@@ -7,14 +7,13 @@ router.use(express.json());
 
 router.get("/my-works", authenticateToken, (req, res) => {
   const userId = req.user.userId;
-  console.log(userId);
+
   User.findById(userId)
     .populate("works")
     .then((user) => {
-      console.log(user);
       // Kullanıcının works array'indeki tüm ürünleri alın
       const works = user.works;
-      console.log(works);
+
       // Çalışmaları yanıt olarak döndürün
       res.json(works);
     })

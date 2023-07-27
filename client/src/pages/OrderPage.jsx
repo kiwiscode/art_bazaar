@@ -43,12 +43,11 @@ function Orders() {
       .then((response) => {
         setOrderInfo(response.data.order);
 
-        console.log(response);
         localStorage.setItem("order", JSON.stringify(response.data.order));
         clearCart();
       })
       .catch((error) => {
-        console.log(error);
+        error;
       })
       .catch((error) => {
         console.error("Error fetching user order:", error);

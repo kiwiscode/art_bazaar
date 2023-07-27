@@ -37,10 +37,9 @@ let transporter = nodemailer.createTransport({
 // testing success
 transporter.verify((error, success) => {
   if (error) {
-    console.log(error);
+    return;
   } else {
-    console.log("Ready for messages");
-    console.log(success);
+    return;
   }
 });
 
@@ -52,7 +51,7 @@ router.get("/signup", (req, res) => {
 // POST /auth/signup
 router.post("/signup", (req, res, next) => {
   let { name, username, email, password, isArtist } = req.body;
-  console.log(isArtist);
+
   name = capitalize(name);
 
   // Check that username, email, and password are provided
@@ -145,14 +144,12 @@ const sendVerificationEmail = ({ _id, email }, res, token) => {
       });
     })
     .catch((error) => {
-      console.log(error);
       res.json({
         status: "FAILED",
         message: "Verification email failed!",
       });
     })
     .catch((error) => {
-      console.log(error);
       res.json({
         status: "FAILED",
         message: "Couldn't save verification email data!",
@@ -191,8 +188,6 @@ router.post("/login", (req, res, next) => {
 
   User.findOne({ email })
     .then((user) => {
-      console.log("user : ", user);
-      console.log("email hasn't been verified yet : ", !user.verified);
       if (!user.verified) {
         res.status(400).render("auth/login", {
           errorMessage: "Email hasn't been verified yet. Check your inbox.",
@@ -289,7 +284,6 @@ router.get("/verify", (req, res) => {
 router.get("/artists", (req, res, next) => {
   User.find({ isArtist: true }) // isArtist değeri true olan kullanıcıları çekiyoruz
     .then((artists) => {
-      console.log(artists);
       res.json(artists);
     })
     .catch((error) => next(error));
@@ -305,7 +299,6 @@ router.get("/artists/:id/works", (req, res, next) => {
         return res.status(404).json({ message: "Artist not found" });
       }
 
-      console.log(artist.works);
       res.json(artist.works);
     })
     .catch((error) => next(error));
@@ -314,7 +307,7 @@ router.get("/artists/:id/works", (req, res, next) => {
 // Update profile route
 router.post("/update/profile", authenticateToken, (req, res) => {
   const { linkedin, instagram } = req.body;
-  console.log(linkedin, instagram);
+
   // Check if the request contains both linkedin and instagram links
   if (!linkedin || !instagram) {
     return res
@@ -323,7 +316,7 @@ router.post("/update/profile", authenticateToken, (req, res) => {
   }
 
   const userId = req.user.userId;
-  console.log(userId);
+
   // Find the user by their ID
   User.findByIdAndUpdate(
     userId,
