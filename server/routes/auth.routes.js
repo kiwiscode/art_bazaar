@@ -37,9 +37,9 @@ let transporter = nodemailer.createTransport({
 // testing success
 transporter.verify((error, success) => {
   if (error) {
-    return;
+    console.log(error);
   } else {
-    return;
+    console.log(success);
   }
 });
 
@@ -56,7 +56,7 @@ router.post("/signup", (req, res, next) => {
 
   // Check that username, email, and password are provided
   if (username === "" || email === "" || password === "" || name === "") {
-    res.status(400).render("auth/signup", {
+    res.status(403).render("auth/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
     });
@@ -65,7 +65,7 @@ router.post("/signup", (req, res, next) => {
   }
 
   if (password.length < 6) {
-    res.status(400).render("auth/signup", {
+    res.status(402).render("auth/signup", {
       errorMessage: "Your password needs to be at least 6 characters long.",
     });
 
@@ -74,7 +74,7 @@ router.post("/signup", (req, res, next) => {
 
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
-    res.status(400).render("auth/signup", {
+    res.status(402).render("auth/signup", {
       errorMessage:
         "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
@@ -102,9 +102,13 @@ router.post("/signup", (req, res, next) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.status(500).render("auth/signup", { errorMessage: error.message });
+        // res.status(500).render("auth/signup", { errorMessage: error.message });
+        res.status(501).render("auth/signup", {
+          errorMessage:
+            "Username and email need to be unique. Provide a valid username or email.",
+        });
       } else if (error.code === 11000) {
-        res.status(500).render("auth/signup", {
+        res.status(501).render("auth/signup", {
           errorMessage:
             "Username and email need to be unique. Provide a valid username or email.",
         });
@@ -116,9 +120,9 @@ router.post("/signup", (req, res, next) => {
 
 const sendVerificationEmail = ({ _id, email }, res, token) => {
   // when working on locally
-  // const baseURL = "http://localhost:3000";
+  const baseURL = "http://localhost:3000";
   // when working on deployment version
-  const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
+  // const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
   // mail options with token
   const mailOptions = {
@@ -172,7 +176,7 @@ router.post("/login", (req, res, next) => {
   const { username, email, password } = req.body;
 
   if (username === "" || email === "" || password === "") {
-    res.status(400).render("auth/login", {
+    res.status(403).render("auth/login", {
       errorMessage:
         "All fields are mandatory. Please provide username, email and password.",
     });
@@ -181,7 +185,7 @@ router.post("/login", (req, res, next) => {
   }
 
   if (password.length < 6) {
-    return res.status(400).render("auth/login", {
+    return res.status(402).render("auth/login", {
       errorMessage: "Your password needs to be at least 6 characters long.",
     });
   }
@@ -195,10 +199,9 @@ router.post("/login", (req, res, next) => {
         return;
       }
 
-      // If the user isn't found, send an error message that user provided wrong credentials
       if (!user) {
         res
-          .status(400)
+          .status(401)
           .render("auth/login", { errorMessage: "Wrong credentials." });
         return;
       }
@@ -213,7 +216,7 @@ router.post("/login", (req, res, next) => {
             user.email !== email
           ) {
             res
-              .status(400)
+              .status(401)
               .render("auth/login", { errorMessage: "Wrong credentials." });
             return;
           }

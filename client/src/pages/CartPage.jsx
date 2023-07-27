@@ -4,10 +4,10 @@ import { UserContext } from "../components/UserContext";
 import PayButton from "../components/PayButton";
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function CartPage() {
   const { getToken, userInfo, updateUser } = useContext(UserContext);

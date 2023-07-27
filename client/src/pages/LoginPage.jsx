@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -20,18 +20,6 @@ function LoginPage() {
 
   const handleLogin = (event) => {
     event.preventDefault();
-
-    if (username === "" || email === "" || password === "") {
-      setError(
-        "All fields are mandatory. Please provide your username, email and password."
-      );
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Your password needs to be at least 6 characters long.");
-      return;
-    }
 
     const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!passwordRegex.test(password)) {
@@ -56,18 +44,31 @@ function LoginPage() {
         localStorage.setItem("userInfo", JSON.stringify(user));
         localStorage.setItem("cartItems", JSON.stringify(user.carts));
         localStorage.setItem("order", JSON.stringify(user.order));
+        console.log(user);
 
         updateUser(user);
         setError("");
         navigate("/");
       })
       .catch((error) => {
-        if (error.response) {
-          return;
+        console.log(error);
+        if (error.message === "Request failed with status code 400") {
+          setError("Email hasn't been verified yet. Check your inbox.");
         }
-        setError(
-          "Username or password wrong or email hasn't been verified yet. Provide a valid username or password."
-        );
+        if (error.message === "Request failed with status code 401") {
+          setError("Wrong credentials.");
+        }
+        if (error.message === "Request failed with status code 402") {
+          setError("Your password needs to be at least 6 characters long.");
+        }
+        if (error.message === "Request failed with status code 403") {
+          setError(
+            "All fields are mandatory. Please provide username, email and password."
+          );
+        }
+        if (error.message === "Request failed with status code 500") {
+          setError("An error occurred. Please try again later.");
+        }
       });
   };
 

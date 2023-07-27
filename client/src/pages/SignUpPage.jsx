@@ -3,10 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate'ı burada import ettiğinizden emin olun
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -30,18 +30,6 @@ function SignUpPage() {
   }
 
   const handleSignUp = () => {
-    if (username === "" || email === "" || password === "" || name === "") {
-      setError(
-        "All fields are mandatory. Please provide your username, email and password."
-      );
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Your password needs to be at least 6 characters long.");
-      return;
-    }
-
     const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!passwordRegex.test(password)) {
       setError(
@@ -68,12 +56,20 @@ function SignUpPage() {
         navigate("/signed");
       })
       .catch((error) => {
-        if (error.response) {
-          return;
+        console.log(error);
+        if (error.message === "Request failed with status code 500") {
+          setError(
+            "Username and email need to be unique. Provide a valid username or email."
+          );
         }
-        setError(
-          "Username and email need to be unique. Provide a valid username or email."
-        );
+        if (error.message === "Request failed with status code 402") {
+          setError("Your password needs to be at least 6 characters long.");
+        }
+        if (error.message === "Request failed with status code 403") {
+          setError(
+            "All fields are mandatory. Please provide username, email and password."
+          );
+        }
       });
   };
 
