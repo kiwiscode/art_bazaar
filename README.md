@@ -29,6 +29,8 @@ Completed orders are recorded in the user accounts.
 
 ### Artist Story
 
+https://youtu.be/awyKjo3-qF0
+
 [![Artist Story Video](https://img.youtube.com/vi/awyKjo3-qF0/0.jpg)](https://www.youtube.com/watch?v=awyKjo3-qF0)
 
 ### User Story
