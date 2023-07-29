@@ -3,10 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate'ı burada import ettiğinizden emin olun
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ function SignUpPage() {
       })
       .catch((error) => {
         console.log(error);
-        if (error.message === "Request failed with status code 500") {
+        if (error.message === "Request failed with status code 501") {
           setError(
             "Username and email need to be unique. Provide a valid username or email."
           );
@@ -65,7 +65,7 @@ function SignUpPage() {
         if (error.message === "Request failed with status code 402") {
           setError("Your password needs to be at least 6 characters long.");
         }
-        if (error.message === "Request failed with status code 403") {
+        if (error.message === "Request failed with status code 500") {
           setError(
             "All fields are mandatory. Please provide username, email and password."
           );

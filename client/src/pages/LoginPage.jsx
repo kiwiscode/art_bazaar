@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ function LoginPage() {
           );
         }
         if (error.message === "Request failed with status code 500") {
-          setError("An error occurred. Please try again later.");
+          setError("Account not found");
         }
       });
   };

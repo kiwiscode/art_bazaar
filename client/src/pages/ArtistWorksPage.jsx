@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function GetArtistWorks() {
   const { id } = useParams();

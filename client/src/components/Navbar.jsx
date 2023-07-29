@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintBrush } from "@fortawesome/free-solid-svg-icons";
 
 // when working on local version
-// const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 // when working on deployment version
-const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+// const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ function Navbar() {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
     setCartItems(storedCartItems);
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -29,7 +30,7 @@ function Navbar() {
   }, []);
 
   const handleScroll = () => {
-    // Eğer sayfanın yatay scroll pozisyonu 400 pikselden büyükse oku göster
+    // Eğer sayfanın yatay scroll pozisyonu 275 pikselden büyükse oku göster
     setShowScrollToTop(window.scrollY > 275);
   };
 
