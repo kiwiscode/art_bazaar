@@ -24,12 +24,9 @@ This is an e-commerce web project developed using the MERN Stack (MongoDB, Expre
 Users can complete payment transactions by reviewing their carts.
 Completed orders are recorded in the user accounts.
 
-
 ## Project Videos
 
 ### Artist Story video:
-
-
 
 [![Artist Story Video](https://img.youtube.com/vi/awyKjo3-qF0/0.jpg)](https://www.youtube.com/watch?v=awyKjo3-qF0)
 
@@ -41,9 +38,8 @@ Completed orders are recorded in the user accounts.
 
 ## Installation
 
-
 1. Clone the repository to your computer:
-   git clone https://github.com/kiwiscode/my-fullstack-project.git
+   git clone https://github.com/kiwiscode/E-Commerce-Web-Project-MERN-Stack
 2. Navigate to the client and server folders and install the dependencies for each:
 
 cd client
