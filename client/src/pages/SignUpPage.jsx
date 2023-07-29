@@ -57,7 +57,7 @@ function SignUpPage() {
       })
       .catch((error) => {
         console.log(error);
-        if (error.message === "Request failed with status code 500") {
+        if (error.message === "Request failed with status code 501") {
           setError(
             "Username and email need to be unique. Provide a valid username or email."
           );
@@ -65,7 +65,7 @@ function SignUpPage() {
         if (error.message === "Request failed with status code 402") {
           setError("Your password needs to be at least 6 characters long.");
         }
-        if (error.message === "Request failed with status code 403") {
+        if (error.message === "Request failed with status code 500") {
           setError(
             "All fields are mandatory. Please provide username, email and password."
           );

@@ -57,7 +57,7 @@ router.post("/signup", (req, res, next) => {
 
   // Check that username, email, and password are provided
   if (username === "" || email === "" || password === "" || name === "") {
-    res.status(403).render("auth/signup", {
+    res.status(500).render("auth/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
     });

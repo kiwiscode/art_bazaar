@@ -67,7 +67,7 @@ function LoginPage() {
           );
         }
         if (error.message === "Request failed with status code 500") {
-          setError("An error occurred. Please try again later.");
+          setError("Account not found");
         }
       });
   };
