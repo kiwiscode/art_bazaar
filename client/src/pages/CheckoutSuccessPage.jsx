@@ -91,6 +91,14 @@ const CheckoutSuccess = () => {
         <h1 style={{ fontSize: "2.5rem", marginBottom: "20px" }}>
           Order Information
         </h1>
+        <div style={{ marginTop: "30px", fontSize: "1.2rem" }}>
+          Thank you for your purchase! Your payment was successful.
+        </div>
+        <p style={{ fontSize: "1.1rem", marginTop: "20px" }}>
+          Your order will be processed and shipped as soon as possible. We'll
+          send you an email with the shipping details once your items are on the
+          way.
+        </p>
         <div
           style={{
             display: "flex",
@@ -141,15 +149,6 @@ const CheckoutSuccess = () => {
             ))
           )}
         </div>
-        <div style={{ marginTop: "30px", fontSize: "1.2rem" }}>
-          Thank you for your purchase! Your payment was successful.
-        </div>
-
-        <p style={{ fontSize: "1.1rem", marginTop: "20px" }}>
-          Your order will be processed and shipped as soon as possible. We'll
-          send you an email with the shipping details once your items are on the
-          way.
-        </p>
       </div>
     </>
   );

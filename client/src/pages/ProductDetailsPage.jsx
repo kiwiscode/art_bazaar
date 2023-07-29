@@ -48,7 +48,7 @@ function ProductDetailsPage() {
         );
       })
       .catch((error) => {
-        error;
+        console.log(error);
       });
   };
 

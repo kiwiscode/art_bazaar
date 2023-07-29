@@ -22,6 +22,7 @@ function Navbar() {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
     setCartItems(storedCartItems);
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -29,7 +30,7 @@ function Navbar() {
   }, []);
 
   const handleScroll = () => {
-    // Eğer sayfanın yatay scroll pozisyonu 400 pikselden büyükse oku göster
+    // Eğer sayfanın yatay scroll pozisyonu 275 pikselden büyükse oku göster
     setShowScrollToTop(window.scrollY > 275);
   };
 

@@ -34,6 +34,7 @@ let transporter = nodemailer.createTransport({
     pass: process.env.AUTH_PASSWORD,
   },
 });
+
 // testing success
 transporter.verify((error, success) => {
   if (error) {

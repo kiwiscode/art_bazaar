@@ -18,9 +18,9 @@ router.post("/:id/carts", authenticateToken, (req, res, next) => {
       user.carts.push(productId);
       return user.save();
     })
-    // .then(() => {
-    //   res.redirect("/carts");
-    // })
+    .then(() => {
+      res.redirect("/carts");
+    })
     .catch((err) => {
       res
         .status(500)
