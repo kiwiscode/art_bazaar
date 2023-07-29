@@ -63,3 +63,21 @@ Other Tools:
 Axios (for data exchange)
 CSS (for theme and layout)
 JWT (for user authentication)
+
+### H2 Test Card Numbers
+
+To test the Stripe API, you can use the following card numbers:
+
+### H3 Test Card 1:
+
+Card Number: 4242 4242 4242 4242
+Expiration Date: Any future date
+CVC: Any three-digit number
+
+### H3 Test Card 2:
+
+Card Number: 5555 5555 5555 4444
+Expiration Date: Any future date
+CVC: Any three-digit number
+
+For more test card numbers and other test data, please refer to the [Stripe Test Card Documentation](https://stripe.com/docs/testing).

@@ -44,7 +44,7 @@ router.post(
               currency: "usd",
             },
             display_name: "Free shipping",
-            // Delivers between 5-7 business days
+            //       // Delivers between 5-7 business days
             delivery_estimate: {
               minimum: {
                 unit: "business_day",
@@ -64,7 +64,7 @@ router.post(
               amount: 1500,
               currency: "usd",
             },
-            //       display_name: "Next day air",
+            display_name: "Next day air",
             // Delivers in exactly 1 business day
             delivery_estimate: {
               minimum: {
