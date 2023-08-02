@@ -44,7 +44,6 @@ router.post(
               currency: "usd",
             },
             display_name: "Free shipping",
-            //       // Delivers between 5-7 business days
             delivery_estimate: {
               minimum: {
                 unit: "business_day",
