@@ -14,11 +14,15 @@ function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const { userInfo } = useContext(UserContext);
+
+  const [initialProducts, setInitialProducts] = useState([]); // Yeni state
+
   const getAllProducts = () => {
     axios
       .get(`${API_URL}/products`)
       .then((response) => {
         setProducts(response.data);
+        setInitialProducts(response.data);
       })
       .catch((error) => error);
   };
@@ -40,17 +44,12 @@ function ProductsPage() {
     setSelectedCategory(selectedCategory);
 
     if (selectedCategory === "") {
-      // Eğer "All Categories" seçildiyse, tüm ürünleri göster
-      getAllProducts();
+      setProducts(initialProducts);
     } else {
-      // Seçilen kategoriye ait ürünleri filtrele ve güncelle
-
-      const filteredProducts = products.filter(
-        (products) => products.category === selectedCategory
+      const filteredProducts = initialProducts.filter(
+        (product) => product.category === selectedCategory
       );
-      const newArr = filteredProducts;
-
-      setProducts(newArr);
+      setProducts(filteredProducts);
     }
   };
 
