@@ -3,13 +3,13 @@
 import "./App.css";
 
 import { Routes, Route } from "react-router-dom";
+import { UserProvider } from "./components/UserContext";
 import Navbar from "./components/Navbar";
 import ProductsPage from "./pages/ProductsPage";
 import SignupPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import Signed from "./pages/EmailVerifiedPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
-import { UserProvider } from "./components/UserContext";
 import Cart from "./pages/CartPage";
 import LogoutPage from "./pages/LogoutPage";
 import CheckoutSuccess from "./pages/CheckoutSuccessPage";
