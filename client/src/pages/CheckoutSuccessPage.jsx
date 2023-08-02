@@ -50,7 +50,6 @@ const CheckoutSuccess = () => {
       .then((response) => {
         localStorage.setItem("order", JSON.stringify(response.data.order));
 
-        clearCart();
         axios
           .get(`${API_URL}/stripe/orders`, {
             headers: { Authorization: `Bearer ${getToken()}` },
@@ -61,9 +60,6 @@ const CheckoutSuccess = () => {
 
             clearCart();
             clearOrder();
-          })
-          .catch((error) => {
-            error;
           });
       })
       .then((response) => {
@@ -80,6 +76,9 @@ const CheckoutSuccess = () => {
       })
       .catch((error) => {
         console.error("Error fetching user order:", error);
+      })
+      .catch((error) => {
+        error;
       });
   }, [getToken, userInfo]);
 
