@@ -6,35 +6,24 @@ This is an e-commerce web project developed using the MERN Stack (MongoDB, Expre
 
 ### User Registration and Login:
 
-1.Users can sign up with their email address and other 2.details and verify their accounts through email confirmation.
-3.Registered users can log in to the system.
+- Users can sign up with their email address and other
+- details and verify their accounts through email confirmation.
+- Registered users can log in to the system.
 
 ### Art Products:
 
-1.Users can view art products, add them to their cart, and remove items from the cart.
-2.Users can filter products by categories and perform search queries.
+- Users can view art products, add them to their cart, and remove items from the cart.
+- Users can filter products by categories and perform search queries.
 
 ### Artists:
 
-1.Artists can log in with their dedicated accounts and share their own art products.
-2.Artists can edit their profile pages and showcase their portfolios.
+- Artists can log in with their dedicated accounts and share their own art products.
+- Artists can edit their profile pages and showcase their portfolios.
 
 ### Payment and Orders:
 
 Users can complete payment transactions by reviewing their carts.
 Completed orders are recorded in the user accounts.
-
-## Project Videos
-
-### Artist Story video:
-
-[![Artist Story Video](https://img.youtube.com/vi/awyKjo3-qF0/0.jpg)](https://www.youtube.com/watch?v=awyKjo3-qF0)
-
-### User Story video:
-
-[![User Story Video](https://img.youtube.com/vi/96c-NsWYP3g/0.jpg)](https://www.youtube.com/watch?v=NsWYP3g)
-
-## H2 Installation
 
 ## Installation
 
@@ -42,26 +31,26 @@ Completed orders are recorded in the user accounts.
    git clone https://github.com/kiwiscode/E-Commerce-Web-Project-MERN-Stack
 2. Navigate to the client and server folders and install the dependencies for each:
 
-cd client
-npm install
+3. cd client
+   npm install
 
-cd server
-npm install 3. Set up the database connection:
+4. cd server
+   npm install
 
-Create a MongoDB account and add the database URL to the .env file. 4. Start the application:
-cd client
-npm start
+5. Set up the database connection:
 
-cd server
-npm start
+6. Create a MongoDB account and add the database URL to the .env file. 4. Start the application:
+7. cd client
+   npm run dev
+
+8. cd server
+   node server.js
 
 ## Technologies Used
 
 ### Frontend:
 
 React.js
-React Router
-Redux (optional)
 
 ### Backend:
 

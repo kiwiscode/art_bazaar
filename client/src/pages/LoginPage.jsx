@@ -44,7 +44,6 @@ function LoginPage() {
         localStorage.setItem("userInfo", JSON.stringify(user));
         localStorage.setItem("cartItems", JSON.stringify(user.carts));
         localStorage.setItem("order", JSON.stringify(user.order));
-        console.log(user);
 
         updateUser(user);
         setError("");

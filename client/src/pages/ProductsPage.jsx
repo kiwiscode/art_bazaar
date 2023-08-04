@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { UserContext } from "../components/UserContext";
 
 // when working on local version
 // const API_URL = "http://localhost:3000";
@@ -13,7 +12,6 @@ function ProductsPage() {
   const [sortBy, setSortBy] = useState("asc"); // asc: ucuzdan pahalıya, desc: pahalıdan ucuza
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const { userInfo } = useContext(UserContext);
 
   const [initialProducts, setInitialProducts] = useState([]); // Yeni state
 
