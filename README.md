@@ -55,6 +55,7 @@ Completed orders are recorded in the user accounts.
 ### Frontend:
 
 React.js
+CSS
 
 ### Backend:
 
