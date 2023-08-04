@@ -41,10 +41,12 @@ Completed orders are recorded in the user accounts.
 
 6. Create a MongoDB account and add the database URL to the .env file. 4. Start the application:
 7. cd client
-   npm run dev
+8. 9. <br>
+      npm run dev
 
-8. cd server
-   node server.js
+9. cd server
+10. <br>
+    node server.js
 
 ## Technologies Used
 
