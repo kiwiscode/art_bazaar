@@ -54,21 +54,22 @@ Completed orders are recorded in the user accounts.
 
 ### Frontend:
 
-React.js
-CSS
+- React.js
+- CSS
 
 ### Backend:
 
-Node.js
-Express.js
-MongoDB (Mongoose)
-Stripe API (for payment processing)
-Nodemailer (for email verification)
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- Stripe API (for payment processing)
+- Nodemailer (for email verification)
+
 Other Tools:
 
-Axios (for data exchange)
-CSS (for theme and layout)
-JWT (for user authentication)
+- Axios (for data exchange)
+- CSS (for theme and layout)
+- JWT (for user authentication)
 
 ### Test Card Numbers
 
