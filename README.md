@@ -32,9 +32,11 @@ Completed orders are recorded in the user accounts.
 2. Navigate to the client and server folders and install the dependencies for each:
 
 3. cd client
+   <br>
    npm install
 
 4. cd server
+   <br>
    npm install
 
 5. Set up the database connection:
