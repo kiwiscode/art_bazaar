@@ -286,7 +286,7 @@ router.get("/verify", (req, res) => {
 
 // GET /auth/artists
 router.get("/artists", (req, res, next) => {
-  User.find({ isArtist: true }) // isArtist değeri true olan kullanıcıları çekiyoruz
+  User.find({ isArtist: true })
     .then((artists) => {
       res.json(artists);
     })
