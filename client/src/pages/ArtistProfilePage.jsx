@@ -17,14 +17,13 @@ function ArtistProfilePage() {
   const { userInfo } = useContext(UserContext);
   const [instagramLink, setInstagramLink] = useState("");
   const [linkedinLink, setLinkedinLink] = useState("");
-  const [editing, setEditing] = useState(true); // Default olarak input alanlarını gösterelim
+  const [editing, setEditing] = useState(true);
 
   if (!userInfo) {
     return <div>Loading...</div>;
   }
 
   const handleSave = () => {
-    // Create a data object with the LinkedIn and Instagram links
     const data = {
       linkedin: linkedinLink,
       instagram: instagramLink,

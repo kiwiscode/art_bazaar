@@ -4,7 +4,7 @@ const User = require("../models/User.model");
 const authenticateToken = require("../middleware/jwtMiddleware");
 
 router.get("/", authenticateToken, (req, res, next) => {
-  // Rotaya JWT doğrulaması eklendiği için, req.user üzerinden kullanıcının bilgilerine erişebilirsiniz
+  // Rotaya JWT doğrulaması eklendiği için, req.user üzerinden kullanıcının bilgilerine erişebiliriz
   const userId = req.user.userId;
 
   User.findById(userId)
@@ -21,23 +21,13 @@ router.delete("/:id", authenticateToken, (req, res, next) => {
   const userId = req.user.userId;
   const productId = req.params.id;
 
-  // User.findById(userId)
-  //   .then((user) => {
-  //     const index = user.carts.findIndex(
-  //       (cart) => cart.toString() === productId
-  //     );
-  //     if (index !== -1) {
-  //       user.carts.pull(productId); // Değişiklik burada
-  //     }
-  //     return user.save();
-  //   })
   User.findById(userId)
     .then((user) => {
       const index = user.carts.findIndex(
         (cart) => cart.toString() === productId
       );
       if (index !== -1) {
-        user.carts.splice(index, 1); // Sadece bir öğeyi silmek için
+        user.carts.splice(index, 1);
       }
       return user.save();
     })

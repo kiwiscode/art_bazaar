@@ -22,6 +22,26 @@ router.post("/", authenticateToken, (req, res) => {
     userId,
   } = req.body;
 
+  if (
+    title === "" ||
+    description === " " ||
+    price === "" ||
+    category === "" ||
+    image === "" ||
+    quantity === "" ||
+    quantity === "" ||
+    artist === "" ||
+    period === "" ||
+    signature === "" ||
+    technique === ""
+  ) {
+    res.status(403).json({
+      errorMessage:
+        "All fields are mandatory. Please provide all the necessary information about the product.",
+    });
+    return;
+  }
+
   const newProduct = new Product({
     userId: req.body.userId,
     title: req.body.title,
@@ -43,8 +63,12 @@ router.post("/", authenticateToken, (req, res) => {
         req.user.userId,
         { $push: { works: product } },
         { new: true }
-      ).then((updatedUser) => {
-        res.status(201).json(product);
+      ).then(() => {
+        res
+          .status(200)
+          .json(
+            "The product has been successfully created and prepared for sale."
+          );
       });
     })
     .catch((error) => {

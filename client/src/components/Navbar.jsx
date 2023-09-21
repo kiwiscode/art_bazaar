@@ -30,7 +30,7 @@ function Navbar() {
   }, []);
 
   const handleScroll = () => {
-    // Eğer sayfanın yatay scroll pozisyonu 275 pikselden büyükse oku göster
+    // Eğer sayfanın dikey scroll pozisyonu 275 pikselden büyükse oku göster
     setShowScrollToTop(window.scrollY > 275);
   };
 

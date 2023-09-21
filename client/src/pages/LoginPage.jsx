@@ -12,8 +12,6 @@ const API_URL = "http://localhost:3000";
 function LoginPage() {
   const navigate = useNavigate();
   const { updateUser } = useContext(UserContext);
-
-  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,22 +19,8 @@ function LoginPage() {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-    if (!passwordRegex.test(password)) {
-      setError(
-        "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter."
-      );
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError("Please provide a valid email address.");
-      return;
-    }
-
     axios
-      .post(`${API_URL}/auth/login`, { username, email, password })
+      .post(`${API_URL}/auth/login`, { username, password })
       .then((response) => {
         const { token, user } = response.data;
 
@@ -52,22 +36,26 @@ function LoginPage() {
       })
       .catch((error) => {
         console.log(error);
-        if (error.message === "Request failed with status code 400") {
-          setError("Email hasn't been verified yet. Check your inbox.");
-        }
-        if (error.message === "Request failed with status code 401") {
-          setError("Wrong credentials.");
-        }
-        if (error.message === "Request failed with status code 402") {
-          setError("Your password needs to be at least 6 characters long.");
-        }
-        if (error.message === "Request failed with status code 403") {
-          setError(
-            "All fields are mandatory. Please provide username, email and password."
-          );
-        }
-        if (error.message === "Request failed with status code 500") {
-          setError("An error occurred. Please try again later.");
+        if (error.response !== undefined) {
+          const { status } = error.response;
+          const { errorMessage } = error.response.data;
+          if (status === 403) {
+            setError(errorMessage);
+          }
+          if (status === 402) {
+            setError(errorMessage);
+          }
+          if (status === 400) {
+            setError(errorMessage);
+          }
+          if (status === 401) {
+            setError(errorMessage);
+          }
+          if (status === 500) {
+            setError("Please try again later.");
+          }
+        } else {
+          return;
         }
       });
   };
@@ -82,15 +70,7 @@ function LoginPage() {
         placeholder="Username"
         className="login-input"
       />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-        title="Please provide a valid email address."
-        className="login-input"
-      />
+
       <input
         type="password"
         value={password}

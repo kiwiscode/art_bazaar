@@ -34,16 +34,69 @@ const MyWorksPage = () => {
   return (
     <div className="works-container">
       <h1>My works</h1>
-      {works.map((work) => (
-        <div key={work._id} className="work-item">
-          {/* Çalışma bilgilerini burada göster */}
-          <h2>{work.title}</h2>
-          <p>{work.description}</p>
-          <img src={work.image} alt={work.title} />
-        </div>
-      ))}
+      {works.length < 1 ? (
+        <p>No works found.</p>
+      ) : (
+        works.map((work) => (
+          <div
+            key={work._id}
+            className="work-item"
+            style={{
+              border: "1px solid #ddd",
+              padding: "20px",
+              borderRadius: "5px",
+            }}
+          >
+            {/* Çalışma bilgilerini burada göster */}
+            <h2>{work.title}</h2>
+            <p>{work.description}</p>
+            <img
+              src={work.image}
+              alt={work.title}
+              style={{ width: "100%", maxWidth: "150px" }}
+            />
+          </div>
+        ))
+      )}
     </div>
   );
 };
+
+{
+  /* <div>
+<h1>Orders</h1>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "20px",
+  }}
+>
+  {mergedOrderItems.length === 0 ? (
+    <p>No orders found.</p>
+  ) : (
+    mergedOrderItems.map((item, index) => (
+      <div
+        key={index}
+        style={{
+          border: "1px solid #ddd",
+          padding: "20px",
+          borderRadius: "5px",
+        }}
+      >
+        <p>{item.title}</p>
+        <img
+          src={item.image}
+          alt={item.title}
+          style={{ width: "100%", maxWidth: "150px" }}
+        />
+        <p>Price: ${item.price}</p>
+        <p>Quantity: {item.quantity}</p>
+      </div>
+    ))
+  )}
+</div>
+</div> */
+}
 
 export default MyWorksPage;

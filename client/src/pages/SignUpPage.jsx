@@ -15,6 +15,7 @@ function SignUpPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [name, setName] = useState("");
+  const [success, setSuccess] = useState("");
 
   {
     /* Artist mod geliştiriciliği */
@@ -30,19 +31,6 @@ function SignUpPage() {
   }
 
   const handleSignUp = () => {
-    const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-    if (!passwordRegex.test(password)) {
-      setError(
-        "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter."
-      );
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError("Please provide a valid email address.");
-      return;
-    }
     axios
       .post(`${API_URL}/auth/signup`, {
         username,
@@ -53,22 +41,27 @@ function SignUpPage() {
       })
       .then(() => {
         setError("");
+        setSuccess("Email verification link has been sent!");
         navigate("/signed");
       })
       .catch((error) => {
         console.log(error);
-        if (error.message === "Request failed with status code 500") {
-          setError(
-            "Username and email need to be unique. Provide a valid username or email."
-          );
+        const { status } = error.response;
+        console.log(status);
+        const { errorMessage } = error.response.data;
+        console.log(errorMessage);
+        if (status === 402) {
+          setError(errorMessage);
+          setSuccess("");
         }
-        if (error.message === "Request failed with status code 402") {
-          setError("Your password needs to be at least 6 characters long.");
+        if (status === 403) {
+          setError(errorMessage);
+          setSuccess("");
         }
-        if (error.message === "Request failed with status code 403") {
-          setError(
-            "All fields are mandatory. Please provide username, email and password."
-          );
+
+        if (status === 501) {
+          setError(errorMessage);
+          setSuccess("");
         }
       });
   };
@@ -108,6 +101,7 @@ function SignUpPage() {
         className="signup-input"
       />
       {error && <p>{error}</p>}
+      {success}
 
       {/* Artist mod geliştiriciliği */}
       <div className="artist-checkbox">

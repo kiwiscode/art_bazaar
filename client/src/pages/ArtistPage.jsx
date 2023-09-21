@@ -13,11 +13,10 @@ function ArtistPage() {
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
-    // Backend'den artist kullanıcıları çekmek için API endpoint'ini çağırıyoruz
     axios
       .get(`${API_URL}/auth/artists`)
       .then((response) => {
-        setArtists(response.data); // Çekilen artist kullanıcılarını state'e kaydediyoruz
+        setArtists(response.data);
       })
       .catch((error) => {
         error;
