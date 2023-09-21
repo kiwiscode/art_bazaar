@@ -56,6 +56,7 @@ function ProductCreatePage() {
         }
         setError("");
       })
+      //
       .catch((error) => {
         console.error("Error creating product:", error);
         const { status } = error.response;
