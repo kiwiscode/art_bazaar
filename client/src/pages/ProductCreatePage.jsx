@@ -20,7 +20,8 @@ function ProductCreatePage() {
   const [signature, setSignature] = useState("");
   const [technique, setTechnique] = useState("");
   const { userInfo } = useContext(UserContext);
-
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -49,10 +50,23 @@ function ProductCreatePage() {
         },
       })
       .then((response) => {
-        response.data;
+        console.log(response);
+        if (response.status === 200) {
+          setSuccess(response.data);
+        }
+        setError("");
       })
+      ////
+      //
       .catch((error) => {
         console.error("Error creating product:", error);
+        const { status } = error.response;
+        const { errorMessage } = error.response.data;
+        console.log(status, errorMessage);
+        if (status === 403) {
+          setError(errorMessage);
+          setSuccess("");
+        }
       });
   };
 
@@ -148,6 +162,8 @@ function ProductCreatePage() {
         <button type="submit" onClick={handleSubmit}>
           Create
         </button>
+        {error}
+        {success}
       </form>
     </div>
   );

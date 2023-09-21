@@ -22,10 +22,6 @@ const UserProvider = ({ children }) => {
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
   }, [userInfo]);
 
-  // const updateUser = (newUserInfo) => {
-  //   setUserInfo(newUserInfo);
-  // };
-
   const updateUser = (newUserInfo) => {
     setUserInfo((prevUserInfo) => ({
       ...prevUserInfo,

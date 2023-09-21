@@ -53,11 +53,17 @@ router.get("/signup", (req, res) => {
 router.post("/signup", (req, res, next) => {
   let { name, username, email, password, isArtist } = req.body;
 
-  name = capitalize(name);
+  if (name) {
+    name = capitalize(name);
+  }
 
   // Check that username, email, and password are provided
   if (username === "" || email === "" || password === "" || name === "") {
+<<<<<<< HEAD
     res.status(500).render("auth/signup", {
+=======
+    res.status(403).json({
+>>>>>>> development
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
     });
@@ -65,17 +71,9 @@ router.post("/signup", (req, res, next) => {
     return;
   }
 
-  if (password.length < 6) {
-    res.status(402).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
-    });
-
-    return;
-  }
-
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
-    res.status(402).render("auth/signup", {
+    res.status(402).json({
       errorMessage:
         "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
@@ -103,13 +101,12 @@ router.post("/signup", (req, res, next) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        // res.status(500).render("auth/signup", { errorMessage: error.message });
-        res.status(501).render("auth/signup", {
+        res.status(501).json({
           errorMessage:
             "Username and email need to be unique. Provide a valid username or email.",
         });
       } else if (error.code === 11000) {
-        res.status(501).render("auth/signup", {
+        res.status(501).json({
           errorMessage:
             "Username and email need to be unique. Provide a valid username or email.",
         });
@@ -174,10 +171,10 @@ router.get("/login", (req, res) => {
 
 // POST /auth/login
 router.post("/login", (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
 
-  if (username === "" || email === "" || password === "") {
-    res.status(403).render("auth/login", {
+  if (username === "" || password === "") {
+    res.status(403).json({
       errorMessage:
         "All fields are mandatory. Please provide username, email and password.",
     });
@@ -186,24 +183,22 @@ router.post("/login", (req, res, next) => {
   }
 
   if (password.length < 6) {
-    return res.status(402).render("auth/login", {
+    return res.status(402).json({
       errorMessage: "Your password needs to be at least 6 characters long.",
     });
   }
 
-  User.findOne({ email })
+  User.findOne({ username })
     .then((user) => {
       if (!user.verified) {
-        res.status(400).render("auth/login", {
+        res.status(400).json({
           errorMessage: "Email hasn't been verified yet. Check your inbox.",
         });
         return;
       }
 
       if (!user) {
-        res
-          .status(401)
-          .render("auth/login", { errorMessage: "Wrong credentials." });
+        res.status(401).json({ errorMessage: "Wrong credentials." });
         return;
       }
 
@@ -211,14 +206,8 @@ router.post("/login", (req, res, next) => {
       bcrypt
         .compare(password, user.password)
         .then((isSamePassword) => {
-          if (
-            !isSamePassword ||
-            user.username !== username ||
-            user.email !== email
-          ) {
-            res
-              .status(401)
-              .render("auth/login", { errorMessage: "Wrong credentials." });
+          if (!isSamePassword || user.username !== username) {
+            res.status(401).json({ errorMessage: "Wrong credentials." });
             return;
           }
           user.active = true;

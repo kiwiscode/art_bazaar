@@ -12,6 +12,10 @@ function ProductsPage() {
   const [sortBy, setSortBy] = useState("asc"); // asc: ucuzdan pahalıya, desc: pahalıdan ucuza
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+<<<<<<< HEAD
+=======
+  const { userInfo } = useContext(UserContext);
+>>>>>>> development
 
   const [initialProducts, setInitialProducts] = useState([]); // Yeni state
 
