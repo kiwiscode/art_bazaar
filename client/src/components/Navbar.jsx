@@ -17,7 +17,7 @@ function Navbar() {
   const { active, name, isArtist } = userInfo;
   const [cartItems, setCartItems] = useState([]);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
-
+  console.log(userInfo);
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
