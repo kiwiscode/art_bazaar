@@ -3,10 +3,14 @@ import axios from "axios";
 import { UserContext } from "../components/UserContext";
 
 // when working on local version
+<<<<<<< HEAD
 // const API_URL = "http://localhost:3000";
 
 // when working on deployment version
 const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+=======
+const API_URL = import.meta.env.VITE_APP_API_URL;
+>>>>>>> c555ca2 (Refactor e-commerce project to new concept)
 
 function ProductCreatePage() {
   const [title, setTitle] = useState("");
@@ -36,7 +40,7 @@ function ProductCreatePage() {
       period,
       signature,
       technique,
-      username: userInfo.username,
+      name: userInfo.name,
       userId: userInfo._id,
     };
 
@@ -56,7 +60,7 @@ function ProductCreatePage() {
         }
         setError("");
       })
-      ////
+
       .catch((error) => {
         console.error("Error creating product:", error);
         const { status } = error.response;
@@ -70,10 +74,10 @@ function ProductCreatePage() {
   };
 
   return (
-    <div className="create-container">
+    <div>
       <h1>Create Product</h1>
       <form onSubmit={handleSubmit}>
-        <div className="label-input-container">
+        <div>
           <label>Title:</label>
           <input
             type="text"
@@ -82,7 +86,7 @@ function ProductCreatePage() {
             required
           />
         </div>
-        <div className="label-input-container">
+        <div>
           <label>Description:</label>
           <input
             type="text"
@@ -90,7 +94,7 @@ function ProductCreatePage() {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <div className="label-input-container">
+        <div>
           <label>Price:</label>
           <input
             type="number"
@@ -98,7 +102,7 @@ function ProductCreatePage() {
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
-        <div className="label-input-container">
+        <div>
           <label>Category:</label>
           <select
             value={category}
@@ -110,7 +114,7 @@ function ProductCreatePage() {
             </option>
           </select>
         </div>
-        <div className="label-input-container">
+        <div>
           <label>Image URL:</label>
           <input
             type="text"
@@ -118,7 +122,7 @@ function ProductCreatePage() {
             onChange={(e) => setImage(e.target.value)}
           />
         </div>
-        <div className="label-input-container">
+        <div>
           <label>Quantity:</label>
           <input
             type="number"
@@ -126,7 +130,7 @@ function ProductCreatePage() {
             onChange={(e) => setQuantity(e.target.value)}
           />
         </div>
-        <div className="label-input-container">
+        <div>
           <label>Artist:</label>
           <input
             type="text"
@@ -134,7 +138,7 @@ function ProductCreatePage() {
             onChange={(e) => setArtist(e.target.value)}
           />
         </div>
-        <div className="label-input-container">
+        <div>
           <label>Period:</label>
           <input
             type="text"
@@ -142,7 +146,7 @@ function ProductCreatePage() {
             onChange={(e) => setPeriod(e.target.value)}
           />
         </div>
-        <div className="label-input-container">
+        <div>
           <label>Signature:</label>
           <input
             type="text"
@@ -150,7 +154,7 @@ function ProductCreatePage() {
             onChange={(e) => setSignature(e.target.value)}
           />
         </div>
-        <div className="label-input-container">
+        <div>
           <label>Technique:</label>
           <input
             type="text"

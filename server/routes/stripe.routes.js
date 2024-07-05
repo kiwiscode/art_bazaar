@@ -64,7 +64,6 @@ router.post(
               currency: "usd",
             },
             display_name: "Next day air",
-            // Delivers in exactly 1 business day
             delivery_estimate: {
               minimum: {
                 unit: "business_day",
@@ -83,15 +82,19 @@ router.post(
       },
       line_items,
       mode: "payment",
-      // this can change on deploy version
 
       // when working on locally
+<<<<<<< HEAD
       // success_url: "http://localhost:5173/checkout-success",
       // cancel_url: "http://localhost:5173/carts",
 
       // when working on deployment version
       success_url: "https://kiwiscode-canvas.netlify.app/checkout-success",
       cancel_url: "https://kiwiscode-canvas.netlify.app/carts",
+=======
+      success_url: `${process.env.FRONTEND_URL}/checkout-success`,
+      cancel_url: `${process.env.FRONTEND_URL}/carts`,
+>>>>>>> c555ca2 (Refactor e-commerce project to new concept)
     });
 
     response.send({ url: session.url });

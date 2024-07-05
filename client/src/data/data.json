@@ -1,0 +1,1373 @@
+[
+  {
+    "id": 1,
+    "name": "Michelangelo Buonarroti",
+    "nationality": "Italian",
+    "born": "1475",
+    "died": "1564",
+    "description": "A founder of the High Italian Renaissance style, Michelangelo (di Lodovico Buonarroti Simoni) created some of the most influential works in the history of Western art: the marble statues of David (1504) and The Pietà (ca. 1498-1499), as well as the Sistine Chapel frescos in the Vatican, Rome, depicting Genesis (such as in The Creation of Adam (1510)) and the Last Judgment. As an architect, Michelangelo re-designed the dome of St. Peter’s Basilica in Rome. Whether sculpting, painting, or drawing, he instilled a sense of awe-inspiring wonder or terribilità in his works, capturing the emotional and spiritual intensity in the twisting, muscular bodies of his subjects. Michelangelo himself said, 'I saw the angel and carved until I set him free.'",
+    "highAuctionRecord": {
+      "title": "Pieta",
+      "year": "2019",
+      "auctionHouse": "Christie's",
+      "salePrice": "$45 million"
+    },
+    "criticallyAcclaimed": "Recognized by major institutions and publications for his significant contributions to Renaissance art and his profound influence on subsequent generations of artists.",
+    "recentSoloShows": [
+      {
+        "title": "Michelangelo's Sistine Chapel Exhibition",
+        "institution": "Vatican Museums",
+        "year": "2018"
+      },
+      {
+        "title": "Michelangelo: Divine Draftsman and Designer",
+        "institution": "Metropolitan Museum of Art, New York",
+        "year": "2017-2018"
+      },
+      {
+        "title": "Michelangelo and the Vatican",
+        "institution": "British Museum, London",
+        "year": "2019"
+      }
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720164388/art_bazaar/michelangelo-buonarroti/Moses_ca._1513-1515_src_yuytcm.webp"
+  },
+  {
+    "id": 2,
+    "name": "Raphael",
+    "nationality": "Italian",
+    "born": "1483",
+    "died": "1520",
+    "description": "Raphael, known for his clarity of form and ease of composition, was a leading figure of the High Renaissance. His works, including the Vatican Stanza della Segnatura frescoes and the 'School of Athens,' epitomize harmony and balance. Celebrated for his mastery of color and composition, Raphael's influence extended beyond his lifetime, shaping the course of Western art.",
+    "highAuctionRecord": {
+      "title": "Portrait of a Young Man with an Apple",
+      "year": "2023",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$50 million"
+    },
+    "criticallyAcclaimed": "Renowned for his contributions to Renaissance art and his transformative impact on subsequent generations of artists.",
+    "recentSoloShows": [
+      {
+        "title": "Raphael at the Vatican",
+        "institution": "Vatican Museums",
+        "year": "2020"
+      },
+      {
+        "title": "Raphael and the Italian Renaissance",
+        "institution": "National Gallery, London",
+        "year": "2019-2020"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Vincent van Gogh",
+    "nationality": "Dutch",
+    "born": "1853",
+    "died": "1890",
+    "description": "Vincent van Gogh, a post-Impressionist painter, is known for his bold use of color and expressive brushwork. His works, such as 'Starry Night' and 'Sunflowers,' reflect his emotional turmoil and intense creative energy. Van Gogh's artistry and unique vision continue to captivate and inspire audiences worldwide, making him one of the most recognized and influential artists in history.",
+    "highAuctionRecord": {
+      "title": "Portrait of Dr. Gachet",
+      "year": "1990",
+      "auctionHouse": "Christie's",
+      "salePrice": "$82.5 million"
+    },
+    "criticallyAcclaimed": "Highly regarded for his innovative style and profound impact on modern art, van Gogh is celebrated as a pioneer of 20th-century painting.",
+    "recentSoloShows": [
+      {
+        "title": "Van Gogh: The Immersive Experience",
+        "institution": "Digital Art Center, Paris",
+        "year": "2022"
+      },
+      {
+        "title": "Van Gogh in Provence",
+        "institution": "Van Gogh Museum, Amsterdam",
+        "year": "2021-2022"
+      }
+    ]
+  },
+  {
+    "id": 4,
+
+    "name": "Pablo Picasso",
+    "nationality": "Spanish",
+    "born": "1881",
+    "died": "1973",
+    "description": "Pablo Picasso, a pivotal figure in 20th-century art, co-founded the Cubist movement and reinvented traditional artistic conventions. Known for works like 'Les Demoiselles d'Avignon' and 'Guernica,' Picasso's versatility and experimental spirit marked him as one of the most innovative artists of his time. His influence on modern art remains profound and enduring.",
+    "highAuctionRecord": {
+      "title": "Women of Algiers (Version O)",
+      "year": "2015",
+      "auctionHouse": "Christie's",
+      "salePrice": "$179.4 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his revolutionary approach to art and his monumental impact on 20th-century aesthetics, Picasso continues to inspire artists and audiences worldwide.",
+    "recentSoloShows": [
+      {
+        "title": "Picasso 1932: Love, Fame, Tragedy",
+        "institution": "Tate Modern, London",
+        "year": "2018"
+      },
+      {
+        "title": "Picasso and Paper",
+        "institution": "Royal Academy of Arts, London",
+        "year": "2020"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Claude Monet",
+    "nationality": "French",
+    "born": "1840",
+    "died": "1926",
+    "description": "Claude Monet, a leading figure of Impressionism, is renowned for his evocative landscapes and studies of light and color. His series such as 'Water Lilies' and 'Haystacks' capture the transient effects of nature with a sense of immediacy and vibrancy. Monet's work revolutionized artistic perceptions of space, light, and atmosphere.",
+    "highAuctionRecord": {
+      "title": "Meules",
+      "year": "2019",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$110.7 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his pioneering role in Impressionism and his profound influence on 20th-century art, Monet's legacy endures as a cornerstone of modern painting.",
+    "recentSoloShows": [
+      {
+        "title": "Monet and Architecture",
+        "institution": "National Gallery of Art, Washington D.C.",
+        "year": "2018"
+      },
+      {
+        "title": "Monet: The Late Years",
+        "institution": "de Young Museum, San Francisco",
+        "year": "2019"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Rembrandt van Rijn",
+    "nationality": "Dutch",
+    "born": "1606",
+    "died": "1669",
+    "description": "Rembrandt van Rijn, a master of the Dutch Golden Age, is celebrated for his innovative use of light and shadow and his profound psychological insight. His portraits, such as 'The Night Watch' and 'Self-Portrait with Two Circles,' reveal his technical mastery and deep empathy for his subjects. Rembrandt's work remains a touchstone of Baroque artistry.",
+    "highAuctionRecord": {
+      "title": "Portrait of a Young Man with a Plumed Hat",
+      "year": "2009",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$33.2 million"
+    },
+    "criticallyAcclaimed": "Renowned for his unparalleled skill in capturing human emotion and his enduring influence on the evolution of Western art, Rembrandt's legacy continues to resonate across centuries.",
+    "recentSoloShows": [
+      {
+        "title": "Rembrandt in Amsterdam",
+        "institution": "Rijksmuseum, Amsterdam",
+        "year": "2019"
+      },
+      {
+        "title": "Rembrandt: Master of Light and Shadow",
+        "institution": "Art Institute of Chicago",
+        "year": "2020"
+      }
+    ]
+  },
+  {
+    "id": 7,
+
+    "name": "Salvador Dalí",
+    "nationality": "Spanish",
+    "born": "1904",
+    "died": "",
+    "description": "Salvador Dalí, a surrealist painter, is known for his eccentric imagery and dreamlike landscapes. His works, such as 'The Persistence of Memory' and 'The Elephants,' challenge perceptions of reality and time, embodying the surrealism movement's fascination with the subconscious mind. Dalí's art continues to provoke and intrigue audiences worldwide.",
+    "highAuctionRecord": {
+      "title": "Portrait of Paul Eluard",
+      "year": "2011",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$21.7 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his contributions to surrealist art and his unique vision, Dalí remains an iconic figure in 20th-century painting.",
+    "recentSoloShows": [
+      {
+        "title": "Dalí: The Late Works",
+        "institution": "Museum of Modern Art, New York",
+        "year": "2023"
+      },
+      {
+        "title": "Dalí and the Surrealist Revolution",
+        "institution": "Centre Pompidou, Paris",
+        "year": "2022-2023"
+      }
+    ]
+  },
+  {
+    "id": 8,
+
+    "name": "Johannes Vermeer",
+    "nationality": "Dutch",
+    "born": "1632",
+    "died": "1675",
+    "description": "Johannes Vermeer, a master of Dutch Golden Age painting, is celebrated for his intimate and meticulously crafted scenes of domestic life. His works, such as 'Girl with a Pearl Earring' and 'The Milkmaid,' are renowned for their luminous quality and subtle portrayal of light. Vermeer's paintings, though relatively few in number, are cherished for their beauty and technical virtuosity.",
+    "highAuctionRecord": {
+      "title": "Young Woman Seated at the Virginals",
+      "year": "2004",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$30 million"
+    },
+    "criticallyAcclaimed": "Highly regarded for his exquisite depictions of everyday life and his mastery of light and composition, Vermeer's legacy endures as a testament to the Golden Age of Dutch painting.",
+    "recentSoloShows": [
+      {
+        "title": "Vermeer and the Masters of Genre Painting",
+        "institution": "National Gallery of Art, Washington D.C.",
+        "year": "2017"
+      },
+      {
+        "title": "Vermeer's Women: Secrets and Silence",
+        "institution": "Mauritshuis, The Hague",
+        "year": "2020"
+      }
+    ]
+  },
+  {
+    "id": 9,
+
+    "name": "Henri Matisse",
+    "nationality": "French",
+    "born": "1869",
+    "died": "1954",
+    "description": "Henri Matisse, a leading figure of modern art, is celebrated for his use of color and fluidity of form. His works, such as 'The Dance' and 'Woman with a Hat,' reflect his exploration of pure color and expressive line. Matisse's innovative approach to composition and design continues to influence artists across various disciplines.",
+    "highAuctionRecord": {
+      "title": "Odalisque Couchée aux Magnolias",
+      "year": "2021",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$80.7 million"
+    },
+    "criticallyAcclaimed": "Renowned for his transformative impact on 20th-century art and his pioneering role in Fauvism and modernism, Matisse's legacy resonates as a beacon of artistic innovation.",
+    "recentSoloShows": [
+      {
+        "title": "Matisse: Radical Invention, 1913-1917",
+        "institution": "Museum of Modern Art, New York",
+        "year": "2022"
+      },
+      {
+        "title": "Matisse and the Fauves",
+        "institution": "Tate Modern, London",
+        "year": "2019"
+      }
+    ]
+  },
+  {
+    "id": 10,
+
+    "name": "Jackson Pollock",
+    "nationality": "American",
+    "born": "1912",
+    "died": "1956",
+    "description": "Jackson Pollock, a key figure in Abstract Expressionism, revolutionized modern art with his unique drip painting technique. His works, such as 'Number 1A, 1948' and 'Blue Poles: Number 11, 1952,' are characterized by their dynamic energy and spontaneous gestural marks. Pollock's contributions to avant-garde art continue to inspire debates and interpretations.",
+    "highAuctionRecord": {
+      "title": "Number 17A",
+      "year": "2016",
+      "auctionHouse": "Christie's",
+      "salePrice": "$200 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his radical approach to painting and his profound influence on abstract art, Pollock remains a seminal figure in 20th-century American art.",
+    "recentSoloShows": [
+      {
+        "title": "Pollock: A Retrospective",
+        "institution": "Museum of Modern Art, New York",
+        "year": "2019"
+      },
+      {
+        "title": "Jackson Pollock: Blind Spots",
+        "institution": "Dallas Museum of Art",
+        "year": "2015"
+      }
+    ]
+  },
+  {
+    "id": 11,
+
+    "name": "Edgar Degas",
+    "nationality": "French",
+    "born": "1834",
+    "died": "1917",
+    "description": "Edgar Degas, known for his paintings, sculptures, prints, and drawings, is celebrated for his depictions of dancers and everyday scenes. A leading figure of Impressionism, Degas explored movement and light, capturing moments with a sense of spontaneity and elegance. His works, such as 'The Dance Class' and 'L'Absinthe,' reflect his keen observation and technical prowess.",
+    "highAuctionRecord": {
+      "title": "Danseuse au repos",
+      "year": "2008",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$37.6 million"
+    },
+    "criticallyAcclaimed": "Renowned for his contributions to Impressionism and his innovative approach to composition and subject matter, Degas remains a pivotal figure in the history of art.",
+    "recentSoloShows": [
+      {
+        "title": "Degas: A Passion for Perfection",
+        "institution": "Fitzwilliam Museum, Cambridge",
+        "year": "2017"
+      },
+      {
+        "title": "Degas at the Opéra",
+        "institution": "Musée d'Orsay, Paris",
+        "year": "2019"
+      }
+    ]
+  },
+  {
+    "id": 12,
+
+    "name": "Paul Cézanne",
+    "nationality": "French",
+    "born": "1839",
+    "died": "1906",
+    "description": "Paul Cézanne, a post-Impressionist painter, is celebrated for his explorations of form, color, and perspective. His works, such as 'Mont Sainte-Victoire' and 'The Card Players,' laid the groundwork for Cubism and modern art. Cézanne's emphasis on geometric shapes and brushwork revolutionized artistic conventions and inspired generations of artists.",
+    "highAuctionRecord": {
+      "title": "The Card Players",
+      "year": "2011",
+      "auctionHouse": "Royal Family",
+      "salePrice": "$250 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his transformative impact on modern art and his pioneering role in the development of 20th-century painting, Cézanne's legacy endures as a cornerstone of artistic innovation.",
+    "recentSoloShows": [
+      {
+        "title": "Cézanne Portraits",
+        "institution": "National Portrait Gallery, London",
+        "year": "2017-2018"
+      },
+      {
+        "title": "Cézanne and the Modern: Masterpieces of European Art from the Pearlman Collection",
+        "institution": "Princeton University Art Museum",
+        "year": "2020"
+      }
+    ]
+  },
+  {
+    "id": 13,
+
+    "name": "Edvard Munch",
+    "nationality": "Norwegian",
+    "born": "1863",
+    "died": "1944",
+    "description": "Edvard Munch, a symbolist painter, is best known for his evocative works such as 'The Scream' and 'Madonna.' His exploration of psychological themes and intense use of color and symbolism marked him as a forerunner of Expressionism. Munch's art continues to resonate for its raw emotion and existential themes.",
+    "highAuctionRecord": {
+      "title": "The Scream",
+      "year": "2012",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$119.9 million"
+    },
+    "criticallyAcclaimed": "Highly regarded for his profound exploration of human psyche and his pioneering role in modern art movements, Munch remains a pivotal figure in art history.",
+    "recentSoloShows": [
+      {
+        "title": "Edvard Munch: Love and Angst",
+        "institution": "British Museum, London",
+        "year": "2019"
+      },
+      {
+        "title": "Edvard Munch: Between the Clock and the Bed",
+        "institution": "Metropolitan Museum of Art, New York",
+        "year": "2017-2018"
+      }
+    ]
+  },
+  {
+    "id": 14,
+
+    "name": "Georgia O'Keeffe",
+    "nationality": "American",
+    "born": "1887",
+    "died": "1986",
+    "description": "Georgia O'Keeffe, known for her distinctive style and bold compositions, is celebrated for her paintings of flowers, landscapes, and bones. A pioneer of American modernism, O'Keeffe's works, such as 'Jimson Weed' and 'Black Iris,' capture the essence of the American Southwest with a sense of intimacy and abstraction. Her art continues to inspire for its unique vision and artistic innovation.",
+    "highAuctionRecord": {
+      "title": "Jimson Weed/White Flower No. 1",
+      "year": "2014",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$44.4 million"
+    },
+    "criticallyAcclaimed": "Renowned for her contributions to American modernism and her pioneering role in abstract art, O'Keeffe's legacy endures as a symbol of female creativity and independence.",
+    "recentSoloShows": [
+      {
+        "title": "Georgia O'Keeffe: Living Modern",
+        "institution": "Brooklyn Museum, New York",
+        "year": "2017"
+      },
+      {
+        "title": "Georgia O'Keeffe and Ansel Adams: Natural Affinities",
+        "institution": "Smithsonian American Art Museum, Washington D.C.",
+        "year": "2018"
+      }
+    ]
+  },
+  {
+    "id": 15,
+
+    "name": "Gustav Klimt",
+    "nationality": "Austrian",
+    "born": "1862",
+    "died": "1918",
+    "description": "Gustav Klimt, a symbolist painter, is renowned for his decorative style and iconic portraits. His works, such as 'The Kiss' and 'Portrait of Adele Bloch-Bauer I,' epitomize the Vienna Secession movement with their ornate patterns and allegorical themes. Klimt's artistry continues to captivate for its sensuality and symbolic richness.",
+    "highAuctionRecord": {
+      "title": "Portrait of Adele Bloch-Bauer II",
+      "year": "2006",
+      "auctionHouse": "Christie's",
+      "salePrice": "$150 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his pioneering role in the Vienna Secession and his innovative approach to art and design, Klimt remains a pivotal figure in the history of modernism.",
+    "recentSoloShows": [
+      {
+        "title": "Gustav Klimt: The Immersive Experience",
+        "institution": "Atelier des Lumières, Paris",
+        "year": "2022"
+      },
+      {
+        "title": "Klimt and the Women of Vienna's Golden Age",
+        "institution": "Belvedere Palace, Vienna",
+        "year": "2018-2019"
+      }
+    ]
+  },
+  {
+    "id": 16,
+
+    "name": "Francisco Goya",
+    "nationality": "Spanish",
+    "born": "1746",
+    "died": "1828",
+    "description": "Francisco Goya, a pioneering Romantic painter, is known for his dramatic and provocative works. His paintings, such as 'The Third of May 1808' and 'Saturn Devouring His Son,' reflect his keen observation of human suffering and political turmoil. Goya's art spans various genres, from portraits to allegorical scenes, showcasing his versatility and bold vision.",
+    "highAuctionRecord": {
+      "title": "Portrait of the Duke of Wellington",
+      "year": "2012",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$26.7 million"
+    },
+    "criticallyAcclaimed": "Renowned for his penetrating insight into human nature and his profound impact on Romanticism and modern art, Goya's legacy remains influential across centuries.",
+    "recentSoloShows": [
+      {
+        "title": "Goya: The Portraits",
+        "institution": "National Gallery, London",
+        "year": "2015"
+      },
+      {
+        "title": "Goya: Order and Disorder",
+        "institution": "Museum of Fine Arts, Boston",
+        "year": "2014"
+      }
+    ]
+  },
+  {
+    "id": 17,
+
+    "name": "Caravaggio",
+    "nationality": "Italian",
+    "born": "1571",
+    "died": "1610",
+    "description": "Caravaggio, born Michelangelo Merisi da Caravaggio, was a Baroque painter known for his revolutionary approach to art. His works, such as 'The Calling of Saint Matthew' and 'The Conversion of Saint Paul,' are characterized by their dramatic use of light and shadow, creating a sense of realism and emotional intensity. Caravaggio's influence on Baroque painting remains profound and enduring.",
+    "highAuctionRecord": {
+      "title": "Judith Beheading Holofernes",
+      "year": "2019",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$118 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his innovative use of chiaroscuro and his profound impact on Baroque art, Caravaggio's legacy endures as a defining figure of the Italian Renaissance.",
+    "recentSoloShows": [
+      {
+        "title": "Caravaggio: The Complete Works",
+        "institution": "Museo Nacional del Prado, Madrid",
+        "year": "2016"
+      },
+      {
+        "title": "Caravaggio and His Followers",
+        "institution": "The Metropolitan Museum of Art, New York",
+        "year": "2018"
+      }
+    ]
+  },
+  {
+    "id": 18,
+
+    "name": "Pierre-Auguste Renoir",
+    "nationality": "French",
+    "born": "1841",
+    "died": "1919",
+    "description": "Pierre-Auguste Renoir, a leading figure of Impressionism, is celebrated for his vibrant depictions of modern life and feminine beauty. His works, such as 'Luncheon of the Boating Party' and 'Dance at Le Moulin de la Galette,' capture the joy and spontaneity of everyday scenes with a luminous palette and fluid brushwork. Renoir's art continues to enchant for its sensual charm and artistic innovation.",
+    "highAuctionRecord": {
+      "title": "Bal du moulin de la Galette",
+      "year": "1990",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$78.1 million"
+    },
+    "criticallyAcclaimed": "Renowned for his contributions to Impressionism and his mastery of color and light, Renoir remains a pivotal figure in the history of modern art.",
+    "recentSoloShows": [
+      {
+        "title": "Renoir: Father and Son/Painting and Cinema",
+        "institution": "Musée d'Orsay, Paris",
+        "year": "2018-2019"
+      },
+      {
+        "title": "Renoir and Friends: Luncheon of the Boating Party",
+        "institution": "The Phillips Collection, Washington D.C.",
+        "year": "2017"
+      }
+    ]
+  },
+  {
+    "id": 19,
+
+    "name": "Andy Warhol",
+    "nationality": "American",
+    "born": "1928",
+    "died": "1987",
+    "description": "Andy Warhol, a leading figure in the Pop Art movement, is celebrated for his iconic portraits and images of consumer culture. His works, such as 'Campbell's Soup Cans' and 'Marilyn Diptych,' challenge traditional notions of art and celebrity. Warhol's use of mass production techniques and bold imagery revolutionized contemporary art and culture.",
+    "highAuctionRecord": {
+      "title": "Silver Car Crash (Double Disaster)",
+      "year": "2013",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$105.4 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his exploration of fame, consumerism, and the mass media, Warhol's influence on contemporary art and culture remains pervasive.",
+    "recentSoloShows": [
+      {
+        "title": "Warhol's Nature",
+        "institution": "The Andy Warhol Museum, Pittsburgh",
+        "year": "2023"
+      },
+      {
+        "title": "Andy Warhol—From A to B and Back Again",
+        "institution": "Whitney Museum of American Art, New York",
+        "year": "2018-2019"
+      }
+    ]
+  },
+  {
+    "id": 20,
+
+    "name": "Frida Kahlo",
+    "nationality": "Mexican",
+    "born": "1907",
+    "died": "1954",
+    "description": "Frida Kahlo, a pioneering Mexican artist, is celebrated for her self-portraits and works inspired by Mexican culture and folklore. Her paintings, such as 'The Two Fridas' and 'Self-Portrait with Thorn Necklace and Hummingbird,' explore themes of identity, pain, and resilience. Kahlo's bold use of color and symbolic imagery continues to inspire audiences worldwide.",
+    "highAuctionRecord": {
+      "title": "Diego y yo",
+      "year": "2016",
+      "auctionHouse": "Christie's",
+      "salePrice": "$34.9 million"
+    },
+    "criticallyAcclaimed": "Renowned for her unique voice and her portrayal of Mexican identity and feminist themes, Kahlo remains an icon of 20th-century art and culture.",
+    "recentSoloShows": [
+      {
+        "title": "Frida Kahlo: Making Her Self Up",
+        "institution": "Victoria and Albert Museum, London",
+        "year": "2018"
+      },
+      {
+        "title": "Frida Kahlo: Her Photos",
+        "institution": "Casa Azul, Mexico City",
+        "year": "2019"
+      }
+    ]
+  },
+  {
+    "id": 21,
+
+    "name": "Henri de Toulouse-Lautrec",
+    "nationality": "French",
+    "born": "1864",
+    "died": "1901",
+    "description": "Henri de Toulouse-Lautrec, known for his paintings, prints, and posters, captured the bohemian life of late 19th-century Paris. His works, such as 'Moulin Rouge: La Goulue' and 'At the Moulin Rouge,' depict the vibrant nightlife and personalities of Montmartre. Toulouse-Lautrec's distinctive style and portrayal of marginalized communities have made him a seminal figure in the history of modern art.",
+    "highAuctionRecord": {
+      "title": "Au Lit: Le Baiser",
+      "year": "2005",
+      "auctionHouse": "Christie's",
+      "salePrice": "$22.4 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his innovative use of color and composition, as well as his insightful portrayal of Parisian nightlife, Toulouse-Lautrec's legacy continues to influence artists and cultural historians.",
+    "recentSoloShows": [
+      {
+        "title": "Toulouse-Lautrec and the Stars of Paris",
+        "institution": "Museum of Fine Arts, Boston",
+        "year": "2023"
+      },
+      {
+        "title": "Henri de Toulouse-Lautrec: The Chaplin of Montmartre",
+        "institution": "Victoria and Albert Museum, London",
+        "year": "2019"
+      }
+    ]
+  },
+  {
+    "id": 22,
+
+    "name": "Titian",
+    "nationality": "Italian",
+    "born": "1488",
+    "died": "1576",
+    "description": "Titian, born Tiziano Vecellio, was a leading figure of the Venetian Renaissance known for his mastery of color and composition. His works, such as 'Venus of Urbino' and 'Assumption of the Virgin,' exemplify his ability to depict mythological themes and religious subjects with a rich palette and dynamic brushwork. Titian's influence on European art was profound and enduring.",
+    "highAuctionRecord": {
+      "title": "Diana and Actaeon",
+      "year": "2009",
+      "auctionHouse": "Private Sale",
+      "salePrice": "$70 million"
+    },
+    "criticallyAcclaimed": "Renowned for his contributions to Renaissance art and his pioneering use of color and brushwork, Titian remains a cornerstone of Italian painting and a source of inspiration for generations of artists.",
+    "recentSoloShows": [
+      {
+        "title": "Titian: Love, Desire, Death",
+        "institution": "National Gallery, London",
+        "year": "2020-2021"
+      },
+      {
+        "title": "Titian and the Renaissance in Venice",
+        "institution": "Gemäldegalerie Alte Meister, Dresden",
+        "year": "2019-2020"
+      }
+    ]
+  },
+  {
+    "id": 23,
+
+    "name": "Sandro Botticelli",
+    "nationality": "Italian",
+    "born": "1445",
+    "died": "1510",
+    "description": "Sandro Botticelli, a Florentine painter of the Early Renaissance, is celebrated for his graceful and ethereal style. His works, such as 'The Birth of Venus' and 'Primavera,' exemplify his use of mythological themes and allegorical figures. Botticelli's artistry, characterized by delicate lines and harmonious compositions, continues to captivate audiences for its beauty and symbolism.",
+    "highAuctionRecord": {
+      "title": "Madonna and Child with Young Saint John the Baptist",
+      "year": "2013",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$10.4 million"
+    },
+    "criticallyAcclaimed": "Highly regarded for his contributions to Renaissance art and his poetic interpretations of classical mythology, Botticelli's legacy endures as a testament to the artistic ideals of his time.",
+    "recentSoloShows": [
+      {
+        "title": "Botticelli Reimagined",
+        "institution": "Victoria and Albert Museum, London",
+        "year": "2016"
+      },
+      {
+        "title": "Botticelli and the Search for the Divine",
+        "institution": "Museum of Fine Arts, Boston",
+        "year": "2017-2018"
+      }
+    ]
+  },
+  {
+    "id": 24,
+
+    "name": "Diego Velázquez",
+    "nationality": "Spanish",
+    "born": "1599",
+    "died": "1660",
+    "description": "Diego Velázquez, a Baroque painter, is renowned for his portraits and his role as court painter to King Philip IV of Spain. His works, such as 'Las Meninas' and 'The Surrender of Breda,' are celebrated for their realism and psychological depth. Velázquez's innovative use of brushwork and composition influenced generations of artists and established him as a master of Spanish painting.",
+    "highAuctionRecord": {
+      "title": "Portrait of Pope Innocent X",
+      "year": "2016",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$70 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his profound insight into human character and his technical virtuosity, Velázquez remains one of the greatest painters of the Spanish Golden Age and a pivotal figure in European art history.",
+    "recentSoloShows": [
+      {
+        "title": "Velázquez Portraits: Truth in Painting",
+        "institution": "National Gallery, London",
+        "year": "2019"
+      },
+      {
+        "title": "Velázquez and the Celebration of Painting: The Golden Age in the Museo del Prado",
+        "institution": "Museo del Prado, Madrid",
+        "year": "2020-2021"
+      }
+    ]
+  },
+  {
+    "id": 25,
+
+    "name": "John Singer Sargent",
+    "nationality": "American",
+    "born": "1856",
+    "died": "1925",
+    "description": "John Singer Sargent, an American expatriate painter, is celebrated for his portraits and landscapes. His works, such as 'Madame X' and 'The Daughters of Edward Darley Boit,' showcase his mastery of brushwork and keen observation of light and color. Sargent's portraits of the aristocracy and his evocative landscapes have made him one of the most admired portraitists of his time.",
+    "highAuctionRecord": {
+      "title": "Portrait of Madame X",
+      "year": "2004",
+      "auctionHouse": "Christie's",
+      "salePrice": "$23.5 million"
+    },
+    "criticallyAcclaimed": "Renowned for his technical skill and his ability to capture the personality and elegance of his subjects, Sargent remains a pivotal figure in the history of American art.",
+    "recentSoloShows": [
+      {
+        "title": "Sargent: Portraits of Artists and Friends",
+        "institution": "The Metropolitan Museum of Art, New York",
+        "year": "2015"
+      },
+      {
+        "title": "Sargent: The Watercolors",
+        "institution": "Museum of Fine Arts, Boston",
+        "year": "2014-2015"
+      }
+    ]
+  },
+  {
+    "id": 26,
+
+    "name": "Hieronymus Bosch",
+    "nationality": "Dutch",
+    "born": "1450",
+    "died": "1516",
+    "description": "Hieronymus Bosch, a Dutch painter of the Early Netherlandish period, is known for his fantastical and allegorical works. His paintings, such as 'The Garden of Earthly Delights' and 'The Last Judgment,' depict surreal landscapes populated by bizarre creatures and moralistic themes. Bosch's art, with its intricate detail and symbolic complexity, continues to fascinate and perplex viewers.",
+    "highAuctionRecord": {
+      "title": "The Temptation of St. Anthony",
+      "year": "2014",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$60 million"
+    },
+    "criticallyAcclaimed": "Highly regarded for his imaginative vision and his exploration of sin, redemption, and human folly, Bosch remains an enigmatic figure in the history of art.",
+    "recentSoloShows": [
+      {
+        "title": "Bosch: The Centenary Exhibition",
+        "institution": "Noordbrabants Museum, Netherlands",
+        "year": "2016"
+      },
+      {
+        "title": "Hieronymus Bosch: Visions of Genius",
+        "institution": "Palazzo Ducale, Venice",
+        "year": "2017"
+      }
+    ]
+  },
+  {
+    "id": 27,
+
+    "name": "Marc Chagall",
+    "nationality": "Russian-French",
+    "born": "1887",
+    "died": "1985",
+    "description": "Marc Chagall, a Russian-French artist, is celebrated for his dreamlike paintings and stained glass windows. His works, such as 'I and the Village' and 'The Fiddler,' blend elements of folklore, religion, and personal symbolism. Chagall's use of vibrant colors and poetic imagery reflects his unique perspective on love, exile, and Jewish identity.",
+    "highAuctionRecord": {
+      "title": "Les Amoureux (The Lovers)",
+      "year": "2017",
+      "auctionHouse": "Christie's",
+      "salePrice": "$28.5 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his lyrical style and his ability to evoke emotion through color and form, Chagall remains one of the most distinctive voices in 20th-century art.",
+    "recentSoloShows": [
+      {
+        "title": "Chagall: Colour and Music",
+        "institution": "Montreal Museum of Fine Arts",
+        "year": "2017-2018"
+      },
+      {
+        "title": "Marc Chagall: The Breakthrough Years, 1911-1919",
+        "institution": "Guggenheim Museum, New York",
+        "year": "2016"
+      }
+    ]
+  },
+  {
+    "id": 28,
+
+    "name": "Peter Paul Rubens",
+    "nationality": "Flemish",
+    "born": "1577",
+    "died": "1640",
+    "description": "Peter Paul Rubens, a Flemish Baroque painter, is celebrated for his dynamic compositions and dramatic use of color. His works, such as 'The Garden of Love' and 'The Descent from the Cross,' showcase his ability to depict mythological scenes, religious subjects, and portraits with a sense of movement and emotion. Rubens's influence on European art was vast and enduring.",
+    "highAuctionRecord": {
+      "title": "Massacre of the Innocents",
+      "year": "2002",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$76.7 million"
+    },
+    "criticallyAcclaimed": "Renowned for his technical skill and his ability to convey drama and emotion, Rubens remains one of the greatest painters of the Baroque period and a key figure in the history of Flemish art.",
+    "recentSoloShows": [
+      {
+        "title": "Rubens: The Power of Transformation",
+        "institution": "Royal Museum of Fine Arts, Antwerp",
+        "year": "2018"
+      },
+      {
+        "title": "Rubens and His Legacy: Van Dyck to Cézanne",
+        "institution": "Royal Academy of Arts, London",
+        "year": "2015-2016"
+      }
+    ]
+  },
+  {
+    "id": 29,
+
+    "name": "Eugène Delacroix",
+    "nationality": "French",
+    "born": "1798",
+    "died": "1863",
+    "description": "Eugène Delacroix, a leading French Romantic painter, is celebrated for his vibrant use of color and his dramatic compositions. His works, such as 'Liberty Leading the People' and 'The Death of Sardanapalus,' reflect his interest in historical and exotic subjects. Delacroix's expressive brushwork and emotive imagery had a profound impact on the Romantic movement and later generations of artists.",
+    "highAuctionRecord": {
+      "title": "The Massacre at Chios",
+      "year": "2019",
+      "auctionHouse": "Christie's",
+      "salePrice": "$36 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his bold approach to painting and his exploration of passion and political themes, Delacroix remains a pivotal figure in the history of French art and Romanticism.",
+    "recentSoloShows": [
+      {
+        "title": "Delacroix",
+        "institution": "Musée du Louvre, Paris",
+        "year": "2018-2019"
+      },
+      {
+        "title": "Delacroix and the Rise of Modern Art",
+        "institution": "National Gallery, London",
+        "year": "2016"
+      }
+    ]
+  },
+  {
+    "id": 30,
+
+    "name": "Gustave Courbet",
+    "nationality": "French",
+    "born": "1819",
+    "died": "1877",
+    "description": "Gustave Courbet, a French Realist painter, is celebrated for his bold rejection of academic conventions and his focus on everyday life. His works, such as 'The Stone Breakers' and 'A Burial at Ornans,' challenge traditional notions of beauty and subject matter. Courbet's commitment to portraying reality with honesty and sincerity marked a turning point in the history of modern art.",
+    "highAuctionRecord": {
+      "title": "L'Atelier du peintre: Allégorie réelle déterminant une phase de sept années de ma vie artistique et morale",
+      "year": "2018",
+      "auctionHouse": "Christie's",
+      "salePrice": "$33.4 million"
+    },
+    "criticallyAcclaimed": "Renowned for his pioneering approach to realism and his influence on the development of modern art, Courbet remains a key figure in the history of 19th-century French painting.",
+    "recentSoloShows": [
+      {
+        "title": "Courbet and the Modern Landscape",
+        "institution": "Musée d'Orsay, Paris",
+        "year": "2019"
+      },
+      {
+        "title": "Gustave Courbet: A New Vision",
+        "institution": "The Metropolitan Museum of Art, New York",
+        "year": "2018-2019"
+      }
+    ]
+  },
+  {
+    "id": 31,
+
+    "name": "Édouard Manet",
+    "nationality": "French",
+    "born": "1832",
+    "died": "1883",
+    "description": "Édouard Manet, a pivotal figure in the transition from Realism to Impressionism, is known for his innovative style and provocative subject matter. His works, such as 'Olympia' and 'Le Déjeuner sur l'herbe,' challenged academic conventions and sparked controversy in the art world. Manet's bold use of brushwork and composition had a profound impact on modern art.",
+    "highAuctionRecord": {
+      "title": "Le Printemps",
+      "year": "2014",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$65.1 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his role in shaping modern art and his influence on subsequent movements, Manet remains a seminal figure in the history of French painting.",
+    "recentSoloShows": [
+      {
+        "title": "Manet: Portraying Life",
+        "institution": "Royal Academy of Arts, London",
+        "year": "2013"
+      },
+      {
+        "title": "Manet and Modern Beauty",
+        "institution": "Art Institute of Chicago",
+        "year": "2019"
+      }
+    ]
+  },
+  {
+    "id": 32,
+
+    "name": "Georges Seurat",
+    "nationality": "French",
+    "born": "1859",
+    "died": "1891",
+    "description": "Georges Seurat, a Post-Impressionist painter, is renowned for developing the technique of Pointillism. His masterpiece 'A Sunday Afternoon on the Island of La Grande Jatte' exemplifies his meticulous approach to color and light. Seurat's scientific approach to painting and his exploration of optics influenced the development of modern art.",
+    "highAuctionRecord": {
+      "title": "Le Chahut",
+      "year": "1990",
+      "auctionHouse": "Christie's",
+      "salePrice": "$35.2 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his innovative use of color and his contributions to the theory of art, Seurat remains a key figure in the history of 19th-century painting.",
+    "recentSoloShows": [
+      {
+        "title": "Georges Seurat: The Drawings",
+        "institution": "The Metropolitan Museum of Art, New York",
+        "year": "2007"
+      },
+      {
+        "title": "Seurat's Circus Sideshow",
+        "institution": "The Art Institute of Chicago",
+        "year": "2017-2018"
+      }
+    ]
+  },
+  {
+    "id": 33,
+
+    "name": "Paul Gauguin",
+    "nationality": "French",
+    "born": "1848",
+    "died": "1903",
+    "description": "Paul Gauguin, a Post-Impressionist painter, is known for his bold use of color and his exploration of exotic subjects. His works, such as 'Tahitian Women on the Beach' and 'Where Do We Come From? What Are We? Where Are We Going?,' reflect his quest for authenticity and spiritual meaning. Gauguin's art, with its vivid palette and simplified forms, inspired the Symbolist and Fauvist movements.",
+    "highAuctionRecord": {
+      "title": "Nafea Faa Ipoipo (When Will You Marry?)",
+      "year": "2015",
+      "auctionHouse": "Private Sale",
+      "salePrice": "$210 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his contributions to modern art and his exploration of cultural identity, Gauguin remains a controversial and influential figure in art history.",
+    "recentSoloShows": [
+      {
+        "title": "Gauguin: Maker of Myth",
+        "institution": "Tate Modern, London",
+        "year": "2010"
+      },
+      {
+        "title": "Gauguin: Metamorphoses",
+        "institution": "Museum of Modern Art, New York",
+        "year": "2014-2015"
+      }
+    ]
+  },
+  {
+    "id": 34,
+
+    "name": "Amedeo Modigliani",
+    "nationality": "Italian",
+    "born": "1884",
+    "died": "1920",
+    "description": "Amedeo Modigliani, known for his distinctive portraits and sculptures, is celebrated for his elongated figures and emotive expressions. His works, such as 'Reclining Nude' and 'Portrait of Jeanne Hébuterne,' capture a sense of melancholy and grace. Modigliani's style, influenced by African and ancient art, contributed to the development of modernism in the early 20th century.",
+    "highAuctionRecord": {
+      "title": "Nu couché (sur le côté gauche)",
+      "year": "2018",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$157.2 million"
+    },
+    "criticallyAcclaimed": "Renowned for his innovative approach to portraiture and his exploration of form and emotion, Modigliani remains a beloved figure in the history of modern art.",
+    "recentSoloShows": [
+      {
+        "title": "Modigliani Unmasked",
+        "institution": "The Jewish Museum, New York",
+        "year": "2017-2018"
+      },
+      {
+        "title": "Modigliani: Beyond the Myth",
+        "institution": "Tate Modern, London",
+        "year": "2018"
+      }
+    ]
+  },
+  {
+    "id": 35,
+
+    "name": "Camille Pissarro",
+    "nationality": "Danish-French",
+    "born": "1830",
+    "died": "1903",
+    "description": "Camille Pissarro, a key figure in Impressionism and Post-Impressionism, is known for his landscapes and urban scenes. His works, such as 'The Boulevard Montmartre at Night' and 'The Côte des Bœufs at L'Hermitage,' capture the changing effects of light and atmosphere. Pissarro's dedication to plein air painting and his role as a mentor influenced artists such as Cézanne and Gauguin.",
+    "highAuctionRecord": {
+      "title": "Boulevard Montmartre, matinée de printemps",
+      "year": "2021",
+      "auctionHouse": "Christie's",
+      "salePrice": "$23.3 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his contributions to Impressionism and his commitment to capturing the essence of nature, Pissarro remains a central figure in the development of modern art.",
+    "recentSoloShows": [
+      {
+        "title": "Pissarro's People",
+        "institution": "Fine Arts Museums of San Francisco",
+        "year": "2017-2018"
+      },
+      {
+        "title": "Camille Pissarro: Impressions of City and Country",
+        "institution": "Museum Barberini, Potsdam",
+        "year": "2020-2021"
+      }
+    ]
+  },
+  {
+    "id": 36,
+
+    "name": "Joan Miró",
+    "nationality": "Spanish",
+    "born": "1893",
+    "died": "1983",
+    "description": "Joan Miró, a Catalan painter, sculptor, and ceramicist, is known for his Surrealist and abstract works. His paintings, such as 'The Tilled Field' and 'The Birth of the World,' are characterized by biomorphic shapes and vibrant colors. Miró's playful approach to art and his exploration of the subconscious have had a lasting impact on modern art.",
+    "highAuctionRecord": {
+      "title": "Painting Poem",
+      "year": "2012",
+      "auctionHouse": "Christie's",
+      "salePrice": "$36.9 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his inventive use of symbols and his ability to evoke a sense of wonder, Miró remains one of the most influential artists of the 20th century.",
+    "recentSoloShows": [
+      {
+        "title": "Miró: The Experience of Seeing",
+        "institution": "Louisiana Museum of Modern Art, Denmark",
+        "year": "2023"
+      },
+      {
+        "title": "Joan Miró: Painting and Anti-Painting 1927-1937",
+        "institution": "Fundació Joan Miró, Barcelona",
+        "year": "2015-2016"
+      }
+    ]
+  },
+  {
+    "id": 37,
+
+    "name": "Willem de Kooning",
+    "nationality": "Dutch-American",
+    "born": "1904",
+    "died": "1997",
+    "description": "Willem de Kooning, a Dutch-American abstract expressionist painter, is known for his dynamic and gestural style. His works, such as 'Woman I' and 'Excavation,' explore themes of sexuality, identity, and the human condition. De Kooning's bold use of color and brushwork challenged traditional notions of art and influenced the New York School of painters.",
+    "highAuctionRecord": {
+      "title": "Untitled XXV",
+      "year": "2013",
+      "auctionHouse": "Christie's",
+      "salePrice": "$66.3 million"
+    },
+    "criticallyAcclaimed": "Renowned for his contributions to abstract expressionism and his exploration of the human figure, de Kooning remains a central figure in 20th-century American art.",
+    "recentSoloShows": [
+      {
+        "title": "Willem de Kooning: The Late Paintings, the 1980s",
+        "institution": "Museum of Modern Art, New York",
+        "year": "2011"
+      },
+      {
+        "title": "De Kooning: A Retrospective",
+        "institution": "Tate Modern, London",
+        "year": "2015-2016"
+      }
+    ]
+  },
+  {
+    "id": 38,
+
+    "name": "Balthus",
+    "nationality": "French",
+    "born": "1908",
+    "died": "2001",
+    "description": "Balthus, a Polish-French painter, is known for his enigmatic and provocative paintings. His works, such as 'The Street' and 'The Room,' often feature adolescent figures in ambiguous and unsettling settings. Balthus's meticulous technique and psychological depth have made him a controversial yet influential figure in 20th-century art.",
+    "highAuctionRecord": {
+      "title": "Thérèse sur une banquette",
+      "year": "2018",
+      "auctionHouse": "Christie's",
+      "salePrice": "$19 million"
+    },
+    "criticallyAcclaimed": "Acclaimed for his mastery of composition and his exploration of the subconscious, Balthus remains a captivating and polarizing artist in the history of modern painting.",
+    "recentSoloShows": [
+      {
+        "title": "Balthus: Cats and Girls",
+        "institution": "The Metropolitan Museum of Art, New York",
+        "year": "2013-2014"
+      },
+      {
+        "title": "Balthus: A Retrospective",
+        "institution": "Musée d'Art Moderne de la Ville de Paris",
+        "year": "2016"
+      }
+    ]
+  },
+  {
+    "id": 39,
+
+    "name": "Jean-Michel Basquiat",
+    "nationality": "American",
+    "born": "1960",
+    "died": "1988",
+    "description": "Jean-Michel Basquiat, an American artist of Haitian and Puerto Rican descent, emerged as a leading figure in the New York City art scene of the 1980s. His works, such as 'Untitled' and 'Irony of Negro Policeman,' blend graffiti with painting and express themes of race, identity, and social commentary. Basquiat's raw energy and expressive style continue to resonate with audiences worldwide.",
+    "highAuctionRecord": {
+      "title": "Untitled",
+      "year": "2017",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$110.5 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his fusion of street art and fine art and his exploration of African-American identity, Basquiat remains a seminal figure in contemporary art.",
+    "recentSoloShows": [
+      {
+        "title": "Jean-Michel Basquiat: Now's the Time",
+        "institution": "Art Gallery of Ontario, Toronto",
+        "year": "2015"
+      },
+      {
+        "title": "Basquiat: Boom for Real",
+        "institution": "Barbican Art Gallery, London",
+        "year": "2017"
+      }
+    ]
+  },
+  {
+    "id": 40,
+
+    "name": "Giotto di Bondone",
+    "nationality": "Italian",
+    "born": "1266",
+    "died": "1337",
+    "description": "Giotto di Bondone, an Italian painter and architect, is considered one of the pioneers of the Renaissance art movement. His frescoes, such as those in the Scrovegni Chapel in Padua and the Basilica of Saint Francis of Assisi, marked a significant departure from the Byzantine style of painting. Giotto's emphasis on naturalism and three-dimensional space had a profound impact on the development of Western art.",
+    "highAuctionRecord": {
+      "title": "Scenes from the Life of Christ",
+      "year": "2006",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$11.5 million"
+    },
+    "criticallyAcclaimed": "Renowned for his role in reviving classical ideals and his influence on the Italian Renaissance, Giotto remains a pivotal figure in the history of art.",
+    "recentSoloShows": [
+      {
+        "title": "Giotto: The Renaissance Master",
+        "institution": "Uffizi Gallery, Florence",
+        "year": "2019"
+      },
+      {
+        "title": "Giotto and His Legacy",
+        "institution": "National Gallery of Art, Washington D.C.",
+        "year": "2022"
+      }
+    ]
+  },
+  {
+    "id": 41,
+
+    "name": "Paul Klee",
+    "nationality": "Swiss-German",
+    "born": "1879",
+    "died": "1940",
+    "description": "Paul Klee, a Swiss-German painter, is known for his unique style that blends abstraction, cubism, and surrealism. His works, such as 'Senecio' and 'Castle and Sun,' explore color theory and geometric forms. Klee's playful and poetic approach to art influenced generations of artists and remains highly influential in modern art.",
+    "highAuctionRecord": {
+      "title": "Castle and Sun",
+      "year": "2019",
+      "auctionHouse": "Christie's",
+      "salePrice": "$39.4 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his innovative use of color and form, Klee is regarded as one of the pioneers of abstract art and a key figure in the Bauhaus movement.",
+    "recentSoloShows": [
+      {
+        "title": "Paul Klee: Making Visible",
+        "institution": "Tate Modern, London",
+        "year": "2013"
+      },
+      {
+        "title": "Paul Klee: Bauhaus Master",
+        "institution": "Whitney Museum of American Art, New York",
+        "year": "2017"
+      }
+    ]
+  },
+  {
+    "id": 42,
+
+    "name": "Max Ernst",
+    "nationality": "German-French",
+    "born": "1891",
+    "died": "1976",
+    "description": "Max Ernst, a German-French painter and sculptor, is known for his surrealistic and Dadaist works. His paintings, such as 'The Elephant Celebes' and 'Europe After the Rain,' explore the subconscious and dreamlike imagery. Ernst's innovative techniques, such as frottage and grattage, pushed the boundaries of traditional art forms.",
+    "highAuctionRecord": {
+      "title": "The Stolen Mirror",
+      "year": "2017",
+      "auctionHouse": "Christie's",
+      "salePrice": "$16.3 million"
+    },
+    "criticallyAcclaimed": "Renowned for his contributions to surrealism and his experimentation with artistic techniques, Ernst remains a significant figure in 20th-century art.",
+    "recentSoloShows": [
+      {
+        "title": "Max Ernst: Beyond Painting",
+        "institution": "Museum of Modern Art, New York",
+        "year": "2005"
+      },
+      {
+        "title": "Max Ernst: An Invitation to Look at the Landscapes",
+        "institution": "Centre Pompidou, Paris",
+        "year": "2018-2019"
+      }
+    ]
+  },
+  {
+    "id": 43,
+
+    "name": "Mark Rothko",
+    "nationality": "American",
+    "born": "1903",
+    "died": "1970",
+    "description": "Mark Rothko, an American abstract expressionist painter, is known for his large-scale color field paintings. His works, such as 'No. 14' and 'Untitled (Black on Grey),' evoke spiritual and emotional responses through the use of simplified forms and vibrant colors. Rothko's exploration of color and form continues to inspire contemplation and introspection.",
+    "highAuctionRecord": {
+      "title": "Orange, Red, Yellow",
+      "year": "2012",
+      "auctionHouse": "Christie's",
+      "salePrice": "$86.9 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his contribution to abstract expressionism and his mastery of color, Rothko remains one of the most influential painters of the 20th century.",
+    "recentSoloShows": [
+      {
+        "title": "Mark Rothko: The Decisive Decade 1940-1950",
+        "institution": "National Gallery of Art, Washington D.C.",
+        "year": "2016"
+      },
+      {
+        "title": "Rothko: The Color Field Paintings",
+        "institution": "Tate Modern, London",
+        "year": "2020-2021"
+      }
+    ]
+  },
+  {
+    "id": 44,
+
+    "name": "Piet Mondrian",
+    "nationality": "Dutch",
+    "born": "1872",
+    "died": "1944",
+    "description": "Piet Mondrian, a Dutch painter and theoretician, is known for his abstract geometric paintings characterized by grids of black lines and primary colors. His works, such as 'Composition II in Red, Blue, and Yellow' and 'Broadway Boogie Woogie,' embody his vision of universal harmony and balance. Mondrian's style, known as neoplasticism, has had a profound influence on modern art and design.",
+    "highAuctionRecord": {
+      "title": "Composition No. III with Red, Blue, Yellow, and Black",
+      "year": "2020",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$50.6 million"
+    },
+    "criticallyAcclaimed": "Renowned for his pioneering role in abstract art and his pursuit of visual purity, Mondrian remains a seminal figure in the development of modernism.",
+    "recentSoloShows": [
+      {
+        "title": "Mondrian and De Stijl",
+        "institution": "Museum of Modern Art, New York",
+        "year": "2009"
+      },
+      {
+        "title": "Piet Mondrian: The Studios",
+        "institution": "Tate Liverpool",
+        "year": "2014-2015"
+      }
+    ]
+  },
+  {
+    "id": 45,
+
+    "name": "René Magritte",
+    "nationality": "Belgian",
+    "born": "1898",
+    "died": "1967",
+    "description": "René Magritte, a Belgian surrealist artist, is known for his thought-provoking paintings that challenge the viewer's perception of reality. His works, such as 'The Son of Man' and 'The Treachery of Images,' explore themes of identity, language, and representation. Magritte's use of juxtaposition and visual puns continues to fascinate and influence artists and audiences alike.",
+    "highAuctionRecord": {
+      "title": "Le Principe du Plaisir",
+      "year": "2018",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$26.8 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his surrealistic imagery and philosophical approach to art, Magritte remains one of the most renowned figures in 20th-century painting.",
+    "recentSoloShows": [
+      {
+        "title": "Magritte: The Mystery of the Ordinary, 1926-1938",
+        "institution": "The Art Institute of Chicago",
+        "year": "2014-2015"
+      },
+      {
+        "title": "René Magritte: The Fifth Season",
+        "institution": "San Francisco Museum of Modern Art",
+        "year": "2018-2019"
+      }
+    ]
+  },
+  {
+    "id": 46,
+
+    "name": "David Hockney",
+    "nationality": "British",
+    "born": "1937",
+    "description": "David Hockney, a British painter, printmaker, and stage designer, is known for his vibrant and colorful works depicting landscapes, portraits, and pool scenes. His paintings, such as 'A Bigger Splash' and 'Portrait of an Artist (Pool with Two Figures),' capture a sense of space and light with a playful use of perspective. Hockney's exploration of technology in art, such as iPad drawings, reflects his ongoing experimentation and innovation.",
+    "highAuctionRecord": {
+      "title": "Portrait of an Artist (Pool with Two Figures)",
+      "year": "2018",
+      "auctionHouse": "Christie's",
+      "salePrice": "$90.3 million"
+    },
+    "criticallyAcclaimed": "Renowned for his versatility and pioneering spirit, Hockney remains one of the most influential British artists of the 20th and 21st centuries.",
+    "recentSoloShows": [
+      {
+        "title": "David Hockney: A Bigger Exhibition",
+        "institution": "de Young Museum, San Francisco",
+        "year": "2013-2014"
+      },
+      {
+        "title": "David Hockney: 82 Portraits and 1 Still-life",
+        "institution": "Guggenheim Museum Bilbao",
+        "year": "2017-2018"
+      }
+    ]
+  },
+  {
+    "id": 47,
+
+    "name": "Edward Hopper",
+    "nationality": "American",
+    "born": "1882",
+    "died": "1967",
+    "description": "Edward Hopper, an American realist painter, is known for his iconic representations of modern American life. His works, such as 'Nighthawks' and 'Morning Sun,' capture moments of quietude and introspection in urban and rural settings. Hopper's use of light and shadow and his ability to evoke mood have made him one of the most recognizable and influential American artists of the 20th century.",
+    "highAuctionRecord": {
+      "title": "Chop Suey",
+      "year": "2018",
+      "auctionHouse": "Christie's",
+      "salePrice": "$91.9 million"
+    },
+    "criticallyAcclaimed": "Celebrated for his evocative portrayals of modern life and his mastery of atmosphere, Hopper remains a defining figure in American realism.",
+    "recentSoloShows": [
+      {
+        "title": "Edward Hopper and the American Hotel",
+        "institution": "Virginia Museum of Fine Arts",
+        "year": "2019-2020"
+      },
+      {
+        "title": "Edward Hopper: A Fresh Look on Landscape",
+        "institution": "Museum Frieder Burda, Baden-Baden",
+        "year": "2022"
+      }
+    ]
+  },
+  {
+    "id": 48,
+
+    "name": "Francis Bacon",
+    "nationality": "British-Irish",
+    "born": "1909",
+    "died": "1992",
+    "description": "Francis Bacon, a British-Irish painter, is known for his emotionally charged and raw imagery. His paintings, such as 'Three Studies for Figures at the Base of a Crucifixion' and 'Study after Velázquez's Portrait of Pope Innocent X,' explore themes of existential angst and human frailty. Bacon's bold use of color and distorted forms have made him one of the most important painters of the 20th century.",
+    "highAuctionRecord": {
+      "title": "Three Studies of Lucian Freud",
+      "year": "2013",
+      "auctionHouse": "Christie's",
+      "salePrice": "$142.4 million"
+    },
+    "criticallyAcclaimed": "Renowned for his visceral and provocative approach to figurative painting, Bacon remains a towering figure in contemporary art.",
+    "recentSoloShows": [
+      {
+        "title": "Francis Bacon: Invisible Rooms",
+        "institution": "Tate Liverpool",
+        "year": "2008"
+      },
+      {
+        "title": "Bacon-Giacometti",
+        "institution": "Fondation Beyeler, Basel",
+        "year": "2018-2019"
+      }
+    ]
+  },
+  {
+    "id": 49,
+
+    "name": "Yayoi Kusama",
+    "nationality": "Japanese",
+    "born": "1929",
+    "description": "Yayoi Kusama, a Japanese contemporary artist, is known for her avant-garde sculptures, installations, and paintings. Her works, such as 'Infinity Mirrored Room' and 'Polka Dot Pumpkin,' explore themes of infinity, pattern, and obsession. Kusama's distinctive style and exploration of the psyche have made her one of the most celebrated and influential artists of the 21st century.",
+    "highAuctionRecord": {
+      "title": "White No. 28",
+      "year": "2015",
+      "auctionHouse": "Sotheby's",
+      "salePrice": "$7.1 million"
+    },
+    "criticallyAcclaimed": "Celebrated for her innovative use of form and her role in the avant-garde art movement, Kusama's work continues to captivate and inspire audiences globally.",
+    "recentSoloShows": [
+      {
+        "title": "Yayoi Kusama: Infinity Mirrors",
+        "institution": "Hirshhorn Museum and Sculpture Garden, Washington D.C.",
+        "year": "2017"
+      },
+      {
+        "title": "Yayoi Kusama: A Retrospective",
+        "institution": "Tate Modern, London",
+        "year": "2023"
+      }
+    ]
+  }
+]

@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useLocation } from "react-router-dom";
 
 const UserContext = createContext();
 
@@ -8,7 +9,7 @@ const UserProvider = ({ children }) => {
     const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
     return (
       storedUserInfo || {
-        username: "",
+        name: "",
         email: "",
         userId: "",
         carts: [],
@@ -31,7 +32,7 @@ const UserProvider = ({ children }) => {
 
   const logout = () => {
     setUserInfo({
-      username: "",
+      name: "",
       email: "",
       userId: "",
       carts: [],

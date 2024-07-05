@@ -1,92 +1,61 @@
-// ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
 require("dotenv").config();
-
-// ℹ️ Connects to the database
 require("./db");
+const path = require("path");
 
-// Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
 const express = require("express");
-
-// Handles the handlebars
-// https://www.npmjs.com/package/hbs
-const hbs = require("hbs");
-
-const cors = require("cors"); // Import the cors middleware
-
+const cors = require("cors");
 const app = express();
-
+const passport = require("passport");
 const session = require("express-session");
 
-const methodOverride = require("method-override");
+require("./googleAuth/passport");
 
-// 1. require the body-parser
 const bodyParser = require("body-parser");
-// 2. let know your app you will be using it
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors());
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
+const corsOptions = {
+  origin: FRONTEND_URL,
+  methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+
+app.set("views", path.join(__dirname, "./", "views"));
+app.set("view engine", "hbs");
+app.use(express.static(path.join(__dirname, "./", "public")));
+
+// google auth
 app.use(
   session({
-    secret: "UserName",
+    secret: "kiwisc0de",
     resave: false,
     saveUninitialized: true,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 24 hours
   })
 );
-
-app.use((req, res, next) => {
-  res.locals.loggedInUsername = req.session.loggedInUsername;
-  next();
-});
-
-hbs.registerHelper("priceSum", function (arr) {
-  const totalPrice = arr.reduce((acc, curr) => acc + curr.price, 0);
-  return totalPrice.toFixed(2);
-});
-
-app.use(methodOverride("_method"));
-
-// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
-require("./config")(app);
-
-const capitalize = require("./utils/capitalize");
-const projectName = "my-fullstack-project";
-
-app.locals.appTitle = `${capitalize(projectName)}`;
-
-// 👇 Start handling routes here
-const indexRoutes = require("./routes/index.routes");
-app.use("/", indexRoutes);
+app.use(passport.initialize());
+app.use(passport.session());
 
 const authRoutes = require("./routes/auth.routes");
-app.use("/auth", authRoutes);
-
 const createProductRoutes = require("./routes/create.routes");
-app.use("/create", createProductRoutes);
-
 const productRoutes = require("./routes/products.routes");
-app.use("/products", productRoutes);
-
 const cartRoutes = require("./routes/carts.routes");
-app.use("/carts", cartRoutes);
-
 const checkoutRoutes = require("./routes/checkout.routes");
-app.use("/checkout", checkoutRoutes);
-
-const verifiedRoutes = require("./routes/verified.routes");
-app.use("/verified", verifiedRoutes);
-
-const logoutRoutes = require("./routes/logout.routes");
-app.use("/auth/logout", logoutRoutes);
-
 const stripeRoutes = require("./routes/stripe.routes");
-app.use("/stripe", stripeRoutes);
-
 const profileRoutes = require("./routes/profile.routes");
+const artsyApiRoutes = require("./routes/artsy_api.routes");
+
+app.use("/auth", authRoutes);
+app.use("/create", createProductRoutes);
+app.use("/products", productRoutes);
+app.use("/carts", cartRoutes);
+app.use("/checkout", checkoutRoutes);
+app.use("/stripe", stripeRoutes);
 app.use("/profile", profileRoutes);
-// ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
-require("./error-handling")(app);
+app.use("/api", artsyApiRoutes);
 
 module.exports = app;

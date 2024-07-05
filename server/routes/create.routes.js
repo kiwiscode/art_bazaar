@@ -18,8 +18,6 @@ router.post("/", authenticateToken, (req, res) => {
     period,
     signature,
     technique,
-    username,
-    userId,
   } = req.body;
 
   if (

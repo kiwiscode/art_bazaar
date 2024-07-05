@@ -11,10 +11,8 @@ router.get("/my-works", authenticateToken, (req, res) => {
   User.findById(userId)
     .populate("works")
     .then((user) => {
-      // Kullanıcının works array'indeki tüm ürünleri alın
       const works = user.works;
 
-      // Çalışmaları yanıt olarak döndürün
       res.json(works);
     })
     .catch((error) => {
@@ -23,8 +21,23 @@ router.get("/my-works", authenticateToken, (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
-  res.render("/artist-profile");
-});
+router.patch(
+  "/:userId/welcome-modal-status",
+  authenticateToken,
+  async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const updatedUser = await User.findByIdAndUpdate(
+        userId, // Use _id to find the user to update
+        { isWelcomeModalShowed: true }, // Field to update and its value
+        { new: true } // To return the updated document, use { new: true }
+      );
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      console.error("error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
 
 module.exports = router;
