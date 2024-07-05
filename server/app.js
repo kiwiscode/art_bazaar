@@ -41,21 +41,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const authRoutes = require("./routes/auth.routes");
-const createProductRoutes = require("./routes/create.routes");
-const productRoutes = require("./routes/products.routes");
-const cartRoutes = require("./routes/carts.routes");
-const checkoutRoutes = require("./routes/checkout.routes");
-const stripeRoutes = require("./routes/stripe.routes");
-const profileRoutes = require("./routes/profile.routes");
+const userRoutes = require("./routes/user.routes");
 const artsyApiRoutes = require("./routes/artsy_api.routes");
 
 app.use("/auth", authRoutes);
-app.use("/create", createProductRoutes);
-app.use("/products", productRoutes);
-app.use("/carts", cartRoutes);
-app.use("/checkout", checkoutRoutes);
-app.use("/stripe", stripeRoutes);
-app.use("/profile", profileRoutes);
+app.use("/users", userRoutes);
 app.use("/api", artsyApiRoutes);
 
 module.exports = app;

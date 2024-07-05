@@ -64,6 +64,8 @@ router.post("/signup", (req, res, next) => {
   }
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
   // Check that username, email, and password are provided
   if (username === "" || email === "" || password === "" || name === "") {
 <<<<<<< HEAD
@@ -73,11 +75,14 @@ router.post("/signup", (req, res, next) => {
     res.status(500).render("auth/signup", {
 =======
 =======
+>>>>>>> main
   if (name === "" || email === "" || password === "") {
->>>>>>> c555ca2 (Refactor e-commerce project to new concept)
     res.status(403).json({
+<<<<<<< HEAD
+=======
 >>>>>>> 4a08c51 (error handling refactored.development)
 >>>>>>> development
+>>>>>>> main
       errorMessage:
         "All fields are mandatory. Please provide your email and password.",
     });
@@ -142,14 +147,7 @@ router.post("/signup", (req, res, next) => {
 });
 
 const sendVerificationEmail = ({ _id, email }, res, token) => {
-<<<<<<< HEAD
-  // when working on locally
-  // const baseURL = "http://localhost:3000";
-  // when working on deployment version
-  const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
-=======
   const baseURL = "http://localhost:3000";
->>>>>>> c555ca2 (Refactor e-commerce project to new concept)
 
   const mailOptions = {
     from: process.env.AUTH_EMAIL,
@@ -353,7 +351,7 @@ const sendForgotPasswordEmail = (email, res, token) => {
   const mailOptions = {
     from: process.env.AUTH_EMAIL,
     to: email,
-    subject: "Verify Your Art Bazaar Account",
+    subject: "Reset password instructions",
 
     html: `
     <div style="background-color: #f6f8fa; text-align: left; font-size: 16px; line-height: 22px; font-family: Times New Roman", Times, serif">
