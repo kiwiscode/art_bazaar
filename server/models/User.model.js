@@ -18,9 +18,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    works: [{ type: Schema.Types.ObjectId, ref: "Product" }],
     verified: { type: Boolean, default: false },
-    carts: [{ type: Schema.Types.ObjectId, ref: "Product" }],
     active: {
       type: Boolean,
       default: false,

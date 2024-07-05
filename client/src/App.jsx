@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { UserProvider } from "./components/UserContext";
 import Navbar from "./components/Navbar";
-import Main from "./pages/MainPage";
+import Main from "./pages/Main";
 import ResetPassword from "./pages/ResetPassword";
 import ArtistProfile from "./pages/ArtistProfile";
 function App() {

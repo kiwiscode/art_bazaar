@@ -41,11 +41,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const authRoutes = require("./routes/auth.routes");
-const userRoutes = require("./routes/user.routes");
+const usersRoutes = require("./routes/users.routes");
 const artsyApiRoutes = require("./routes/artsy_api.routes");
 
 app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
+app.use("/users", usersRoutes);
 app.use("/api", artsyApiRoutes);
 
 module.exports = app;

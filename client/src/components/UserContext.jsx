@@ -12,7 +12,6 @@ const UserProvider = ({ children }) => {
         name: "",
         email: "",
         userId: "",
-        carts: [],
         active: false,
         order: [],
       }
@@ -35,7 +34,6 @@ const UserProvider = ({ children }) => {
       name: "",
       email: "",
       userId: "",
-      carts: [],
       active: false,
       order: [],
     });
