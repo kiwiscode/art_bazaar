@@ -63,8 +63,26 @@ router.post("/signup", (req, res, next) => {
     name = capitalize(name);
   }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  // Check that username, email, and password are provided
+  if (username === "" || email === "" || password === "" || name === "") {
+<<<<<<< HEAD
+    res.status(403).json({
+=======
+<<<<<<< HEAD
+    res.status(500).render("auth/signup", {
+=======
+=======
+>>>>>>> main
   if (name === "" || email === "" || password === "") {
     res.status(403).json({
+<<<<<<< HEAD
+=======
+>>>>>>> 4a08c51 (error handling refactored.development)
+>>>>>>> development
+>>>>>>> main
       errorMessage:
         "All fields are mandatory. Please provide your email and password.",
     });
@@ -72,8 +90,13 @@ router.post("/signup", (req, res, next) => {
     return;
   }
 
+<<<<<<< HEAD
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  if (!regex.test(password)) {
+=======
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
   if (!regex.test(password) || password.length < 8) {
+>>>>>>> development
     res.status(402).json({
       errorMessage:
         "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
@@ -101,9 +124,21 @@ router.post("/signup", (req, res, next) => {
       sendVerificationEmail(user, res, token);
     })
     .catch((error) => {
+<<<<<<< HEAD
+      if (error instanceof mongoose.Error.ValidationError) {
+        res.status(501).json({
+          errorMessage:
+            "Username and email need to be unique. Provide a valid username or email.",
+        });
+      } else if (error.code === 11000) {
+        res.status(501).json({
+          errorMessage:
+            "Username and email need to be unique. Provide a valid username or email.",
+=======
       if (error.code === 11000) {
         res.status(501).json({
           errorMessage: "Email need to be unique. Provide a valid email.",
+>>>>>>> development
         });
       } else {
         next(error);
@@ -167,9 +202,15 @@ router.get("/verified", (req, res) => {
 });
 
 router.post("/login", (req, res, next) => {
+<<<<<<< HEAD
+  const { username, password } = req.body;
+
+  if (username === "" || password === "") {
+=======
   const { email, password } = req.body.loginFormData;
 
   if (email === "" || password === "") {
+>>>>>>> development
     res.status(403).json({
       errorMessage:
         "All fields are mandatory. Please provide email and password.",
@@ -184,8 +225,18 @@ router.post("/login", (req, res, next) => {
     });
   }
 
-  User.findOne({ email })
+  User.findOne({ username })
     .then((user) => {
+<<<<<<< HEAD
+      if (!user.verified) {
+        res.status(400).json({
+          errorMessage: "Email hasn't been verified yet. Check your inbox.",
+        });
+        return;
+      }
+
+=======
+>>>>>>> development
       if (!user) {
         res.status(401).json({ errorMessage: "Wrong credentials." });
         return;
@@ -194,7 +245,11 @@ router.post("/login", (req, res, next) => {
       bcrypt
         .compare(password, user.password)
         .then((isSamePassword) => {
+<<<<<<< HEAD
+          if (!isSamePassword || user.username !== username) {
+=======
           if (!isSamePassword || user.email !== email) {
+>>>>>>> development
             res.status(401).json({ errorMessage: "Wrong credentials." });
             return;
           }
@@ -424,6 +479,18 @@ router.get("/verify", (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+// GET /auth/artists
+router.get("/artists", (req, res, next) => {
+  User.find({ isArtist: true })
+    .then((artists) => {
+      res.json(artists);
+    })
+    .catch((error) => next(error));
+});
+
+=======
+>>>>>>> development
 router.get("/artists/:id/works", (req, res, next) => {
   const artistId = req.params.id;
 
