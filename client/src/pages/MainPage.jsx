@@ -94,7 +94,7 @@ function Main() {
     try {
       setShowWelcomeModal(false);
       const result = await axios.patch(
-        `${API_URL}/profile/${userInfo?._id}/welcome-modal-status`,
+        `${API_URL}/users/${userInfo?._id}/welcome-modal-status`,
         {},
         {
           headers: {
@@ -3278,11 +3278,24 @@ function Main() {
                             fontSize: "60px",
                             lineHeight: "70px",
                             letterSpacing: "-0.01em",
-                            maxWidth: "100%",
-                            whiteSpace: "break-spaces",
+                            maxWidth: "0px",
+                            minWidth: "100%",
+                            display: "flex",
+                            flexDirection: "column",
                           }}
                         >
-                          Welcome to Art Bazaar, {userInfo.name}.
+                          <span>Welcome to Art Bazaar,</span>
+                          <span
+                            style={{
+                              maxWidth: "100%",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              width: "100%",
+                            }}
+                          >
+                            {userInfo.name}.
+                          </span>
                         </div>
                         <div
                           style={{

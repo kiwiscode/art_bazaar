@@ -74,7 +74,7 @@ function Navbar() {
     valuesBeenEnteredIntoTheForgotPassEmailField,
     setValuesBeenEnteredIntoTheForgotPassEmailField,
   ] = useState("");
-  const [hoveredArtists, setHoveredArtists] = useState(true);
+  const [hoveredArtists, setHoveredArtists] = useState(false);
   const [hoveredArtworks, setHoveredArtworks] = useState(false);
   const letters = [];
   for (let i = 65; i <= 90; i++) {
