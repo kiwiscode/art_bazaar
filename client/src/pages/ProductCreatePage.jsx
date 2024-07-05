@@ -60,7 +60,11 @@ function ProductCreatePage() {
         }
         setError("");
       })
+<<<<<<< HEAD
 
+=======
+      //
+>>>>>>> b00f846 (error handling for auth.routes.development)
       .catch((error) => {
         console.error("Error creating product:", error);
         const { status } = error.response;
