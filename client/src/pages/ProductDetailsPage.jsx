@@ -4,17 +4,21 @@ import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
 
 // when working on local version
+<<<<<<< HEAD
 // const API_URL = "http://localhost:3000";
 
 // when working on deployment version
 const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+=======
+const API_URL = import.meta.env.VITE_APP_API_URL;
+>>>>>>> c555ca2 (Refactor e-commerce project to new concept)
 
 function ProductDetailsPage() {
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const { id } = useParams();
   const { userInfo, updateUser } = useContext(UserContext);
-  const { active, username } = userInfo;
+  const { active } = userInfo;
 
   const getProductDetails = () => {
     axios
@@ -59,9 +63,9 @@ function ProductDetailsPage() {
   return (
     <>
       <div>
-        <h1 className="product-details-title">Product Details</h1>
+        <h1>Product Details</h1>
 
-        <div className="product-details-container">
+        <div>
           <img src={product.image} alt="product" />
           <h2>{product.title}</h2>
           <p>${product.price}</p>
@@ -69,14 +73,14 @@ function ProductDetailsPage() {
           {!active && (
             <div>
               <NavLink to="/auth/login">
-                <button className="bottom-left">Add to cart</button>
+                <button>Add to cart</button>
               </NavLink>
             </div>
           )}
           {active && (
             <button onClick={addToCart}>
               {" "}
-              <i className="add-cart">🛒</i> Add to Cart
+              <i>🛒</i> Add to Cart
             </button>
           )}
         </div>

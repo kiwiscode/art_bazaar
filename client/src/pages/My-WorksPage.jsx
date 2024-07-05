@@ -3,10 +3,14 @@ import axios from "axios";
 import { UserContext } from "../components/UserContext";
 
 // when working on local version
+<<<<<<< HEAD
 // const API_URL = "http://localhost:3000";
 
 // when working on deployment version
 const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+=======
+const API_URL = import.meta.env.VITE_APP_API_URL;
+>>>>>>> c555ca2 (Refactor e-commerce project to new concept)
 
 const MyWorksPage = () => {
   const { userInfo } = useContext(UserContext);
@@ -32,7 +36,7 @@ const MyWorksPage = () => {
   }, [userInfo]);
 
   return (
-    <div className="works-container">
+    <div>
       <h1>My works</h1>
       {works.length < 1 ? (
         <p>No works found.</p>
@@ -40,7 +44,10 @@ const MyWorksPage = () => {
         works.map((work) => (
           <div
             key={work._id}
+<<<<<<< HEAD
             className="work-item"
+=======
+>>>>>>> development
             style={{
               border: "1px solid #ddd",
               padding: "20px",

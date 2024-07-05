@@ -6,7 +6,7 @@ const authenticateToken = require("../middleware/jwtMiddleware");
 
 router.post("/:id/carts", authenticateToken, (req, res, next) => {
   const productId = req.params.id;
-  const userId = req.user.userId; // authenticateToken middleware'ı tarafından sağlanan kullanıcı bilgilerini kullanın
+  const userId = req.user.userId;
 
   User.findById(userId)
     .populate("carts")

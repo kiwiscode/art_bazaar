@@ -3,18 +3,25 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 // when working on local version
+<<<<<<< HEAD
 // const API_URL = "http://localhost:3000";
 
 // when working on deployment version
 const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+=======
+const API_URL = import.meta.env.VITE_APP_API_URL;
+>>>>>>> c555ca2 (Refactor e-commerce project to new concept)
 
 function ProductsPage() {
   const [sortBy, setSortBy] = useState("asc"); // asc: ucuzdan pahalıya, desc: pahalıdan ucuza
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   const { userInfo } = useContext(UserContext);
+>>>>>>> development
+=======
 >>>>>>> development
 
   const [initialProducts, setInitialProducts] = useState([]); // Yeni state
@@ -62,20 +69,12 @@ function ProductsPage() {
   return (
     <div>
       <div>
-        <select
-          className="sort-select"
-          value={sortBy}
-          onChange={handleSortByChange}
-        >
+        <select value={sortBy} onChange={handleSortByChange}>
           <option value="asc">Price: Low to High</option>
           <option value="desc">Price: High to Low</option>
         </select>
 
-        <select
-          className="category-select"
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-        >
+        <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="">All Categories</option>
           <option value="Classical Artworks">Classical Art</option>
           <option value="Modern & Contemporary Art">
@@ -83,10 +82,10 @@ function ProductsPage() {
           </option>
         </select>
       </div>
-      <ul className="products">
+      <ul>
         {products.map((product) => (
-          <li key={product._id} className="product">
-            {!product.rating && <span className="artist-badge">Artist</span>}
+          <li key={product._id}>
+            {!product.rating && <span>Artist</span>}
 
             <img src={product.image} alt="product" />
             <p>{product.title}</p>

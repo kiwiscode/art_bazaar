@@ -4,10 +4,14 @@ import { UserContext } from "../components/UserContext";
 import PayButton from "../components/PayButton";
 
 // when working on local version
+<<<<<<< HEAD
 // const API_URL = "http://localhost:3000";
 
 // when working on deployment version
 const API_URL = "https://mern-ecommerce-app-j3gu.onrender.com";
+=======
+const API_URL = import.meta.env.VITE_APP_API_URL;
+>>>>>>> c555ca2 (Refactor e-commerce project to new concept)
 
 function CartPage() {
   const { getToken, userInfo, updateUser } = useContext(UserContext);
@@ -152,7 +156,9 @@ function CartPage() {
         updatedUserInfoCarts.splice(userInfoItemIndex, 1);
         updateUser({ ...userInfo, carts: updatedUserInfoCarts });
 
-        fetchCartData();
+        localStorage.setItem("cartItems", JSON.stringify(updatedUserInfoCarts));
+
+        // fetchCartData();
       })
       .catch((error) => {
         error;
@@ -161,36 +167,30 @@ function CartPage() {
 
   return (
     <div>
-      <h1 className="product-details-title">Cart</h1>
+      <h1>Cart</h1>
       {cartItems.length === 0 ? (
         <p>No items in the cart</p>
       ) : (
-        <ul className="cart-list">
+        <ul>
           {cartItems.map((item) => (
-            <li key={item.id} className="cart-item">
+            <li key={item.id}>
               <img src={item.image} alt={item.title} />
-              <div className="cart-item-content">
+              <div>
                 <h3>{item.title}</h3>
                 <p>${item.price}</p>
                 <p>
                   Quantity : {item.quantity}{" "}
-                  <button
-                    className="quantity-btn"
-                    onClick={() => handleIncreaseQuantity(item._id)}
-                  >
+                  <button onClick={() => handleIncreaseQuantity(item._id)}>
                     +
                   </button>
-                  <button
-                    className="quantity-btn"
-                    onClick={() => handleDecreaseQuantity(item._id)}
-                  >
+                  <button onClick={() => handleDecreaseQuantity(item._id)}>
                     -
                   </button>{" "}
                 </p>
               </div>
             </li>
           ))}
-          <p className="total-price">Total Price: ${totalPrice.toFixed(2)}</p>
+          <p>Total Price: ${totalPrice.toFixed(2)}</p>
 
           <PayButton cartItems={cartItems} />
         </ul>

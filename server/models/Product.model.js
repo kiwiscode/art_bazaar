@@ -21,7 +21,7 @@ const productSchema = new Schema(
     },
     image: {
       type: String,
-      default: "../public/images/no-product.png",
+      default: "default@productImg",
     },
     quantity: {
       type: Number,
@@ -48,7 +48,6 @@ const productSchema = new Schema(
   }
 );
 
-// module.exports = model("Product", productSchema);
 const Product = model("Product", productSchema);
 
 module.exports = Product;

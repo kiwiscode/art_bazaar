@@ -1,32 +1,29 @@
+require("dotenv").config();
+
+const passport = require("passport");
+
 const express = require("express");
 const router = express.Router();
 
 const capitalize = require("../utils/capitalize");
 
-// ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
-
-// How many rounds should bcrypt run the salt (default - 10 rounds)
 const saltRounds = 10;
+const crypto = require("crypto");
 
-// Require the models in order to interact with the database
-const User = require("../models/User.model");
-
-// path for static verified page
-const path = require("path");
-
-// email handler
-const nodemailer = require("nodemailer");
+function createResetToken() {
+  return crypto.randomBytes(32).toString("hex");
+}
 
 const jwt = require("jsonwebtoken");
-
 const authenticateToken = require("../middleware/jwtMiddleware");
 
-// env variables
-require("dotenv").config();
+const mongoose = require("mongoose");
 
-// nodemailer stuff
+const User = require("../models/User.model");
+
+const nodemailer = require("nodemailer");
+
 let transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -35,7 +32,6 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-// testing success
 transporter.verify((error, success) => {
   if (error) {
     console.log(error);
@@ -44,34 +40,61 @@ transporter.verify((error, success) => {
   }
 });
 
-// GET /auth/signup
-router.get("/signup", (req, res) => {
-  res.render("auth/signup");
+router.post("/check-email", async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.find({ email: email });
+    console.log("user:", user);
+    if (user?.length) {
+      return res.status(409).json({ exists: true });
+    } else {
+      return res.status(200).json({ exists: false });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-// POST /auth/signup
 router.post("/signup", (req, res, next) => {
-  let { name, username, email, password, isArtist } = req.body;
+  let { name, email, password } = req.body.signUpFormData;
 
   if (name) {
     name = capitalize(name);
   }
 
+<<<<<<< HEAD
   // Check that username, email, and password are provided
   if (username === "" || email === "" || password === "" || name === "") {
+<<<<<<< HEAD
     res.status(403).json({
+=======
+<<<<<<< HEAD
+    res.status(500).render("auth/signup", {
+=======
+=======
+  if (name === "" || email === "" || password === "") {
+>>>>>>> c555ca2 (Refactor e-commerce project to new concept)
+    res.status(403).json({
+>>>>>>> 4a08c51 (error handling refactored.development)
+>>>>>>> development
       errorMessage:
-        "All fields are mandatory. Please provide your username, email and password.",
+        "All fields are mandatory. Please provide your email and password.",
     });
 
     return;
   }
 
+<<<<<<< HEAD
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
+=======
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+  if (!regex.test(password) || password.length < 8) {
+>>>>>>> development
     res.status(402).json({
       errorMessage:
-        "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+        "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
     return;
   }
@@ -82,20 +105,21 @@ router.post("/signup", (req, res, next) => {
     .then((hashedPassword) => {
       return User.create({
         name,
-        username,
         email,
         password: hashedPassword,
         verified: false,
-        isArtist,
       });
     })
     .then((user) => {
+      const expiresInDays = 30;
+
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "24h", // Token süresi
+        expiresIn: `${expiresInDays}d`,
       });
       sendVerificationEmail(user, res, token);
     })
     .catch((error) => {
+<<<<<<< HEAD
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(501).json({
           errorMessage:
@@ -105,6 +129,11 @@ router.post("/signup", (req, res, next) => {
         res.status(501).json({
           errorMessage:
             "Username and email need to be unique. Provide a valid username or email.",
+=======
+      if (error.code === 11000) {
+        res.status(501).json({
+          errorMessage: "Email need to be unique. Provide a valid email.",
+>>>>>>> development
         });
       } else {
         next(error);
@@ -113,23 +142,37 @@ router.post("/signup", (req, res, next) => {
 });
 
 const sendVerificationEmail = ({ _id, email }, res, token) => {
+<<<<<<< HEAD
   // when working on locally
   // const baseURL = "http://localhost:3000";
   // when working on deployment version
   const baseURL = "https://mern-ecommerce-app-j3gu.onrender.com";
+=======
+  const baseURL = "http://localhost:3000";
+>>>>>>> c555ca2 (Refactor e-commerce project to new concept)
 
-  // mail options with token
   const mailOptions = {
     from: process.env.AUTH_EMAIL,
     to: email,
-    subject: "Verify Your Email",
+    subject: "Verify Your Art Bazaar Account",
 
     html: `
-    <p>Verify your email adress to complete the signup and login into your account.</p>
-    <p>This link expires in <b>6 hours.</b></p>
-    <p>Press : <a href="${baseURL}/auth/verify?token=${token}"> here </a>to proceed.</p>
-
-
+    <div style="background-color: #f6f8fa; style="font-size: 16px; line-height: 22px;" text-align: left; font-family: Times New Roman", Times, serif">
+    <div style="width: 40%; height: 100%; background-color: white; margin: 0 auto; text-align: left; color: #333; padding: 20px;">
+      <div style="font-size: 22px; line-height: 33px; ">Please confirm your email address
+      </div>
+      <p style="font-size: 16px; line-height: 22px;">
+      To secure your account and receive updates about your transactions on Art Bazaar, please confirm your email address.
+      </p>
+      <div style="background-color: black; border-radius: 3px; min-height: 50px; width: 100%; cursor: pointer;">
+        <a href="${baseURL}/auth/verify?token=${token}" style="text-decoration: none; color: white; background-color: black; display: block; text-align: center; font-size: 16px; line-height: 22px; padding: 15px 0;">
+          Confirm email
+        </a>
+      </div>
+      <p style="font-size: 16px; line-height: 22px;">Thanks,</p>
+      <p style="font-size: 16px; line-height: 22px;">Art Bazaar</p>
+    </div>
+  </div>
     `,
   };
 
@@ -141,13 +184,13 @@ const sendVerificationEmail = ({ _id, email }, res, token) => {
         message: "Verification email sent",
       });
     })
-    .catch((error) => {
+    .catch(() => {
       res.json({
         status: "FAILED",
         message: "Verification email failed!",
       });
     })
-    .catch((error) => {
+    .catch(() => {
       res.json({
         status: "FAILED",
         message: "Couldn't save verification email data!",
@@ -160,19 +203,19 @@ router.get("/verified", (req, res) => {
   res.render("auth/verified", { error, message });
 });
 
-// GET /auth/login
-router.get("/login", (req, res) => {
-  res.render("auth/login");
-});
-
-// POST /auth/login
 router.post("/login", (req, res, next) => {
+<<<<<<< HEAD
   const { username, password } = req.body;
 
   if (username === "" || password === "") {
+=======
+  const { email, password } = req.body.loginFormData;
+
+  if (email === "" || password === "") {
+>>>>>>> development
     res.status(403).json({
       errorMessage:
-        "All fields are mandatory. Please provide username, email and password.",
+        "All fields are mandatory. Please provide email and password.",
     });
 
     return;
@@ -186,6 +229,7 @@ router.post("/login", (req, res, next) => {
 
   User.findOne({ username })
     .then((user) => {
+<<<<<<< HEAD
       if (!user.verified) {
         res.status(400).json({
           errorMessage: "Email hasn't been verified yet. Check your inbox.",
@@ -193,16 +237,21 @@ router.post("/login", (req, res, next) => {
         return;
       }
 
+=======
+>>>>>>> development
       if (!user) {
         res.status(401).json({ errorMessage: "Wrong credentials." });
         return;
       }
 
-      // If user is found based on the username, check if the in putted password matches the one saved in the database
       bcrypt
         .compare(password, user.password)
         .then((isSamePassword) => {
+<<<<<<< HEAD
           if (!isSamePassword || user.username !== username) {
+=======
+          if (!isSamePassword || user.email !== email) {
+>>>>>>> development
             res.status(401).json({ errorMessage: "Wrong credentials." });
             return;
           }
@@ -212,19 +261,18 @@ router.post("/login", (req, res, next) => {
               const {
                 _id,
                 name,
-                username,
                 email,
+                works,
+                verified,
                 carts,
-                userId,
                 active,
                 order,
-                isArtist,
+                isAdmin,
                 contact,
-                works,
+                isWelcomeModalShowed,
               } = populatedUser;
-              // with token
               const token = jwt.sign({ userId: _id }, process.env.JWT_SECRET, {
-                expiresIn: "24h", // Token süresi
+                expiresIn: "24h",
               });
 
               res.json({
@@ -232,15 +280,15 @@ router.post("/login", (req, res, next) => {
                 user: {
                   _id,
                   name,
-                  username,
                   email,
+                  works,
+                  verified,
                   carts,
-                  userId,
                   active,
                   order,
-                  isArtist,
+                  isAdmin,
                   contact,
-                  works,
+                  isWelcomeModalShowed,
                 },
               });
             });
@@ -251,7 +299,171 @@ router.post("/login", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-// with token
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+router.get("/google/callback", (req, res, next) => {
+  passport.authenticate("google", (err, user, info) => {
+    if (err) return next(err);
+    if (!user) return res.redirect(`${process.env.FRONTEND_URL}/login/failed`);
+
+    console.log("user:", user.name);
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "24h",
+      });
+
+      res.redirect(
+        `${process.env.FRONTEND_URL}/?token=${token}&user=${JSON.stringify(
+          user
+        )}`
+      );
+    });
+  })(req, res, next);
+});
+
+router.post("/logout", authenticateToken, async (req, res, next) => {
+  try {
+    const { userId } = req.user;
+    console.log("userid:", userId);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { active: false },
+      { new: true }
+    );
+
+    if (updatedUser) {
+      res.status(200).json({ message: "Logout successful" });
+    } else {
+      res.status(500).json({ message: "Error updating user" });
+    }
+  } catch (error) {
+    console.error("error:", error);
+    res.status(500).json({ message: "Error updating user" });
+  }
+});
+
+const sendForgotPasswordEmail = (email, res, token) => {
+  const baseURL = "http://localhost:5173";
+
+  const mailOptions = {
+    from: process.env.AUTH_EMAIL,
+    to: email,
+    subject: "Verify Your Art Bazaar Account",
+
+    html: `
+    <div style="background-color: #f6f8fa; text-align: left; font-size: 16px; line-height: 22px; font-family: Times New Roman", Times, serif">
+    <div style="width: 40%; height: 100%; background-color: white; margin: 0 auto; text-align: left; color: #333; padding: 20px;">
+      <div style="font-size: 16px; line-height: 22px; ">Hello,
+      </div>
+      <p>
+      You're registered on Art Bazaar with the following e-mail: ayktkav@gmail.com. Someone has requested a link to change your password, and you can do this through the link below.
+      </p>
+      <div style="background-color: black; border-radius: 3px; min-height: 50px; width: 100%; cursor: pointer;">
+        <a href="${baseURL}/reset_password?email=${email}&token=${token}&utm_campaign=accounts&utm_content=reset_password&utm_medium=email&utm_source=sendgrid" style="text-decoration: none; color: white; background-color: black; display: block; text-align: center; font-size: 16px; line-height: 22px; padding: 15px 0;">
+        Update my password</a>
+      </div>
+      <p>This link is valid for 24 hours. If you didn't request this, please ignore this email.
+      </p>
+      <p>Your password won't change until you access the link above and create a new one.</p>
+    </div>
+  </div>
+    `,
+  };
+  transporter
+    .sendMail(mailOptions)
+    .then(() => {
+      res.json({
+        status: "PENDING",
+        message: "Verification email sent",
+      });
+    })
+    .catch(() => {
+      res.json({
+        status: "FAILED",
+        message: "Verification email failed!",
+      });
+    })
+    .catch(() => {
+      res.json({
+        status: "FAILED",
+        message: "Couldn't save verification email data!",
+      });
+    });
+};
+
+router.post("/reset_password", async (req, res) => {
+  try {
+    const { email } = req.body.forgotPasswordFormData;
+    console.log("email:", email);
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      res.status(404).json({ message: "User not found!" });
+    }
+
+    const token = createResetToken();
+    const tokenExpiration = Date.now() + 86400000; // 24h valid token for password reset
+
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = tokenExpiration;
+    await user.save();
+
+    sendForgotPasswordEmail(email, res, token);
+  } catch (error) {
+    console.error("error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.post("/change_password", async (req, res) => {
+  try {
+    const { email, password, token } = req.body;
+    console.log(email, password, token);
+
+    if (!email || !password || !token) {
+      return res
+        .status(400)
+        .json({ message: "Email, password and reset token are required" });
+    }
+
+    const user = await User.findOne({
+      email: email,
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "Invalid or expired reset token!" });
+    }
+
+    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+    if (!regex.test(password) || password.length < 8) {
+      return res.status(400).json({
+        message:
+          "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
+      });
+    }
+
+    const salt = await bcrypt.genSalt(saltRounds);
+    user.password = await bcrypt.hash(password, salt);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+    console.log("updated user:", user);
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error("error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 router.get("/verify", (req, res) => {
   const token = req.query.token;
 
@@ -269,6 +481,7 @@ router.get("/verify", (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 // GET /auth/artists
 router.get("/artists", (req, res, next) => {
   User.find({ isArtist: true })
@@ -278,6 +491,8 @@ router.get("/artists", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+=======
+>>>>>>> development
 router.get("/artists/:id/works", (req, res, next) => {
   const artistId = req.params.id;
 
@@ -293,11 +508,9 @@ router.get("/artists/:id/works", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-// Update profile route
 router.post("/update/profile", authenticateToken, (req, res) => {
   const { linkedin, instagram } = req.body;
 
-  // Check if the request contains both linkedin and instagram links
   if (!linkedin || !instagram) {
     return res
       .status(400)
@@ -306,7 +519,6 @@ router.post("/update/profile", authenticateToken, (req, res) => {
 
   const userId = req.user.userId;
 
-  // Find the user by their ID
   User.findByIdAndUpdate(
     userId,
     {

@@ -4,7 +4,10 @@ const User = require("../models/User.model");
 const authenticateToken = require("../middleware/jwtMiddleware");
 
 router.get("/", authenticateToken, (req, res, next) => {
+<<<<<<< HEAD
   // Rotaya JWT doğrulaması eklendiği için, req.user üzerinden kullanıcının bilgilerine erişebiliriz
+=======
+>>>>>>> development
   const userId = req.user.userId;
 
   User.findById(userId)
