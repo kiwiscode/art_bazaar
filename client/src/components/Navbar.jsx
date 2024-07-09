@@ -20,7 +20,7 @@ import data from "../data/data.json";
 // when working on local version
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
-function Navbar() {
+function Navbar({ showAuthModal, setShowAuthModal }) {
   const navigate = useNavigate();
   const { userInfo, logout, googleLogout, getToken, updateUser } =
     useContext(UserContext);
@@ -81,7 +81,6 @@ function Navbar() {
     letters.push(String.fromCharCode(i));
   }
   const handleFocus = () => {
-    console.log("focused ...");
     setIsFocused(true);
   };
 
@@ -101,7 +100,6 @@ function Navbar() {
   };
   const handleChangeLoginFormData = (e) => {
     const { name, value } = e.target;
-    console.log("name:", name);
     if (name === "email") {
       setValuesBeenEnteredIntoTheEmailField(true);
     }
@@ -115,7 +113,6 @@ function Navbar() {
   };
   const handleChangeForgotPasswordFormData = (e) => {
     const { name, value } = e.target;
-    console.log("name:", name);
     if (name === "email") {
       setValuesBeenEnteredIntoTheForgotPassEmailField(true);
     }
@@ -127,6 +124,7 @@ function Navbar() {
   };
 
   const closeAuthModal = () => {
+    setShowAuthModal(false);
     setSignUpOn(false);
     setLoginOn(false);
     setForgotPasswordOn(false);
@@ -192,8 +190,6 @@ function Navbar() {
 
         logout();
         navigate("/");
-
-        console.log("response:", response);
       })
       .catch((error) => {
         console.error("Logout error:", error);
@@ -236,7 +232,6 @@ function Navbar() {
         email: signUpFormData.email,
       });
 
-      console.log("result:", result);
       if (result.status === 200) {
         setExistEmailError(false);
       }
@@ -374,7 +369,6 @@ function Navbar() {
         setLoading(false);
         setResetLinkInfoPopup(true);
       }
-      console.log("result:", result);
     } catch (error) {
       console.error("error:", error);
     }
@@ -391,11 +385,13 @@ function Navbar() {
         <>
           <Modal
             className="z-9999 p-0 m-0"
-            open={signUpOn || loginOn || forgotPasswordOn}
+            open={signUpOn || loginOn || forgotPasswordOn || showAuthModal}
             onClose={closeAuthModal}
             sx={{
               "& > .MuiBackdrop-root": {
-                opacity: "0.2 !important",
+                opacity: "0.5 !important",
+                backgroundColor: "rgb(202, 205, 236)",
+                filter: "brightness(2.5)",
               },
             }}
           >
@@ -413,9 +409,11 @@ function Navbar() {
                 backgroundColor: "white",
                 outlineStyle: "none",
                 overflowY: "auto",
+                boxShadow:
+                  "0 0 15px rgba(101, 119, 134, 0.2),0 0 5px 3px rgba(101, 119, 134, 0.15)",
               }}
             >
-              {signUpOn ? (
+              {(signUpOn || showAuthModal) && !loginOn && !forgotPasswordOn ? (
                 <div>
                   <div
                     style={{
@@ -831,6 +829,7 @@ function Navbar() {
                       }}
                     >
                       <span
+                        className="unica-regular-font"
                         style={{
                           color: "rgb(112,112,112)",
                           fontSize: "13px",
@@ -906,13 +905,15 @@ function Navbar() {
                         marginTop: "12px",
                       }}
                     >
-                      <span>Already have an account?</span>
+                      <span className="unica-regular-font">
+                        Already have an account?
+                      </span>
                       <span
                         onClick={() => {
                           setSignUpOn(false);
                           setLoginOn(true);
                         }}
-                        className="pointer"
+                        className="pointer unica-regular-font"
                         style={{
                           textDecoration: "underline",
                           position: "relative",
@@ -987,7 +988,9 @@ function Navbar() {
                     </div>
                   </div>
                 </div>
-              ) : loginOn ? (
+              ) : (loginOn || showAuthModal) &&
+                !signUpOn &&
+                !forgotPasswordOn ? (
                 <div
                   style={{
                     height: "100%",
@@ -1418,7 +1421,9 @@ function Navbar() {
                     </div>
                   </div>
                 </div>
-              ) : forgotPasswordOn ? (
+              ) : (forgotPasswordOn || showAuthModal) &&
+                !signUpOn &&
+                !loginOn ? (
                 <div
                   style={{
                     height: "100%",

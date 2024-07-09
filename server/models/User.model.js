@@ -1,5 +1,14 @@
 const { Schema, model } = require("mongoose");
 
+const artworkSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    artist: { type: String, required: true },
+    image: { type: String, required: true },
+  },
+  { _id: false }
+);
+
 const userSchema = new Schema(
   {
     name: {
@@ -55,6 +64,7 @@ const userSchema = new Schema(
     resetPasswordExpires: {
       type: Date,
     },
+    favoriteArtworks: [artworkSchema],
   },
 
   {

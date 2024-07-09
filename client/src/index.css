@@ -226,6 +226,7 @@ body {
   max-width: 321.25px;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 }
 
 .zoom {
@@ -352,5 +353,31 @@ body {
   }
   .artist-biography {
     padding: 20px !important;
+  }
+}
+
+/* artworks */
+.flex-container-for-artworks {
+  column-count: 4;
+  padding: 0px 40px;
+  display: inline-block !important;
+  gap: 20px;
+}
+
+@media (max-width: 50em) {
+  .flex-container-for-artworks {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 30em) {
+  .flex-container-for-artworks {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 20em) {
+  .flex-container-for-artworks {
+    column-count: 1;
   }
 }

@@ -183,7 +183,9 @@ function Main() {
               onClose={closeWelcomeModal}
               sx={{
                 "& > .MuiBackdrop-root": {
-                  opacity: "0.2 !important",
+                  opacity: "0.5 !important",
+                  backgroundColor: "rgb(202, 205, 236)",
+                  filter: "brightness(2.5)",
                 },
               }}
             >
@@ -202,6 +204,8 @@ function Main() {
                   outlineStyle: "none",
                   overflowY: "auto",
                   height: width > 900 ? "100dvh" : "100%",
+                  boxShadow:
+                    "0 0 15px rgba(101, 119, 134, 0.2),0 0 5px 3px rgba(101, 119, 134, 0.15)",
                 }}
               >
                 {" "}

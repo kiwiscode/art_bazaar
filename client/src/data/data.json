@@ -30,7 +30,149 @@
         "year": "2019"
       }
     ],
-    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720164388/art_bazaar/michelangelo-buonarroti/Moses_ca._1513-1515_src_yuytcm.webp"
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387616/art_bazaar/michelangelo_buonarroti/Moses_ca._1513-1515_src_tnn2q5.webp",
+    "works": [
+      {
+        "id": 1,
+        "title": "Two Nudes Fighting",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387620/art_bazaar/michelangelo_buonarroti/Two_Nudes_Fighting_srcSet_btleli.webp"
+      },
+      {
+        "id": 2,
+        "title": "Bound Slave (Captive Atlas), ca. 1516-19",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387619/art_bazaar/michelangelo_buonarroti/Bound_Slave_src_uloraj.webp"
+      },
+      {
+        "id": 3,
+        "title": "The Virgin and Child with Saint John and Angels ('The Manchester Madonna'), ca. 1497",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387619/art_bazaar/michelangelo_buonarroti/The_Virgin_and_Child_with_Saint_John_and_Angels_The_Manchester_Madonna_ca._1497_src_m8uxd9.webp"
+      },
+      {
+        "id": 4,
+        "title": "L'Esclave rebelle (The Rebellious Slave), Started in 1513",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387618/art_bazaar/michelangelo_buonarroti/L_Esclave_rebelle_The_Rebellious_Slave_Started_in_1513_src_u0hir5.webp"
+      },
+      {
+        "id": 5,
+        "title": "Awakening Captive, ca. 1516-19",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387617/art_bazaar/michelangelo_buonarroti/Awakening_Captive_ca._1516-19_src_rpek5r.webp"
+      },
+      {
+        "id": 6,
+        "title": "Study for the Nude Youth over the Prophet Daniel (recto), 1510-1511",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387618/art_bazaar/michelangelo_buonarroti/Study_for_the_Nude_Youth_over_the_Prophet_Daniel_recto_1510-1511_src_qmk0vh.webp"
+      },
+      {
+        "id": 7,
+        "title": "The Entombment (or Christ being carried to his Tomb), 1500-1501",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387617/art_bazaar/michelangelo_buonarroti/The_Entombment_or_Christ_being_carried_to_his_Tomb_1500-1501_src_yjcoo8.webp"
+      },
+      {
+        "id": 8,
+        "title": "Moses, ca. 1513-1515",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387616/art_bazaar/michelangelo_buonarroti/Moses_ca._1513-1515_src_tnn2q5.webp"
+      },
+      {
+        "id": 9,
+        "title": "The Torment of Saint Anthony, ca. 1487",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387616/art_bazaar/michelangelo_buonarroti/The_Torment_of_Saint_Anthony_ca._1487_srcSet_c1pawm.webp"
+      },
+      {
+        "id": 10,
+        "title": "Lazarus with his right arm held across his chest, draped in a shroud; the upper part of Lazarus's body (upside down), 1518",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387615/art_bazaar/michelangelo_buonarroti/Lazarus_with_his_right_arm_held_across_his_chest_draped_in_a_shroud_the_upper_part_of_Lazarus_s_body_upside_down_1518_src_w3hdmn.webp"
+      },
+      {
+        "id": 11,
+        "title": "The Risen Christ, 1532-1533",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387615/art_bazaar/michelangelo_buonarroti/The_Risen_Christ_1532-1533_src_ot595x.webp"
+      },
+      {
+        "id": 12,
+        "title": "Male Nude [recto], ca. 1560",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387614/art_bazaar/michelangelo_buonarroti/Male_Nude_recto_ca._1560_src_omlgkd.webp"
+      },
+      {
+        "id": 13,
+        "title": "David, 1501-1504",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387614/art_bazaar/michelangelo_buonarroti/David_1501-1504_src_oxwvch.webp"
+      },
+      {
+        "id": 14,
+        "title": "Pietà, ca. 1500",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387613/art_bazaar/michelangelo_buonarroti/Pieta%CC%80_ca._1500_src_g3voep.webp"
+      },
+      {
+        "id": 15,
+        "title": "Tomb of Lorenzo de Medici, Duke of Urbino, with Dawn and Evening, ca. 1525",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387613/art_bazaar/michelangelo_buonarroti/Tomb_of_Lorenzo_de_Medici_Duke_of_Urbino_with_Dawn_and_Evening_ca._1525_src_dybypu.webp"
+      },
+      {
+        "id": 16,
+        "title": "Figure Studies for the Sistine Ceiling (verso), 1510-1511",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387613/art_bazaar/michelangelo_buonarroti/Figure_Studies_for_the_Sistine_Ceiling_verso_1510-1511_src_nseh11.webp"
+      },
+      {
+        "id": 17,
+        "title": "Pietà (known as the Rondanini Pietà), 1559-1564",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387612/art_bazaar/michelangelo_buonarroti/Pieta%CC%80_known_as_the_Rondanini_Pieta%CC%80_1559-1564_src_mkj8b5.webp"
+      },
+      {
+        "id": 18,
+        "title": "Sistine Chapel Ceiling Frescoes, 1508-1512",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387612/art_bazaar/michelangelo_buonarroti/Sistine_Chapel_Ceiling_Frescoes_1508-1512_src_islsra.webp"
+      },
+      {
+        "id": 19,
+        "title": "Last Judgment, Sistine Chapel, 1536-1541",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387611/art_bazaar/michelangelo_buonarroti/Last_Judgment_Sistine_Chapel_1536-1541_src_avvqak.webp"
+      },
+      {
+        "id": 20,
+        "title": "Creation of Adam, Sistine Chapel ceiling, 1511-1512",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387611/art_bazaar/michelangelo_buonarroti/Creation_of_Adam_Sistine_Chapel_ceiling_1511-1512_src_fpvtzs.webp"
+      },
+      {
+        "id": 21,
+        "title": "Male Nude [verso], ca. 1560",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387611/art_bazaar/michelangelo_buonarroti/Male_Nude_verso_ca._1560_src_xkwrkq.webp"
+      },
+      {
+        "id": 22,
+        "title": "Dying slave, for the tomb of Pope Julius II - Giuliano della Rovere - (1443-1513), 1589",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387610/art_bazaar/michelangelo_buonarroti/Dying_slave_for_the_tomb_of_Pope_Julius_II_-_Giuliano_della_Rovere_-_1443-1513_1589_src_mgmnxf.webp"
+      },
+      {
+        "id": 23,
+        "title": "The Lamentation over the Dead Christ, 1540",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387610/art_bazaar/michelangelo_buonarroti/The_Lamentation_over_the_Dead_Christ_1540_src_zkw6x2.webp"
+      },
+      {
+        "id": 24,
+        "title": "Sistine Chapel Ceiling Frescoes, 1508-1512",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387610/art_bazaar/michelangelo_buonarroti/Sistine_Chapel_Ceiling_Frescoes_1508-1512_src2_nfow1b.webp"
+      },
+      {
+        "id": 25,
+        "title": "Studies for the Libyan Sibyl (recto); Studies for the Libyan Sibyl and a small Sketch for a Seated Figure (verso), ca. 1510–1511",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387610/art_bazaar/michelangelo_buonarroti/Studies_for_the_Libyan_Sibyl_recto_Studies_for_the_Libyan_Sibyl_and_a_small_Sketch_for_a_Seated_Figure_verso_ca._1510_1511_src_pyck8b.webp"
+      },
+      {
+        "id": 26,
+        "title": "L'Esclave mourant (Dying Slave), Started in 1513",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387609/art_bazaar/michelangelo_buonarroti/L_Esclave_mourant_Dying_Slave_Started_in_1513_src_okdpoj.webp"
+      },
+      {
+        "id": 27,
+        "title": "Bust of Youth and Caricature Head of an Old Man in Left Profile, ca. 1530",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387609/art_bazaar/michelangelo_buonarroti/Bust_of_Youth_and_Caricature_Head_of_an_Old_Man_in_Left_Profile_ca._1530_src_e6xz8e.webp"
+      },
+      {
+        "id": 28,
+        "title": "Saint Peter's Basilica, ca. 1546-64",
+        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387609/art_bazaar/michelangelo_buonarroti/Saint_Peter_s_Basilica_ca._1546-64_src_fnn1es.webp"
+      }
+    ]
   },
   {
     "id": 2,
@@ -170,7 +312,6 @@
   },
   {
     "id": 7,
-
     "name": "Salvador Dalí",
     "nationality": "Spanish",
     "born": "1904",
@@ -198,7 +339,6 @@
   },
   {
     "id": 8,
-
     "name": "Johannes Vermeer",
     "nationality": "Dutch",
     "born": "1632",
@@ -226,7 +366,6 @@
   },
   {
     "id": 9,
-
     "name": "Henri Matisse",
     "nationality": "French",
     "born": "1869",
@@ -254,7 +393,6 @@
   },
   {
     "id": 10,
-
     "name": "Jackson Pollock",
     "nationality": "American",
     "born": "1912",
@@ -282,7 +420,6 @@
   },
   {
     "id": 11,
-
     "name": "Edgar Degas",
     "nationality": "French",
     "born": "1834",
@@ -394,7 +531,6 @@
   },
   {
     "id": 15,
-
     "name": "Gustav Klimt",
     "nationality": "Austrian",
     "born": "1862",
@@ -422,8 +558,7 @@
   },
   {
     "id": 16,
-
-    "name": "Francisco Goya",
+    "name": "Francisco de Goya",
     "nationality": "Spanish",
     "born": "1746",
     "died": "1828",
@@ -478,7 +613,6 @@
   },
   {
     "id": 18,
-
     "name": "Pierre-Auguste Renoir",
     "nationality": "French",
     "born": "1841",
@@ -506,7 +640,6 @@
   },
   {
     "id": 19,
-
     "name": "Andy Warhol",
     "nationality": "American",
     "born": "1928",
@@ -534,7 +667,6 @@
   },
   {
     "id": 20,
-
     "name": "Frida Kahlo",
     "nationality": "Mexican",
     "born": "1907",
@@ -562,7 +694,6 @@
   },
   {
     "id": 21,
-
     "name": "Henri de Toulouse-Lautrec",
     "nationality": "French",
     "born": "1864",
@@ -590,7 +721,6 @@
   },
   {
     "id": 22,
-
     "name": "Titian",
     "nationality": "Italian",
     "born": "1488",
@@ -618,7 +748,6 @@
   },
   {
     "id": 23,
-
     "name": "Sandro Botticelli",
     "nationality": "Italian",
     "born": "1445",
@@ -646,7 +775,6 @@
   },
   {
     "id": 24,
-
     "name": "Diego Velázquez",
     "nationality": "Spanish",
     "born": "1599",
@@ -674,7 +802,6 @@
   },
   {
     "id": 25,
-
     "name": "John Singer Sargent",
     "nationality": "American",
     "born": "1856",
@@ -702,7 +829,6 @@
   },
   {
     "id": 26,
-
     "name": "Hieronymus Bosch",
     "nationality": "Dutch",
     "born": "1450",
@@ -730,7 +856,6 @@
   },
   {
     "id": 27,
-
     "name": "Marc Chagall",
     "nationality": "Russian-French",
     "born": "1887",
@@ -758,7 +883,6 @@
   },
   {
     "id": 28,
-
     "name": "Peter Paul Rubens",
     "nationality": "Flemish",
     "born": "1577",
@@ -786,7 +910,6 @@
   },
   {
     "id": 29,
-
     "name": "Eugène Delacroix",
     "nationality": "French",
     "born": "1798",
@@ -814,7 +937,6 @@
   },
   {
     "id": 30,
-
     "name": "Gustave Courbet",
     "nationality": "French",
     "born": "1819",
@@ -1122,7 +1244,6 @@
   },
   {
     "id": 41,
-
     "name": "Paul Klee",
     "nationality": "Swiss-German",
     "born": "1879",
@@ -1178,7 +1299,6 @@
   },
   {
     "id": 43,
-
     "name": "Mark Rothko",
     "nationality": "American",
     "born": "1903",
@@ -1206,7 +1326,6 @@
   },
   {
     "id": 44,
-
     "name": "Piet Mondrian",
     "nationality": "Dutch",
     "born": "1872",
@@ -1234,7 +1353,6 @@
   },
   {
     "id": 45,
-
     "name": "René Magritte",
     "nationality": "Belgian",
     "born": "1898",
@@ -1262,7 +1380,6 @@
   },
   {
     "id": 46,
-
     "name": "David Hockney",
     "nationality": "British",
     "born": "1937",
@@ -1289,7 +1406,6 @@
   },
   {
     "id": 47,
-
     "name": "Edward Hopper",
     "nationality": "American",
     "born": "1882",
@@ -1317,7 +1433,6 @@
   },
   {
     "id": 48,
-
     "name": "Francis Bacon",
     "nationality": "British-Irish",
     "born": "1909",
@@ -1345,7 +1460,6 @@
   },
   {
     "id": 49,
-
     "name": "Yayoi Kusama",
     "nationality": "Japanese",
     "born": "1929",
