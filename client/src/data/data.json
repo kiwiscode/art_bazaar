@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "name": "Michelangelo Buonarroti",
     "nationality": "Italian",
     "born": "1475",
@@ -30,152 +29,9 @@
         "year": "2019"
       }
     ],
-    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387616/art_bazaar/michelangelo_buonarroti/Moses_ca._1513-1515_src_tnn2q5.webp",
-    "works": [
-      {
-        "id": 1,
-        "title": "Two Nudes Fighting",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387620/art_bazaar/michelangelo_buonarroti/Two_Nudes_Fighting_srcSet_btleli.webp"
-      },
-      {
-        "id": 2,
-        "title": "Bound Slave (Captive Atlas), ca. 1516-19",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387619/art_bazaar/michelangelo_buonarroti/Bound_Slave_src_uloraj.webp"
-      },
-      {
-        "id": 3,
-        "title": "The Virgin and Child with Saint John and Angels ('The Manchester Madonna'), ca. 1497",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387619/art_bazaar/michelangelo_buonarroti/The_Virgin_and_Child_with_Saint_John_and_Angels_The_Manchester_Madonna_ca._1497_src_m8uxd9.webp"
-      },
-      {
-        "id": 4,
-        "title": "L'Esclave rebelle (The Rebellious Slave), Started in 1513",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387618/art_bazaar/michelangelo_buonarroti/L_Esclave_rebelle_The_Rebellious_Slave_Started_in_1513_src_u0hir5.webp"
-      },
-      {
-        "id": 5,
-        "title": "Awakening Captive, ca. 1516-19",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387617/art_bazaar/michelangelo_buonarroti/Awakening_Captive_ca._1516-19_src_rpek5r.webp"
-      },
-      {
-        "id": 6,
-        "title": "Study for the Nude Youth over the Prophet Daniel (recto), 1510-1511",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387618/art_bazaar/michelangelo_buonarroti/Study_for_the_Nude_Youth_over_the_Prophet_Daniel_recto_1510-1511_src_qmk0vh.webp"
-      },
-      {
-        "id": 7,
-        "title": "The Entombment (or Christ being carried to his Tomb), 1500-1501",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387617/art_bazaar/michelangelo_buonarroti/The_Entombment_or_Christ_being_carried_to_his_Tomb_1500-1501_src_yjcoo8.webp"
-      },
-      {
-        "id": 8,
-        "title": "Moses, ca. 1513-1515",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387616/art_bazaar/michelangelo_buonarroti/Moses_ca._1513-1515_src_tnn2q5.webp"
-      },
-      {
-        "id": 9,
-        "title": "The Torment of Saint Anthony, ca. 1487",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387616/art_bazaar/michelangelo_buonarroti/The_Torment_of_Saint_Anthony_ca._1487_srcSet_c1pawm.webp"
-      },
-      {
-        "id": 10,
-        "title": "Lazarus with his right arm held across his chest, draped in a shroud; the upper part of Lazarus's body (upside down), 1518",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387615/art_bazaar/michelangelo_buonarroti/Lazarus_with_his_right_arm_held_across_his_chest_draped_in_a_shroud_the_upper_part_of_Lazarus_s_body_upside_down_1518_src_w3hdmn.webp"
-      },
-      {
-        "id": 11,
-        "title": "The Risen Christ, 1532-1533",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387615/art_bazaar/michelangelo_buonarroti/The_Risen_Christ_1532-1533_src_ot595x.webp"
-      },
-      {
-        "id": 12,
-        "title": "Male Nude [recto], ca. 1560",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387614/art_bazaar/michelangelo_buonarroti/Male_Nude_recto_ca._1560_src_omlgkd.webp"
-      },
-      {
-        "id": 13,
-        "title": "David, 1501-1504",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387614/art_bazaar/michelangelo_buonarroti/David_1501-1504_src_oxwvch.webp"
-      },
-      {
-        "id": 14,
-        "title": "Pietà, ca. 1500",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387613/art_bazaar/michelangelo_buonarroti/Pieta%CC%80_ca._1500_src_g3voep.webp"
-      },
-      {
-        "id": 15,
-        "title": "Tomb of Lorenzo de Medici, Duke of Urbino, with Dawn and Evening, ca. 1525",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387613/art_bazaar/michelangelo_buonarroti/Tomb_of_Lorenzo_de_Medici_Duke_of_Urbino_with_Dawn_and_Evening_ca._1525_src_dybypu.webp"
-      },
-      {
-        "id": 16,
-        "title": "Figure Studies for the Sistine Ceiling (verso), 1510-1511",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387613/art_bazaar/michelangelo_buonarroti/Figure_Studies_for_the_Sistine_Ceiling_verso_1510-1511_src_nseh11.webp"
-      },
-      {
-        "id": 17,
-        "title": "Pietà (known as the Rondanini Pietà), 1559-1564",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387612/art_bazaar/michelangelo_buonarroti/Pieta%CC%80_known_as_the_Rondanini_Pieta%CC%80_1559-1564_src_mkj8b5.webp"
-      },
-      {
-        "id": 18,
-        "title": "Sistine Chapel Ceiling Frescoes, 1508-1512",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387612/art_bazaar/michelangelo_buonarroti/Sistine_Chapel_Ceiling_Frescoes_1508-1512_src_islsra.webp"
-      },
-      {
-        "id": 19,
-        "title": "Last Judgment, Sistine Chapel, 1536-1541",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387611/art_bazaar/michelangelo_buonarroti/Last_Judgment_Sistine_Chapel_1536-1541_src_avvqak.webp"
-      },
-      {
-        "id": 20,
-        "title": "Creation of Adam, Sistine Chapel ceiling, 1511-1512",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387611/art_bazaar/michelangelo_buonarroti/Creation_of_Adam_Sistine_Chapel_ceiling_1511-1512_src_fpvtzs.webp"
-      },
-      {
-        "id": 21,
-        "title": "Male Nude [verso], ca. 1560",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387611/art_bazaar/michelangelo_buonarroti/Male_Nude_verso_ca._1560_src_xkwrkq.webp"
-      },
-      {
-        "id": 22,
-        "title": "Dying slave, for the tomb of Pope Julius II - Giuliano della Rovere - (1443-1513), 1589",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387610/art_bazaar/michelangelo_buonarroti/Dying_slave_for_the_tomb_of_Pope_Julius_II_-_Giuliano_della_Rovere_-_1443-1513_1589_src_mgmnxf.webp"
-      },
-      {
-        "id": 23,
-        "title": "The Lamentation over the Dead Christ, 1540",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387610/art_bazaar/michelangelo_buonarroti/The_Lamentation_over_the_Dead_Christ_1540_src_zkw6x2.webp"
-      },
-      {
-        "id": 24,
-        "title": "Sistine Chapel Ceiling Frescoes, 1508-1512",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387610/art_bazaar/michelangelo_buonarroti/Sistine_Chapel_Ceiling_Frescoes_1508-1512_src2_nfow1b.webp"
-      },
-      {
-        "id": 25,
-        "title": "Studies for the Libyan Sibyl (recto); Studies for the Libyan Sibyl and a small Sketch for a Seated Figure (verso), ca. 1510–1511",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387610/art_bazaar/michelangelo_buonarroti/Studies_for_the_Libyan_Sibyl_recto_Studies_for_the_Libyan_Sibyl_and_a_small_Sketch_for_a_Seated_Figure_verso_ca._1510_1511_src_pyck8b.webp"
-      },
-      {
-        "id": 26,
-        "title": "L'Esclave mourant (Dying Slave), Started in 1513",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387609/art_bazaar/michelangelo_buonarroti/L_Esclave_mourant_Dying_Slave_Started_in_1513_src_okdpoj.webp"
-      },
-      {
-        "id": 27,
-        "title": "Bust of Youth and Caricature Head of an Old Man in Left Profile, ca. 1530",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387609/art_bazaar/michelangelo_buonarroti/Bust_of_Youth_and_Caricature_Head_of_an_Old_Man_in_Left_Profile_ca._1530_src_e6xz8e.webp"
-      },
-      {
-        "id": 28,
-        "title": "Saint Peter's Basilica, ca. 1546-64",
-        "pictureUrl": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387609/art_bazaar/michelangelo_buonarroti/Saint_Peter_s_Basilica_ca._1546-64_src_fnn1es.webp"
-      }
-    ]
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387616/art_bazaar/michelangelo_buonarroti/Moses_ca._1513-1515_src_tnn2q5.webp"
   },
   {
-    "id": 2,
     "name": "Raphael",
     "nationality": "Italian",
     "born": "1483",
@@ -199,10 +55,10 @@
         "institution": "National Gallery, London",
         "year": "2019-2020"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387824/art_bazaar/raphael/Studies_of_a_Seated_Female_Child_s_Head_and_Three_Studies_of_a_Baby_c._1507-1508_src_mwt6le.webp"
   },
   {
-    "id": 3,
     "name": "Vincent van Gogh",
     "nationality": "Dutch",
     "born": "1853",
@@ -226,11 +82,10 @@
         "institution": "Van Gogh Museum, Amsterdam",
         "year": "2021-2022"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387770/art_bazaar/vincent_van_gogh/Wheat_Field_with_Cypresses_1889_src_ljzeno.webp"
   },
   {
-    "id": 4,
-
     "name": "Pablo Picasso",
     "nationality": "Spanish",
     "born": "1881",
@@ -254,10 +109,10 @@
         "institution": "Royal Academy of Arts, London",
         "year": "2020"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720618539/art_bazaar/pablo_picasso/Woman_with_Yellow_Hair_Femme_aux_cheveux_jaunes_Paris-December_1931_yo4obx.webp"
   },
   {
-    "id": 5,
     "name": "Claude Monet",
     "nationality": "French",
     "born": "1840",
@@ -281,10 +136,10 @@
         "institution": "de Young Museum, San Francisco",
         "year": "2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720387679/art_bazaar/claude_monet/Woman_with_a_Parasol_-_Madame_Monet_and_Her_Son_1875_src_dikfcw.webp"
   },
   {
-    "id": 6,
     "name": "Rembrandt van Rijn",
     "nationality": "Dutch",
     "born": "1606",
@@ -308,10 +163,10 @@
         "institution": "Art Institute of Chicago",
         "year": "2020"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720618733/art_bazaar/rembrandt_van_rijn/Man_in_a_Broad-Brimmed_Hat_1630_y7rc7b.webp"
   },
   {
-    "id": 7,
     "name": "Salvador Dalí",
     "nationality": "Spanish",
     "born": "1904",
@@ -335,10 +190,10 @@
         "institution": "Centre Pompidou, Paris",
         "year": "2022-2023"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720390806/art_bazaar/salvador_dali/A_Woman_bathing_in_a_Stream_Hendrickje_Stoffels_1654_xh0rro.webp"
   },
   {
-    "id": 8,
     "name": "Johannes Vermeer",
     "nationality": "Dutch",
     "born": "1632",
@@ -362,10 +217,10 @@
         "institution": "Mauritshuis, The Hague",
         "year": "2020"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720391272/art_bazaar/johannes_vermeer/GIRL_WITH_A_PEARL_EARRING_1960_w93mpi.webp"
   },
   {
-    "id": 9,
     "name": "Henri Matisse",
     "nationality": "French",
     "born": "1869",
@@ -389,10 +244,10 @@
         "institution": "Tate Modern, London",
         "year": "2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720391735/art_bazaar/henri_matisse/Blue_Nude_II_1952_klggy2.webp"
   },
   {
-    "id": 10,
     "name": "Jackson Pollock",
     "nationality": "American",
     "born": "1912",
@@ -416,10 +271,10 @@
         "institution": "Dallas Museum of Art",
         "year": "2015"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720392094/art_bazaar/jackson_pollock/Number_1_1949_1949_oxgfsk.webp"
   },
   {
-    "id": 11,
     "name": "Edgar Degas",
     "nationality": "French",
     "born": "1834",
@@ -443,11 +298,10 @@
         "institution": "Musée d'Orsay, Paris",
         "year": "2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720392334/art_bazaar/edgar_degas/E%CC%81douard_Manet_Seated_Holding_His_Hat_ca._1865_w42521.webp"
   },
   {
-    "id": 12,
-
     "name": "Paul Cézanne",
     "nationality": "French",
     "born": "1839",
@@ -471,11 +325,10 @@
         "institution": "Princeton University Art Museum",
         "year": "2020"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720619158/art_bazaar/paul_cezanne/The_Card_Players_1890-1895_hhgk98.webp"
   },
   {
-    "id": 13,
-
     "name": "Edvard Munch",
     "nationality": "Norwegian",
     "born": "1863",
@@ -499,11 +352,10 @@
         "institution": "Metropolitan Museum of Art, New York",
         "year": "2017-2018"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720392944/art_bazaar/edvard_munch/The_Scream_1893_nsnmfk.webp"
   },
   {
-    "id": 14,
-
     "name": "Georgia O'Keeffe",
     "nationality": "American",
     "born": "1887",
@@ -527,10 +379,10 @@
         "institution": "Smithsonian American Art Museum, Washington D.C.",
         "year": "2018"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720393972/art_bazaar/georgia_okeeffe/Red_Hills_with_Flowers_1937_wifhac.webp"
   },
   {
-    "id": 15,
     "name": "Gustav Klimt",
     "nationality": "Austrian",
     "born": "1862",
@@ -554,10 +406,10 @@
         "institution": "Belvedere Palace, Vienna",
         "year": "2018-2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720394923/art_bazaar/gustav_klimt/Der_Kuss_The_Kiss_1907-1908_ermjlv.webp"
   },
   {
-    "id": 16,
     "name": "Francisco de Goya",
     "nationality": "Spanish",
     "born": "1746",
@@ -581,38 +433,10 @@
         "institution": "Museum of Fine Arts, Boston",
         "year": "2014"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720396233/art_bazaar/francisco_de_goya/The_Third_of_May_1814_ipl10h.webp"
   },
   {
-    "id": 17,
-
-    "name": "Caravaggio",
-    "nationality": "Italian",
-    "born": "1571",
-    "died": "1610",
-    "description": "Caravaggio, born Michelangelo Merisi da Caravaggio, was a Baroque painter known for his revolutionary approach to art. His works, such as 'The Calling of Saint Matthew' and 'The Conversion of Saint Paul,' are characterized by their dramatic use of light and shadow, creating a sense of realism and emotional intensity. Caravaggio's influence on Baroque painting remains profound and enduring.",
-    "highAuctionRecord": {
-      "title": "Judith Beheading Holofernes",
-      "year": "2019",
-      "auctionHouse": "Sotheby's",
-      "salePrice": "$118 million"
-    },
-    "criticallyAcclaimed": "Acclaimed for his innovative use of chiaroscuro and his profound impact on Baroque art, Caravaggio's legacy endures as a defining figure of the Italian Renaissance.",
-    "recentSoloShows": [
-      {
-        "title": "Caravaggio: The Complete Works",
-        "institution": "Museo Nacional del Prado, Madrid",
-        "year": "2016"
-      },
-      {
-        "title": "Caravaggio and His Followers",
-        "institution": "The Metropolitan Museum of Art, New York",
-        "year": "2018"
-      }
-    ]
-  },
-  {
-    "id": 18,
     "name": "Pierre-Auguste Renoir",
     "nationality": "French",
     "born": "1841",
@@ -636,10 +460,10 @@
         "institution": "The Phillips Collection, Washington D.C.",
         "year": "2017"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720396897/art_bazaar/pierre_auguste_renoir/Dance_at_Le_Moulin_de_la_Galette_Bal_du_moulin_de_la_galette_1876_n7trlb.webp"
   },
   {
-    "id": 19,
     "name": "Andy Warhol",
     "nationality": "American",
     "born": "1928",
@@ -663,10 +487,10 @@
         "institution": "Whitney Museum of American Art, New York",
         "year": "2018-2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720397639/art_bazaar/andy_warhol/Marilyn_Monroe_22_1967_es9vpk.webp"
   },
   {
-    "id": 20,
     "name": "Frida Kahlo",
     "nationality": "Mexican",
     "born": "1907",
@@ -690,10 +514,10 @@
         "institution": "Casa Azul, Mexico City",
         "year": "2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720398863/art_bazaar/frida_kahlo/Autorretrato_con_chango_y_loro_1942_mjstpu.webp"
   },
   {
-    "id": 21,
     "name": "Henri de Toulouse-Lautrec",
     "nationality": "French",
     "born": "1864",
@@ -717,10 +541,10 @@
         "institution": "Victoria and Albert Museum, London",
         "year": "2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720399723/art_bazaar/henri_de_toulouse_lautrec/At_the_Moulin_Rouge_1892-1895_a7vmkp.webp"
   },
   {
-    "id": 22,
     "name": "Titian",
     "nationality": "Italian",
     "born": "1488",
@@ -744,10 +568,10 @@
         "institution": "Gemäldegalerie Alte Meister, Dresden",
         "year": "2019-2020"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720400387/art_bazaar/titian/Venus_of_Urbino_1538_n6zshi.webp"
   },
   {
-    "id": 23,
     "name": "Sandro Botticelli",
     "nationality": "Italian",
     "born": "1445",
@@ -771,10 +595,10 @@
         "institution": "Museum of Fine Arts, Boston",
         "year": "2017-2018"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720401722/art_bazaar/sandro_botticelli/The_Birth_of_Venus_ca._1486_ouwb7d.webp"
   },
   {
-    "id": 24,
     "name": "Diego Velázquez",
     "nationality": "Spanish",
     "born": "1599",
@@ -798,10 +622,10 @@
         "institution": "Museo del Prado, Madrid",
         "year": "2020-2021"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720402180/art_bazaar/diego_vel%C3%A1zquez/Portrait_of_the_Jester_Calabazas_c._1631-1632_omrwtg.webp"
   },
   {
-    "id": 25,
     "name": "John Singer Sargent",
     "nationality": "American",
     "born": "1856",
@@ -825,10 +649,10 @@
         "institution": "Museum of Fine Arts, Boston",
         "year": "2014-2015"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720403055/art_bazaar/john_singer_sargent/Madame_X_Madame_Pierre_Gautreau_1883_1884_wwb43n.webp"
   },
   {
-    "id": 26,
     "name": "Hieronymus Bosch",
     "nationality": "Dutch",
     "born": "1450",
@@ -852,10 +676,10 @@
         "institution": "Palazzo Ducale, Venice",
         "year": "2017"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720403340/art_bazaar/hieronymus_bosch/Triptych_of_the_Temptation_of_Saint_Anthony_1506_k6yygr.webp"
   },
   {
-    "id": 27,
     "name": "Marc Chagall",
     "nationality": "Russian-French",
     "born": "1887",
@@ -879,10 +703,10 @@
         "institution": "Guggenheim Museum, New York",
         "year": "2016"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720403584/art_bazaar/marc_chagall/Le_repos_au_village_1978_juohbu.webp"
   },
   {
-    "id": 28,
     "name": "Peter Paul Rubens",
     "nationality": "Flemish",
     "born": "1577",
@@ -906,10 +730,10 @@
         "institution": "Royal Academy of Arts, London",
         "year": "2015-2016"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720404049/art_bazaar/peter_paul_rubens/Garden_of_Love_1630-1632_a46cjf.webp"
   },
   {
-    "id": 29,
     "name": "Eugène Delacroix",
     "nationality": "French",
     "born": "1798",
@@ -933,10 +757,10 @@
         "institution": "National Gallery, London",
         "year": "2016"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720404771/art_bazaar/eug%C3%A8ne_delacroix/La_Liberte%CC%81_guidant_le_peuple_Liberty_Leading_the_People_1830_d9pghu.webp"
   },
   {
-    "id": 30,
     "name": "Gustave Courbet",
     "nationality": "French",
     "born": "1819",
@@ -960,11 +784,10 @@
         "institution": "The Metropolitan Museum of Art, New York",
         "year": "2018-2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720405057/art_bazaar/gustave_courbet/Woman_with_a_Parrot_1866_weyj7a.webp"
   },
   {
-    "id": 31,
-
     "name": "Édouard Manet",
     "nationality": "French",
     "born": "1832",
@@ -988,11 +811,10 @@
         "institution": "Art Institute of Chicago",
         "year": "2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720620762/art_bazaar/edouard_manet/Olympia_G._P._E647_1926-27_eybr62.webp"
   },
   {
-    "id": 32,
-
     "name": "Georges Seurat",
     "nationality": "French",
     "born": "1859",
@@ -1016,11 +838,10 @@
         "institution": "The Art Institute of Chicago",
         "year": "2017-2018"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720620865/art_bazaar/georges_seurat/A_Sunday_on_La_Grande_Jatte_1884-1886_cftdhv.webp"
   },
   {
-    "id": 33,
-
     "name": "Paul Gauguin",
     "nationality": "French",
     "born": "1848",
@@ -1044,11 +865,10 @@
         "institution": "Museum of Modern Art, New York",
         "year": "2014-2015"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720620997/art_bazaar/paul_gauguin/Tahitian_Woman_with_a_Flower_1891_dak7qv.webp"
   },
   {
-    "id": 34,
-
     "name": "Amedeo Modigliani",
     "nationality": "Italian",
     "born": "1884",
@@ -1072,11 +892,10 @@
         "institution": "Tate Modern, London",
         "year": "2018"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720621094/art_bazaar/amedeo_modigliani/Nu_1917_rtr9j2.webp"
   },
   {
-    "id": 35,
-
     "name": "Camille Pissarro",
     "nationality": "Danish-French",
     "born": "1830",
@@ -1100,11 +919,10 @@
         "institution": "Museum Barberini, Potsdam",
         "year": "2020-2021"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720621179/art_bazaar/camille_pissarro/La_Briqueterie_Delafolie_a%CC%80_E%CC%81ragny_1886_t5j7uf.webp"
   },
   {
-    "id": 36,
-
     "name": "Joan Miró",
     "nationality": "Spanish",
     "born": "1893",
@@ -1128,11 +946,10 @@
         "institution": "Fundació Joan Miró, Barcelona",
         "year": "2015-2016"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720621266/art_bazaar/joan_mir%C3%B3/Montroig_I_1974_k8uzmy.webp"
   },
   {
-    "id": 37,
-
     "name": "Willem de Kooning",
     "nationality": "Dutch-American",
     "born": "1904",
@@ -1156,11 +973,10 @@
         "institution": "Tate Modern, London",
         "year": "2015-2016"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720621367/art_bazaar/willem_de_kooning/Two_Women_with_Still_Life_1952_norkp3.webp"
   },
   {
-    "id": 38,
-
     "name": "Balthus",
     "nationality": "French",
     "born": "1908",
@@ -1184,11 +1000,10 @@
         "institution": "Musée d'Art Moderne de la Ville de Paris",
         "year": "2016"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720621444/art_bazaar/balthus/Untitled_c._1990_-2000_ok8j4y.webp"
   },
   {
-    "id": 39,
-
     "name": "Jean-Michel Basquiat",
     "nationality": "American",
     "born": "1960",
@@ -1212,11 +1027,10 @@
         "institution": "Barbican Art Gallery, London",
         "year": "2017"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720621526/art_bazaar/jean_michel_basquiat/Untitled_1981_y4nsjb.webp"
   },
   {
-    "id": 40,
-
     "name": "Giotto di Bondone",
     "nationality": "Italian",
     "born": "1266",
@@ -1240,10 +1054,10 @@
         "institution": "National Gallery of Art, Washington D.C.",
         "year": "2022"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720621649/art_bazaar/giotto_di_bondone/The_Adoration_of_the_Magi_ca._1320_yx18pq.webp"
   },
   {
-    "id": 41,
     "name": "Paul Klee",
     "nationality": "Swiss-German",
     "born": "1879",
@@ -1267,11 +1081,10 @@
         "institution": "Whitney Museum of American Art, New York",
         "year": "2017"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720428557/art_bazaar/paul_klee/Conquest_of_the_Mountain_1939_nhwivt.webp"
   },
   {
-    "id": 42,
-
     "name": "Max Ernst",
     "nationality": "German-French",
     "born": "1891",
@@ -1295,10 +1108,10 @@
         "institution": "Centre Pompidou, Paris",
         "year": "2018-2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720428705/art_bazaar/max_ernst/The_Antipope_December_1941_March_1942_xumgms.webp"
   },
   {
-    "id": 43,
     "name": "Mark Rothko",
     "nationality": "American",
     "born": "1903",
@@ -1322,10 +1135,10 @@
         "institution": "Tate Modern, London",
         "year": "2020-2021"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720429094/art_bazaar/mark_rothko/No._14_1960_1960_t7qnel.webp"
   },
   {
-    "id": 44,
     "name": "Piet Mondrian",
     "nationality": "Dutch",
     "born": "1872",
@@ -1349,10 +1162,10 @@
         "institution": "Tate Liverpool",
         "year": "2014-2015"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720429425/art_bazaar/piet_mondrian/Composition_with_Red_Yellow_and_Blue_1927_tphd7q.webp"
   },
   {
-    "id": 45,
     "name": "René Magritte",
     "nationality": "Belgian",
     "born": "1898",
@@ -1376,10 +1189,10 @@
         "institution": "San Francisco Museum of Modern Art",
         "year": "2018-2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720430298/art_bazaar/rene_magritte/La_Trahison_des_images_Ceci_n_est_pas_une_pipe_1929_tlzllf.webp"
   },
   {
-    "id": 46,
     "name": "David Hockney",
     "nationality": "British",
     "born": "1937",
@@ -1402,10 +1215,10 @@
         "institution": "Guggenheim Museum Bilbao",
         "year": "2017-2018"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720430898/art_bazaar/david_hockney/A_Bigger_Splash_1967_zqylwk.webp"
   },
   {
-    "id": 47,
     "name": "Edward Hopper",
     "nationality": "American",
     "born": "1882",
@@ -1429,10 +1242,10 @@
         "institution": "Museum Frieder Burda, Baden-Baden",
         "year": "2022"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720434928/art_bazaar/edward_hopper/Early_Sunday_Morning_1930_mztzqw.webp"
   },
   {
-    "id": 48,
     "name": "Francis Bacon",
     "nationality": "British-Irish",
     "born": "1909",
@@ -1456,10 +1269,10 @@
         "institution": "Fondation Beyeler, Basel",
         "year": "2018-2019"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720435220/art_bazaar/francis_bacon/Study_for_Portrait_on_Folding_Bed_1963_pbpcuu.webp"
   },
   {
-    "id": 49,
     "name": "Yayoi Kusama",
     "nationality": "Japanese",
     "born": "1929",
@@ -1482,6 +1295,7 @@
         "institution": "Tate Modern, London",
         "year": "2023"
       }
-    ]
+    ],
+    "profilePic": "https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720435899/art_bazaar/yayoi_kusama/Infinity_Mirrored_Room_All_the_Eternal_Love_I_Have_for_the_Pumpkins_2016_kovzvt.webp"
   }
 ]

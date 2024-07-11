@@ -5,6 +5,7 @@ import Main from "./pages/Main";
 import ResetPassword from "./pages/ResetPassword";
 import ArtistProfile from "./pages/ArtistProfile";
 import { useEffect, useState } from "react";
+import Artwork from "./pages/Artwork";
 function App() {
   const location = useLocation();
   const path = location.pathname;
@@ -26,8 +27,6 @@ function App() {
           style={{
             position: "sticky",
             top: "0px",
-            // backgroundColor: "rgba(255, 255, 255, 0.85)",
-            // backdropFilter: "blur(12px)",
             borderBottom: "1px solid rgb(194, 194, 194)",
             zIndex: 1,
             width: "100%",
@@ -52,6 +51,7 @@ function App() {
               />
             }
           ></Route>
+          <Route path="/artwork/:artworkName" element={<Artwork />}></Route>
         </Routes>
       </div>
     </UserProvider>

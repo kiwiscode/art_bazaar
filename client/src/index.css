@@ -75,6 +75,9 @@ body {
 .pointer {
   cursor: pointer;
 }
+.zoom-in-pointer {
+  cursor: zoom-in;
+}
 .pointer-none {
   pointer-events: none;
 }
@@ -88,6 +91,13 @@ body {
   text-decoration: underline;
   transition: text-decoration 0.3s ease-in-out;
   cursor: default;
+}
+.hover_color_effect_t-d-kind-of-blue:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgb(16, 35, 215) !important;
+  color: rgb(16, 35, 215) !important;
+  transition: color 0.3s ease-in-out, text-decoration-color 0.3s ease-in-out;
 }
 
 .hover_bg_color_effect_white_text:hover {
@@ -263,8 +273,8 @@ body {
   grid-column-end: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   box-sizing: border-box;
+  gap: 20px;
 }
 .item-2 .artist-name,
 .item-2 .artist-info {
@@ -312,6 +322,11 @@ body {
   .artist-header {
     column-gap: 0px;
     box-sizing: border-box;
+  }
+
+  .artwork-display .item-1,
+  .artwork-display .item-2 {
+    grid-column-start: span 12 !important;
   }
 
   .artist-header .item-1,
@@ -380,4 +395,121 @@ body {
   .flex-container-for-artworks {
     column-count: 1;
   }
+}
+
+/* artwork display */
+
+.artwork-display {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.artwork-display .item-1 {
+  grid-column-start: span 8;
+  grid-column-end: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.artwork-display .item-2 {
+  grid-column-start: span 4;
+  grid-column-end: auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.artwork-creator-name {
+  font-size: 26px;
+  line-height: 32px;
+  color: rgb(0, 0, 0);
+}
+
+.artwork-info div:first-child {
+  font-size: 26px;
+  line-height: 32px;
+  color: rgb(112, 112, 112);
+  font-weight: 0 !important;
+}
+
+.artwork-info div:nth-child(2),
+.artwork-info div:nth-child(3) {
+  font-size: 16px;
+  line-height: 26px;
+  color: rgb(112, 112, 112);
+  font-weight: 0 !important;
+}
+
+.artwork-location-info div:nth-child(1) {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 0 !important;
+  color: rgb(0, 0, 0);
+}
+.artwork-location-info div:nth-child(2) {
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 0 !important;
+  color: rgb(112, 112, 112);
+}
+
+.footer-artwork-second-grid span:nth-child(1) {
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 0 !important;
+  color: rgb(112, 112, 112);
+}
+.footer-artwork-second-grid span:nth-child(2) {
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 0 !important;
+  text-decoration: underline;
+  text-decoration-color: rgb(16, 35, 215);
+  color: rgb(16, 35, 215);
+  cursor: pointer;
+}
+
+/* zoom in slider */
+
+.slider-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.slider-input {
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: #c2c2c2; /* Track rengi */
+  outline: none;
+  touch-action: none;
+}
+
+/* share */
+.popover-material-ui-light-theme .MuiPaper-root {
+  background-color: white !important;
+  box-shadow: 0 0 15px rgba(101, 119, 134, 0.2),
+    0 0 5px 3px rgba(101, 119, 134, 0.15) !important;
+  overflow-y: hidden !important;
+}
+
+.popover-custom-ui-light-theme {
+  background-color: white !important;
+  box-shadow: 0 0 15px rgba(101, 119, 134, 0.2),
+    0 0 5px 3px rgba(101, 119, 134, 0.15) !important;
+  overflow-y: hidden !important;
+}
+
+.canvas {
+  scale: scale 250ms ease 0s;
 }

@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import LoadingSpinner from "./LoadingSpinner";
-import data from "../data/data.json";
 
 // when working on local version
 const API_URL = import.meta.env.VITE_APP_API_URL;
@@ -32,6 +31,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
   const [loading, setLoading] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [artists, setArtists] = useState([]);
   const [signUpOn, setSignUpOn] = useState(false);
   const [loginOn, setLoginOn] = useState(false);
   const [forgotPasswordOn, setForgotPasswordOn] = useState(false);
@@ -234,6 +234,8 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
 
       if (result.status === 200) {
         setExistEmailError(false);
+      } else {
+        console.error("Error during email check. Status:", result.status);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -368,6 +370,11 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
       if (result.status === 200) {
         setLoading(false);
         setResetLinkInfoPopup(true);
+      } else {
+        console.error(
+          "Error during sending email process. Status:",
+          result.status
+        );
       }
     } catch (error) {
       console.error("error:", error);
@@ -377,6 +384,24 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
     const formattedName = artistName.toLowerCase().replace(/ /g, "-");
     navigate(`/artist/${formattedName}`);
   };
+
+  // get all artists
+  const getArtists = async () => {
+    try {
+      const result = await axios.get(`${API_URL}/artist/all-artists`);
+      if (result.status === 200) {
+        setArtists(result.data);
+      } else {
+        console.error("Error during get all artists. Status:", result.status);
+      }
+    } catch (error) {
+      console.error("error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getArtists();
+  }, []);
 
   return (
     <>
@@ -1678,6 +1703,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
         style={{
           paddingLeft: width <= 768 ? "0px" : "40px",
           paddingRight: width <= 768 ? "0px" : "40px",
+          // width: "100%",
         }}
       >
         <div
@@ -1935,7 +1961,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                   padding: "60px 0px",
                 }}
               >
-                {data?.slice(0, 20).map((eachArtist, index) => (
+                {artists?.slice(0, 20).map((eachArtist, index) => (
                   <div
                     onClick={() => {
                       setHoveredArtists(false);

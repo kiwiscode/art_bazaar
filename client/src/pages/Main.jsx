@@ -3641,35 +3641,6 @@ function Main() {
           </div>
         )}
       </div>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          position: "relative",
-        }}
-      >
-        <div className="zoom-container">
-          <img
-            onMouseMove={handleMouseMove}
-            onMouseEnter={() => setScaleNumber(1.75)}
-            onMouseLeave={() => setScaleNumber(1)}
-            className="zoom"
-            style={{
-              width: "100%",
-              height: "100%",
-              transformOrigin: transformOrigin,
-              transform: `scale(${scaleNumber})`,
-              transition:
-                "transform 0.15s,transform-origin 100ms,opacity 0.25s",
-              objectFit: "cover",
-              opacity: 1,
-            }}
-            src="https://d7hftxdivxxvm.cloudfront.net/?height=767&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FKkbQ2mMimaPBAKtFBL_ctQ%2Flarger.jpg&width=445"
-            alt=""
-          />
-        </div>
-      </div>
     </>
   );
 }

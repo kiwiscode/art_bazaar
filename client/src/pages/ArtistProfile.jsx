@@ -1,32 +1,55 @@
-import { useParams } from "react-router-dom";
-import data from "../data/data.json";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import ReadMoreLess from "../components/ReadMoreLess";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import { UserContext } from "../components/UserContext";
+import axios from "axios";
+
+// when working on local version
+const API_URL = import.meta.env.VITE_APP_API_URL;
+
 function ArtistProfile({ sendDataToParent }) {
   const { userInfo } = useContext(UserContext);
   const { artist_name } = useParams();
   const [artistName, setArtistName] = useState("");
+  const [artist, setArtist] = useState(null);
+  const [artworks, setArtWorks] = useState(null);
   const [showAuctionRecord, setShowAuctionRecord] = useState(null);
   const [showSecondaryMarket, setShowSecondaryMarket] = useState(null);
   const [showCriticallyAcclaimed, setShowCriticallyAcclaimed] = useState(null);
   const [showShows, setShowShows] = useState(null);
   const { width } = useWindowDimensions();
   const [artWorksOn, setArtWorksOn] = useState(true);
+  const navigate = useNavigate();
   const cleanUrlArtistName = (name) => {
     const formattedName = name.replace(/-/g, " ");
     setArtistName(formattedName);
   };
 
-  const findedArtist = data.find((eachArtist) => {
-    return eachArtist.name.toLowerCase() === artistName;
-  });
+  const getArtist = async () => {
+    try {
+      const result = await axios.get(`${API_URL}/artist/${artist_name}`);
+
+      console.log("result artist:", result);
+
+      if (result.status === 200) {
+        const { artist, artworks } = result.data;
+        setArtist(artist);
+        setArtWorks(artworks);
+      } else {
+        console.error("Error fetching artist. Status:", result.status);
+      }
+    } catch (error) {
+      console.error("Error fetching artist:", error);
+    }
+  };
 
   useEffect(() => {
     if (artist_name) {
       cleanUrlArtistName(artist_name);
     }
+    getArtist();
+    console.log("Artist name:", artist_name);
   }, [artist_name]);
 
   const formatSalePrice = (salePrice) => {
@@ -65,12 +88,27 @@ function ArtistProfile({ sendDataToParent }) {
 
   // svg hover effect
   const [hoveredFavSvg, setHoveredFavSvg] = useState(null);
+  const [favoriteIds, setFavoriteIds] = useState([]);
 
-  // add-delete favorite logic
-  const handleFavoriteArtwork = async () => {
+  // add-undo favorite logic
+  const handleFavoriteArtwork = async (artworkId, title, artist, imageUrl) => {
     if (userInfo.active) {
+      console.log("hello world !!!");
       sendDataToParent(false);
       try {
+        const result = await axios.post(
+          `${API_URL}/users/${userInfo?._id}/favorite`,
+          {
+            artworkInformation: {
+              artworkId,
+              title,
+              artist,
+              imageUrl,
+            },
+          }
+        );
+
+        console.log("result:", result);
       } catch (error) {
         console.error("error:", error);
       }
@@ -79,11 +117,19 @@ function ArtistProfile({ sendDataToParent }) {
     }
   };
 
+  const handleUndoFavoriteArtWork = async () => {
+    try {
+    } catch (error) {
+      console.error("error:", error);
+    }
+  };
+
+  useEffect(() => {}, [userInfo?.favorites]);
+
   return (
     <div
       style={{
         width: "100%",
-        maxWidth: "1920px",
         marginLeft: "auto",
         marginRight: "auto",
         flex: "1 1 0%",
@@ -103,7 +149,7 @@ function ArtistProfile({ sendDataToParent }) {
             marginTop: "40px",
           }}
         ></div>
-        {findedArtist && (
+        {artist && (
           <>
             {/* header */}
             <div className="artist-header">
@@ -116,21 +162,21 @@ function ArtistProfile({ sendDataToParent }) {
                     boxSizing: "border-box",
                     overflowClipMargin: "content-box",
                   }}
-                  src={findedArtist.profilePic}
+                  src={artist.profilePic}
                   alt=""
                 />
               </div>
               <div className="item-2">
-                <div className="artist-name">{findedArtist.name}</div>
+                <div className="artist-name">{artist.name}</div>
                 <div className="artist-info">
-                  <span>{findedArtist.nationality}, </span>
-                  <span>{findedArtist.born}-</span>
-                  <span>{findedArtist.died}</span>
+                  <span>{artist.nationality}, </span>
+                  <span>{artist.born}-</span>
+                  <span>{artist.died}</span>
                 </div>
                 <div>
                   <div className="artist-description">
                     <ReadMoreLess
-                      text={findedArtist.description}
+                      text={artist.description}
                       maxLength={248}
                     ></ReadMoreLess>
                   </div>
@@ -145,7 +191,7 @@ function ArtistProfile({ sendDataToParent }) {
                 >
                   <div>
                     High auction record (
-                    {formatSalePrice(findedArtist.highAuctionRecord.salePrice)})
+                    {formatSalePrice(artist.highAuctionRecord.salePrice)})
                   </div>{" "}
                   <div>
                     <svg
@@ -174,8 +220,8 @@ function ArtistProfile({ sendDataToParent }) {
                       paddingLeft: width <= 768 && "20px",
                     }}
                   >
-                    <span>{findedArtist.highAuctionRecord.auctionHouse} </span>
-                    <span>{findedArtist.highAuctionRecord.year}</span>
+                    <span>{artist.highAuctionRecord.auctionHouse} </span>
+                    <span>{artist.highAuctionRecord.year}</span>
                   </div>
                 )}
                 <div className="artist-biography">
@@ -229,7 +275,7 @@ function ArtistProfile({ sendDataToParent }) {
                       paddingLeft: width <= 768 && "20px",
                     }}
                   >
-                    {findedArtist.criticallyAcclaimed}
+                    {artist.criticallyAcclaimed}
                   </div>
                 )}
                 <div
@@ -255,7 +301,7 @@ function ArtistProfile({ sendDataToParent }) {
                 </div>{" "}
                 {showShows && (
                   <>
-                    {findedArtist.recentSoloShows.map((eachShow) => {
+                    {artist.recentSoloShows.map((eachShow) => {
                       return (
                         <div>
                           <div
@@ -321,7 +367,7 @@ function ArtistProfile({ sendDataToParent }) {
                   boxSizing: "border-box",
                 }}
               >
-                {findedArtist.works?.length} Artworks:
+                {artist.works?.length} Artworks:
               </div>
               {/* divider */}
               <div
@@ -335,9 +381,18 @@ function ArtistProfile({ sendDataToParent }) {
       </div>
       {/* artworks */}
       <div className="flex-container-for-artworks">
-        {findedArtist?.works?.map((eachWork, index) => {
+        {artworks?.map((eachWork, index) => {
           return (
             <div
+              onClick={() => {
+                navigate(
+                  `/artwork/${artist.name
+                    .toLowerCase()
+                    .replace(/ /g, "-")}-${eachWork.title
+                    .toLowerCase()
+                    .replace(/ /g, "-")}`
+                );
+              }}
               style={{
                 display: "inline-block",
               }}
@@ -365,7 +420,7 @@ function ArtistProfile({ sendDataToParent }) {
                     objectFit: "cover",
                     opacity: 1,
                   }}
-                  src={eachWork.pictureUrl}
+                  src={eachWork.imageUrl}
                   alt=""
                 />
               </div>
@@ -386,13 +441,25 @@ function ArtistProfile({ sendDataToParent }) {
                       lineHeight: "20px",
                     }}
                   >
-                    {findedArtist?.name}
+                    {artist?.name}
                   </div>
                   <div>
-                    {hoveredFavSvg === index ? (
+                    {hoveredFavSvg === index ||
+                    favoriteIds.includes(eachWork.id) ? (
                       <>
                         <svg
-                          onClick={handleFavoriteArtwork}
+                          onClick={() => {
+                            if (!favoriteIds.includes(eachWork.id)) {
+                              handleFavoriteArtwork(
+                                eachWork.id,
+                                eachWork.title,
+                                artist.name,
+                                eachWork.pictureUrl
+                              );
+                            } else {
+                              handleUndoFavoriteArtWork();
+                            }
+                          }}
                           onMouseEnter={() => {
                             setHoveredFavSvg(index);
                           }}
@@ -409,7 +476,6 @@ function ArtistProfile({ sendDataToParent }) {
                       </>
                     ) : (
                       <svg
-                        onClick={handleFavoriteArtwork}
                         onMouseEnter={() => {
                           setHoveredFavSvg(index);
                         }}
