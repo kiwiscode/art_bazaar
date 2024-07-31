@@ -1,6 +1,5 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect, useRef } from "react";
-import { UserContext } from "./UserContext";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintBrush } from "@fortawesome/free-solid-svg-icons";
@@ -15,19 +14,25 @@ import {
 } from "@mui/material";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import LoadingSpinner from "./LoadingSpinner";
+import ProfileImage from "./ProfileImage";
+import useOutsideClick from "../../utils/useOutsideClick";
+import { CollectorContext } from "./CollectorContext";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import Input from "./Input";
 
 // when working on local version
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 function Navbar({ showAuthModal, setShowAuthModal }) {
   const navigate = useNavigate();
-  const { userInfo, logout, googleLogout, getToken, updateUser } =
-    useContext(UserContext);
+  const { collectorInfo, logout, googleLogout, getToken, updateCollector } =
+    useContext(CollectorContext);
   useEffect(() => {
-    if (!userInfo) {
-      JSON.parse(localStorage.getItem("userInfo"));
+    if (!collectorInfo) {
+      JSON.parse(localStorage.getItem("collectorInfo"));
     }
-  }, [userInfo]);
+  }, [collectorInfo]);
   const [loading, setLoading] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -172,28 +177,27 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
     setShowScrollToTop(window.scrollY > 275);
   };
 
-  const handleLogout = () => {
-    axios
-      .post(
+  const handleLogout = async () => {
+    setPopupVisible(false);
+    try {
+      const result = await axios.post(
         `${API_URL}/auth/logout`,
-        { userId: userInfo._id },
+        { collectorId: collectorInfo._id },
         {
           headers: {
             Authorization: `Bearer ${getToken()}`,
           },
-          withCredentials: true,
         }
-      )
-      .then((response) => {
-        localStorage.removeItem("userInfo");
+      );
+      if (result.status === 200) {
+        localStorage.removeItem("collectorInfo");
         localStorage.removeItem("token");
 
         logout();
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("Logout error:", error);
-      });
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -321,8 +325,8 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
 
   // login
   const handleLogin = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const result = await axios.post(
         `${API_URL}/auth/login`,
         {
@@ -335,14 +339,15 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
         }
       );
 
-      const { user, token } = result.data;
+      const { collector, token } = result.data;
 
-      localStorage.setItem("userInfo", JSON.stringify(user));
-      localStorage.setItem("token", token);
-      updateUser(user);
-      setLoading(false);
-      navigate("/");
-      closeAuthModal();
+      setTimeout(() => {
+        setLoading(false);
+        closeAuthModal();
+        localStorage.setItem("collectorInfo", JSON.stringify(collector));
+        localStorage.setItem("token", token);
+        updateCollector(collector);
+      }, 1000);
     } catch (error) {
       if (error.response.status === 401) {
         setInvalidLoginDataError(true);
@@ -403,13 +408,37 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
     getArtists();
   }, []);
 
+  // profile menu
+  const [isPopupVisible, setPopupVisible] = useState(false);
+  const popupRef = useRef(null);
+  const { isOutsideClicked: isOutsideClickedPopupRef } =
+    useOutsideClick(popupRef);
+
+  console.log("is outside click:", isOutsideClickedPopupRef);
+
+  useEffect(() => {
+    if (isOutsideClickedPopupRef) {
+      setPopupVisible(false);
+    }
+  }, [isOutsideClickedPopupRef]);
+
+  const toggleProfilePopup = () => {
+    setPopupVisible((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = isPopupVisible ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isPopupVisible]);
+
   return (
     <>
       {/* sign up modal  */}
       <>
         <>
           <Modal
-            className="z-9999 p-0 m-0"
             open={signUpOn || loginOn || forgotPasswordOn || showAuthModal}
             onClose={closeAuthModal}
             sx={{
@@ -417,6 +446,8 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                 opacity: "0.5 !important",
                 backgroundColor: "rgb(202, 205, 236)",
                 filter: "brightness(2.5)",
+                margin: 0,
+                padding: 0,
               },
             }}
           >
@@ -455,6 +486,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                   >
                     <button
                       onClick={() => {
+                        closeAuthModal();
                         setSignUpFormData({
                           name: "",
                           email: "",
@@ -475,8 +507,8 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                     >
                       <svg width={18} height={18} viewBox="0 0 18 18">
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
                           d="M9.88006 9.00001L14.4401 13.56L13.5601 14.44L9.00006 9.88001L4.44006 14.44L3.56006 13.56L8.12006 9.00001L3.56006 4.44001L4.44006 3.56001L9.00006 8.12001L13.5601 3.56001L14.4401 4.44001L9.88006 9.00001Z"
                         ></path>
                       </svg>
@@ -693,9 +725,9 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                                 height={18}
                               >
                                 <path
-                                  fill-rule="evenodd"
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
                                   d="M16.8 8.2c-2-3.3-4.6-4.9-7.8-4.9S3.2 5 1.2 8.2c-.3.5-.3 1.2.1 1.8C3.4 13.1 6 14.7 9 14.7s5.6-1.6 7.7-4.7c.4-.6.4-1.3.1-1.8zm-1 .5c.1.2.1.4 0 .6-1.9 2.8-4.1 4.2-6.7 4.2-2.6 0-4.8-1.4-6.7-4.2-.1-.2-.1-.4 0-.6C4 5.8 6.2 4.4 9 4.4s5 1.4 6.8 4.3zM9 11.9c1.6 0 2.9-1.3 2.9-2.9 0-1.6-1.3-2.9-2.9-2.9-1.6 0-2.9 1.3-2.9 2.9 0 1.6 1.3 2.9 2.9 2.9zm0-1.2c-.9 0-1.7-.8-1.7-1.7 0-.9.8-1.7 1.7-1.7.9 0 1.7.8 1.7 1.7 0 .9-.8 1.7-1.7 1.7z"
-                                  clip-rule="evenodd"
                                 ></path>
                               </svg>
                             )}
@@ -1041,7 +1073,12 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                           email: "",
                           password: "",
                         });
-                        setLoginOn(false);
+                        setSignUpFormData({
+                          name: "",
+                          email: "",
+                          password: "",
+                        });
+                        closeAuthModal();
                       }}
                       style={{
                         position: "absolute",
@@ -1056,8 +1093,8 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                     >
                       <svg width={18} height={18} viewBox="0 0 18 18">
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
                           d="M9.88006 9.00001L14.4401 13.56L13.5601 14.44L9.00006 9.88001L4.44006 14.44L3.56006 13.56L8.12006 9.00001L3.56006 4.44001L4.44006 3.56001L9.00006 8.12001L13.5601 3.56001L14.4401 4.44001L9.88006 9.00001Z"
                         ></path>
                       </svg>
@@ -1225,9 +1262,9 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                                 height={18}
                               >
                                 <path
-                                  fill-rule="evenodd"
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
                                   d="M16.8 8.2c-2-3.3-4.6-4.9-7.8-4.9S3.2 5 1.2 8.2c-.3.5-.3 1.2.1 1.8C3.4 13.1 6 14.7 9 14.7s5.6-1.6 7.7-4.7c.4-.6.4-1.3.1-1.8zm-1 .5c.1.2.1.4 0 .6-1.9 2.8-4.1 4.2-6.7 4.2-2.6 0-4.8-1.4-6.7-4.2-.1-.2-.1-.4 0-.6C4 5.8 6.2 4.4 9 4.4s5 1.4 6.8 4.3zM9 11.9c1.6 0 2.9-1.3 2.9-2.9 0-1.6-1.3-2.9-2.9-2.9-1.6 0-2.9 1.3-2.9 2.9 0 1.6 1.3 2.9 2.9 2.9zm0-1.2c-.9 0-1.7-.8-1.7-1.7 0-.9.8-1.7 1.7-1.7.9 0 1.7.8 1.7 1.7 0 .9-.8 1.7-1.7 1.7z"
-                                  clip-rule="evenodd"
                                 ></path>
                               </svg>
                             )}
@@ -1323,14 +1360,16 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       style={{
                         height: "50px",
                         border: "none",
-                        backgroundColor: "black",
+                        backgroundColor: loading ? "rgb(16, 35, 215)" : "black",
                         color: "white",
                         borderRadius: "9999px",
                         width: "100%",
                         marginTop: "24px",
                         fontSize: "16px",
                         pointerEvents:
-                          !loginFormData.email || !loginFormData.password
+                          !loginFormData.email ||
+                          !loginFormData.password ||
+                          loading
                             ? "none"
                             : "",
                         opacity:
@@ -1474,6 +1513,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                           email: "",
                         });
                         setForgotPasswordOn(false);
+                        closeAuthModal();
                       }}
                       style={{
                         position: "absolute",
@@ -1488,8 +1528,8 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                     >
                       <svg width={18} height={18} viewBox="0 0 18 18">
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
                           d="M9.88006 9.00001L14.4401 13.56L13.5601 14.44L9.00006 9.88001L4.44006 14.44L3.56006 13.56L8.12006 9.00001L3.56006 4.44001L4.44006 3.56001L9.00006 8.12001L13.5601 3.56001L14.4401 4.44001L9.88006 9.00001Z"
                         ></path>
                       </svg>
@@ -1703,7 +1743,6 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
         style={{
           paddingLeft: width <= 768 ? "0px" : "40px",
           paddingRight: width <= 768 ? "0px" : "40px",
-          // width: "100%",
         }}
       >
         <div
@@ -1723,24 +1762,50 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
               justifyContent: "space-around",
               alignItems: "center",
               padding: "6px 0px",
+              gap: "10px",
             }}
           >
-            <div>
+            <div
+              className="pointer"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               <div>Art</div>
               <div>Bazaar</div>
             </div>
-            <input
-              style={{
-                width: "700px",
-                height: "40px",
-                border: "1px solid rgb(194, 194, 194)",
-              }}
-              placeholder="Search by artist,style."
-              type="text"
+            <Input
+              placeholder={"Search by artist, style."}
+              width={"inherit"}
+              wrapperWidth={"100%"}
+              maxWidth={"100%"}
+              minWidth={"fit-content"}
+              maxHeight={"40px"}
+              wrapperHeight={"100%"}
+              wrapperMaxHeight={"40px"}
+              height={"30px"}
+              borderRadius={"3px"}
+              icon={
+                <svg
+                  className="dflex"
+                  width={18}
+                  height={18}
+                  viewBox="0 0 18 18"
+                  fill="rgb(112, 112, 112)"
+                >
+                  <path d="M11.5001 3.00003C11.9597 3.00003 12.4148 3.09056 12.8395 3.26645C13.2641 3.44234 13.6499 3.70015 13.9749 4.02515C14.2999 4.35016 14.5577 4.736 14.7336 5.16063C14.9095 5.58527 15.0001 6.0404 15.0001 6.50003C15.0001 6.95965 14.9095 7.41478 14.7336 7.83942C14.5577 8.26406 14.2999 8.6499 13.9749 8.9749C13.6499 9.29991 13.2641 9.55771 12.8395 9.73361C12.4148 9.9095 11.9597 10 11.5001 10C10.5718 10 9.68156 9.63128 9.02519 8.9749C8.36881 8.31852 8.00006 7.42828 8.00006 6.50003C8.00006 5.57177 8.36881 4.68153 9.02519 4.02515C9.68156 3.36878 10.5718 3.00003 11.5001 3.00003ZM11.5001 2.00003C10.61 2.00003 9.74002 2.26395 8.99999 2.75841C8.25997 3.25288 7.6832 3.95568 7.3426 4.77795C7.00201 5.60022 6.91289 6.50502 7.08653 7.37793C7.26016 8.25085 7.68874 9.05267 8.31808 9.68201C8.94742 10.3113 9.74924 10.7399 10.6222 10.9136C11.4951 11.0872 12.3999 10.9981 13.2221 10.6575C14.0444 10.3169 14.7472 9.74011 15.2417 9.00009C15.7361 8.26007 16.0001 7.39004 16.0001 6.50003C16.0014 5.90871 15.8859 5.32295 15.6602 4.77639C15.4345 4.22983 15.1031 3.73323 14.685 3.31511C14.2669 2.89698 13.7703 2.56556 13.2237 2.33988C12.6771 2.1142 12.0914 1.99871 11.5001 2.00003ZM9.44206 9.52503L8.56206 8.64503L2.06006 15.06L2.94006 15.94L9.44206 9.52503Z"></path>
+                </svg>
+              }
+              iconPositionRight={true}
             />
-            <div className="dflex jfycenter algncenter">
+            <div
+              className="dflex jfycenter algncenter"
+              style={{
+                gap: "10px",
+              }}
+            >
               <div
-                className="hover_color_effect pointer unica-regular-font  "
+                className="hover_color_effect pointer unica-regular-font display-none-bp-768px"
                 style={{
                   fontSize: "16px",
                   lineHeight: "16px",
@@ -1750,7 +1815,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                 Buy
               </div>
               <div
-                className="hover_color_effect pointer unica-regular-font "
+                className="hover_color_effect pointer unica-regular-font display-none-bp-768px"
                 style={{
                   fontSize: "16px",
                   lineHeight: "16px",
@@ -1760,8 +1825,8 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                 {" "}
                 Sell
               </div>
-              <div
-                className="hover_color_effect pointer unica-regular-font"
+              {/* <div
+                className="hover_color_effect pointer unica-regular-font display-none-bp-768px"
                 style={{
                   fontSize: "16px",
                   lineHeight: "16px",
@@ -1769,9 +1834,9 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                 }}
               >
                 Editorial
-              </div>
+              </div> */}
 
-              {!userInfo?.active ? (
+              {!collectorInfo?.active ? (
                 <>
                   <button
                     onClick={() => {
@@ -1822,8 +1887,8 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                     className="hover_color_effect pointer dflex jfycenter algncenter"
                   >
                     <svg
-                      width={18}
-                      height={18}
+                      width={width <= 768 ? 22 : 18}
+                      height={width <= 768 ? 22 : 18}
                       viewBox="0 0 18 18"
                       fill="currentColor"
                     >
@@ -1835,7 +1900,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       height: "30px",
                       marginRight: width <= 768 ? "4px" : "12px",
                     }}
-                    className="hover_color_effect pointer dflex jfycenter algncenter"
+                    className="hover_color_effect pointer dflex jfycenter algncenter display-none-bp-768px"
                   >
                     <svg
                       width={18}
@@ -1847,27 +1912,334 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                     </svg>
                   </div>
                   <div
-                    onClick={handleLogout}
+                    onClick={toggleProfilePopup}
                     style={{
                       height: "30px",
                       marginRight: width <= 768 ? "4px" : "12px",
+                      position: "relative",
+                      display: "flex",
+                      flexDirection: "column",
                     }}
-                    className="hover_color_effect pointer dflex jfycenter algncenter"
+                    className="dflex jfycenter algncenter display-none-bp-768px"
                   >
                     <svg
-                      width={18}
-                      height={18}
+                      className="hover_color_effect pointer"
+                      width={width <= 768 ? 22 : 18}
+                      height={width <= 768 ? 22 : 18}
                       viewBox="0 0 18 18"
-                      fill="currentColor"
+                      fill={
+                        isPopupVisible ? "rgb(16, 35, 215)" : "currentColor"
+                      }
                     >
                       <path d="M9 3.00002C9.66569 3.00002 10.3041 3.26446 10.7748 3.73518C11.2456 4.20589 11.51 4.84432 11.51 5.51002C11.51 6.17571 11.2456 6.81414 10.7748 7.28485C10.3041 7.75557 9.66569 8.02002 9 8.02002C8.33431 8.02002 7.69588 7.75557 7.22516 7.28485C6.75445 6.81414 6.49 6.17571 6.49 5.51002C6.49 4.84432 6.75445 4.20589 7.22516 3.73518C7.69588 3.26446 8.33431 3.00002 9 3.00002ZM9 2.00002C8.06909 2.00002 7.17631 2.36982 6.51806 3.02807C5.8598 3.68632 5.49 4.57911 5.49 5.51002C5.49 6.44093 5.8598 7.33371 6.51806 7.99196C7.17631 8.65021 8.06909 9.02002 9 9.02002C9.93091 9.02002 10.8237 8.65021 11.4819 7.99196C12.1402 7.33371 12.51 6.44093 12.51 5.51002C12.51 4.57911 12.1402 3.68632 11.4819 3.02807C10.8237 2.36982 9.93091 2.00002 9 2.00002ZM15 13V16H14V13C14 12.6022 13.842 12.2207 13.5607 11.9394C13.2794 11.6581 12.8978 11.5 12.5 11.5H5.5C5.10218 11.5 4.72064 11.6581 4.43934 11.9394C4.15804 12.2207 4 12.6022 4 13V16H3V13C3 12.337 3.26339 11.7011 3.73223 11.2323C4.20107 10.7634 4.83696 10.5 5.5 10.5H12.5C13.163 10.5 13.7989 10.7634 14.2678 11.2323C14.7366 11.7011 15 12.337 15 13Z"></path>
                     </svg>
                   </div>
+                  <div
+                    onClick={toggleProfilePopup}
+                    style={{
+                      height: "30px",
+                      marginRight: width <= 768 ? "4px" : "12px",
+                      position: "relative",
+                      display: width > 768 ? "none" : "flex",
+                      flexDirection: "column",
+                    }}
+                    className="dflex jfycenter algncenter"
+                  >
+                    <svg
+                      className="hover_color_effect pointer"
+                      width={27}
+                      height={27}
+                      viewBox="0 0 18 18"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M3 2.99998H15.026V3.99998H3V2.99998ZM3 8.51199H15.026V9.49999H3V8.51199ZM3 13.996H15.026V15H3V13.996Z"
+                      ></path>
+                    </svg>
+                  </div>
                 </>
               )}
+              <div
+                style={{
+                  display: isPopupVisible ? "" : width <= 768 ? "none" : "",
+                  opacity: isPopupVisible ? "1" : "0",
+                  boxShadow: "rgba(0, 0, 0, 0.05) 0px 1px 1px 0px",
+                  transform: isPopupVisible
+                    ? "translate(0px)"
+                    : "translate(0px, -60px)",
+                  transition:
+                    "opacity 250ms ease-out 0s, transform 250ms ease-out 0s",
+                  backgroundColor: "white",
+                  overflowY: "auto",
+                  position: width <= 768 ? "fixed" : "absolute",
+                  right: width <= 768 ? "0px" : "40px",
+                  top: width <= 768 ? "0px" : "60px",
+                  width: width <= 768 ? "100%" : "230px",
+                  height: width <= 768 ? "100%" : "auto",
+                  border: width <= 768 ? "" : "1px solid rgb(231, 231, 231)",
+                  maxHeight: width <= 768 ? "100dvh" : "80dvh",
+                }}
+              >
+                {isPopupVisible && (
+                  <div
+                    ref={popupRef}
+                    // Opsiyonel styling for popup modal
+                    // style={
+                    //   {
+                    // position: "fixed",
+                    // top: 0,
+                    // left: 0,
+                    // right: 0,
+                    // bottom: 0,
+                    // width: "100%",
+                    // height: "100dvh",
+                    // display: "flex",
+                    // alignItems: "center",
+                    // justifyContent: "center",
+                    // zIndex: 1000,
+                    // overflow: "hidden",
+                    // backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    //   }
+                    // }
+                  >
+                    <div>
+                      <div
+                        className="unica-regular-font"
+                        style={{ padding: "10px 0px" }}
+                      >
+                        <div
+                          onClick={() => {
+                            setPopupVisible(false);
+                            navigate("/collector-profile/my-collection");
+                          }}
+                          className="visible-popup-item"
+                        >
+                          <div
+                            className="dflex algncenter"
+                            style={{
+                              gap: "12px",
+                              width: width <= 768 && "100%",
+                            }}
+                          >
+                            <div
+                              style={{
+                                maxWidth: "45px",
+                                maxHeight: "45px",
+                                height: "100%",
+                                height: "100%",
+                              }}
+                            >
+                              <ProfileImage
+                                collectorInfo={collectorInfo}
+                                width={"45px"}
+                                height={"45px"}
+                              />
+                            </div>
+                            <div>
+                              <div>{collectorInfo.name}</div>
+                              <div
+                                className="pointer"
+                                style={{
+                                  fontSize: "11px",
+                                  lineHeight: "14px",
+                                  color: "rgb(112, 112, 112)",
+                                  textDecoration: "underline",
+                                }}
+                              >
+                                View Profile
+                              </div>
+                            </div>
+                          </div>
+                        </div>{" "}
+                        {width <= 768 && (
+                          <div
+                            style={{
+                              textAlign: "right",
+                              position: "absolute",
+                              right: "0px",
+                              top: "0px",
+                            }}
+                          >
+                            <button
+                              onClick={() => {
+                                setPopupVisible(false);
+                              }}
+                              style={{
+                                width: "58px",
+                                height: "58px",
+                                backgroundColor: "transparent",
+                                border: "none",
+                                cursor: "pointer",
+                              }}
+                            >
+                              <svg
+                                width={27}
+                                height={27}
+                                viewBox="0 0 18 18"
+                                fill="rgb(112, 112, 112)"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
+                                  d="M9.88006 9.00001L14.4401 13.56L13.5601 14.44L9.00006 9.88001L4.44006 14.44L3.56006 13.56L8.12006 9.00001L3.56006 4.44001L4.44006 3.56001L9.00006 8.12001L13.5601 3.56001L14.4401 4.44001L9.88006 9.00001Z"
+                                ></path>
+                              </svg>
+                            </button>
+                          </div>
+                        )}
+                        <div>
+                          <div
+                            className="pointer-default"
+                            style={{
+                              padding: "10px 20px",
+                              fontSize: "11px",
+                              lineHeight: "14px",
+                              color: "rgb(112, 112, 112)",
+                            }}
+                          >
+                            My Collection
+                          </div>
+                          <div
+                            onClick={() => {
+                              setPopupVisible(false);
+                              navigate("/collector-profile/my-collection");
+                            }}
+                            className="visible-popup-item"
+                          >
+                            <svg viewBox="0 0 18 18">
+                              <path d="M5.688 6.00002L9.047 2.24402L12.314 6.00002H15V15H3V6.00002H5.688ZM7.03 6.00002H10.988L9.036 3.75602L7.03 6.00002ZM4 7.00002V14H14V7.00002H4ZM6 9.00002V12H12V9.00002H6ZM5 8.00002H13V13H5V8.00002Z"></path>
+                            </svg>
+                            <span>Artworks</span>
+                          </div>
+                          <div
+                            onClick={() => {
+                              setPopupVisible(false);
+                              navigate("/collector-profile/artists");
+                            }}
+                            className="visible-popup-item"
+                          >
+                            <svg viewBox="0 0 18 18">
+                              <path d="M11.654 10.226V13.44H10.779V10.226C10.779 9.501 10.191 8.914 9.46598 8.914H8.54198C7.81698 8.914 7.22898 9.501 7.22898 10.226V13.44H6.35398V10.226C6.35398 9.501 5.76698 8.914 5.04198 8.914H4.18898C3.46398 8.914 2.87598 9.501 2.87598 10.226V13.44H2.00098V10.226C2.00098 9.018 2.98098 8.039 4.18898 8.039H5.04198C5.75698 8.039 6.39198 8.382 6.79198 8.913C6.99565 8.6413 7.25987 8.42084 7.56366 8.26912C7.86744 8.11741 8.20241 8.03861 8.54198 8.039H9.46598C10.182 8.039 10.817 8.382 11.216 8.913C11.4197 8.6413 11.6839 8.42084 11.9877 8.26912C12.2914 8.11741 12.6264 8.03861 12.966 8.039H13.846C15.053 8.039 16.033 9.019 16.033 10.226V13.44H15.158V10.226C15.158 9.501 14.57 8.914 13.845 8.914H12.966C12.241 8.914 11.654 9.501 11.654 10.226ZM4.40998 7.01C3.91508 7.01 3.44046 6.8134 3.09052 6.46346C2.74057 6.11352 2.54398 5.63889 2.54398 5.144C2.54398 4.64911 2.74057 4.17448 3.09052 3.82454C3.44046 3.4746 3.91508 3.278 4.40998 3.278C4.90487 3.278 5.3795 3.4746 5.72944 3.82454C6.07938 4.17448 6.27598 4.64911 6.27598 5.144C6.27598 5.63889 6.07938 6.11352 5.72944 6.46346C5.3795 6.8134 4.90487 7.01 4.40998 7.01ZM4.40998 6.135C4.67281 6.135 4.92487 6.03059 5.11072 5.84474C5.29657 5.65889 5.40098 5.40683 5.40098 5.144C5.40098 4.88117 5.29657 4.62911 5.11072 4.44326C4.92487 4.25741 4.67281 4.153 4.40998 4.153C4.14715 4.153 3.89508 4.25741 3.70923 4.44326C3.52339 4.62911 3.41898 4.88117 3.41898 5.144C3.41898 5.40683 3.52339 5.65889 3.70923 5.84474C3.89508 6.03059 4.14715 6.135 4.40998 6.135ZM8.90998 7.01C8.41508 7.01 7.94046 6.8134 7.59052 6.46346C7.24057 6.11352 7.04398 5.63889 7.04398 5.144C7.04398 4.64911 7.24057 4.17448 7.59052 3.82454C7.94046 3.4746 8.41508 3.278 8.90998 3.278C9.40487 3.278 9.8795 3.4746 10.2294 3.82454C10.5794 4.17448 10.776 4.64911 10.776 5.144C10.776 5.63889 10.5794 6.11352 10.2294 6.46346C9.8795 6.8134 9.40487 7.01 8.90998 7.01ZM8.90998 6.135C9.17281 6.135 9.42487 6.03059 9.61072 5.84474C9.79657 5.65889 9.90098 5.40683 9.90098 5.144C9.90098 4.88117 9.79657 4.62911 9.61072 4.44326C9.42487 4.25741 9.17281 4.153 8.90998 4.153C8.64715 4.153 8.39508 4.25741 8.20923 4.44326C8.02339 4.62911 7.91898 4.88117 7.91898 5.144C7.91898 5.40683 8.02339 5.65889 8.20923 5.84474C8.39508 6.03059 8.64715 6.135 8.90998 6.135ZM13.41 7.01C12.9151 7.01 12.4405 6.8134 12.0905 6.46346C11.7406 6.11352 11.544 5.63889 11.544 5.144C11.544 4.64911 11.7406 4.17448 12.0905 3.82454C12.4405 3.4746 12.9151 3.278 13.41 3.278C13.9049 3.278 14.3795 3.4746 14.7294 3.82454C15.0794 4.17448 15.276 4.64911 15.276 5.144C15.276 5.63889 15.0794 6.11352 14.7294 6.46346C14.3795 6.8134 13.9049 7.01 13.41 7.01ZM13.41 6.135C13.6728 6.135 13.9249 6.03059 14.1107 5.84474C14.2966 5.65889 14.401 5.40683 14.401 5.144C14.401 4.88117 14.2966 4.62911 14.1107 4.44326C13.9249 4.25741 13.6728 4.153 13.41 4.153C13.1471 4.153 12.8951 4.25741 12.7092 4.44326C12.5234 4.62911 12.419 4.88117 12.419 5.144C12.419 5.40683 12.5234 5.65889 12.7092 5.84474C12.8951 6.03059 13.1471 6.135 13.41 6.135Z"></path>
+                            </svg>
+                            <span>Artists</span>
+                          </div>
+                          <div
+                            onClick={() => {
+                              setPopupVisible(false);
+                              navigate("/collector-profile/insights");
+                            }}
+                            className="visible-popup-item"
+                          >
+                            <svg viewBox="0 0 18 18" fill="currentColor">
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M4 10H5V15H4V10ZM7 8.00002H8V15H7V8.00002ZM10 5.00002H11V15H10V5.00002ZM13 3.00002H14V15H13V3.00002Z"
+                              ></path>
+                            </svg>
+                            <span>Insights</span>
+                          </div>
+                        </div>
+                        <div className="visible-popup-seperator"></div>
+                        <div>
+                          <div
+                            className="pointer-default"
+                            style={{
+                              padding: "10px 20px",
+                              fontSize: "11px",
+                              lineHeight: "14px",
+                              color: "rgb(112, 112, 112)",
+                            }}
+                          >
+                            Favorites
+                          </div>
+                          <div className="visible-popup-item">
+                            <svg viewBox="0 0 18 18">
+                              <path d="M11.9998 3.00002C11.4743 2.9996 10.954 3.10272 10.4684 3.30347C9.9828 3.50422 9.54153 3.79868 9.16978 4.17002L8.99978 4.34002L8.82978 4.17002C8.07922 3.41945 7.06124 2.99779 5.99978 2.99779C4.93833 2.99779 3.92035 3.41945 3.16978 4.17002C2.41922 4.92058 1.99756 5.93856 1.99756 7.00002C1.99756 8.06147 2.41922 9.07945 3.16978 9.83002L8.64978 15.3C8.69467 15.3478 8.74889 15.386 8.80909 15.412C8.86929 15.4381 8.93419 15.4515 8.99978 15.4515C9.06538 15.4515 9.13028 15.4381 9.19048 15.412C9.25068 15.386 9.30489 15.3478 9.34978 15.3L14.8298 9.83002C15.3898 9.27059 15.7713 8.55758 15.9259 7.78124C16.0805 7.0049 16.0013 6.20015 15.6983 5.46886C15.3953 4.73756 14.8821 4.11262 14.2237 3.67313C13.5653 3.23365 12.7914 2.99939 11.9998 3.00002ZM14.1198 9.12002L8.99978 14.24L3.87978 9.12002C3.58504 8.84537 3.34863 8.51417 3.18466 8.14617C3.02069 7.77817 2.93252 7.38092 2.92542 6.97811C2.91831 6.57529 2.99241 6.17518 3.14329 5.80163C3.29418 5.42807 3.51875 5.08874 3.80363 4.80386C4.0885 4.51899 4.42784 4.29441 4.80139 4.14353C5.17495 3.99264 5.57506 3.91854 5.97787 3.92565C6.38068 3.93276 6.77794 4.02092 7.14594 4.18489C7.51393 4.34886 7.84513 4.58527 8.11978 4.88002L8.64978 5.40002L8.99978 5.76002L9.34978 5.40002L9.87978 4.88002C10.4485 4.3501 11.2007 4.0616 11.9779 4.07532C12.7551 4.08903 13.4966 4.40388 14.0463 4.95353C14.5959 5.50318 14.9108 6.24472 14.9245 7.02193C14.9382 7.79913 14.6497 8.55132 14.1198 9.12002Z"></path>
+                            </svg>
+                            <span>Saves</span>
+                          </div>
+                          <div className="visible-popup-item">
+                            <svg viewBox="0 0 18 18">
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17C13.4183 17 17 13.4183 17 9C17 6.87827 16.1571 4.84344 14.6569 3.34315C13.1566 1.84285 11.1217 1 9 1ZM9 1.88889C12.9274 1.88889 16.1111 5.07264 16.1111 9C16.1111 12.9274 12.9274 16.1111 9 16.1111C5.07264 16.1111 1.88889 12.9274 1.88889 9C1.88889 5.07264 5.07264 1.88889 9 1.88889ZM12.5556 6.01333L13.32 6.79556L7.74667 12.3778L4.66222 9.31111L5.44444 8.52889L7.74667 10.7778L12.5556 6.01333Z"
+                              ></path>
+                            </svg>
+                            <span>Follows</span>
+                          </div>
+                        </div>
+                        {width <= 768 && (
+                          <>
+                            <div className="visible-popup-seperator"></div>
+                            <div>
+                              <div
+                                className="pointer-default"
+                                style={{
+                                  padding: "10px 20px",
+                                  fontSize: "11px",
+                                  lineHeight: "14px",
+                                  color: "rgb(112, 112, 112)",
+                                }}
+                              >
+                                Marketplace
+                              </div>
+                              <div className="visible-popup-item">
+                                <AddShoppingCartOutlinedIcon />
+                                <span>Buy</span>
+                              </div>
+                              <div className="visible-popup-item">
+                                <MonetizationOnOutlinedIcon />
+                                <span>Sell</span>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                        <div className="visible-popup-seperator"></div>
+                        <div>
+                          <div className="visible-popup-item">
+                            <svg viewBox="0 0 18 18">
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M8.24279 1.50002C7.88639 1.50002 7.57156 1.7322 7.46626 2.07268L7.10067 3.2548C6.81754 3.34835 6.5437 3.46223 6.28088 3.59468L5.18613 3.01712C4.87091 2.85081 4.48411 2.90926 4.2321 3.16127L3.4093 3.98412L3.16127 4.23215C2.90925 4.48416 2.85081 4.87095 3.01711 5.18617L3.59466 6.28085C3.46219 6.54368 3.34831 6.81754 3.25475 7.10069L2.07267 7.46625C1.73218 7.57155 1.5 7.88637 1.5 8.24277L1.50003 9.40642V9.75725C1.50003 10.1136 1.73221 10.4284 2.0727 10.5337L3.25474 10.8993C3.3483 11.1825 3.46219 11.4563 3.59466 11.7192L3.0171 12.8139C2.8508 13.1291 2.90924 13.5159 3.16126 13.7679L3.41058 14.0173L4.23212 14.8388C4.48414 15.0908 4.87093 15.1492 5.18615 14.9829L6.28093 14.4054C6.54374 14.5378 6.81758 14.6517 7.10069 14.7452L7.46627 15.9273C7.57157 16.2678 7.8864 16.5 8.24281 16.5H9.75727C10.1137 16.5 10.4285 16.2678 10.5338 15.9273L10.8994 14.7452C11.1826 14.6517 11.4564 14.5378 11.7193 14.4053L12.814 14.9829C13.1292 15.1492 13.516 15.0907 13.7681 14.8387L14.5909 14.0159L14.8389 13.7678C15.0909 13.5158 15.1494 13.129 14.9831 12.8138L14.4055 11.7191C14.538 11.4563 14.6518 11.1824 14.7454 10.8993L15.9273 10.5337C16.2678 10.4284 16.5 10.1136 16.5 9.75724V9.40642V8.24277C16.5 7.88638 16.2678 7.57155 15.9273 7.46625L14.7454 7.10073C14.6518 6.81762 14.538 6.5438 14.4055 6.281L14.9831 5.18625C15.1494 4.87103 15.091 4.48424 14.839 4.23223L14.5936 3.98683L13.7681 3.16134C13.5161 2.90933 13.1293 2.85089 12.8141 3.01719L11.7194 3.59474C11.4565 3.46225 11.1826 3.34835 10.8994 3.25477L10.5338 2.07268C10.4285 1.7322 10.1137 1.50002 9.75726 1.50002H8.24279ZM3.73602 4.80689L4.5588 3.98412L4.80685 3.73601L6.28493 4.51581L6.47686 4.41005C6.81044 4.22626 7.16611 4.07784 7.53884 3.96977L7.74922 3.90878L8.24279 2.31283H9.75726L10.2508 3.90876L10.4612 3.96975C10.834 4.07784 11.1897 4.22629 11.5234 4.41012L11.7153 4.51588L13.1934 3.73608L13.4388 3.98153L14.2642 4.80697L13.4844 6.28504L13.5901 6.47697C13.7739 6.81053 13.9223 7.16618 14.0304 7.53889L14.0914 7.74927L15.6872 8.24277V8.59361V9.75724L14.0914 10.2507L14.0304 10.4611C13.9223 10.8338 13.7739 11.1895 13.5901 11.5231L13.4844 11.715L14.2642 13.1931L13.4414 14.0159L13.1933 14.264L11.7152 13.4842L11.5233 13.5899C11.1897 13.7737 10.834 13.9222 10.4612 14.0303L10.2508 14.0913L9.75727 15.6872H8.24281L7.74924 14.0912L7.53886 14.0302C7.16614 13.9222 6.81049 13.7738 6.47692 13.59L6.28498 13.4842L4.80687 14.2641L4.55752 14.0147L3.73601 13.1932L4.5158 11.7151L4.41005 11.5232C4.22624 11.1896 4.0778 10.8339 3.96973 10.4611L3.90873 10.2508L2.31285 9.75725L2.31282 8.59361V8.24277L3.90874 7.74923L3.96973 7.53885C4.07781 7.1661 4.22624 6.81042 4.41004 6.47684L4.5158 6.2849L3.73602 4.80689ZM11.3629 9.00002C11.3629 10.305 10.305 11.3629 9 11.3629C7.69501 11.3629 6.6371 10.305 6.6371 9.00002C6.6371 7.69503 7.69501 6.63712 9 6.63712C10.305 6.63712 11.3629 7.69503 11.3629 9.00002ZM12.2143 9.00002C12.2143 10.7752 10.7752 12.2143 9 12.2143C7.2248 12.2143 5.78571 10.7752 5.78571 9.00002C5.78571 7.22482 7.2248 5.78573 9 5.78573C10.7752 5.78573 12.2143 7.22482 12.2143 9.00002Z"
+                              ></path>
+                            </svg>
+                            <span>Settings</span>
+                          </div>
+                          <div className="visible-popup-item">
+                            <svg viewBox="0 0 18 18">
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M11.0001 5V6C11.0001 6.27614 11.2239 6.5 11.5001 6.5C11.7762 6.5 12.0001 6.27614 12.0001 6V5H14.9479L15.9002 15L2.09976 15L3.05214 5H6.00006V6C6.00006 6.27614 6.22392 6.5 6.50006 6.5C6.7762 6.5 7.00006 6.27614 7.00006 6V5H11.0001ZM12.0001 4H15.8571L16.8957 14.9052C16.9516 15.4923 16.49 16 15.9002 16H2.09976C1.51002 16 1.04835 15.4923 1.10426 14.9052L2.14285 4L6.00006 4C6.00006 2.34315 7.34321 1 9.00006 1C10.6569 1 12.0001 2.34315 12.0001 4ZM7.00006 4C7.00006 2.89543 7.89549 2 9.00006 2C10.1046 2 11.0001 2.89543 11.0001 4L7.00006 4Z"
+                              ></path>
+                            </svg>
+                            <span>Order History</span>
+                          </div>
+                          <div
+                            onClick={handleLogout}
+                            className="visible-popup-item"
+                          >
+                            <svg viewBox="0 0 18 18">
+                              <path d="M7.00001 2.81297V3.87497C5.8068 4.34236 4.81415 5.21159 4.19337 6.33268C3.57259 7.45378 3.36261 8.7564 3.59967 10.0158C3.83673 11.2751 4.50595 12.4123 5.49186 13.2309C6.47777 14.0496 7.71853 14.4984 9.00001 14.5C10.2829 14.5009 11.5257 14.0533 12.5134 13.2348C13.5012 12.4162 14.1717 11.2781 14.409 10.0174C14.6463 8.75669 14.4355 7.45269 13.8129 6.33101C13.1904 5.20933 12.1954 4.34055 11 3.87497V2.81297C12.4733 3.28942 13.7282 4.27618 14.5386 5.5956C15.3491 6.91503 15.6619 8.48043 15.4207 10.01C15.1795 11.5395 14.4002 12.9328 13.2231 13.9388C12.046 14.9448 10.5485 15.4976 9.00001 15.4976C7.45157 15.4976 5.95398 14.9448 4.77688 13.9388C3.59978 12.9328 2.8205 11.5395 2.57933 10.01C2.33817 8.48043 2.65096 6.91503 3.4614 5.5956C4.27184 4.27618 5.52669 3.28942 7.00001 2.81297ZM8.50001 0.999969H9.50001V9.19997H8.50001V0.999969Z"></path>
+                            </svg>
+                            <span>Log out</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
+
           <div
+            className="display-none-bp-768px"
             style={{
               width: "100%",
             }}
@@ -1888,7 +2260,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
               >
                 Artists
               </div>
-              <div
+              {/* <div
                 onMouseEnter={() => setHoveredArtworks(true)}
                 onMouseLeave={() => setHoveredArtworks(false)}
                 className="hover_color_effect pointer unica-regular-font  "
@@ -1897,27 +2269,28 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                 }}
               >
                 Artworks
-              </div>
-              <div
+              </div> */}
+              {/* <div
                 className="hover_color_effect pointer unica-regular-font  "
                 style={{
                   padding: "12px 12px",
                 }}
               >
                 Auctions
-              </div>
-              <div
+              </div> */}
+              {/* <div
                 className="hover_color_effect pointer unica-regular-font  "
                 style={{
                   padding: "12px 12px",
                 }}
               >
                 Museums
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </div>
+
       <div
         style={{
           position: "relative",

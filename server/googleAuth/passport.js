@@ -1,7 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const capitalize = require("../utils/capitalize");
-const User = require("../models/User.model");
+const Collector = require("../models/Collector.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -18,8 +18,10 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, callback) {
       try {
-        let user = await User.findOne({ email: profile.emails[0].value });
-        if (!user) {
+        let collector = await Collector.findOne({
+          email: profile.emails[0].value,
+        });
+        if (!collector) {
           let name = profile.displayName;
           let email = profile.emails[0].value;
           let password = profile.id;
@@ -31,7 +33,7 @@ passport.use(
           const salt = await bcrypt.genSalt(saltRounds);
           const hashedPassword = await bcrypt.hash(password, salt);
 
-          user = await User.create({
+          collector = await Collector.create({
             name,
             email,
             password: hashedPassword,
@@ -39,13 +41,13 @@ passport.use(
             active: true,
           });
 
-          console.log("user created");
+          console.log("collector created");
         } else {
-          user.active = true;
-          await user.save();
+          collector.active = true;
+          await collector.save();
         }
 
-        callback(null, user);
+        callback(null, collector);
       } catch (err) {
         callback(err, null);
       }
@@ -53,15 +55,15 @@ passport.use(
   )
 );
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
+passport.serializeUser((collector, done) => {
+  done(null, collector.id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findById(id);
-    console.log("user:", user);
-    done(null, user);
+    const collector = await Collector.findById(id);
+    console.log("collector:", collector);
+    done(null, collector);
   } catch (err) {
     done(err, null);
   }

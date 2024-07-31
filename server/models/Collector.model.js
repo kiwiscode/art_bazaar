@@ -1,15 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const artworkSchema = new Schema(
-  {
-    title: { type: String, required: true },
-    artist: { type: String, required: true },
-    image: { type: String, required: true },
-  },
-  { _id: false }
-);
-
-const userSchema = new Schema(
+const collectorSchema = new Schema(
   {
     name: {
       type: String,
@@ -27,12 +18,19 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    profileImage: { type: String, default: "@imageUrl" },
     verified: { type: Boolean, default: false },
     active: {
       type: Boolean,
       default: false,
     },
-
+    isSeller: { type: Boolean, default: false },
+    isArtist: { type: Boolean, default: false },
+    artistProfile: [{ type: Schema.Types.ObjectId, ref: "Artist" }],
+    followedArtists: [{ type: Schema.Types.ObjectId, ref: "Artist" }],
+    collection: [{ type: Schema.Types.ObjectId, ref: "Collection" }],
+    artWorks: [{ type: Schema.Types.ObjectId, ref: "Artwork" }],
+    favoriteArtworks: [{ type: Schema.Types.ObjectId, ref: "Artwork" }],
     order: [
       {
         title: { type: String, required: true },
@@ -64,14 +62,12 @@ const userSchema = new Schema(
     resetPasswordExpires: {
       type: Date,
     },
-    favoriteArtworks: [artworkSchema],
   },
-
   {
     timestamps: true,
   }
 );
 
-const User = model("User", userSchema);
+const Collector = model("Collector", collectorSchema);
 
-module.exports = User;
+module.exports = Collector;

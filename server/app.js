@@ -11,7 +11,15 @@ const session = require("express-session");
 require("./googleAuth/passport");
 
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
+// for entity too large error limitation
+app.use(bodyParser.json({ limit: "30mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "30mb",
+    extended: true,
+    parameterLimit: 30000,
+  })
+);
 
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
@@ -41,11 +49,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const authRoutes = require("./routes/auth.routes");
-const usersRoutes = require("./routes/users.routes");
-const artsyApiRoutes = require("./routes/artsy_api.routes");
+const collectorRoutes = require("./routes/collectors.routes");
+const artistRoutes = require("./routes/artist.routes");
+const artworkRoutes = require("./routes/artwork.routes");
 
 app.use("/auth", authRoutes);
-app.use("/users", usersRoutes);
-app.use("/api", artsyApiRoutes);
+app.use("/collectors", collectorRoutes);
+app.use("/artist", artistRoutes);
+app.use("/artwork", artworkRoutes);
 
 module.exports = app;

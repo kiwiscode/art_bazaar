@@ -1,11 +1,17 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { UserProvider } from "./components/UserContext";
+import { CollectorProvider } from "./components/CollectorContext";
 import Navbar from "./components/Navbar";
 import Main from "./pages/Main";
 import ResetPassword from "./pages/ResetPassword";
 import ArtistProfile from "./pages/ArtistProfile";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Artwork from "./pages/Artwork";
+import CollectorProfile from "./pages/CollectorProfile";
+import CollectorProfileArtists from "./pages/CollectorProfileArtists";
+import CollectorProfileInsights from "./pages/CollectorProfileInsights";
+import NewArtwork from "./pages/NewArtwork";
+import CollectorArtworkDetail from "./pages/CollectorArtworkDetail";
+import EditArtwork from "./pages/EditArtwork";
 function App() {
   const location = useLocation();
   const path = location.pathname;
@@ -13,15 +19,17 @@ function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   function handleDataFromChildArtistProfile(data) {
+    console.log("data:", data);
     setShowAuthModal(data);
   }
 
   function handleDataFromChildNavbar(data) {
+    console.log("data navigation bar:", data);
     setShowAuthModal(data);
   }
 
   return (
-    <UserProvider>
+    <CollectorProvider>
       <div className="App">
         <div
           style={{
@@ -33,12 +41,14 @@ function App() {
             backgroundColor: "white",
           }}
         >
-          {path !== "/reset_password" && (
-            <Navbar
-              showAuthModal={showAuthModal}
-              setShowAuthModal={handleDataFromChildNavbar}
-            />
-          )}
+          {path !== "/reset_password" &&
+            path !== "/collector-profile/my-collection/artworks/new" &&
+            !path.endsWith("edit") && (
+              <Navbar
+                showAuthModal={showAuthModal}
+                setShowAuthModal={handleDataFromChildNavbar}
+              />
+            )}
         </div>
         <Routes>
           <Route path="/" element={<Main />} />
@@ -51,10 +61,40 @@ function App() {
               />
             }
           ></Route>
-          <Route path="/artwork/:artworkName" element={<Artwork />}></Route>
+          <Route
+            path="/artwork/:artworkName"
+            element={
+              <Artwork sendDataToParent={handleDataFromChildArtistProfile} />
+            }
+          ></Route>
+          <Route
+            path="/collector-profile/my-collection"
+            element={<CollectorProfile />}
+          ></Route>
+
+          <Route
+            path="/collector-profile/artists"
+            element={<CollectorProfileArtists />}
+          ></Route>
+          <Route
+            path="/collector-profile/insights"
+            element={<CollectorProfileInsights />}
+          ></Route>
+          <Route
+            path="/collector-profile/my-collection/artworks/new"
+            element={<NewArtwork />}
+          ></Route>
+          <Route
+            path="/collector-profile/my-collection/artwork/:collectedArtworkId"
+            element={<CollectorArtworkDetail />}
+          ></Route>
+          <Route
+            path="/collector-profile/my-collection/artworks/:collectedArtworkId/edit"
+            element={<EditArtwork />}
+          ></Route>
         </Routes>
       </div>
-    </UserProvider>
+    </CollectorProvider>
   );
 }
 export default App;

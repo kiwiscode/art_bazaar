@@ -20,7 +20,7 @@ const authenticateToken = require("../middleware/jwtMiddleware");
 
 const mongoose = require("mongoose");
 
-const User = require("../models/User.model");
+const Collector = require("../models/Collector.model");
 
 const nodemailer = require("nodemailer");
 
@@ -43,9 +43,9 @@ transporter.verify((error, success) => {
 router.post("/check-email", async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await User.find({ email: email });
-    console.log("user:", user);
-    if (user?.length) {
+    const collector = await Collector.find({ email: email });
+    console.log("collector:", collector);
+    if (collector?.length) {
       return res.status(409).json({ exists: true });
     } else {
       return res.status(200).json({ exists: false });
@@ -85,20 +85,24 @@ router.post("/signup", (req, res, next) => {
     .genSalt(saltRounds)
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
-      return User.create({
+      return Collector.create({
         name,
         email,
         password: hashedPassword,
         verified: false,
       });
     })
-    .then((user) => {
+    .then((collector) => {
       const expiresInDays = 30;
 
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: `${expiresInDays}d`,
-      });
-      sendVerificationEmail(user, res, token);
+      const token = jwt.sign(
+        { collectorId: collector._id },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: `${expiresInDays}d`,
+        }
+      );
+      sendVerificationEmail(collector, res, token);
     })
     .catch((error) => {
       if (error.code === 11000) {
@@ -186,22 +190,39 @@ router.post("/login", (req, res, next) => {
     return;
   }
 
-  User.findOne({ email })
-    .then((user) => {
-      if (!user) {
+  Collector.findOne({ email })
+    .populate("favoriteArtworks")
+    .populate("followedArtists")
+    .populate("collection")
+    .populate({
+      path: "collection",
+      populate: {
+        path: "artist",
+        model: "Artist",
+      },
+    })
+    .populate({
+      path: "collection",
+      populate: {
+        path: "collector",
+        model: "Collector",
+      },
+    })
+    .then((collector) => {
+      if (!collector) {
         res.status(401).json({ errorMessage: "Wrong credentials." });
         return;
       }
 
       bcrypt
-        .compare(password, user.password)
+        .compare(password, collector.password)
         .then((isSamePassword) => {
-          if (!isSamePassword || user.email !== email) {
+          if (!isSamePassword || collector.email !== email) {
             res.status(401).json({ errorMessage: "Wrong credentials." });
             return;
           }
-          user.active = true;
-          user.save().then((updatedUser) => {
+          collector.active = true;
+          collector.save().then((updatedCollector) => {
             const {
               _id,
               name,
@@ -212,14 +233,26 @@ router.post("/login", (req, res, next) => {
               isAdmin,
               contact,
               isWelcomeModalShowed,
-            } = updatedUser;
-            const token = jwt.sign({ userId: _id }, process.env.JWT_SECRET, {
-              expiresIn: "24h",
-            });
+              profileImage,
+              favoriteArtworks,
+              artWorks,
+              followedArtists,
+              artistProfile,
+              isArtist,
+              isSeller,
+              collection,
+            } = updatedCollector;
+            const token = jwt.sign(
+              { collectorId: _id },
+              process.env.JWT_SECRET,
+              {
+                expiresIn: "24h",
+              }
+            );
 
             res.json({
               token,
-              user: {
+              collector: {
                 _id,
                 name,
                 email,
@@ -229,6 +262,14 @@ router.post("/login", (req, res, next) => {
                 isAdmin,
                 contact,
                 isWelcomeModalShowed,
+                profileImage,
+                favoriteArtworks,
+                artWorks,
+                followedArtists,
+                artistProfile,
+                isArtist,
+                isSeller,
+                collection,
               },
             });
           });
@@ -243,21 +284,26 @@ router.get(
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 router.get("/google/callback", (req, res, next) => {
-  passport.authenticate("google", (err, user, info) => {
+  passport.authenticate("google", (err, collector, info) => {
     if (err) return next(err);
-    if (!user) return res.redirect(`${process.env.FRONTEND_URL}/login/failed`);
+    if (!collector)
+      return res.redirect(`${process.env.FRONTEND_URL}/login/failed`);
 
-    console.log("user:", user.name);
-    req.logIn(user, (err) => {
+    console.log("collector:", collector.name);
+    req.logIn(collector, (err) => {
       if (err) return next(err);
 
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "24h",
-      });
+      const token = jwt.sign(
+        { collectorId: collector._id },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "24h",
+        }
+      );
 
       res.redirect(
-        `${process.env.FRONTEND_URL}/?token=${token}&user=${JSON.stringify(
-          user
+        `${process.env.FRONTEND_URL}/?token=${token}&collector=${JSON.stringify(
+          collector
         )}`
       );
     });
@@ -266,23 +312,23 @@ router.get("/google/callback", (req, res, next) => {
 
 router.post("/logout", authenticateToken, async (req, res, next) => {
   try {
-    const { userId } = req.user;
-    console.log("userid:", userId);
+    const { collectorId } = req.collector;
+    console.log("collectorId:", collectorId);
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
+    const updatedCollector = await Collector.findByIdAndUpdate(
+      collectorId,
       { active: false },
       { new: true }
     );
 
-    if (updatedUser) {
+    if (updatedCollector) {
       res.status(200).json({ message: "Logout successful" });
     } else {
-      res.status(500).json({ message: "Error updating user" });
+      res.status(500).json({ message: "Error updating collector" });
     }
   } catch (error) {
     console.error("error:", error);
-    res.status(500).json({ message: "Error updating user" });
+    res.status(500).json({ message: "Error updating collector" });
   }
 });
 
@@ -339,18 +385,18 @@ router.post("/reset_password", async (req, res) => {
   try {
     const { email } = req.body.forgotPasswordFormData;
     console.log("email:", email);
-    const user = await User.findOne({ email: email });
+    const collector = await Collector.findOne({ email: email });
 
-    if (!user) {
-      res.status(404).json({ message: "User not found!" });
+    if (!collector) {
+      res.status(404).json({ message: "Collector not found!" });
     }
 
     const token = createResetToken();
     const tokenExpiration = Date.now() + 86400000; // 24h valid token for password reset
 
-    user.resetPasswordToken = token;
-    user.resetPasswordExpires = tokenExpiration;
-    await user.save();
+    collector.resetPasswordToken = token;
+    collector.resetPasswordExpires = tokenExpiration;
+    await collector.save();
 
     sendForgotPasswordEmail(email, res, token);
   } catch (error) {
@@ -370,12 +416,12 @@ router.post("/change_password", async (req, res) => {
         .json({ message: "Email, password and reset token are required" });
     }
 
-    const user = await User.findOne({
+    const collector = await Collector.findOne({
       email: email,
       resetPasswordToken: token,
       resetPasswordExpires: { $gt: Date.now() },
     });
-    if (!user) {
+    if (!collector) {
       return res
         .status(404)
         .json({ message: "Invalid or expired reset token!" });
@@ -390,12 +436,12 @@ router.post("/change_password", async (req, res) => {
     }
 
     const salt = await bcrypt.genSalt(saltRounds);
-    user.password = await bcrypt.hash(password, salt);
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    collector.password = await bcrypt.hash(password, salt);
+    collector.resetPasswordToken = undefined;
+    collector.resetPasswordExpires = undefined;
 
-    await user.save();
-    console.log("updated user:", user);
+    await collector.save();
+    console.log("updated collector:", collector);
     res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
     console.error("error:", error);
@@ -410,8 +456,8 @@ router.get("/verify", (req, res) => {
     if (err) {
       res.redirect("/auth/verified?error=true&message=Invalid token");
     } else {
-      const userId = decoded.userId;
-      User.findByIdAndUpdate(userId, { verified: true })
+      const collectorId = decoded.collectorId;
+      Collector.findByIdAndUpdate(collectorId, { verified: true })
         .then(() => {
           res.render("auth/verified");
         })
