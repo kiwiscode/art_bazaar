@@ -12,13 +12,16 @@ import CollectorProfileInsights from "./pages/CollectorProfileInsights";
 import NewArtwork from "./pages/NewArtwork";
 import CollectorArtworkDetail from "./pages/CollectorArtworkDetail";
 import EditArtwork from "./pages/EditArtwork";
+import Saves from "./pages/Saves";
+import SavesAlerts from "./pages/SavesAlerts";
+import SavesFollows from "./pages/SavesFollows";
 function App() {
   const location = useLocation();
   const path = location.pathname;
 
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  function handleDataFromChildArtistProfile(data) {
+  function handleDataFromChild(data) {
     console.log("data:", data);
     setShowAuthModal(data);
   }
@@ -55,17 +58,11 @@ function App() {
           <Route path="/reset_password" element={<ResetPassword />}></Route>
           <Route
             path="/artist/:artist_name"
-            element={
-              <ArtistProfile
-                sendDataToParent={handleDataFromChildArtistProfile}
-              />
-            }
+            element={<ArtistProfile sendDataToParent={handleDataFromChild} />}
           ></Route>
           <Route
             path="/artwork/:artworkName"
-            element={
-              <Artwork sendDataToParent={handleDataFromChildArtistProfile} />
-            }
+            element={<Artwork sendDataToParent={handleDataFromChild} />}
           ></Route>
           <Route
             path="/collector-profile/my-collection"
@@ -92,6 +89,9 @@ function App() {
             path="/collector-profile/my-collection/artworks/:collectedArtworkId/edit"
             element={<EditArtwork />}
           ></Route>
+          <Route path="/favorites/saves" element={<Saves />}></Route>
+          <Route path="/favorites/follows" element={<SavesFollows />}></Route>
+          <Route path="/favorites/alerts" element={<SavesAlerts />}></Route>
         </Routes>
       </div>
     </CollectorProvider>

@@ -3,12 +3,19 @@ import ProfileImage from "./ProfileImage";
 import { CollectorContext } from "./CollectorContext";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import { useLocation, useNavigate } from "react-router-dom";
+import HeaderNavBar from "./HeaderNavBar";
 export const CollectorProfileHeader = () => {
   const { collectorInfo } = useContext(CollectorContext);
   const { width } = useWindowDimensions();
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
+
+  const navItems = [
+    { label: "Artworks", path: "/collector-profile/my-collection" },
+    { label: "Artists", path: "/collector-profile/artists" },
+    { label: "Insights", path: "/collector-profile/insights" },
+  ];
   return (
     <>
       <div
@@ -57,11 +64,21 @@ export const CollectorProfileHeader = () => {
             >
               {width <= 768 && (
                 <>
-                  <div className="pointer text-decoration-underline font-size-responsive-bp-768px-13px">
-                    Favorites
+                  <div className="text-decoration-underline font-size-responsive-bp-768px-13px">
+                    <span
+                      className="pointer"
+                      onClick={() => navigate("/favorites/saves")}
+                    >
+                      Favorites
+                    </span>
                   </div>
-                  <div className="pointer text-decoration-underline font-size-responsive-bp-768px-13px">
-                    Settings
+                  <div className=" text-decoration-underline font-size-responsive-bp-768px-13px">
+                    <span
+                      className="pointer"
+                      onClick={() => navigate("/settings")}
+                    >
+                      Settings
+                    </span>
                   </div>
                 </>
               )}
@@ -91,99 +108,30 @@ export const CollectorProfileHeader = () => {
             gap: "20px",
           }}
         >
-          <div className="pointer text-decoration-underline display-none-bp-768px">
-            Favorites
+          <div className="text-decoration-underline display-none-bp-768px">
+            <span
+              className="pointer"
+              onClick={() => navigate("/favorites/saves")}
+            >
+              Favorites
+            </span>
           </div>
-          <div className="pointer text-decoration-underline display-none-bp-768px">
-            Settings
+          <div className=" text-decoration-underline display-none-bp-768px">
+            <span className="pointer" onClick={() => navigate("/settings")}>
+              Settings
+            </span>
           </div>
         </div>
       </div>
 
-      <div
-        className="box-60-px-m-top unica-regular-font"
-        style={{
-          borderBottom: "1px solid rgb(231, 231, 231)",
-          display: "flex",
-        }}
-      >
-        <div
-          onClick={() => navigate("/collector-profile/my-collection")}
-          className={
-            path === "/collector-profile/my-collection"
-              ? "unica-regular-font pointer"
-              : "unica-regular-font pointer hover_color_effect_t-d hover_color_effect"
-          }
-          style={{
-            display: "inline-flex",
-            textAlign: "center",
-            boxSizing: "border-box",
-            fontSize: width <= 768 ? "13px" : "16px",
-            lineHeight: width <= 768 ? "20px" : "26px",
-            borderBottom:
-              path === "/collector-profile/my-collection" &&
-              "1px solid rgb(0,0,0)",
-            padding: "0px 20px",
-            height: "40px",
-            color:
-              path !== "/collector-profile/my-collection"
-                ? "rgb(112, 112, 112)"
-                : "rgb(0,0,0)",
-          }}
-        >
-          Artworks
-        </div>
-        <div
-          onClick={() => navigate("/collector-profile/artists")}
-          className={
-            path === "/collector-profile/artists"
-              ? "unica-regular-font pointer"
-              : "unica-regular-font pointer hover_color_effect_t-d hover_color_effect"
-          }
-          style={{
-            display: "inline-flex",
-            textAlign: "center",
-            boxSizing: "border-box",
-            fontSize: width <= 768 ? "13px" : "16px",
-            lineHeight: width <= 768 ? "20px" : "26px",
-            borderBottom:
-              path === "/collector-profile/artists" && "1px solid rgb(0,0,0)",
-            padding: "0px 20px",
-            height: "40px",
-            color:
-              path !== "/collector-profile/artists"
-                ? "rgb(112, 112, 112)"
-                : "rgb(0,0,0)",
-          }}
-        >
-          Artists
-        </div>
-        <div
-          onClick={() => navigate("/collector-profile/insights")}
-          className={
-            path === "/collector-profile/insights"
-              ? "unica-regular-font pointer"
-              : "unica-regular-font pointer hover_color_effect_t-d hover_color_effect"
-          }
-          style={{
-            display: "inline-flex",
-            textAlign: "center",
-            boxSizing: "border-box",
-            fontSize: width <= 768 ? "13px" : "16px",
-            lineHeight: width <= 768 ? "20px" : "26px",
-            borderBottom:
-              path === "/collector-profile/insights" && "1px solid rgb(0,0,0)",
-            padding: "0px 20px",
-            height: "40px",
-            color:
-              path !== "/collector-profile/insights"
-                ? "rgb(112, 112, 112)"
-                : "rgb(0,0,0)",
-          }}
-        >
-          Insights
-        </div>
-      </div>
+      <div className="box-60-px-m-top unica-regular-font"></div>
+      <HeaderNavBar
+        wrapperMargin={width <= 768 ? "0px" : "0px 0px"}
+        responsivePadding={"0px 20px"}
+        items={navItems}
+        currentPath={location.pathname}
+        width={width}
+      />
     </>
   );
 };

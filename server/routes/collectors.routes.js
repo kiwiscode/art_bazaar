@@ -3,6 +3,7 @@ const router = express.Router();
 const authenticateToken = require("../middleware/jwtMiddleware");
 const Collector = require("../models/Collector.model");
 const Collection = require("../models/Collection.modal");
+const Favorite = require("../models/Favorite.model");
 const Artist = require("../models/Artist.model");
 const cloudinary = require("../utils/Cloudinary");
 
@@ -64,7 +65,6 @@ router.get("/:id", authenticateToken, async (req, res) => {
 router.post("/:collectorId/favorite", authenticateToken, async (req, res) => {
   try {
     const collectorId = req.params.collectorId;
-    console.log("collector id:", collectorId);
     const { artworkId } = req.body.artworkInformation;
     const collector = await Collector.findById(collectorId);
 
@@ -93,6 +93,11 @@ router.post("/:collectorId/favorite", authenticateToken, async (req, res) => {
     console.log("artwork id:", artworkId);
 
     collector.favoriteArtworks.unshift(artworkId);
+
+    await Favorite.create({
+      favoritedArtwork: artworkId,
+      collector: collectorId,
+    });
 
     await collector.save();
 
@@ -129,8 +134,12 @@ router.delete(
       }
 
       collector.favoriteArtworks.splice(favoriteIndex, 1);
-
       await collector.save();
+
+      await Favorite.deleteOne({
+        favoritedArtwork: artworkId,
+        collector: collectorId,
+      });
 
       res
         .status(200)
@@ -606,5 +615,60 @@ router.delete(
     }
   }
 );
+
+// get saves
+router.get("/:collectorId/saves", async (req, res) => {
+  const { collectorId } = req.params;
+
+  try {
+    // Favori eserleri `Favorite` koleksiyonundan alın
+    const favorites = await Favorite.find({ collector: collectorId })
+      .populate("favoritedArtwork")
+      .populate("collector")
+      .populate({
+        path: "favoritedArtwork",
+        populate: {
+          path: "artist",
+          model: "Artist",
+        },
+      });
+
+    if (favorites.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "No favorite artworks found for this collector" });
+    }
+
+    // Favori eserleri içeren veriyi client'a gönderin
+    res.json({
+      favoriteArtworks: favorites.map((fav) => fav),
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// get followed artists
+router.get("/:collectorId/followed-artists", async (req, res) => {
+  const { collectorId } = req.params;
+
+  try {
+    const collector = await Collector.findById(collectorId).populate(
+      "followedArtists"
+    );
+
+    if (!collector) {
+      return res.status(404).json({ error: "Collector not found!" });
+    }
+
+    res.json({
+      followedArtists: collector.followedArtists,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 module.exports = router;

@@ -42,7 +42,8 @@ function FollowButton({
         <button
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             if (collectorInfo?.active) {
               console.log("artist:", artist);
               if (sendDataToParent) {

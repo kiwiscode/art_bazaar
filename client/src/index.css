@@ -1076,6 +1076,21 @@ body {
     column-count: 2;
   }
 }
+.container-for-artworks-render-saves {
+  column-count: 3;
+  column-gap: 20px;
+}
+
+@media (max-width: 1279px) {
+  .container-for-artworks-render-saves {
+    column-count: 3;
+  }
+}
+@media (max-width: 768px) {
+  .container-for-artworks-render-saves {
+    column-count: 2;
+  }
+}
 
 /* new artwork form */
 .new-artwork-form.first-section,
@@ -1495,5 +1510,41 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .artist-articles-wrapper {
     padding: 0px 20px;
+  }
+}
+
+/* saves styling */
+.profile-back-banner {
+  padding: 0px 40px;
+  border-bottom: 1px solid rgb(202, 205, 236);
+}
+
+.favorite-text-header,
+.favorites-detail-wrapper,
+.follows-detail-wrapper {
+  padding: 0px 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile-back-banner,
+  .favorite-text-header,
+  .favorites-detail-wrapper,
+  .follows-detail-wrapper {
+    padding: 0px 20px;
+  }
+}
+
+/* follows page */
+.non-followed-artists-info div {
+  font-size: 26px;
+  line-height: 40px;
+  letter-spacing: -0.01em;
+}
+
+@media screen and (max-width: 768px) {
+  .non-followed-artists-info div {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: -0.01em;
   }
 }

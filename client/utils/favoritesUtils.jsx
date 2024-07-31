@@ -10,7 +10,9 @@ export const addToFavorites = async (
   sendDataToParent
 ) => {
   if (collectorInfo.active) {
-    sendDataToParent(false);
+    if (sendDataToParent) {
+      sendDataToParent(false);
+    }
     try {
       await axios.post(
         `${API_URL}/collectors/${collectorInfo?._id}/favorite`,
@@ -29,7 +31,9 @@ export const addToFavorites = async (
       console.error("error:", error);
     }
   } else {
-    sendDataToParent(true);
+    if (sendDataToParent) {
+      sendDataToParent(true);
+    }
   }
 };
 
