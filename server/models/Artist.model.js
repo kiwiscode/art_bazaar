@@ -68,8 +68,8 @@ const artistSchema = new Schema({
   artWorks: [{ type: Schema.Types.ObjectId, ref: "Artwork" }],
   isAlsoCollector: { type: Boolean, default: false },
   collectorProfile: [{ type: Schema.Types.ObjectId, ref: "Collector" }],
-  followedArtists: [{ type: Schema.Types.ObjectId, ref: "Artist" }],
   followers: [{ type: Schema.Types.ObjectId, ref: "Collector" }],
+  followedArtists: [{ type: Schema.Types.ObjectId, ref: "Artist" }],
   contact: {
     type: [
       {

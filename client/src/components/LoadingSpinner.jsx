@@ -1,7 +1,17 @@
-const LoadingSpinner = ({ outsidebtnloading }) => {
+const LoadingSpinner = ({
+  outsidebtnloading,
+  isLoadingProfileImage,
+  welcomeModalClosing,
+}) => {
   return (
     <>
-      <div className="dflex jfycenter">
+      <div
+        className="dflex jfycenter"
+        style={{
+          height: welcomeModalClosing && "100%",
+          alignItems: welcomeModalClosing && "center",
+        }}
+      >
         <div className="spinner bottomSpinner">
           <span>
             <svg
@@ -16,7 +26,13 @@ const LoadingSpinner = ({ outsidebtnloading }) => {
                 y1="6"
                 x2="24"
                 y2="22"
-                stroke={outsidebtnloading ? "rgb(16, 35, 215)" : "white"}
+                stroke={
+                  outsidebtnloading
+                    ? "rgb(16, 35, 215)"
+                    : isLoadingProfileImage
+                    ? "black"
+                    : "white"
+                }
                 strokeWidth="6"
               >
                 <animateTransform

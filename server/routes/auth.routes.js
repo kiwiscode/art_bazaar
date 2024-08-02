@@ -241,6 +241,10 @@ router.post("/login", (req, res, next) => {
               isArtist,
               isSeller,
               collection,
+              about,
+              location,
+              otherRelevantPosition,
+              profession,
             } = updatedCollector;
             const token = jwt.sign(
               { collectorId: _id },
@@ -270,6 +274,10 @@ router.post("/login", (req, res, next) => {
                 isArtist,
                 isSeller,
                 collection,
+                about,
+                location,
+                otherRelevantPosition,
+                profession,
               },
             });
           });
@@ -388,7 +396,7 @@ router.post("/reset_password", async (req, res) => {
     const collector = await Collector.findOne({ email: email });
 
     if (!collector) {
-      res.status(404).json({ message: "Collector not found!" });
+      return res.status(404).json({ message: "Collector not found!" });
     }
 
     const token = createResetToken();

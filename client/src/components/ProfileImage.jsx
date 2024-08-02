@@ -1,4 +1,5 @@
 import React from "react";
+import LoadingSpinner from "./LoadingSpinner";
 
 const DefaultProfileImage = ({ collectorInfo, fontSize }) => (
   <div
@@ -19,7 +20,13 @@ const DefaultProfileImage = ({ collectorInfo, fontSize }) => (
   </div>
 );
 
-const ProfileImage = ({ collectorInfo, width, height, fontSize }) => {
+const ProfileImage = ({
+  collectorInfo,
+  width,
+  height,
+  fontSize,
+  isLoading,
+}) => {
   return (
     <div
       style={{
@@ -31,23 +38,35 @@ const ProfileImage = ({ collectorInfo, width, height, fontSize }) => {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "transparent",
-        border: " 1px solid rgb(231, 231, 231)",
+        border:
+          collectorInfo?.profileImage !== "@imageUrl" && !isLoading
+            ? "none"
+            : "1px solid rgb(231, 231, 231)",
       }}
     >
-      {collectorInfo?.profileImage !== "@imageUrl" ? (
-        <img
-          src={collectorInfo?.profileImage}
-          alt="Profile"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        />
+      {!isLoading ? (
+        <>
+          {collectorInfo?.profileImage !== "@imageUrl" ? (
+            <img
+              src={collectorInfo?.profileImage}
+              alt="Profile"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <DefaultProfileImage
+              fontSize={fontSize}
+              collectorInfo={collectorInfo}
+            />
+          )}
+        </>
       ) : (
-        <DefaultProfileImage
-          fontSize={fontSize}
-          collectorInfo={collectorInfo}
+        <LoadingSpinner
+          isLoadingProfileImage={true}
+          outsidebtnloading={false}
         />
       )}
     </div>

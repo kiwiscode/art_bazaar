@@ -75,7 +75,7 @@ export const CollectorProfileHeader = () => {
                   <div className=" text-decoration-underline font-size-responsive-bp-768px-13px">
                     <span
                       className="pointer"
-                      onClick={() => navigate("/settings")}
+                      onClick={() => navigate("/settings/edit-profile")}
                     >
                       Settings
                     </span>
@@ -117,7 +117,10 @@ export const CollectorProfileHeader = () => {
             </span>
           </div>
           <div className=" text-decoration-underline display-none-bp-768px">
-            <span className="pointer" onClick={() => navigate("/settings")}>
+            <span
+              className="pointer"
+              onClick={() => navigate("/settings/edit-profile")}
+            >
               Settings
             </span>
           </div>

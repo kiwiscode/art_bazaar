@@ -208,6 +208,9 @@ function CollectorProfileArtists() {
   const closeRemoveArtistFromCollectionOn = () => {
     setRemoveArtistFromCollectionModalOn(false);
     handleCloseRemovePopover();
+    setArtistToRemove(null);
+    setAnchorEl(null);
+    setLoading(false);
   };
 
   const removeArtistFromCollection = async () => {

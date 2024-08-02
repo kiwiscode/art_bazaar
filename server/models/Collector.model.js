@@ -51,6 +51,30 @@ const collectorSchema = new Schema(
         },
       ],
     },
+    location: {
+      type: String,
+      default: "Germany",
+    },
+    profession: {
+      type: String,
+      default: "",
+    },
+    otherRelevantPosition: {
+      type: String,
+      default: "",
+    },
+    about: {
+      type: String,
+      default: "",
+    },
+    mobileNumber: {
+      type: String,
+      default: "",
+    },
+    priceRange: {
+      type: String,
+      default: "",
+    },
     isWelcomeModalShowed: {
       type: Boolean,
       default: false,

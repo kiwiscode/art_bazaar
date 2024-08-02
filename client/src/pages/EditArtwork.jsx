@@ -65,6 +65,7 @@ function EditArtwork() {
       console.error("error:", error);
     }
   };
+
   const deleteCollectedArtwork = async () => {
     setDeleting(true);
     try {

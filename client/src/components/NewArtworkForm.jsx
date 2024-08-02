@@ -1,11 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchArtistInput from "./SearchArtistInput";
 import Input from "./Input";
 import useWindowDimensions from "../../utils/useWindowDimensions";
-import Button from "./Button";
 import FileInput from "./FileInput";
-import axios from "axios";
-import { CollectorContext } from "./CollectorContext";
 import ArtistProfileImage from "./ArtistProfileImage";
 
 // when working on local version
@@ -401,6 +398,8 @@ function NewArtworkForm({
       uploadedPhotos: shallowCopy,
     }));
   };
+
+  console.log("form data:", formData);
 
   return (
     <div

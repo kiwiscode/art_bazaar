@@ -373,18 +373,31 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
         }
       );
       if (result.status === 200) {
-        setLoading(false);
-        setResetLinkInfoPopup(true);
+        setTimeout(() => {
+          setLoading(false);
+          setResetLinkInfoPopup(true);
+        }, 1000);
       } else {
+        setTimeout(() => {
+          setLoading(false);
+          setResetLinkInfoPopup(true);
+        }, 1000);
         console.error(
           "Error during sending email process. Status:",
           result.status
         );
       }
     } catch (error) {
+      setTimeout(() => {
+        setLoading(false);
+        setResetLinkInfoPopup(true);
+      }, 1000);
       console.error("error:", error);
     }
   };
+  useEffect(() => {
+    setResetLinkInfoPopup(false);
+  }, [forgotPasswordOn]);
   const handleArtistClick = (artistName) => {
     const formattedName = artistName.toLowerCase().replace(/ /g, "-");
     navigate(`/artist/${formattedName}`);
@@ -1675,14 +1688,16 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                         fontSize: "16px",
                         pointerEvents:
                           invalidEmailError ||
+                          loading ||
                           !forgotPasswordFormData.email.length
                             ? "none"
                             : "",
                         opacity:
-                          !invalidEmailError &&
-                          forgotPasswordFormData.email.length
-                            ? "1"
-                            : "0.3",
+                          invalidEmailError ||
+                          loading ||
+                          !forgotPasswordFormData.email.length
+                            ? "0.3"
+                            : "1",
                       }}
                     >
                       {loading ? (
@@ -1743,6 +1758,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
         style={{
           paddingLeft: width <= 768 ? "0px" : "40px",
           paddingRight: width <= 768 ? "0px" : "40px",
+          zIndex: 99999,
         }}
       >
         <div
@@ -1805,6 +1821,9 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
               }}
             >
               <div
+                onClick={() => {
+                  navigate("/");
+                }}
                 className="hover_color_effect pointer unica-regular-font display-none-bp-768px"
                 style={{
                   fontSize: "16px",
@@ -1815,6 +1834,9 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                 Buy
               </div>
               <div
+                onClick={() => {
+                  navigate("/sell");
+                }}
                 className="hover_color_effect pointer unica-regular-font display-none-bp-768px"
                 style={{
                   fontSize: "16px",
@@ -2211,11 +2233,23 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                               >
                                 Marketplace
                               </div>
-                              <div className="visible-popup-item">
+                              <div
+                                onClick={() => {
+                                  setPopupVisible(false);
+                                  navigate("/");
+                                }}
+                                className="visible-popup-item"
+                              >
                                 <AddShoppingCartOutlinedIcon />
                                 <span>Buy</span>
                               </div>
-                              <div className="visible-popup-item">
+                              <div
+                                onClick={() => {
+                                  setPopupVisible(false);
+                                  navigate("/sell");
+                                }}
+                                className="visible-popup-item"
+                              >
                                 <MonetizationOnOutlinedIcon />
                                 <span>Sell</span>
                               </div>
@@ -2224,7 +2258,13 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                         )}
                         <div className="visible-popup-seperator"></div>
                         <div>
-                          <div className="visible-popup-item">
+                          <div
+                            onClick={() => {
+                              setPopupVisible(false);
+                              navigate("/settings/edit-profile");
+                            }}
+                            className="visible-popup-item"
+                          >
                             <svg viewBox="0 0 18 18">
                               <path
                                 fillRule="evenodd"
@@ -2234,7 +2274,13 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                             </svg>
                             <span>Settings</span>
                           </div>
-                          <div className="visible-popup-item">
+                          <div
+                            onClick={() => {
+                              setPopupVisible(false);
+                              navigate("/settings/purchases");
+                            }}
+                            className="visible-popup-item"
+                          >
                             <svg viewBox="0 0 18 18">
                               <path
                                 fillRule="evenodd"

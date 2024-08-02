@@ -6,6 +6,8 @@ const Collection = require("../models/Collection.modal");
 const Favorite = require("../models/Favorite.model");
 const Artist = require("../models/Artist.model");
 const cloudinary = require("../utils/Cloudinary");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 // welcome modal status
 router.patch(
@@ -519,12 +521,9 @@ router.patch(
         imageUrls = formData.uploadedPhotos;
       }
 
-      console.log("collector id:", collectorId);
-      console.log("collection id to edit:", collectionId);
-      console.log("uploaded artwork id inside collection:", collectedArtworkId);
-
       console.log("new updated form data:", formData);
       console.log("new uploaded images:", uploadedImages);
+      console.log("image urls array:", imageUrls);
 
       const collection = await Collection.findOne({
         collector: collectorId,
@@ -565,6 +564,8 @@ router.patch(
       artwork.notes = formData.notes || artwork.notes;
       artwork.uploadedPhotos = imageUrls.length
         ? imageUrls
+        : formData?.uploadedPhotos
+        ? formData.uploadedPhotos
         : artwork.uploadedPhotos;
 
       await collection.save();
@@ -665,6 +666,198 @@ router.get("/:collectorId/followed-artists", async (req, res) => {
     res.json({
       followedArtists: collector.followedArtists,
     });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// change profile image
+router.post("/:collectorId/change_profile_image", async (req, res) => {
+  try {
+    const { image } = req.body;
+    const collectorId = req.params.collectorId;
+
+    const collector = await Collector.findById(collectorId);
+
+    if (!collector) {
+      return res.status(404).json({ errorMessage: "COLLECTOR NOT FOUND!" });
+    }
+
+    if (image) {
+      const imageInfo = await cloudinary.uploader.upload(image, {
+        folder: "chat_app",
+        allowed_formats: ["jpg", "png"],
+        gravity: "face",
+        width: 133,
+        height: 133,
+        radius: "max",
+        crop: "fill",
+      });
+
+      collector.profileImage = imageInfo.url;
+      await collector.save();
+
+      return res.status(200).json({ imageInfo: imageInfo });
+    } else {
+      return res.status(400).json({ errorMessage: "Image is required!" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// collector edit-profile
+router.patch(
+  "/:collectorId/edit-profile",
+  authenticateToken,
+  async (req, res) => {
+    try {
+      const { formData } = req.body;
+      const { collectorId } = req.params;
+
+      let updateData = {};
+
+      if (formData.profileImage)
+        updateData.profileImage = formData.profileImage;
+      if (formData.collectorName) updateData.name = formData.collectorName;
+      if (formData.primaryLocation)
+        updateData.location = formData.primaryLocation;
+      if (formData.profession) updateData.profession = formData.profession;
+      if (formData.otherRelevantPosition)
+        updateData.otherRelevantPosition = formData.otherRelevantPosition;
+      if (formData.about) updateData.about = formData.about;
+      if (formData.collectorEmail) updateData.email = formData.collectorEmail;
+      if (formData.collectorMobile)
+        updateData.mobileNumber = formData.collectorMobile;
+      if (formData.priceRange) updateData.priceRange = formData.priceRange;
+
+      const updatedCollector = await Collector.findByIdAndUpdate(
+        collectorId,
+        { $set: updateData },
+        { new: true }
+      );
+
+      if (!updatedCollector) {
+        return res.status(404).json({ errorMessage: "Collector not found!" });
+      }
+
+      return res.status(200).json({
+        message: "Collector profile updated successfully",
+        updatedCollector,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
+
+// check password correct EXTRA route no need
+router.post("/:collectorId/password-check", async (req, res) => {
+  try {
+    const { collectorId } = req.params;
+    const { currentPassword } = req.body;
+
+    const collector = await Collector.findById(collectorId);
+    if (!collector) {
+      return res.status(404).json({ errorMessage: "Collector not found!" });
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, collector.password);
+    if (!isMatch) {
+      return res
+        .status(400)
+        .json({ errorMessage: "Incorrect current password" });
+    }
+
+    return res.status(200).json({ message: "Password is correct" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// collector change password
+router.patch(`/:collectorId/change-password`, async (req, res) => {
+  try {
+    const { collectorId } = req.params;
+    const { changePasswordFormData, currentPassword } = req.body;
+
+    console.log("change password form data:", changePasswordFormData);
+    console.log("current password:", currentPassword);
+
+    const collector = await Collector.findById(collectorId);
+    if (!collector) {
+      return res.status(404).json({ errorMessage: "Collector not found!" });
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, collector.password);
+    if (!isMatch) {
+      return res
+        .status(400)
+        .json({ errorMessage: "Incorrect current password" });
+    }
+
+    const hashedPassword = await bcrypt.hash(
+      changePasswordFormData.NewPassword,
+      saltRounds
+    );
+
+    collector.password = hashedPassword;
+    await collector.save();
+
+    return res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// delete account
+router.post(`/:collectorId/delete-account`, async (req, res) => {
+  try {
+    const { collectorId } = req.params;
+    const { formData } = req.body;
+
+    console.log("form data:", formData);
+    console.log("collectorId:", collectorId);
+
+    const collector = await Collector.findById(collectorId);
+    if (!collector) {
+      return res.status(404).json({ errorMessage: "Collector not found!" });
+    }
+
+    console.log("collector password:", collector.password);
+    console.log("form data password:", formData.password);
+
+    const isMatch = await bcrypt.compare(formData.password, collector.password);
+    if (!isMatch) {
+      return res
+        .status(400)
+        .json({ errorMessage: "Incorrect current password" });
+    }
+
+    await Collector.findByIdAndDelete(collectorId);
+
+    await Artist.updateMany(
+      { followers: collectorId },
+      { $pull: { followers: collectorId } }
+    );
+
+    const artistsToDelete = await Artist.find({
+      collectorProfile: collectorId,
+    });
+    for (const artist of artistsToDelete) {
+      await artist.remove();
+    }
+
+    await Collection.deleteMany({ collector: collectorId });
+
+    await Favorite.deleteMany({ collector: collectorId });
+
+    return res.status(200).json({ message: "Account deleted successfully." });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });

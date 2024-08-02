@@ -15,6 +15,11 @@ import EditArtwork from "./pages/EditArtwork";
 import Saves from "./pages/Saves";
 import SavesAlerts from "./pages/SavesAlerts";
 import SavesFollows from "./pages/SavesFollows";
+import EditProfile from "./pages/EditProfile";
+import EditProfileSettings from "./pages/EditProfileSettings";
+import EditProfilePurchases from "./pages/EditProfilePurchases";
+import EditProfileDelete from "./pages/EditProfileDelete";
+import Sell from "./pages/Sell";
 function App() {
   const location = useLocation();
   const path = location.pathname;
@@ -39,7 +44,7 @@ function App() {
             position: "sticky",
             top: "0px",
             borderBottom: "1px solid rgb(194, 194, 194)",
-            zIndex: 1,
+            zIndex: path.startsWith("/settings") ? 2 : 1,
             width: "100%",
             backgroundColor: "white",
           }}
@@ -92,6 +97,23 @@ function App() {
           <Route path="/favorites/saves" element={<Saves />}></Route>
           <Route path="/favorites/follows" element={<SavesFollows />}></Route>
           <Route path="/favorites/alerts" element={<SavesAlerts />}></Route>
+          <Route
+            path="/settings/edit-profile"
+            element={<EditProfile />}
+          ></Route>
+          <Route
+            path="/settings/edit-settings"
+            element={<EditProfileSettings />}
+          ></Route>
+          <Route
+            path="/settings/purchases"
+            element={<EditProfilePurchases />}
+          ></Route>
+          <Route
+            path="/settings/delete"
+            element={<EditProfileDelete />}
+          ></Route>
+          <Route path="/sell" element={<Sell />}></Route>
         </Routes>
       </div>
     </CollectorProvider>

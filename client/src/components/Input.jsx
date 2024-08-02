@@ -10,6 +10,7 @@ export default function Input({
   maxWidth,
   minWidth,
   wrapperWidth,
+  wrapperMaxWidth,
   wrapperMinWidth,
   wrapperHeight,
   wrapperMaxHeight,
@@ -32,6 +33,7 @@ export default function Input({
   searchInputWithLabelText,
   inputRef,
   iconAsText,
+  disabledInput,
 }) {
   const [border, setBorder] = useState("1px solid rgb(194, 194, 194)");
 
@@ -43,6 +45,7 @@ export default function Input({
         display: "inline-block",
         width: wrapperWidth,
         minWidth: wrapperMinWidth,
+        maxWidth: wrapperMaxWidth,
         height: wrapperHeight,
         maxHeight: wrapperMaxHeight,
         minHeight: wrapperMinHeight,
@@ -83,6 +86,8 @@ export default function Input({
           lineHeight: "26px",
           borderRadius: borderRadius,
           outline: "none",
+          opacity: disabledInput && "0.3",
+          pointerEvents: disabledInput && "none",
         }}
         onFocus={() => setBorder("1px solid rgb(16, 35, 215)")}
         onBlur={() => setBorder("1px solid rgb(194, 194, 194)")}
@@ -93,6 +98,9 @@ export default function Input({
 
       {withLabel || searchInputWithLabel ? (
         <label
+          style={{
+            color: disabledInput && "rgb(212,212,212)",
+          }}
           className={labelClassName || searchInputWithLabelClassName}
           htmlFor={labelHtmlFor || searchInputWithLabelHtmlFor}
         >

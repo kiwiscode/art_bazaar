@@ -6,11 +6,13 @@ import HeaderNavBar from "../components/HeaderNavBar";
 function SavesAlerts() {
   const { width } = useWindowDimensions();
   const location = useLocation();
+  const navigate = useNavigate();
   const navItems = [
     { label: "Saves", path: "/favorites/saves" },
     { label: "Follows", path: "/favorites/follows" },
     { label: "Alerts", path: "/favorites/alerts" },
   ];
+
   return (
     <>
       {/* custom saves page header */}
@@ -19,12 +21,15 @@ function SavesAlerts() {
         <div className="profile-back-banner">
           <div className="box-20-px-m-top"></div>
           <div
+            onClick={() => navigate("/collector-profile/my-collection")}
             style={{
-              display: "flex",
-              gap: "5px",
-              alignItems: "center",
+              gap: "10px",
               fontSize: "13px",
               lineHeight: "1px",
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "5px",
+              cursor: "pointer",
             }}
           >
             <svg width={18} height={14} viewBox="0 0 18 18" fill="currentColor">

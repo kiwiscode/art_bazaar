@@ -241,6 +241,11 @@ function CollectorArtworkDetail() {
                   }}
                 >
                   <Button
+                    onClick={() => {
+                      navigate(
+                        `/collector-profile/my-collection/artworks/${collectedArtworkId}/edit`
+                      );
+                    }}
                     className="hover_bg_color_effect_white_text_black pointer hover_color_effect_t-d"
                     backgroundColor="transparent"
                     height="100dvh"

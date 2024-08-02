@@ -4,28 +4,91 @@ import { Link } from "react-router-dom";
 export const useAntdMessageHandler = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
-  const showErrorMessage = (customMessage, duration) => {
+  const showErrorMessage = (
+    customMessage,
+    duration,
+    invalidPasswordEditProfilePage,
+    shouldDifferentPasswordError
+  ) => {
     messageApi.success({
       type: "success",
       content: (
         <div>
-          <span style={{ fontSize: "15px", lineHeight: "20px" }}>
-            {customMessage}
-          </span>
+          {!invalidPasswordEditProfilePage && !shouldDifferentPasswordError ? (
+            <span style={{ fontSize: "15px", lineHeight: "20px" }}>
+              {customMessage}
+            </span>
+          ) : (
+            <div
+              style={{
+                textAlign: "left",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "16px",
+                  lineHeight: "20px",
+                }}
+              >
+                There was a problem
+              </div>
+              <div
+                style={{
+                  fontSize: "13px",
+                  lineHeight: "20px",
+                }}
+              >
+                {shouldDifferentPasswordError
+                  ? "Passwords must be Different"
+                  : invalidPasswordEditProfilePage
+                  ? "Current Password Invalid"
+                  : ""}
+              </div>
+            </div>
+          )}
         </div>
       ),
       duration: duration,
       className: "error-message unica-regular-font",
     });
   };
-  const showCustomMessage = (customMessage, duration) => {
+  const showCustomMessage = (
+    customMessage,
+    duration,
+    profileDeletedMessage
+  ) => {
     messageApi.success({
       type: "success",
       content: (
         <div>
-          <span style={{ fontSize: "15px", lineHeight: "20px" }}>
-            {customMessage}
-          </span>{" "}
+          {!profileDeletedMessage ? (
+            <span style={{ fontSize: "15px", lineHeight: "20px" }}>
+              {customMessage}
+            </span>
+          ) : (
+            <div
+              style={{
+                textAlign: "left",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "16px",
+                  lineHeight: "20px",
+                }}
+              >
+                Profile deleted successfully
+              </div>
+              <div
+                style={{
+                  fontSize: "13px",
+                  lineHeight: "20px",
+                }}
+              >
+                Redirecting you to the Art Bazaar homepage
+              </div>
+            </div>
+          )}
         </div>
       ),
       duration: duration,
