@@ -12,7 +12,6 @@ import {
 
 import { CollectorContext } from "../components/CollectorContext";
 import { extractIds } from "../../utils/extractIds";
-import ArtistProfileImage from "../components/ArtistProfileImage";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 
@@ -178,13 +177,18 @@ function ArtistProfile({ sendDataToParent }) {
                 )}
                 <div className="item-2">
                   <div className="artist-name">{artist.name}</div>
-                  {artist.nationality && artist.born && artist.died && (
+                  {artist.nationality && artist.born && artist.died ? (
                     <div className="artist-info">
                       <span>{artist.nationality}, </span>
                       <span>{artist.born}-</span>
                       <span>{artist.died}</span>
                     </div>
-                  )}
+                  ) : artist.nationality && artist.born && !artist.died ? (
+                    <div className="artist-info">
+                      <span>{artist.nationality}, </span>
+                      <span>b. {artist.born}</span>
+                    </div>
+                  ) : null}
                   <div className="box-20-px-m-top"></div>
                   <FollowButton
                     sendDataToParent={sendDataToParent}

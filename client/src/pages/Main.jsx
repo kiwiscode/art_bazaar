@@ -7,11 +7,24 @@ import useWindowDimensions from "../../utils/useWindowDimensions";
 import { CollectorContext } from "../components/CollectorContext";
 import Footer from "../components/Footer";
 import Input from "../components/Input";
+import { extractIds } from "../../utils/extractIds";
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../../utils/favoritesUtils";
+import { useAntdMessageHandler } from "../../utils/useAntdMessageHandler";
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
-function Main() {
+function Main({ sendDataToParent }) {
   const { collectorInfo, getToken, updateCollector } =
     useContext(CollectorContext);
+  const {
+    contextHolder,
+    showCustomMessage,
+    showCustomMessageArtworkSave,
+    showCustomMessageDarkBg,
+    showErrorMessage,
+  } = useAntdMessageHandler();
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -29,6 +42,13 @@ function Main() {
   const [welcomeModalTabIndex, setWelcomeModalTabIndex] = useState(1);
   const [loveCollectingArt, setLoveCollectingArt] = useState(false);
   const [justStartingOut, setJustStartingOut] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const handleScaling = (index, scaleNum) => {
+    setHoveredIndex(index);
+    setScaleNumber(scaleNum);
+  };
+  const favoriteArtworkIds = extractIds(collectorInfo?.favoriteArtworks, "_id");
+  const [hoveredFavSvg, setHoveredFavSvg] = useState(null);
 
   const [answersTab2, setAnswersTab2] = useState({
     developingMyArtTastes: false,
@@ -242,7 +262,10 @@ function Main() {
 
   console.log("price filter:", priceFilter);
 
+  const [isPriceRangeChanging, setIsPriceRangeChanging] = useState(false);
+
   const handleMinChange = (event) => {
+    setIsPriceRangeChanging(true);
     console.log("event target value:", event.target.value);
     const value = Math.min(Number(event.target.value), maxValue - 100);
     setMinValue(value);
@@ -253,6 +276,7 @@ function Main() {
   };
 
   const handleMaxChange = (event) => {
+    setIsPriceRangeChanging(true);
     const value = Math.max(Number(event.target.value), minValue + 100);
     setMaxValue(value);
     setPriceFilter((prevPriceFilter) => ({
@@ -304,7 +328,7 @@ function Main() {
       );
     };
   }, []);
-  // medium rarity
+  // popover medium
   const [showMediumPopover, setShowMediumPopover] = useState(false);
   const mediumPopoverRef = useRef(null);
 
@@ -327,8 +351,57 @@ function Main() {
     };
   }, []);
 
+  // popover price range
+  const [showPriceRangePopover, setShowPriceRangePopover] = useState(false);
+  const priceRangePopoverRef = useRef(null);
+
+  const handleOnOutsidePriceRangePopoverClick = (event) => {
+    if (
+      priceRangePopoverRef.current &&
+      !priceRangePopoverRef.current.contains(event.target)
+    ) {
+      setShowPriceRangePopover(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener(
+      "mousedown",
+      handleOnOutsidePriceRangePopoverClick
+    );
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleOnOutsidePriceRangePopoverClick
+      );
+    };
+  }, []);
+
+  // get all works
+  const [allArtworks, setArtworks] = useState([]);
+
+  const getAllArtworks = async () => {
+    try {
+      const result = await axios.get(`${API_URL}/artwork/all-artworks`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
+
+      setArtworks(result.data);
+      console.log("result artworks:", result);
+    } catch (error) {
+      console.error("error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllArtworks();
+  }, []);
+
   return (
     <>
+      {contextHolder}
       {/* filter modal left side opening */}
       <>
         {showFiltersDetail && (
@@ -4687,7 +4760,7 @@ function Main() {
                                 }}
                               >
                                 Ready to find art you love? Start building your
-                                profile and tailor Artsy to your tastes.{" "}
+                                profile and tailor Art Bazaar to your tastes.{" "}
                               </div>
                             </div>
                             {width > 900 && (
@@ -5455,7 +5528,7 @@ function Main() {
                               >
                                 <span>
                                   Almost done! Now select some artworks and
-                                  artists to tailor Artsy to your tastes.
+                                  artists to tailor Art Bazaar to your tastes.
                                 </span>
                                 <div
                                   style={{
@@ -6466,8 +6539,8 @@ function Main() {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2Fe53f2a60-64a5-4303-8121-08b24f1f665f%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240801T211037Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240801%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D25694da73cff19e00fbd74ac32930371d0f72b627746ee76b7622b1ade7f86be&width=387"
-                        srcSet="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2Fe53f2a60-64a5-4303-8121-08b24f1f665f%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240801T211037Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240801%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D25694da73cff19e00fbd74ac32930371d0f72b627746ee76b7622b1ade7f86be&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2Fe53f2a60-64a5-4303-8121-08b24f1f665f%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240801T211037Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240801%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D25694da73cff19e00fbd74ac32930371d0f72b627746ee76b7622b1ade7f86be&width=774 2x"
+                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2Fe53f2a60-64a5-4303-8121-08b24f1f665f%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142417Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D597aead7b703a854f6e582045d337212f1a275fb54fef5bbebccdcf7f9d64a59&width=387"
+                        srcset="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2Fe53f2a60-64a5-4303-8121-08b24f1f665f%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142417Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D597aead7b703a854f6e582045d337212f1a275fb54fef5bbebccdcf7f9d64a59&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2Fe53f2a60-64a5-4303-8121-08b24f1f665f%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142417Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D597aead7b703a854f6e582045d337212f1a275fb54fef5bbebccdcf7f9d64a59&width=774 2x"
                       />
                     </div>
                     <div>Painting</div>
@@ -6525,8 +6598,8 @@ function Main() {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F23aafc87-2498-492c-a87b-5a1568ca86b0%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240801T211038Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240801%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Df578fbaa15dd6872e742d3d62748f826f509f90de5ed2c9658e266ee7d085ca0&width=387"
-                        srcSet="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F23aafc87-2498-492c-a87b-5a1568ca86b0%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240801T211038Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240801%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Df578fbaa15dd6872e742d3d62748f826f509f90de5ed2c9658e266ee7d085ca0&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F23aafc87-2498-492c-a87b-5a1568ca86b0%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240801T211038Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240801%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Df578fbaa15dd6872e742d3d62748f826f509f90de5ed2c9658e266ee7d085ca0&width=774 2x"
+                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F23aafc87-2498-492c-a87b-5a1568ca86b0%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142418Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Db7e8a7e89d667b7a15105fbf614ddc7998d39068f1a6f55b545428a31642b1d9&width=387"
+                        srcset="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F23aafc87-2498-492c-a87b-5a1568ca86b0%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142418Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Db7e8a7e89d667b7a15105fbf614ddc7998d39068f1a6f55b545428a31642b1d9&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F23aafc87-2498-492c-a87b-5a1568ca86b0%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142418Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Db7e8a7e89d667b7a15105fbf614ddc7998d39068f1a6f55b545428a31642b1d9&width=774 2x"
                         alt=""
                       />
                     </div>
@@ -6594,7 +6667,13 @@ function Main() {
                             </svg>
                           </div>
                           {showRarityPopover && (
-                            <div className="popover-options">
+                            <div
+                              style={{
+                                position: "relative",
+                                zIndex: 1,
+                              }}
+                              className="popover-options"
+                            >
                               <div
                                 style={{
                                   padding: "10px",
@@ -6902,6 +6981,7 @@ function Main() {
                             <div
                               style={{
                                 position: "relative",
+                                zIndex: 1,
                               }}
                               className="popover-options"
                             >
@@ -7643,8 +7723,8 @@ function Main() {
                               >
                                 <button
                                   onClick={() => {
-                                    setShowRarityPopover(false);
-                                    setRarityFilteredOptions([]);
+                                    setShowMediumPopover(false);
+                                    setMediumFilteredOptions([]);
                                   }}
                                   className="hover_bg_color_effect_white_text"
                                   style={{
@@ -7678,22 +7758,218 @@ function Main() {
                             </div>
                           )}
                         </div>
-                        <div className="wrapper-detailed-filter">
-                          <span
-                            style={{
-                              marginRight: "5px",
+                        <div
+                          ref={priceRangePopoverRef}
+                          style={{
+                            position: "relative",
+                          }}
+                        >
+                          <div
+                            onClick={(e) => {
+                              setShowPriceRangePopover(!showPriceRangePopover);
                             }}
+                            className="wrapper-detailed-filter"
                           >
-                            Price Range
-                          </span>
-                          <svg
-                            width={18}
-                            height={18}
-                            viewBox="0 0 18 18"
-                            fill="currentColor"
-                          >
-                            <path d="M15 6.62132L9 12.5L3 6.62132L4.14446 5.5L9 10.2574L13.8555 5.5L15 6.62132Z"></path>
-                          </svg>
+                            <span
+                              style={{
+                                marginRight: "5px",
+                              }}
+                            >
+                              Price Range
+                            </span>
+                            <svg
+                              width={18}
+                              height={18}
+                              viewBox="0 0 18 18"
+                              fill="currentColor"
+                            >
+                              <path d="M15 6.62132L9 12.5L3 6.62132L4.14446 5.5L9 10.2574L13.8555 5.5L15 6.62132Z"></path>
+                            </svg>
+                          </div>
+                          {showPriceRangePopover && (
+                            <div
+                              style={{
+                                position: "relative",
+                                zIndex: 1,
+                              }}
+                              className="popover-options"
+                            >
+                              <div
+                                style={{
+                                  padding: "10px",
+                                  overflowY: "scroll",
+                                  maxHeight: "230px",
+                                  height: "100dvh",
+                                }}
+                              >
+                                {" "}
+                                <>
+                                  <div className="price-filter-options">
+                                    <div className="range-track">
+                                      <div
+                                        className="range-track-first-left-ball"
+                                        style={clipStyle}
+                                      ></div>
+
+                                      <input
+                                        className="range-slider"
+                                        type="range"
+                                        min={0}
+                                        max={50000}
+                                        step={100}
+                                        value={minValue}
+                                        onChange={handleMinChange}
+                                      />
+                                      <input
+                                        className="range-slider"
+                                        type="range"
+                                        min={0}
+                                        max={50000}
+                                        step={100}
+                                        value={maxValue}
+                                        onChange={handleMaxChange}
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                      fontSize: "13px",
+                                      lineHeight: "16px",
+                                      color: "rgb(112,112,112)",
+                                    }}
+                                  >
+                                    <p>${0}</p>
+                                    <p>${50000}+</p>
+                                  </div>
+                                  <div className="box-40-px-m-top"></div>
+                                  <div
+                                    className="input-wrapper-min-max-value"
+                                    style={{
+                                      display: "flex",
+                                      gap: "10px",
+                                      alignItems: "center",
+                                      paddingBottom: "40px",
+                                    }}
+                                  >
+                                    {/* min value input */}
+                                    <div
+                                      style={{
+                                        flexBasis: "50%",
+                                      }}
+                                    >
+                                      <Input
+                                        inputType={"text"}
+                                        icon={"$USD"}
+                                        iconPositionRight={true}
+                                        height={"100dvh"}
+                                        maxHeight={"50px"}
+                                        onChange={handleMinChange}
+                                        labelClassName={
+                                          priceFilter?.minValue || minValue
+                                            ? `styled-input-label filled-input-label unica-regular-font`
+                                            : `styled-input-label unica-regular-font`
+                                        }
+                                        labelHtmlFor={"Min"}
+                                        labelText={"Min"}
+                                        className={"styled-input-with-label"}
+                                        borderRadius={"3px"}
+                                        value={minValue}
+                                        name={"minValue"}
+                                        withLabel={true}
+                                        iconAsText={true}
+                                      />
+                                    </div>
+                                    {/* max value input */}
+                                    <div
+                                      style={{
+                                        flexBasis: "50%",
+                                      }}
+                                    >
+                                      <Input
+                                        inputType={"text"}
+                                        icon={"$USD"}
+                                        iconPositionRight={true}
+                                        height={"100dvh"}
+                                        maxHeight={"50px"}
+                                        onChange={handleMaxChange}
+                                        labelClassName={
+                                          priceFilter?.maxValue || maxValue
+                                            ? `styled-input-label filled-input-label unica-regular-font`
+                                            : `styled-input-label unica-regular-font`
+                                        }
+                                        labelHtmlFor={"Max"}
+                                        labelText={"Max"}
+                                        className={"styled-input-with-label"}
+                                        borderRadius={"3px"}
+                                        value={maxValue}
+                                        name={"maxValue"}
+                                        withLabel={true}
+                                        iconAsText={true}
+                                      />
+                                    </div>
+                                  </div>
+                                </>
+                              </div>
+                              <div
+                                style={{
+                                  marginTop: "53px",
+                                }}
+                              ></div>
+                              <div
+                                className="absolute-option"
+                                style={{
+                                  position: "absolute",
+                                  bottom: "0px",
+                                  backgroundColor: "white",
+                                  width: "100%",
+                                }}
+                              >
+                                <button
+                                  onClick={() => {
+                                    setShowPriceRangePopover(false);
+                                    setPriceFilter((prevOptions) => ({
+                                      ...prevOptions,
+                                      minValue: "",
+                                      maxValue: "",
+                                    }));
+                                    setIsPriceRangeChanging(false);
+                                    setMinValue(0);
+                                    setMaxValue(50000);
+                                  }}
+                                  className="hover_bg_color_effect_white_text"
+                                  style={{
+                                    backgroundColor: "transparent",
+                                    border: "1px solid rgb(0,0,0)",
+                                    borderRadius: "9999px",
+                                    padding: "6px 25px",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  Clear
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setShowPriceRangePopover(false);
+                                  }}
+                                  className="hover_bg_color_effect_white_text"
+                                  style={{
+                                    marginRight: "8px",
+                                    backgroundColor: "black",
+                                    border: "1px solid rgb(0,0,0)",
+                                    borderRadius: "9999px",
+                                    padding: "6px 25px",
+                                    color: "white",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  Confirm
+                                </button>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                       <div
@@ -7788,7 +8064,7 @@ function Main() {
                         </>
                       )}
                       {(priceFilter.maxValue || priceFilter.minValue) &&
-                      priceFilter.minValue !== 0 ? (
+                      isPriceRangeChanging ? (
                         <div
                           onClick={() => {
                             setPriceFilter((prevPriceOptions) => ({
@@ -7796,6 +8072,7 @@ function Main() {
                               minValue: "",
                               maxValue: "",
                             }));
+                            setIsPriceRangeChanging(false);
                           }}
                           className="option-filter-detailed"
                         >
@@ -7815,9 +8092,7 @@ function Main() {
 
                       {rarityFilteredOptions?.length > 0 ||
                       mediumFilteredOptions?.length > 0 ||
-                      (priceFilter.maxValue &&
-                        priceFilter.maxValue !== 50000) ||
-                      (priceFilter.minValue && priceFilter.minValue !== 0) ? (
+                      isPriceRangeChanging ? (
                         <div
                           onClick={() => {
                             setPriceFilter((prevOptions) => ({
@@ -7827,6 +8102,9 @@ function Main() {
                             }));
                             setMediumFilteredOptions([]);
                             setRarityFilteredOptions([]);
+                            setMinValue(0);
+                            setMaxValue(50000);
+                            setIsPriceRangeChanging(false);
                           }}
                           className="option-filter-clear-all hover-sky-blue-effect hover_color_effect_t-d-kind-of-blue"
                         >
@@ -7839,6 +8117,221 @@ function Main() {
                   <>hhmm</>
                 )}
               </div>
+            </div>
+            {/* render artworks */}
+            <div
+              style={{
+                padding: "0px 40px",
+              }}
+              className="container-for-artworks-render"
+            >
+              {allArtworks?.map((eachWork, index) => {
+                return (
+                  <div key={eachWork.id}>
+                    <div
+                      onClick={() => {
+                        navigate(`/artwork/${eachWork.urlName}`);
+                      }}
+                      className="zoom-container"
+                    >
+                      <img
+                        onMouseMove={handleMouseMove}
+                        onMouseEnter={() => {
+                          handleScaling(index, 1.75);
+                        }}
+                        onMouseLeave={() => {
+                          setHoveredIndex(null);
+                          setScaleNumber(1);
+                        }}
+                        className="zoom"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          transformOrigin:
+                            hoveredIndex === index && transformOrigin,
+                          transform:
+                            hoveredIndex === index && `scale(${scaleNumber})`,
+                          transition:
+                            "transform 0.15s,transform-origin 100ms,opacity 0.25s",
+                          objectFit: "cover",
+                          opacity: 1,
+                        }}
+                        src={eachWork.imageUrl}
+                        alt=""
+                      />
+                    </div>
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/artwork/${eachWork.urlName}`);
+                      }}
+                      className="pointer"
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          boxSizing: "border-box",
+                          maxWidth: "321.25px",
+                          marginTop: "4px",
+                        }}
+                      >
+                        <div
+                          className="unica-regular-font"
+                          style={{
+                            fontSize: "16px",
+                            lineHeight: "20px",
+                          }}
+                        >
+                          {eachWork?.creator}
+                        </div>
+                        <div>
+                          {favoriteArtworkIds?.includes(eachWork._id) &&
+                          hoveredFavSvg !== index ? (
+                            <svg
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                updateCollector({
+                                  favoriteArtworks: (
+                                    collectorInfo?.favoriteArtworks || []
+                                  ).filter(
+                                    (eachArtwork) =>
+                                      eachArtwork?._id !== eachWork._id
+                                  ),
+                                });
+
+                                showCustomMessageDarkBg(
+                                  "Removed from Saved Artworks",
+                                  6
+                                );
+                                removeFromFavorites(
+                                  collectorInfo,
+                                  eachWork,
+                                  getToken
+                                );
+                              }}
+                              width={20}
+                              height={20}
+                              viewBox="0 0 18 18"
+                              fill="rgb(16, 35, 215)"
+                            >
+                              <path d="M12.0022 3.00222C11.4768 3.00181 10.9564 3.10493 10.4708 3.30568C9.98524 3.50643 9.54397 3.80089 9.17222 4.17222L9.00222 4.34222L8.83222 4.17222C8.08166 3.42166 7.06368 3 6.00222 3C4.94077 3 3.92279 3.42166 3.17222 4.17222C2.42166 4.92279 2 5.94077 2 7.00222C2 8.06368 2.42166 9.08166 3.17222 9.83223L8.65222 15.3022C8.69711 15.3501 8.75133 15.3882 8.81153 15.4142C8.87173 15.4403 8.93663 15.4537 9.00222 15.4537C9.06782 15.4537 9.13272 15.4403 9.19292 15.4142C9.25312 15.3882 9.30733 15.3501 9.35222 15.3022L14.8322 9.83223C15.3923 9.2728 15.7737 8.55979 15.9283 7.78345C16.0829 7.00711 16.0037 6.20236 15.7007 5.47106C15.3977 4.73977 14.8845 4.11483 14.2262 3.67534C13.5678 3.23586 12.7938 3.0016 12.0022 3.00222Z"></path>
+                            </svg>
+                          ) : hoveredFavSvg === index &&
+                            !favoriteArtworkIds?.includes(eachWork._id) ? (
+                            <svg
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setHoveredFavSvg(null);
+                                if (collectorInfo.active) {
+                                  updateCollector({
+                                    favoriteArtworks: [
+                                      eachWork,
+                                      ...(collectorInfo?.favoriteArtworks ||
+                                        []),
+                                    ],
+                                  });
+                                  showCustomMessageArtworkSave(
+                                    "Artwork saved",
+                                    "Saving an artwork signals interest to galleries.",
+                                    "Add to a List",
+                                    6
+                                  );
+                                }
+                                addToFavorites(
+                                  collectorInfo,
+                                  eachWork,
+                                  getToken,
+                                  sendDataToParent
+                                );
+                              }}
+                              onMouseEnter={() => {
+                                setHoveredFavSvg(index);
+                              }}
+                              onMouseLeave={() => setHoveredFavSvg(null)}
+                              width={20}
+                              height={20}
+                              viewBox="0 0 18 18"
+                              fill="rgb(16, 35, 215)"
+                            >
+                              <path d="M12.0022 3.00222C11.4768 3.00181 10.9564 3.10493 10.4708 3.30568C9.98524 3.50643 9.54397 3.80089 9.17222 4.17222L9.00222 4.34222L8.83222 4.17222C8.08166 3.42166 7.06368 3 6.00222 3C4.94077 3 3.92279 3.42166 3.17222 4.17222C2.42166 4.92279 2 5.94077 2 7.00222C2 8.06368 2.42166 9.08166 3.17222 9.83223L8.65222 15.3022C8.69711 15.3501 8.75133 15.3882 8.81153 15.4142C8.87173 15.4403 8.93663 15.4537 9.00222 15.4537C9.06782 15.4537 9.13272 15.4403 9.19292 15.4142C9.25312 15.3882 9.30733 15.3501 9.35222 15.3022L14.8322 9.83223C15.3923 9.2728 15.7737 8.55979 15.9283 7.78345C16.0829 7.00711 16.0037 6.20236 15.7007 5.47106C15.3977 4.73977 14.8845 4.11483 14.2262 3.67534C13.5678 3.23586 12.7938 3.0016 12.0022 3.00222Z"></path>
+                            </svg>
+                          ) : (
+                            <svg
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (
+                                  collectorInfo.active &&
+                                  !favoriteArtworkIds?.includes(eachWork._id)
+                                ) {
+                                  updateCollector({
+                                    favoriteArtworks: [
+                                      eachWork,
+                                      ...(collectorInfo?.favoriteArtworks ||
+                                        []),
+                                    ],
+                                  });
+
+                                  showCustomMessageArtworkSave(
+                                    "Artwork saved",
+                                    "Saving an artwork signals interest to galleries.",
+                                    "Add to a List",
+                                    6
+                                  );
+                                }
+                                addToFavorites(
+                                  collectorInfo,
+                                  eachWork,
+                                  getToken,
+                                  sendDataToParent
+                                );
+                              }}
+                              onMouseEnter={() => {
+                                setHoveredFavSvg(index);
+                              }}
+                              width={20}
+                              height={20}
+                              viewBox="0 0 18 18"
+                              fill={"rgb(0, 0, 0)"}
+                            >
+                              <path d="M11.9998 3.00002C11.4743 2.9996 10.954 3.10272 10.4684 3.30347C9.9828 3.50422 9.54153 3.79868 9.16978 4.17002L8.99978 4.34002L8.82978 4.17002C8.07922 3.41945 7.06124 2.99779 5.99978 2.99779C4.93833 2.99779 3.92035 3.41945 3.16978 4.17002C2.41922 4.92058 1.99756 5.93856 1.99756 7.00002C1.99756 8.06147 2.41922 9.07945 3.16978 9.83002L8.64978 15.3C8.69467 15.3478 8.74889 15.386 8.80909 15.412C8.86929 15.4381 8.93419 15.4515 8.99978 15.4515C9.06538 15.4515 9.13028 15.4381 9.19048 15.412C9.25068 15.386 9.30489 15.3478 9.34978 15.3L14.8298 9.83002C15.3898 9.27059 15.7713 8.55758 15.9259 7.78124C16.0805 7.0049 16.0013 6.20015 15.6983 5.46886C15.3953 4.73756 14.8821 4.11262 14.2237 3.67313C13.5653 3.23365 12.7914 2.99939 11.9998 3.00002ZM14.1198 9.12002L8.99978 14.24L3.87978 9.12002C3.58504 8.84537 3.34863 8.51417 3.18466 8.14617C3.02069 7.77817 2.93252 7.38092 2.92542 6.97811C2.91831 6.57529 2.99241 6.17518 3.14329 5.80163C3.29418 5.42807 3.51875 5.08874 3.80363 4.80386C4.0885 4.51899 4.42784 4.29441 4.80139 4.14353C5.17495 3.99264 5.57506 3.91854 5.97787 3.92565C6.38068 3.93276 6.77794 4.02092 7.14594 4.18489C7.51393 4.34886 7.84513 4.58527 8.11978 4.88002L8.64978 5.40002L8.99978 5.76002L9.34978 5.40002L9.87978 4.88002C10.4485 4.3501 11.2007 4.0616 11.9779 4.07532C12.7551 4.08903 13.4966 4.40388 14.0463 4.95353C14.5959 5.50318 14.9108 6.24472 14.9245 7.02193C14.9382 7.79913 14.6497 8.55132 14.1198 9.12002Z"></path>
+                            </svg>
+                          )}
+                        </div>
+                      </div>
+                      <div
+                        className="unica-italic-font"
+                        style={{
+                          fontSize: "16px",
+                          lineHeight: "20px",
+                          maxWidth: "321.25px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          color: "rgb(112, 112, 112)",
+                        }}
+                      >
+                        {eachWork.title}
+                      </div>
+                      {eachWork.is_sold && (
+                        <div
+                          style={{
+                            fontWeight: "900",
+                          }}
+                          className="unica-italic-font"
+                        >
+                          Sold
+                        </div>
+                      )}
+                    </div>
+                    <div
+                      style={{
+                        height: "40px",
+                      }}
+                    ></div>
+                  </div>
+                );
+              })}
             </div>
           </>
         )}

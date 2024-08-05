@@ -608,7 +608,7 @@ function EditProfile() {
           <div className="box-20-px-m-top"></div>
           <div>
             Secure your account and receive updates about your transactions on
-            Artsy.
+            Art Bazaar.
           </div>
           <div className="box-40-px-m-top"></div>
           <Button

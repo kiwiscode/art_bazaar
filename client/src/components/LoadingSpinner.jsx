@@ -2,6 +2,7 @@ const LoadingSpinner = ({
   outsidebtnloading,
   isLoadingProfileImage,
   welcomeModalClosing,
+  colorCustom,
 }) => {
   return (
     <>
@@ -31,6 +32,8 @@ const LoadingSpinner = ({
                     ? "rgb(16, 35, 215)"
                     : isLoadingProfileImage
                     ? "black"
+                    : colorCustom
+                    ? colorCustom
                     : "white"
                 }
                 strokeWidth="6"

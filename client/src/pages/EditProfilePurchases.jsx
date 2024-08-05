@@ -2,6 +2,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import Footer from "../components/Footer";
 import HeaderNavBar from "../components/HeaderNavBar";
+import { CollectorContext } from "../components/CollectorContext";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 
 // when working on local version
 const API_URL = import.meta.env.VITE_APP_API_URL;
@@ -9,7 +12,7 @@ const API_URL = import.meta.env.VITE_APP_API_URL;
 function EditProfilePurchases() {
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
-
+  const { collectorInfo } = useContext(CollectorContext);
   const location = useLocation();
   const navItems = [
     { label: "Edit Profile", path: "/settings/edit-profile" },
@@ -17,6 +20,30 @@ function EditProfilePurchases() {
     { label: "Order History", path: "/settings/purchases" },
   ];
 
+  // get orders
+  const [orders, setOrders] = useState([]);
+  const getOrders = async () => {
+    try {
+      const result = await axios.get(
+        `${API_URL}/collectors/${collectorInfo?._id}/orders`
+      );
+      console.log("result:", result);
+
+      setOrders(result.data);
+    } catch (error) {
+      console.error("error:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (collectorInfo) {
+      getOrders();
+    }
+  }, [collectorInfo]);
+  const handleArtistClick = (artistName) => {
+    const formattedName = artistName.toLowerCase().replace(/ /g, "-");
+    navigate(`/artist/${formattedName}`);
+  };
   return (
     <>
       {/* custom saves page header */}
@@ -81,7 +108,149 @@ function EditProfilePurchases() {
         <div className="box-40-px-m-top"></div>
       )}
 
-      {/* edit profile inputs */}
+      {/* order history */}
+      <div className="orders-wrapper-settings-page unica-regular-font">
+        {orders.length < 1 ? (
+          <div
+            style={{
+              padding: "16px",
+              backgroundColor: "#f7f7f7",
+              color: "rgb(112,112,112)",
+            }}
+          >
+            No orders
+          </div>
+        ) : (
+          <div className="orders-wrapper-detailed-orders">
+            {orders.map((eachOrder) => {
+              return (
+                <>
+                  <div
+                    onClick={() =>
+                      navigate(
+                        `/artwork/${eachOrder?.artworkToPurchase.urlName}`
+                      )
+                    }
+                    className="orders-wrapper-detailed-orders-detail"
+                  >
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      style={{
+                        display: "flex",
+                        gap: "12px",
+                      }}
+                    >
+                      <div
+                        className="pointer"
+                        onClick={() =>
+                          navigate(
+                            `/artwork/${eachOrder?.artworkToPurchase.urlName}`
+                          )
+                        }
+                      >
+                        <div
+                          style={{
+                            maxWidth: "200px",
+                            width: "100%",
+                            maxHeight: "200px",
+                            height: "100dvh",
+                          }}
+                        >
+                          <img
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                            src={eachOrder?.artworkToPurchase.imageUrl}
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "13px",
+                          lineHeight: "16px",
+                        }}
+                      >
+                        <div>
+                          <span
+                            style={{
+                              color: "rgb(112,112,112)",
+                              cursor: "default",
+                            }}
+                          >
+                            From:
+                          </span>{" "}
+                          <span
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleArtistClick(
+                                eachOrder?.artworkToPurchase.creator
+                              );
+                            }}
+                            className="hover_color_effect pointer hover_color_effect_t-d"
+                          >
+                            {eachOrder?.artworkToPurchase.creator}
+                          </span>
+                        </div>
+                        <div
+                          style={{
+                            cursor: "default",
+                          }}
+                        >
+                          <span
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Medium:
+                          </span>{" "}
+                          <span>
+                            {eachOrder?.artworkToPurchase.aboutTheWork.medium}
+                          </span>
+                        </div>
+                        <div
+                          style={{
+                            cursor: "default",
+                          }}
+                        >
+                          <span
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Title:
+                          </span>{" "}
+                          <span>{eachOrder?.artworkToPurchase.title}</span>
+                        </div>
+                        <div
+                          style={{
+                            cursor: "default",
+                          }}
+                        >
+                          <span
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Size:
+                          </span>{" "}
+                          <span>
+                            {eachOrder?.artworkToPurchase.aboutTheWork.size}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
       <Footer />
     </>

@@ -87,14 +87,16 @@ function Footer() {
               alignItems: "center",
             }}
           >
-            <div className="dflex">
-              <svg width={30} height={30} viewBox="0 0 40 40">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M40 39.9962H0V0H40V39.9962ZM31.0691 37.1188H37.1226V2.87615H2.87865V37.1188H28.1892V29.2345H31.0691V37.1188ZM12.955 7.01093H16.1298L22.0088 22.1446H18.9671L17.4022 17.9006H11.7039L10.1165 22.1446H7.07723L12.955 7.01093ZM14.5424 10.0715L12.5911 15.3382H16.4711L14.5424 10.0715Z"
-                ></path>
-              </svg>
+            <div
+              className="dflex"
+              style={{
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div>Art</div>
+              <div>Bazaar</div>
             </div>
 
             <div className="footer-text-wrapper display-none-bp-768px ">

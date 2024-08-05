@@ -52,10 +52,12 @@ const authRoutes = require("./routes/auth.routes");
 const collectorRoutes = require("./routes/collectors.routes");
 const artistRoutes = require("./routes/artist.routes");
 const artworkRoutes = require("./routes/artwork.routes");
+const purchaseRoutes = require("./routes/purchase.routes");
 
 app.use("/auth", authRoutes);
 app.use("/collectors", collectorRoutes);
 app.use("/artist", artistRoutes);
 app.use("/artwork", artworkRoutes);
+app.use("/purchase", purchaseRoutes);
 
 module.exports = app;

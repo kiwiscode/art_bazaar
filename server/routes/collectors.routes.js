@@ -5,6 +5,7 @@ const Collector = require("../models/Collector.model");
 const Collection = require("../models/Collection.modal");
 const Favorite = require("../models/Favorite.model");
 const Artist = require("../models/Artist.model");
+const Order = require("../models/Order.model");
 const cloudinary = require("../utils/Cloudinary");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -858,6 +859,162 @@ router.post(`/:collectorId/delete-account`, async (req, res) => {
     await Favorite.deleteMany({ collector: collectorId });
 
     return res.status(200).json({ message: "Account deleted successfully." });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// collector add delivery address
+router.post("/:collectorId/add-delivery-address", async (req, res) => {
+  try {
+    const { collectorId } = req.params;
+    const { formData } = req.body;
+
+    const newDeliveryAddress = {
+      fullName: formData.fullName,
+      country: formData.country,
+      addressLine1: formData.addressLine1,
+      addressLine2: formData.addressLine2,
+      city: formData.city,
+      state_provinence_or_region: formData.state_provinence_or_region,
+      postalCode: formData.postalCode,
+      phoneNumber: formData.phoneNumber,
+      settedAsDefault: formData.settedAsDefault,
+    };
+
+    console.log("new delivery address:", newDeliveryAddress);
+
+    const collector = await Collector.findById(collectorId);
+    if (!collector) {
+      return res.status(404).json({ error: "Collector not found" });
+    }
+
+    if (newDeliveryAddress.settedAsDefault) {
+      collector.deliveryAddresses.forEach((address) => {
+        address.settedAsDefault = false;
+      });
+    }
+
+    collector.deliveryAddresses.unshift(newDeliveryAddress);
+    await collector.save();
+
+    res.json(collector);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// collector toggle default delivery address
+router.patch(
+  "/:collectorId/:deliveryAddressId/toggle-default-status",
+  async (req, res) => {
+    try {
+      const { collectorId, deliveryAddressId } = req.params;
+
+      const collector = await Collector.findById(collectorId);
+      if (!collector) {
+        return res.status(404).json({ error: "Collector not found" });
+      }
+      collector.deliveryAddresses.forEach((address) => {
+        if (address._id.toString() === deliveryAddressId) {
+          address.settedAsDefault = true;
+        } else {
+          address.settedAsDefault = false;
+        }
+      });
+
+      await collector.save();
+
+      res.json({
+        message: "Default delivery address toggled successfully",
+        collector,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
+
+// collector edit exist delivery address
+router.patch("/:collectorId/:deliveryAddressId/edit", async (req, res) => {
+  try {
+    const { collectorId, deliveryAddressId } = req.params;
+    const { formData } = req.body;
+
+    const collector = await Collector.findById(collectorId);
+    if (!collector) {
+      return res.status(404).json({ error: "Collector not found" });
+    }
+
+    const addressIndex = collector.deliveryAddresses.findIndex(
+      (address) => address._id.toString() === deliveryAddressId
+    );
+
+    if (addressIndex === -1) {
+      return res.status(404).json({ error: "Delivery address not found" });
+    }
+    collector.deliveryAddresses[addressIndex] = {
+      ...collector.deliveryAddresses[addressIndex]._doc,
+      ...formData,
+    };
+
+    await collector.save();
+
+    res.json(collector);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// collector delete existing delivery address
+router.delete("/:collectorId/:deliveryAddressId/delete", async (req, res) => {
+  try {
+    const { collectorId, deliveryAddressId } = req.params;
+
+    const collector = await Collector.findById(collectorId);
+    if (!collector) {
+      return res.status(404).json({ error: "Collector not found" });
+    }
+
+    const addressIndex = collector.deliveryAddresses.findIndex(
+      (address) => address._id.toString() === deliveryAddressId
+    );
+
+    if (addressIndex === -1) {
+      return res.status(404).json({ error: "Delivery address not found" });
+    }
+
+    collector.deliveryAddresses.splice(addressIndex, 1);
+
+    await collector.save();
+
+    res.json({ message: "Delivery address deleted successfully", collector });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// get orders
+router.get("/:collectorId/orders", async (req, res) => {
+  try {
+    const { collectorId } = req.params;
+
+    const orders = await Order.find({ collectorId: collectorId })
+      .populate("artworkToPurchase")
+      .populate({
+        path: "artworkToPurchase",
+        populate: {
+          path: "artist",
+          model: "Artist",
+        },
+      });
+
+    res.status(200).json(orders);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ZoomableImageCanvas from "../components/ZoomableImageCanvas";
 import { Modal } from "@mui/material";
 import ShareButton from "../components/ShareButton";
@@ -14,13 +14,18 @@ import { useAntdMessageHandler } from "../../utils/useAntdMessageHandler";
 import { CollectorContext } from "../components/CollectorContext";
 import { extractIds } from "../../utils/extractIds";
 import Footer from "../components/Footer";
+import useWindowDimensions from "../../utils/useWindowDimensions";
+import Button from "../components/Button";
+
 // when working on local version
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 function Artwork({ sendDataToParent }) {
   const { artworkName } = useParams();
+  const navigate = useNavigate();
   const { collectorInfo, updateCollector, getToken } =
     useContext(CollectorContext);
+  const { width } = useWindowDimensions();
   const [artwork, setArtwork] = useState(null);
   const [isZoomed, setIsZoomed] = useState(false);
   const [viewInRoomModal, setViewInRoomModal] = useState(false);
@@ -59,14 +64,12 @@ function Artwork({ sendDataToParent }) {
     }
   }, []);
 
-  console.log("artwork name:", artworkName);
   const getArtwork = async () => {
     try {
       const result = await axios.get(`${API_URL}/artwork/${artworkName}`);
 
       if (result.status === 200) {
         const { artwork } = result.data;
-        console.log("result artwork:", result);
         setArtwork(artwork);
       }
     } catch (error) {
@@ -98,7 +101,30 @@ function Artwork({ sendDataToParent }) {
     setViewInRoomModal(false);
   };
 
-  // add-undo favorite logic
+  // purchase or offer process
+  const [purchaseOnProcess, setPurchaseOnProcess] = useState(false);
+  const [offerOnProcess, setOfferOnProcess] = useState(false);
+  const [hoveredOfferBtn, setHoveredOfferBtn] = useState(false);
+
+  const offerToAnArtwork = async () => {
+    setOfferOnProcess(true);
+    try {
+    } catch (error) {
+      console.error("error:", error);
+    }
+  };
+
+  function navigateToShipping(artworkToOrder) {
+    setPurchaseOnProcess(true);
+    setTimeout(() => {
+      navigate(`/orders/${artworkToOrder}/shipping`);
+    }, 1000);
+  }
+
+  const handleArtistClick = (artistName) => {
+    const formattedName = artistName.toLowerCase().replace(/ /g, "-");
+    navigate(`/artist/${formattedName}`);
+  };
 
   return (
     <>
@@ -113,7 +139,7 @@ function Artwork({ sendDataToParent }) {
       >
         <div
           style={{
-            padding: "0px 40px",
+            padding: width <= 768 ? "0px 20px" : "0px 40px",
             marginLeft: "auto",
             marginRight: "auto",
             boxSizing: "border-box",
@@ -346,9 +372,21 @@ function Artwork({ sendDataToParent }) {
                   )}
                 </div>
 
-                <div className="item-2">
-                  <div className="artwork-creator-name unica-regular-font">
-                    {artwork.artist.name}
+                <div
+                  className="item-2"
+                  style={{
+                    padding: width <= 768 && "0px",
+                  }}
+                >
+                  <div>
+                    <span
+                      onClick={() => {
+                        handleArtistClick(artwork.artist.name);
+                      }}
+                      className="hover_color_effect_t-d hover_color_effect artwork-creator-name unica-regular-font pointer"
+                    >
+                      {artwork.artist.name}
+                    </span>
                   </div>
                   <div className="artwork-info unica-italic-font">
                     <div>{artwork.title}</div>
@@ -365,9 +403,81 @@ function Artwork({ sendDataToParent }) {
                     <div>{artwork.aboutTheWork.currentLocation}</div>
                     <div>{artwork.aboutTheWork.currentCountry}</div>
                   </div>
+                  {/* inside this you can add more detail about the work before purchase or offer btn */}
+                  {/* <div></div> */}
+                  {!artwork.is_sold &&
+                  artwork.is_sold === false &&
+                  !artwork.unsellable_artwork ? (
+                    <div className="artwork-btns-wrapper">
+                      <div className="purchase-btn">
+                        <Button
+                          className="hover_bg_color_effect_white_text"
+                          backgroundColor="black"
+                          height="100dvh"
+                          maxHeight="50px"
+                          width="100%"
+                          maxWidth="100%"
+                          padding="1px 25px"
+                          borderRadius="999px"
+                          pointerEvents={purchaseOnProcess ? "none" : "auto"}
+                          cursor={purchaseOnProcess ? "default" : "pointer"}
+                          opacity={purchaseOnProcess ? "0.3" : "1"}
+                          text="Purchase"
+                          textColor="white"
+                          fontSize="16px"
+                          lineHeight="20px"
+                          loadingScenario={purchaseOnProcess}
+                          strokeColorLoadingSpinner={!purchaseOnProcess}
+                          onClick={() => {
+                            navigateToShipping(artwork._id);
+                          }}
+                        />
+                      </div>
+                      <div className="box-10-px-m-top"></div>
+                      {artwork.an_offer_can_be_made && (
+                        <div
+                          onMouseEnter={() => setHoveredOfferBtn(true)}
+                          onMouseLeave={() => setHoveredOfferBtn(false)}
+                          className="make-an-offer-btn"
+                        >
+                          <Button
+                            className="hover_bg_color_effect_white_text"
+                            backgroundColor="white"
+                            height="100dvh"
+                            maxHeight="50px"
+                            width="100%"
+                            maxWidth="100%"
+                            padding="1px 25px"
+                            borderRadius="999px"
+                            pointerEvents={offerOnProcess ? "none" : "auto"}
+                            cursor={offerOnProcess ? "default" : "pointer"}
+                            opacity={offerOnProcess ? "0.3" : "1"}
+                            text="Make an Offer"
+                            textColor="black"
+                            fontSize="16px"
+                            lineHeight="20px"
+                            border="1px solid rgb(0,0,0)"
+                            onClick={offerToAnArtwork}
+                            loadingScenario={offerOnProcess}
+                            colorCustom={hoveredOfferBtn ? "white" : "black"}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        fontWeight: "900",
+                      }}
+                      className="unica-italic-font"
+                    >
+                      Sold
+                    </div>
+                  )}
+                  <div className="box-40-px-m-top"></div>
                   <div className="footer-artwork-second-grid unica-regular-font">
                     <span>Want to sell a work by this artist?</span>{" "}
-                    <span>Sell with Artsy</span>
+                    <span>Sell with Art Bazaar</span>
                   </div>
                 </div>
               </div>
@@ -514,7 +624,12 @@ function Artwork({ sendDataToParent }) {
                 <div className="box-20-px-m-top"></div>
                 <div className="unica-regular-font artist-info-wrapper">
                   <div className="artist-info-header">
-                    <div>
+                    <div
+                      className="pointer"
+                      onClick={() => {
+                        handleArtistClick(artwork.artist.name);
+                      }}
+                    >
                       <div className="artist-profile-pic-wrapper">
                         <img
                           src={artwork?.artist?.profilePic}

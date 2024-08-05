@@ -1782,9 +1782,12 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
             }}
           >
             <div
-              className="pointer"
+              className="pointer unica-regular-font"
               onClick={() => {
                 navigate("/");
+              }}
+              style={{
+                textAlign: "center",
               }}
             >
               <div>Art</div>

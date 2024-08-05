@@ -16,11 +16,11 @@ export default function Button({
   border = "none",
   pointerEvents = "auto",
   cursor = "default",
+  opacity = "1",
   text = "Button",
   textColor = "white",
   fontSize = "0px",
   lineHeight = "0px",
-  opacity = "1",
   position = "",
   display = "",
   top = "",
@@ -32,6 +32,7 @@ export default function Button({
   svgDisplay,
   loadingScenario,
   strokeColorLoadingSpinner,
+  colorCustom,
 }) {
   return (
     <button
@@ -73,6 +74,7 @@ export default function Button({
         {loadingScenario ? (
           <LoadingSpinner
             outsidebtnloading={strokeColorLoadingSpinner}
+            colorCustom={colorCustom}
           ></LoadingSpinner>
         ) : (
           <>

@@ -1,5 +1,42 @@
 const { Schema, model } = require("mongoose");
 
+const deliveryAddressSchema = new Schema({
+  fullName: {
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
+  addressLine1: {
+    type: String,
+    required: true,
+  },
+  addressLine2: {
+    type: String,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  state_provinence_or_region: {
+    type: String,
+  },
+  postalCode: {
+    type: String,
+    required: true,
+  },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
+  settedAsDefault: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 const collectorSchema = new Schema(
   {
     name: {
@@ -86,6 +123,7 @@ const collectorSchema = new Schema(
     resetPasswordExpires: {
       type: Date,
     },
+    deliveryAddresses: [deliveryAddressSchema],
   },
   {
     timestamps: true,

@@ -118,11 +118,24 @@ body {
   transition: color 0.3s ease-in-out;
 }
 
+.stripe-test-info:hover {
+  text-decoration: underline !important;
+  transition: text-decoration 0.3s ease-in-out;
+  cursor: default;
+}
+
 .hover_color_effect_t-d:hover {
   text-decoration: underline;
   transition: text-decoration 0.3s ease-in-out;
   cursor: default;
 }
+
+.hover_td_kinda_blue:hover {
+  text-decoration: underline;
+  text-decoration-color: rgb(16, 35, 215);
+  cursor: default;
+}
+
 .hover_color_effect_t-d-kind-of-blue:hover {
   cursor: pointer;
   text-decoration: underline;
@@ -202,6 +215,19 @@ body {
 
 .header_modal {
   height: 150px;
+  background-color: white;
+  position: relative;
+  transition: box-shadow 250ms ease 0s;
+}
+
+.header_modal-shipping-address-edit {
+  height: 72px;
+  background-color: white;
+  position: relative;
+  transition: box-shadow 250ms ease 0s;
+}
+
+.header_modal-shipping-address-card-info {
   background-color: white;
   position: relative;
   transition: box-shadow 250ms ease 0s;
@@ -1130,6 +1156,15 @@ body {
   left: 8px;
 }
 
+.what_is_this_info {
+  font-size: 13px;
+  line-height: 20px;
+  color: rgb(112, 112, 112);
+  position: relative;
+  margin-bottom: 4px;
+  text-align: right;
+}
+
 .what-is-this {
   text-align: right;
   position: relative;
@@ -1789,4 +1824,97 @@ input[type="number"]::-webkit-outer-spin-button {
   justify-content: flex-end;
   gap: 12px;
   align-items: center;
+}
+
+/* shipping page styling */
+
+.shipping-header-wrapper {
+  padding: 0px 40px;
+}
+
+.brand-wrapper {
+  max-width: 75px;
+  text-align: center;
+}
+
+.delivery-address-form-wrapper {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.first-section-delivery-shipping,
+.second-section-delivery-shipping {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper-delivery-shipping-right-side {
+  border: 1px solid rgb(231, 231, 231);
+  padding-bottom: 40px;
+}
+
+.paddingle-delivery-right-side {
+  padding: 20px 20px 0px 20px;
+}
+
+.state_province_or_region_and_postal_code_wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.state_province_or_region_and_postal_code_wrapper .first,
+.state_province_or_region_and_postal_code_wrapper .second {
+  flex-basis: 50%;
+}
+
+.delivery-address-form-wrapper .first-section-delivery-shipping {
+  grid-column: span 7;
+}
+
+.delivery-address-form-wrapper .seperator-section {
+  grid-column: span 1;
+}
+.delivery-address-form-wrapper .second-section-delivery-shipping {
+  grid-column: span 4;
+}
+
+@media (max-width: 768px) {
+  .shipping-header-wrapper {
+    padding: 0px 20px;
+  }
+  .delivery-address-form-wrapper .seperator-section {
+    display: none;
+  }
+  .delivery-address-form-wrapper .first-section-delivery-shipping {
+    grid-column: span 12;
+  }
+  .delivery-address-form-wrapper .second-section-delivery-shipping {
+    grid-column: span 12;
+  }
+}
+
+/* order history styling */
+.orders-wrapper-settings-page {
+  padding: 0px 40px;
+}
+
+.orders-wrapper-detailed-orders {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+.orders-wrapper-detailed-orders-detail {
+  grid-column: span 3;
+  padding: 10px;
+  border: 1px solid rgb(231, 231, 231);
+}
+
+@media (max-width: 768px) {
+  .orders-wrapper-settings-page {
+    padding: 0px 20px;
+  }
+  .orders-wrapper-detailed-orders-detail {
+    grid-column: span 12;
+  }
 }

@@ -24,6 +24,30 @@ const artworkSchema = new Schema(
       currentLocation: { type: String },
       currentCountry: { type: String },
     },
+    category: {
+      type: String,
+      default: "",
+      enum: [
+        "Contemporary Art",
+        "Painting",
+        "Street Art",
+        "Photography",
+        "Emerging Art",
+        "20th-Century Art",
+      ],
+    },
+    is_sold: {
+      type: Boolean,
+      default: false,
+    },
+    an_offer_can_be_made: {
+      type: Boolean,
+      default: false,
+    },
+    unsellable_artwork: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

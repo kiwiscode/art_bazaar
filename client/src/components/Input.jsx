@@ -6,6 +6,8 @@ export default function Input({
   icon,
   iconPositionLeft,
   iconPositionRight,
+  iconFlexPosition,
+  iconOpacity,
   width,
   maxWidth,
   minWidth,
@@ -59,6 +61,8 @@ export default function Input({
             left: "10px",
             top: "50%",
             transform: "translateY(-50%)",
+            display: iconFlexPosition,
+            opacity: iconOpacity,
           }}
         >
           {icon}

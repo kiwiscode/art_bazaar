@@ -20,8 +20,11 @@ function Saves() {
   const { width } = useWindowDimensions();
   const { collectorInfo, getToken, updateCollector } =
     useContext(CollectorContext);
-  const { showCustomMessageArtworkSave, showCustomMessageDarkBg } =
-    useAntdMessageHandler();
+  const {
+    contextHolder,
+    showCustomMessageArtworkSave,
+    showCustomMessageDarkBg,
+  } = useAntdMessageHandler();
   const [collectorSaves, setCollectorSaves] = useState([]);
   const [sortedSaves, setSortedSaves] = useState([]);
   const [collectorSaves4Piece, setCollectorSaves4Piece] = useState([]);
@@ -121,6 +124,7 @@ function Saves() {
 
   return (
     <>
+      {contextHolder}
       {/* custom saves page header */}
       <div className="saves-header-wrapper unica-regular-font">
         {/* profile back banner */}
@@ -729,7 +733,7 @@ function Saves() {
                             </svg>
                           ) : hoveredFavSvg === index &&
                             !favoriteArtworkIds?.includes(
-                              eachWork.favoritedArtwork._id
+                              eachWork?.favoritedArtwork?._id
                             ) ? (
                             <svg
                               onClick={(e) => {
@@ -822,7 +826,7 @@ function Saves() {
                           color: "rgb(112, 112, 112)",
                         }}
                       >
-                        {eachWork.favoritedArtwork.title}
+                        {eachWork?.favoritedArtwork?.title}
                       </div>
                     </div>
                     <div
