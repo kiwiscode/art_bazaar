@@ -399,12 +399,63 @@ function Main({ sendDataToParent }) {
     getAllArtworks();
   }, []);
 
+  // filter modal
+
   return (
     <>
       {contextHolder}
+      {/* all filters modal */}
+
+      <>
+        {width <= 768 && (
+          <Modal
+            open={showFiltersDetail}
+            onClose={handleClose}
+            sx={{
+              "& > .MuiBackdrop-root": {
+                opacity: "0.5 !important",
+                backgroundColor: "rgb(202, 205, 236)",
+                filter: "brightness(2.5)",
+                margin: 0,
+                padding: 0,
+              },
+            }}
+          >
+            <div
+              ref={showFiltersRef}
+              className=""
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: width <= 768 ? "98%" : 410,
+                maxHeight: "95vh",
+                height: width <= 768 && "95vh",
+                backgroundColor: "white",
+                outlineStyle: "none",
+                overflowY: "auto",
+                boxShadow:
+                  "0 0 15px rgba(101, 119, 134, 0.2),0 0 5px 3px rgba(101, 119, 134, 0.15)",
+              }}
+            >
+              <div
+                style={{
+                  textAlign: "center",
+                  fontSize: "32px",
+                  marginTop: "40px",
+                }}
+                className="unica-regular-font"
+              >
+                Work in progress...
+              </div>
+            </div>
+          </Modal>
+        )}
+      </>
       {/* filter modal left side opening */}
       <>
-        {showFiltersDetail && (
+        {showFiltersDetail && width > 768 && (
           <div
             style={{
               position: "fixed",
@@ -548,12 +599,39 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: uniqeOptionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            uniqeOptionHovered &&
+                            !rarityFilteredOptions?.includes("Unique")
+                              ? "1px solid rgb(16,35,215)"
+                              : uniqeOptionHovered &&
+                                rarityFilteredOptions?.includes("Unique")
+                              ? "1px solid rgb(16,35,215)"
+                              : !uniqeOptionHovered &&
+                                !rarityFilteredOptions?.includes("Unique")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            rarityFilteredOptions?.includes("Unique") &&
+                            !uniqeOptionHovered
+                              ? "black"
+                              : rarityFilteredOptions?.includes("Unique") &&
+                                uniqeOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {rarityFilteredOptions?.includes("Unique") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -588,12 +666,45 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: limitedEditionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            limitedEditionHovered &&
+                            !rarityFilteredOptions?.includes("Limited Edition")
+                              ? "1px solid rgb(16,35,215)"
+                              : limitedEditionHovered &&
+                                rarityFilteredOptions?.includes(
+                                  "Limited Edition"
+                                )
+                              ? "1px solid rgb(16,35,215)"
+                              : !limitedEditionHovered &&
+                                !rarityFilteredOptions?.includes(
+                                  "Limited Edition"
+                                )
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            rarityFilteredOptions?.includes(
+                              "Limited Edition"
+                            ) && !limitedEditionHovered
+                              ? "black"
+                              : rarityFilteredOptions?.includes(
+                                  "Limited Edition"
+                                ) && limitedEditionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {rarityFilteredOptions?.includes("Limited Edition") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -628,12 +739,40 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: openEditionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            openEditionHovered &&
+                            !rarityFilteredOptions?.includes("Open Edition")
+                              ? "1px solid rgb(16,35,215)"
+                              : openEditionHovered &&
+                                rarityFilteredOptions?.includes("Open Edition")
+                              ? "1px solid rgb(16,35,215)"
+                              : !openEditionHovered &&
+                                !rarityFilteredOptions?.includes("Open Edition")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            rarityFilteredOptions?.includes("Open Edition") &&
+                            !openEditionHovered
+                              ? "black"
+                              : rarityFilteredOptions?.includes(
+                                  "Open Edition"
+                                ) && openEditionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {rarityFilteredOptions?.includes("Open Edition") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -668,12 +807,45 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: unknowEditionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            unknowEditionHovered &&
+                            !rarityFilteredOptions?.includes("Unknown Edition")
+                              ? "1px solid rgb(16,35,215)"
+                              : unknowEditionHovered &&
+                                rarityFilteredOptions?.includes(
+                                  "Unknown Edition"
+                                )
+                              ? "1px solid rgb(16,35,215)"
+                              : !unknowEditionHovered &&
+                                !rarityFilteredOptions?.includes(
+                                  "Unknown Edition"
+                                )
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            rarityFilteredOptions?.includes(
+                              "Unknown Edition"
+                            ) && !unknowEditionHovered
+                              ? "black"
+                              : rarityFilteredOptions?.includes(
+                                  "Unknown Edition"
+                                ) && unknowEditionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {rarityFilteredOptions?.includes("Unknown Edition") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -757,12 +929,39 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: paintingOptionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            paintingOptionHovered &&
+                            !mediumFilteredOptions?.includes("Painting")
+                              ? "1px solid rgb(16,35,215)"
+                              : paintingOptionHovered &&
+                                mediumFilteredOptions?.includes("Painting")
+                              ? "1px solid rgb(16,35,215)"
+                              : !paintingOptionHovered &&
+                                !mediumFilteredOptions?.includes("Painting")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Painting") &&
+                            !paintingOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes("Painting") &&
+                                paintingOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {mediumFilteredOptions?.includes("Painting") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -797,12 +996,41 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: photographyOptionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            photographyOptionHovered &&
+                            !mediumFilteredOptions?.includes("Photography")
+                              ? "1px solid rgb(16,35,215)"
+                              : photographyOptionHovered &&
+                                mediumFilteredOptions?.includes("Photography")
+                              ? "1px solid rgb(16,35,215)"
+                              : !photographyOptionHovered &&
+                                !mediumFilteredOptions?.includes("Photography")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Photography") &&
+                            !photographyOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes(
+                                  "Photography"
+                                ) && photographyOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {" "}
+                        {mediumFilteredOptions?.includes("Photography") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -837,12 +1065,40 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: sculptureOptionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            sculptureOptionHovered &&
+                            !mediumFilteredOptions?.includes("Sculpture")
+                              ? "1px solid rgb(16,35,215)"
+                              : sculptureOptionHovered &&
+                                mediumFilteredOptions?.includes("Sculpture")
+                              ? "1px solid rgb(16,35,215)"
+                              : !sculptureOptionHovered &&
+                                !mediumFilteredOptions?.includes("Sculpture")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Sculpture") &&
+                            !sculptureOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes("Sculpture") &&
+                                sculptureOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {" "}
+                        {mediumFilteredOptions?.includes("Sculpture") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -877,12 +1133,40 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: printsOptionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            printsOptionHovered &&
+                            !mediumFilteredOptions?.includes("Prints")
+                              ? "1px solid rgb(16,35,215)"
+                              : printsOptionHovered &&
+                                mediumFilteredOptions?.includes("Prints")
+                              ? "1px solid rgb(16,35,215)"
+                              : !printsOptionHovered &&
+                                !mediumFilteredOptions?.includes("Prints")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Prints") &&
+                            !printsOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes("Prints") &&
+                                printsOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {" "}
+                        {mediumFilteredOptions?.includes("Prints") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -917,12 +1201,43 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: workOnPaperOptionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            workOnPaperOptionHovered &&
+                            !mediumFilteredOptions?.includes("Work on Paper")
+                              ? "1px solid rgb(16,35,215)"
+                              : workOnPaperOptionHovered &&
+                                mediumFilteredOptions?.includes("Work on Paper")
+                              ? "1px solid rgb(16,35,215)"
+                              : !workOnPaperOptionHovered &&
+                                !mediumFilteredOptions?.includes(
+                                  "Work on Paper"
+                                )
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Work on Paper") &&
+                            !workOnPaperOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes(
+                                  "Work on Paper"
+                                ) && workOnPaperOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {" "}
+                        {mediumFilteredOptions?.includes("Work on Paper") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -957,12 +1272,39 @@ function Main({ sendDataToParent }) {
                         style={{
                           width: "18px",
                           height: "18px",
-                          border: NFTOptionHovered
-                            ? "1px solid rgb(16,35,215)"
-                            : "1px solid rgb(231,231,231)",
+                          border:
+                            NFTOptionHovered &&
+                            !mediumFilteredOptions?.includes("NFT")
+                              ? "1px solid rgb(16,35,215)"
+                              : NFTOptionHovered &&
+                                mediumFilteredOptions?.includes("NFT")
+                              ? "1px solid rgb(16,35,215)"
+                              : !NFTOptionHovered &&
+                                !mediumFilteredOptions?.includes("NFT")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("NFT") &&
+                            !NFTOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes("NFT") &&
+                                NFTOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
                           transition: "border 0.3s ease-in-out",
                         }}
-                      ></div>
+                      >
+                        {mediumFilteredOptions?.includes("NFT") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
                       <div
                         className="hover_color_effect hover_color_effect_t-d pointer"
                         style={{
@@ -1016,12 +1358,40 @@ function Main({ sendDataToParent }) {
                             style={{
                               width: "18px",
                               height: "18px",
-                              border: designOptionHovered
-                                ? "1px solid rgb(16,35,215)"
-                                : "1px solid rgb(231,231,231)",
+                              border:
+                                designOptionHovered &&
+                                !mediumFilteredOptions?.includes("Design")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : designOptionHovered &&
+                                    mediumFilteredOptions?.includes("Design")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !designOptionHovered &&
+                                    !mediumFilteredOptions?.includes("Design")
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes("Design") &&
+                                !designOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes("Design") &&
+                                    designOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
                               transition: "border 0.3s ease-in-out",
                             }}
-                          ></div>
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes("Design") && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
                           <div
                             className="hover_color_effect hover_color_effect_t-d pointer"
                             style={{
@@ -1056,12 +1426,41 @@ function Main({ sendDataToParent }) {
                             style={{
                               width: "18px",
                               height: "18px",
-                              border: drawingOptionHovered
-                                ? "1px solid rgb(16,35,215)"
-                                : "1px solid rgb(231,231,231)",
+                              border:
+                                drawingOptionHovered &&
+                                !mediumFilteredOptions?.includes("Drawing")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : drawingOptionHovered &&
+                                    mediumFilteredOptions?.includes("Drawing")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !drawingOptionHovered &&
+                                    !mediumFilteredOptions?.includes("Drawing")
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes("Drawing") &&
+                                !drawingOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Drawing"
+                                    ) && drawingOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
                               transition: "border 0.3s ease-in-out",
                             }}
-                          ></div>
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes("Drawing") && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
                           <div
                             className="hover_color_effect hover_color_effect_t-d pointer"
                             style={{
@@ -1100,12 +1499,48 @@ function Main({ sendDataToParent }) {
                             style={{
                               width: "18px",
                               height: "18px",
-                              border: installationOptionHovered
-                                ? "1px solid rgb(16,35,215)"
-                                : "1px solid rgb(231,231,231)",
+                              border:
+                                installationOptionHovered &&
+                                !mediumFilteredOptions?.includes("Installation")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : installationOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Installation"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !installationOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Installation"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes(
+                                  "Installation"
+                                ) && !installationOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Installation"
+                                    ) && installationOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
                               transition: "border 0.3s ease-in-out",
                             }}
-                          ></div>
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes(
+                              "Installation"
+                            ) && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
                           <div
                             className="hover_color_effect hover_color_effect_t-d pointer"
                             style={{
@@ -1140,12 +1575,45 @@ function Main({ sendDataToParent }) {
                             style={{
                               width: "18px",
                               height: "18px",
-                              border: filmdVideoOptionHovered
-                                ? "1px solid rgb(16,35,215)"
-                                : "1px solid rgb(231,231,231)",
+                              border:
+                                filmdVideoOptionHovered &&
+                                !mediumFilteredOptions?.includes("Film/Video")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : filmdVideoOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Film/Video"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !filmdVideoOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Film/Video"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes("Film/Video") &&
+                                !filmdVideoOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Film/Video"
+                                    ) && filmdVideoOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
                               transition: "border 0.3s ease-in-out",
                             }}
-                          ></div>
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes("Film/Video") && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
                           <div
                             className="hover_color_effect hover_color_effect_t-d pointer"
                             style={{
@@ -1180,12 +1648,41 @@ function Main({ sendDataToParent }) {
                             style={{
                               width: "18px",
                               height: "18px",
-                              border: jewelryOptionHovered
-                                ? "1px solid rgb(16,35,215)"
-                                : "1px solid rgb(231,231,231)",
+                              border:
+                                jewelryOptionHovered &&
+                                !mediumFilteredOptions?.includes("Jewelry")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : jewelryOptionHovered &&
+                                    mediumFilteredOptions?.includes("Jewelry")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !jewelryOptionHovered &&
+                                    !mediumFilteredOptions?.includes("Jewelry")
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes("Jewelry") &&
+                                !jewelryOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Jewelry"
+                                    ) && jewelryOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
                               transition: "border 0.3s ease-in-out",
                             }}
-                          ></div>
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes("Jewelry") && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
                           <div
                             className="hover_color_effect hover_color_effect_t-d pointer"
                             style={{
@@ -1229,12 +1726,50 @@ function Main({ sendDataToParent }) {
                             style={{
                               width: "18px",
                               height: "18px",
-                              border: performanceArtOptionHovered
-                                ? "1px solid rgb(16,35,215)"
-                                : "1px solid rgb(231,231,231)",
+                              border:
+                                performanceArtOptionHovered &&
+                                !mediumFilteredOptions?.includes(
+                                  "Performance Art"
+                                )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : performanceArtOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Performance Art"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !performanceArtOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Performance Art"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes(
+                                  "Performance Art"
+                                ) && !performanceArtOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Performance Art"
+                                    ) && performanceArtOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
                               transition: "border 0.3s ease-in-out",
                             }}
-                          ></div>
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes(
+                              "Performance Art"
+                            ) && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
                           <div
                             className="hover_color_effect hover_color_effect_t-d pointer"
                             style={{
@@ -1273,12 +1808,48 @@ function Main({ sendDataToParent }) {
                             style={{
                               width: "18px",
                               height: "18px",
-                              border: reproductionOptionHovered
-                                ? "1px solid rgb(16,35,215)"
-                                : "1px solid rgb(231,231,231)",
+                              border:
+                                reproductionOptionHovered &&
+                                !mediumFilteredOptions?.includes("Reproduction")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : reproductionOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Reproduction"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !reproductionOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Reproduction"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes(
+                                  "Reproduction"
+                                ) && !reproductionOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Reproduction"
+                                    ) && reproductionOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
                               transition: "border 0.3s ease-in-out",
                             }}
-                          ></div>
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes(
+                              "Reproduction"
+                            ) && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
                           <div
                             className="hover_color_effect hover_color_effect_t-d pointer"
                             style={{
@@ -1325,12 +1896,50 @@ function Main({ sendDataToParent }) {
                             style={{
                               width: "18px",
                               height: "18px",
-                              border: ephemeraOrMerchandiseOptionHovered
-                                ? "1px solid rgb(16,35,215)"
-                                : "1px solid rgb(231,231,231)",
+                              border:
+                                ephemeraOrMerchandiseOptionHovered &&
+                                !mediumFilteredOptions?.includes(
+                                  "Ephemera or Merchandise"
+                                )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : ephemeraOrMerchandiseOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Ephemera or Merchandise"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !ephemeraOrMerchandiseOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Ephemera or Merchandise"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes(
+                                  "Ephemera or Merchandise"
+                                ) && !ephemeraOrMerchandiseOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Ephemera or Merchandise"
+                                    ) && ephemeraOrMerchandiseOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
                               transition: "border 0.3s ease-in-out",
                             }}
-                          ></div>
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes(
+                              "Ephemera or Merchandise"
+                            ) && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
                           <div
                             className="hover_color_effect hover_color_effect_t-d pointer"
                             style={{
@@ -1569,7 +2178,17 @@ function Main({ sendDataToParent }) {
                     display: welcomeModalTabIndex === 5 && "none",
                   }}
                 >
-                  Logo
+                  <div
+                    className="dflex"
+                    style={{
+                      justifyContent: "center",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>Art</div>
+                    <div>Bazaar</div>
+                  </div>
                 </div>
                 {/* progress bar welcome modal  */}
                 <button
@@ -6524,8 +7143,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F3NWE5exOx6ni85xifx7aeg%2Fnormalized.jpg&width=387"
-                        srcSet="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F3NWE5exOx6ni85xifx7aeg%2Fnormalized.jpg&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F3NWE5exOx6ni85xifx7aeg%2Fnormalized.jpg&width=774 2x"
+                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148677/art_bazaar/filter%20%C3%BCzeri/download_qjnijt.webp"
                         alt=""
                       />
                     </div>
@@ -6539,8 +7157,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2Fe53f2a60-64a5-4303-8121-08b24f1f665f%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142417Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D597aead7b703a854f6e582045d337212f1a275fb54fef5bbebccdcf7f9d64a59&width=387"
-                        srcset="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2Fe53f2a60-64a5-4303-8121-08b24f1f665f%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142417Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D597aead7b703a854f6e582045d337212f1a275fb54fef5bbebccdcf7f9d64a59&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2Fe53f2a60-64a5-4303-8121-08b24f1f665f%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142417Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D597aead7b703a854f6e582045d337212f1a275fb54fef5bbebccdcf7f9d64a59&width=774 2x"
+                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148676/art_bazaar/filter%20%C3%BCzeri/download_2_cfaug0.webp"
                       />
                     </div>
                     <div>Painting</div>
@@ -6553,8 +7170,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FKmJZWb8ZAhKGv3mi7jT95w%2Fnormalized.jpg&width=387"
-                        srcSet="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FKmJZWb8ZAhKGv3mi7jT95w%2Fnormalized.jpg&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FKmJZWb8ZAhKGv3mi7jT95w%2Fnormalized.jpg&width=774 2x"
+                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148676/art_bazaar/filter%20%C3%BCzeri/download_4_djdak1.webp"
                         alt=""
                       />
                     </div>
@@ -6568,8 +7184,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FaWpQZXv1dzX4k1Kjosfm6w%2Fnormalized.jpg&width=387"
-                        srcSet="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FaWpQZXv1dzX4k1Kjosfm6w%2Fnormalized.jpg&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FaWpQZXv1dzX4k1Kjosfm6w%2Fnormalized.jpg&width=774 2x"
+                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148677/art_bazaar/filter%20%C3%BCzeri/download_6_ju7hd8.webp"
                         alt=""
                       />
                     </div>
@@ -6583,8 +7198,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F3640a99b-4b4c-44ef-a257-a80da50ecdbe%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240801T211038Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240801%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Dc549e2b4b4deeffd7156ff671abc4a09283b1f393a799e577e9529ef36323179&width=387"
-                        srcSet="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F3640a99b-4b4c-44ef-a257-a80da50ecdbe%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240801T211038Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240801%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Dc549e2b4b4deeffd7156ff671abc4a09283b1f393a799e577e9529ef36323179&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F3640a99b-4b4c-44ef-a257-a80da50ecdbe%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240801T211038Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240801%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Dc549e2b4b4deeffd7156ff671abc4a09283b1f393a799e577e9529ef36323179&width=774 2x"
+                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148677/art_bazaar/filter%20%C3%BCzeri/download_8_kmpf9f.webp"
                         alt=""
                       />
                     </div>
@@ -6598,8 +7212,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F23aafc87-2498-492c-a87b-5a1568ca86b0%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142418Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Db7e8a7e89d667b7a15105fbf614ddc7998d39068f1a6f55b545428a31642b1d9&width=387"
-                        srcset="https://d7hftxdivxxvm.cloudfront.net?height=218&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F23aafc87-2498-492c-a87b-5a1568ca86b0%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142418Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Db7e8a7e89d667b7a15105fbf614ddc7998d39068f1a6f55b545428a31642b1d9&width=387 1x, https://d7hftxdivxxvm.cloudfront.net?height=436&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fmarketing_collections%2Fimages%2F23aafc87-2498-492c-a87b-5a1568ca86b0%3FX-Amz-Expires%3D43200%26X-Amz-Date%3D20240804T142418Z%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAICYI665LIMIGJ6KQ%252F20240804%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3Db7e8a7e89d667b7a15105fbf614ddc7998d39068f1a6f55b545428a31642b1d9&width=774 2x"
+                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148677/art_bazaar/filter%20%C3%BCzeri/download_10_uejr8u.webp"
                         alt=""
                       />
                     </div>
@@ -6720,12 +7333,49 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: uniqeOptionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          uniqeOptionHovered &&
+                                          !rarityFilteredOptions?.includes(
+                                            "Unique"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : uniqeOptionHovered &&
+                                              rarityFilteredOptions?.includes(
+                                                "Unique"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !uniqeOptionHovered &&
+                                              !rarityFilteredOptions?.includes(
+                                                "Unique"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          rarityFilteredOptions?.includes(
+                                            "Unique"
+                                          ) && !uniqeOptionHovered
+                                            ? "black"
+                                            : rarityFilteredOptions?.includes(
+                                                "Unique"
+                                              ) && uniqeOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {rarityFilteredOptions?.includes(
+                                        "Unique"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -6775,12 +7425,49 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: limitedEditionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          limitedEditionHovered &&
+                                          !rarityFilteredOptions?.includes(
+                                            "Limited Edition"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : limitedEditionHovered &&
+                                              rarityFilteredOptions?.includes(
+                                                "Limited Edition"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !limitedEditionHovered &&
+                                              !rarityFilteredOptions?.includes(
+                                                "Limited Edition"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          rarityFilteredOptions?.includes(
+                                            "Limited Edition"
+                                          ) && !limitedEditionHovered
+                                            ? "black"
+                                            : rarityFilteredOptions?.includes(
+                                                "Limited Edition"
+                                              ) && limitedEditionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {rarityFilteredOptions?.includes(
+                                        "Limited Edition"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -6830,12 +7517,49 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: openEditionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          openEditionHovered &&
+                                          !rarityFilteredOptions?.includes(
+                                            "Open Edition"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : openEditionHovered &&
+                                              rarityFilteredOptions?.includes(
+                                                "Open Edition"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !openEditionHovered &&
+                                              !rarityFilteredOptions?.includes(
+                                                "Open Edition"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          rarityFilteredOptions?.includes(
+                                            "Open Edition"
+                                          ) && !openEditionHovered
+                                            ? "black"
+                                            : rarityFilteredOptions?.includes(
+                                                "Open Edition"
+                                              ) && openEditionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {rarityFilteredOptions?.includes(
+                                        "Open Edition"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -6885,12 +7609,49 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: unknowEditionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          unknowEditionHovered &&
+                                          !rarityFilteredOptions?.includes(
+                                            "Unknown Edition"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : unknowEditionHovered &&
+                                              rarityFilteredOptions?.includes(
+                                                "Unknown Edition"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !unknowEditionHovered &&
+                                              !rarityFilteredOptions?.includes(
+                                                "Unknown Edition"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          rarityFilteredOptions?.includes(
+                                            "Unknown Edition"
+                                          ) && !unknowEditionHovered
+                                            ? "black"
+                                            : rarityFilteredOptions?.includes(
+                                                "Unknown Edition"
+                                              ) && unknowEditionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {rarityFilteredOptions?.includes(
+                                        "Unknown Edition"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7033,12 +7794,49 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: paintingOptionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          paintingOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Painting"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : paintingOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Painting"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !paintingOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Painting"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Painting"
+                                          ) && !paintingOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Painting"
+                                              ) && paintingOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {mediumFilteredOptions?.includes(
+                                        "Painting"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7088,12 +7886,50 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: photographyOptionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          photographyOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Photography"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : photographyOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Photography"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !photographyOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Photography"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Photography"
+                                          ) && !photographyOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Photography"
+                                              ) && photographyOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {" "}
+                                      {mediumFilteredOptions?.includes(
+                                        "Photography"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7142,12 +7978,50 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: sculptureOptionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          sculptureOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Sculpture"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : sculptureOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Sculpture"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !sculptureOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Sculpture"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Sculpture"
+                                          ) && !sculptureOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Sculpture"
+                                              ) && sculptureOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {" "}
+                                      {mediumFilteredOptions?.includes(
+                                        "Sculpture"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7162,17 +8036,15 @@ function Main({ sendDataToParent }) {
                                       setMediumFilteredOptions(
                                         (prevMediumOptions) => {
                                           if (
-                                            prevMediumOptions.includes(
-                                              "Sculpture"
-                                            )
+                                            prevMediumOptions.includes("Prints")
                                           ) {
                                             return prevMediumOptions.filter(
-                                              (option) => option !== "Sculpture"
+                                              (option) => option !== "Prints"
                                             );
                                           } else {
                                             return [
                                               ...prevMediumOptions,
-                                              "Sculpture",
+                                              "Prints",
                                             ];
                                           }
                                         }
@@ -7196,12 +8068,50 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: printsOptionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          printsOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Prints"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : printsOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Prints"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !printsOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Prints"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Prints"
+                                          ) && !printsOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Prints"
+                                              ) && printsOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {" "}
+                                      {mediumFilteredOptions?.includes(
+                                        "Prints"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7251,12 +8161,50 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: workOnPaperOptionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          workOnPaperOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Work on Paper"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : workOnPaperOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Work on Paper"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !workOnPaperOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Work on Paper"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Work on Paper"
+                                          ) && !workOnPaperOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Work on Paper"
+                                              ) && workOnPaperOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {" "}
+                                      {mediumFilteredOptions?.includes(
+                                        "Work on Paper"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7303,12 +8251,49 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: NFTOptionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          NFTOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "NFT"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : NFTOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "NFT"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !NFTOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "NFT"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "NFT"
+                                          ) && !NFTOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "NFT"
+                                              ) && NFTOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {mediumFilteredOptions?.includes(
+                                        "NFT"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7355,12 +8340,50 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: designOptionHovered
-                                          ? "1px solid rgb(16,35,215)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          designOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Design"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : designOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Design"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !designOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Design"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Design"
+                                          ) && !designOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Design"
+                                              ) && designOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {" "}
+                                      {mediumFilteredOptions?.includes(
+                                        "Design"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7370,6 +8393,99 @@ function Main({ sendDataToParent }) {
                                       Design
                                     </div>
                                   </div>
+                                  <div
+                                    onClick={() => {
+                                      setMediumFilteredOptions(
+                                        (prevMediumOptions) => {
+                                          if (
+                                            prevMediumOptions.includes(
+                                              "Drawing"
+                                            )
+                                          ) {
+                                            return prevMediumOptions.filter(
+                                              (option) => option !== "Drawing"
+                                            );
+                                          } else {
+                                            return [
+                                              ...prevMediumOptions,
+                                              "Drawing",
+                                            ];
+                                          }
+                                        }
+                                      );
+                                    }}
+                                    onMouseEnter={() =>
+                                      setdrawingOptionHovered(true)
+                                    }
+                                    onMouseLeave={() =>
+                                      setdrawingOptionHovered(false)
+                                    }
+                                    className="parent-rarity-filter-options pointer"
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      gap: "10px",
+                                      marginBottom: "24px",
+                                    }}
+                                  >
+                                    <div
+                                      style={{
+                                        width: "18px",
+                                        height: "18px",
+                                        border:
+                                          drawingOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Drawing"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : drawingOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Drawing"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !drawingOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Drawing"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Drawing"
+                                          ) && !drawingOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Drawing"
+                                              ) && drawingOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
+                                        transition: "border 0.3s ease-in-out",
+                                      }}
+                                    >
+                                      {" "}
+                                      {mediumFilteredOptions?.includes(
+                                        "Drawing"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
+                                    <div
+                                      className="hover_color_effect hover_color_effect_t-d pointer"
+                                      style={{
+                                        color: "rgb(112,112,112)",
+                                      }}
+                                    >
+                                      Drawing
+                                    </div>
+                                  </div>
+
                                   <div
                                     onClick={() => {
                                       setMediumFilteredOptions(
@@ -7410,12 +8526,50 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: installationOptionHovered
-                                          ? "1px solid rgb(14, 14, 14)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          installationOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Installation"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : installationOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Installation"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !installationOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Installation"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Installation"
+                                          ) && !installationOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Installation"
+                                              ) && installationOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {" "}
+                                      {mediumFilteredOptions?.includes(
+                                        "Installation"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7465,12 +8619,50 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: filmdVideoOptionHovered
-                                          ? "1px solid rgb(14, 14, 14)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          filmdVideoOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Film/Video"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : filmdVideoOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Film/Video"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !filmdVideoOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Film/Video"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Film/Video"
+                                          ) && !filmdVideoOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Film/Video"
+                                              ) && filmdVideoOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {" "}
+                                      {mediumFilteredOptions?.includes(
+                                        "Film/Video"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7519,12 +8711,49 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: jewelryOptionHovered
-                                          ? "1px solid rgb(14, 14, 14)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          jewelryOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Jewelry"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : jewelryOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Jewelry"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !jewelryOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Jewelry"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Jewelry"
+                                          ) && !jewelryOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Jewelry"
+                                              ) && jewelryOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {mediumFilteredOptions?.includes(
+                                        "Jewelry"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7574,12 +8803,49 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: performanceArtOptionHovered
-                                          ? "1px solid rgb(14, 14, 14)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          performanceArtOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Performance Art"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : performanceArtOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Performance Art"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !performanceArtOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Performance Art"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Performance Art"
+                                          ) && !performanceArtOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Performance Art"
+                                              ) && performanceArtOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {mediumFilteredOptions?.includes(
+                                        "Performance Art"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7629,12 +8895,50 @@ function Main({ sendDataToParent }) {
                                       style={{
                                         width: "18px",
                                         height: "18px",
-                                        border: reproductionOptionHovered
-                                          ? "1px solid rgb(14, 14, 14)"
-                                          : "1px solid rgb(231,231,231)",
+                                        border:
+                                          reproductionOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Reproduction"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : reproductionOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Reproduction"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !reproductionOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Reproduction"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Reproduction"
+                                          ) && !reproductionOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Reproduction"
+                                              ) && reproductionOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {" "}
+                                      {mediumFilteredOptions?.includes(
+                                        "Reproduction"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -7690,12 +8994,50 @@ function Main({ sendDataToParent }) {
                                         width: "18px",
                                         height: "18px",
                                         border:
-                                          ephemeraOrMerchandiseOptionHovered
-                                            ? "1px solid rgb(14, 14, 14)"
-                                            : "1px solid rgb(231,231,231)",
+                                          ephemeraOrMerchandiseOptionHovered &&
+                                          !mediumFilteredOptions?.includes(
+                                            "Ephemera or Merchandise"
+                                          )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : ephemeraOrMerchandiseOptionHovered &&
+                                              mediumFilteredOptions?.includes(
+                                                "Ephemera or Merchandise"
+                                              )
+                                            ? "1px solid rgb(16,35,215)"
+                                            : !ephemeraOrMerchandiseOptionHovered &&
+                                              !mediumFilteredOptions?.includes(
+                                                "Ephemera or Merchandise"
+                                              )
+                                            ? "1px solid rgb(231,231,231)"
+                                            : "1px solid black",
+                                        backgroundColor:
+                                          mediumFilteredOptions?.includes(
+                                            "Ephemera or Merchandise"
+                                          ) &&
+                                          !ephemeraOrMerchandiseOptionHovered
+                                            ? "black"
+                                            : mediumFilteredOptions?.includes(
+                                                "Ephemera or Merchandise"
+                                              ) &&
+                                              ephemeraOrMerchandiseOptionHovered
+                                            ? "rgb(16,35,215)"
+                                            : "white",
                                         transition: "border 0.3s ease-in-out",
                                       }}
-                                    ></div>
+                                    >
+                                      {mediumFilteredOptions?.includes(
+                                        "Ephemera or Merchandise"
+                                      ) && (
+                                        <svg
+                                          viewBox="0 0 18 18"
+                                          fill="white"
+                                          width={18}
+                                          height={18}
+                                        >
+                                          <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                                        </svg>
+                                      )}
+                                    </div>
                                     <div
                                       className="hover_color_effect hover_color_effect_t-d pointer"
                                       style={{
@@ -8114,14 +9456,45 @@ function Main({ sendDataToParent }) {
                     </div>
                   </>
                 ) : (
-                  <>hhmm</>
+                  <div
+                    style={{
+                      padding: "4px",
+                      display: "flex",
+                      gap: "5px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <svg
+                      width={18}
+                      height={18}
+                      viewBox="0 0 18 18"
+                      fill="currentColor"
+                    >
+                      <path d="M10.006 11V9.99997H11.006V13H10.006V12H4V11H10.006ZM7.996 6.99997V7.99997H6.996V4.99997H7.996V5.99997H14V6.99997H7.996ZM6 5.99997V6.99997H4V5.99997H6ZM12 12V11H14V12H12Z"></path>
+                    </svg>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        lineHeight: "20px",
+                      }}
+                      onClick={() => setShowFiltersDetail(true)}
+                      className="pointer"
+                    >
+                      Sort & Filter
+                    </span>
+                  </div>
                 )}
               </div>
             </div>
             {/* render artworks */}
             <div
               style={{
-                padding: "0px 40px",
+                marginTop: "40px",
+              }}
+            ></div>
+            <div
+              style={{
+                padding: width <= 768 ? "0px 20px" : "0px 40px",
               }}
               className="container-for-artworks-render"
             >

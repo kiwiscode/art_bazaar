@@ -17,6 +17,8 @@ function SearchArtistInput({
   searchInputWithLabelText,
   searchInputRef,
   setQueryToParent,
+  closeSearchedResults,
+  sendQueryToParent,
 }) {
   const { getToken } = useContext(CollectorContext);
   const { width } = useWindowDimensions();
@@ -51,6 +53,16 @@ function SearchArtistInput({
     } else {
       onArtistsUpdate([]);
     }
+  }, [query]);
+
+  useEffect(() => {
+    if (query.length > 1) {
+      setQuery("");
+    }
+  }, [closeSearchedResults]);
+
+  useEffect(() => {
+    sendQueryToParent(query);
   }, [query]);
 
   return (

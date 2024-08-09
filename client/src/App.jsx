@@ -24,6 +24,8 @@ import OrderShipping from "./pages/OrderShipping";
 import OrderPayment from "./pages/OrderPayment";
 import OrderReview from "./pages/OrderReview";
 import { DeliveryProvider } from "./components/DeliveryContext";
+import No_Message from "./pages/No_Message";
+import Conversations from "./pages/Conversations";
 function App() {
   const location = useLocation();
   const path = location.pathname;
@@ -49,7 +51,10 @@ function App() {
               position: "sticky",
               top: "0px",
               borderBottom: "1px solid rgb(194, 194, 194)",
-              zIndex: path.startsWith("/settings") ? 2 : 1,
+              zIndex:
+                path.startsWith("/settings") || path === "/favorites/saves"
+                  ? 2
+                  : 1,
               width: "100%",
               backgroundColor: "white",
             }}
@@ -137,6 +142,14 @@ function App() {
               element={<OrderReview />}
             ></Route>
             <Route path="/sell" element={<Sell />}></Route>
+            <Route
+              path="/user/conversations"
+              element={<Conversations />}
+            ></Route>
+            <Route
+              path="/user/conversations/no-messages"
+              element={<No_Message />}
+            ></Route>
           </Routes>
         </div>
       </DeliveryProvider>

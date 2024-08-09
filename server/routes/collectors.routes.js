@@ -1021,4 +1021,33 @@ router.get("/:collectorId/orders", async (req, res) => {
   }
 });
 
+// get conversations for a collector Work In ProgressEvent...
+router.get("/:collectorId/conversations", async (req, res) => {
+  try {
+    const { collectorId } = req.params;
+
+    // // collector'ın konuşmalarını al for future
+    // const conversations = await Conversation.find({ collectorId: collectorId })
+    //   .populate("participants")
+    //   .populate({
+    //     path: "participants",
+    //     populate: {
+    //       path: "user",
+    //       model: "User",
+    //     },
+    //   });
+
+    const collector = await Collector.findById(collectorId);
+
+    if (!collector) {
+      return res.status(404).json({ error: "Collector not found" });
+    }
+
+    res.status(200).json(collector.conversations);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;

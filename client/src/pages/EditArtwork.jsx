@@ -321,7 +321,22 @@ function EditArtwork() {
             padding: width <= 768 ? "10px 20px" : "10px 40px",
           }}
         >
-          {width > 768 && <div>Logo</div>}
+          {width > 768 && (
+            <div>
+              {" "}
+              <div
+                className="dflex"
+                style={{
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                }}
+              >
+                <div>Art</div>
+                <div>Bazaar</div>
+              </div>
+            </div>
+          )}
           <div
             onClick={(e) => {
               e.stopPropagation();

@@ -3,7 +3,8 @@ const Artwork = require("../models/Artwork.model");
 
 router.get("/all-artworks", async (req, res) => {
   try {
-    const artworks = await Artwork.find({ is_sold: false });
+    // const artworks = await Artwork.find({ is_sold: false });
+    const artworks = await Artwork.find();
 
     if (!artworks) {
       return res.status(404).json({ message: "No artworks found" });

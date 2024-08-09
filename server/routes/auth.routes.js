@@ -246,6 +246,7 @@ router.post("/login", (req, res, next) => {
               otherRelevantPosition,
               profession,
               deliveryAddresses,
+              conversations,
             } = updatedCollector;
             const token = jwt.sign(
               { collectorId: _id },
@@ -280,6 +281,7 @@ router.post("/login", (req, res, next) => {
                 otherRelevantPosition,
                 profession,
                 deliveryAddresses,
+                conversations,
               },
             });
           });

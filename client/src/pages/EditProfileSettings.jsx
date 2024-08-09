@@ -318,6 +318,9 @@ function EditProfileSettings() {
     ) {
       showErrorMessage("", 6, true, true);
     } else {
+      setValuesBeenEnteredIntoTheCurrentPasswordField(false);
+      setValuesBeenEnteredIntoTheConfirmNewPasswordField(false);
+      setValuesBeenEnteredIntoThePasswordField(false);
       setChangesOnPasswordChange(true);
       try {
         const result = await axios.patch(
@@ -338,6 +341,13 @@ function EditProfileSettings() {
             refreshCollector();
             showCustomMessage("Information updated successfully", 6);
           }, 2000);
+          setTimeout(() => {
+            setChangePasswordFormData({
+              NewPassword: "",
+              ConfirmNewPassword: "",
+            });
+            setCurrentPassword("");
+          }, 2100);
         }
       } catch (error) {
         console.error("error:", error);

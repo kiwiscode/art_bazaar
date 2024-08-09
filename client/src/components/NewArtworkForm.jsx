@@ -435,8 +435,6 @@ function NewArtworkForm({
               onQueryUpdate={handleOnQueryUpdate}
               onArtistsUpdate={handleArtistsUpdate}
             />
-            <div className="required-info unica-regular-font">*Required</div>
-            <div className="box-30-px-m-top"></div>
             <div
               className="unica-regular-font"
               style={{
@@ -448,6 +446,7 @@ function NewArtworkForm({
                 overflowY: "auto",
                 boxShadow: "rgba(0, 0, 0, 0.1) 0px 2px 10px 0px",
                 zIndex: 2,
+                marginTop: "8px",
               }}
             >
               {artists?.length > 0 && (
@@ -525,6 +524,8 @@ function NewArtworkForm({
                 </>
               )}
             </div>
+            <div className="required-info unica-regular-font">*Required</div>
+            <div className="box-30-px-m-top"></div>
           </div>
         )}
         <div

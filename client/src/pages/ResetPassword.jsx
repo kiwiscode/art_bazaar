@@ -170,12 +170,15 @@ function ResetPassword() {
           className="unica-regular-font"
         >
           <div
+            className="dflex"
             style={{
-              fontSize: "",
-              lineHeight: "",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            Logo
+            <div>Art</div>
+            <div>Bazaar</div>
           </div>
           <div
             style={{

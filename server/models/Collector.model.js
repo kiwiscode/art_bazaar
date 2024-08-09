@@ -124,6 +124,7 @@ const collectorSchema = new Schema(
       type: Date,
     },
     deliveryAddresses: [deliveryAddressSchema],
+    conversations: [],
   },
   {
     timestamps: true,

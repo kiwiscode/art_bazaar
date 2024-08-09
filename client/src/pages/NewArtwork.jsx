@@ -358,7 +358,21 @@ function NewArtwork() {
             padding: width <= 768 ? "10px 20px" : "10px 40px",
           }}
         >
-          {width > 768 && <div>Logo</div>}
+          {width > 768 && (
+            <div>
+              {" "}
+              <div
+                className="dflex"
+                style={{
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                }}
+              >
+                <div>Art</div>
+                <div>Bazaar</div>
+              </div>
+            </div>
+          )}
           <div
             onClick={(e) => {
               e.stopPropagation();
@@ -559,27 +573,111 @@ function NewArtwork() {
               searchArtistInputPlaceHolder={"Artist"}
             />
             <div className="box-20-px-m-top"></div>
-            {!artists?.length && (
-              <div
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                backgroundColor: "white",
+                maxHeight: "308px",
+                overflowY: "auto",
+                boxShadow: "rgba(0, 0, 0, 0.1) 0px 2px 10px 0px",
+                zIndex: 1,
+              }}
+            >
+              {artists?.length > 0 && (
+                <>
+                  {artists.map((eachArtist, index) => {
+                    return (
+                      <>
+                        <div
+                          onClick={() => {
+                            setSelectedArtist(eachArtist);
+                            setTabIndex(tabIndex + 1);
+                          }}
+                          onMouseEnter={() => setHoveredIndex(index)}
+                          onMouseLeave={() => setHoveredIndex(null)}
+                          key={eachArtist._id}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            padding: "10px",
+                            cursor: "pointer",
+                            backgroundColor:
+                              hoveredIndex === index && "#f7f7f7",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "10px",
+                            }}
+                          >
+                            <div>
+                              <img
+                                style={{
+                                  objectFit: "cover",
+                                }}
+                                width={50}
+                                height={50}
+                                src={eachArtist?.profilePic}
+                                alt=""
+                              />
+                            </div>
+                            <div>
+                              <div>{eachArtist?.name}</div>
+                              <div
+                                style={{
+                                  color: "rgb(112,112,112)",
+                                }}
+                              >
+                                {eachArtist?.nationality}, {eachArtist?.born}-
+                                {eachArtist?.died}
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <svg
+                              width={18}
+                              height={18}
+                              viewBox="0 0 18 18"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M5.94006 15.94L5.06006 15.06L11.1201 8.99999L5.06006 2.93999L5.94006 2.05999L12.8801 8.99999L5.94006 15.94Z"
+                              ></path>
+                            </svg>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
+                </>
+              )}
+            </div>
+            <div
+              style={{
+                fontSize: width <= 768 ? "13px" : "16px",
+                lineHeight: "20px",
+                opacity: !artists.length ? 1 : 0,
+              }}
+            >
+              <span>Can't find the artist?</span>{" "}
+              <span
+                className="pointer"
+                onClick={() => {
+                  setTabIndex(3);
+                }}
                 style={{
-                  fontSize: width <= 768 ? "13px" : "16px",
-                  lineHeight: "20px",
+                  textDecoration: "underline",
                 }}
               >
-                <span>Can't find the artist?</span>{" "}
-                <span
-                  className="pointer"
-                  onClick={() => {
-                    setTabIndex(3);
-                  }}
-                  style={{
-                    textDecoration: "underline",
-                  }}
-                >
-                  Add their name.
-                </span>
-              </div>
-            )}
+                Add their name.
+              </span>
+            </div>
 
             {collectorInfo?.collection?.some(
               (collection) =>
@@ -667,92 +765,6 @@ function NewArtwork() {
                 </div>
               </div>
             )}
-
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                backgroundColor: "white",
-                maxHeight: "308px",
-                overflowY: "auto",
-                boxShadow: "rgba(0, 0, 0, 0.1) 0px 2px 10px 0px",
-                zIndex: 1,
-              }}
-            >
-              {artists?.length > 0 && (
-                <>
-                  {artists.map((eachArtist, index) => {
-                    return (
-                      <>
-                        <div
-                          onClick={() => {
-                            setSelectedArtist(eachArtist);
-                            setTabIndex(tabIndex + 1);
-                          }}
-                          onMouseEnter={() => setHoveredIndex(index)}
-                          onMouseLeave={() => setHoveredIndex(null)}
-                          key={eachArtist._id}
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            padding: "10px",
-                            cursor: "pointer",
-                            backgroundColor:
-                              hoveredIndex === index && "#f7f7f7",
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <div>
-                              <img
-                                style={{
-                                  objectFit: "cover",
-                                }}
-                                width={50}
-                                height={50}
-                                src={eachArtist?.profilePic}
-                                alt=""
-                              />
-                            </div>
-                            <div>
-                              <div>{eachArtist?.name}</div>
-                              <div
-                                style={{
-                                  color: "rgb(112,112,112)",
-                                }}
-                              >
-                                {eachArtist?.nationality}, {eachArtist?.born}-
-                                {eachArtist?.died}
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            <svg
-                              width={18}
-                              height={18}
-                              viewBox="0 0 18 18"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M5.94006 15.94L5.06006 15.06L11.1201 8.99999L5.06006 2.93999L5.94006 2.05999L12.8801 8.99999L5.94006 15.94Z"
-                              ></path>
-                            </svg>
-                          </div>
-                        </div>
-                      </>
-                    );
-                  })}
-                </>
-              )}
-            </div>
           </div>
         </div>
       ) : tabIndex === 2 ? (
