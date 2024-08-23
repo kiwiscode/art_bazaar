@@ -21,6 +21,13 @@ function CollectorArtworkDetail() {
   const [svgHoveredRight, setSvgHoveredRight] = useState(null);
   const [svgHoveredLeft, setSvgHoveredLeft] = useState(null);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const [showIndexImage, setShowIndexImage] = useState(0);
   const collectedArtworkUploadedPhotosTotalIndex =
     collectedArtwork?.uploadedPhotos.length - 1;
@@ -1981,6 +1988,7 @@ function CollectorArtworkDetail() {
               textDecoration: "underline",
               fontSize: width <= 768 && "13px",
               lineHeight: width <= 768 && "20px",
+              textAlign: width <= 480 && "right",
             }}
           >
             View All Articles
@@ -1994,7 +2002,7 @@ function CollectorArtworkDetail() {
               textAlign: "center",
               fontSize: "20px",
               lineHeight: "32px",
-              display: "grid",
+              display: width <= 480 ? "" : "grid",
               gridTemplateColumns: "repeat(12,1fr)",
               gap: "20px",
             }}

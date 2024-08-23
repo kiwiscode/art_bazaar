@@ -25,6 +25,13 @@ function SavesFollows() {
     { label: "Alerts", path: "/favorites/alerts" },
   ];
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const getFollowedArtists = async () => {
     try {
       const result = await axios.get(

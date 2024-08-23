@@ -8,11 +8,13 @@ import {
 } from "@mui/material";
 import { useAntdMessageHandler } from "../../utils/useAntdMessageHandler";
 import { useNavigate } from "react-router-dom";
+import useWindowDimensions from "../../utils/useWindowDimensions";
 
 // when working on local version
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 function ResetPassword() {
+  const { width } = useWindowDimensions();
   const navigate = useNavigate();
   const { showCustomMessage, showErrorMessage, contextHolder } =
     useAntdMessageHandler();
@@ -45,6 +47,12 @@ function ResetPassword() {
     console.log("email:", email);
     console.log("token:", token);
   }, []);
+
+  useEffect(() => {
+    if (!resetToken) {
+      navigate("/");
+    }
+  }, [resetToken]);
 
   const changePassword = async () => {
     try {
@@ -161,7 +169,8 @@ function ResetPassword() {
         <div
           style={{
             height: "100%",
-            width: "440px",
+            maxWidth: "440px",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -190,7 +199,7 @@ function ResetPassword() {
             Change Your Password
           </div>
           <FormControl
-            sx={{ marginTop: "24px", width: "100%" }}
+            sx={{ marginTop: "24px", width: width <= 480 ? "95%" : "100%" }}
             variant="outlined"
           >
             <InputLabel
@@ -277,7 +286,7 @@ function ResetPassword() {
             changePasswordFormData?.NewPassword.length < 1 && (
               <div
                 style={{
-                  width: "100%",
+                  width: width <= 480 ? "95%" : "100%",
                 }}
               >
                 <span
@@ -296,7 +305,7 @@ function ResetPassword() {
           {passwordError && (
             <div
               style={{
-                width: "100%",
+                width: width <= 480 ? "95%" : "100%",
               }}
             >
               <span
@@ -316,7 +325,7 @@ function ResetPassword() {
             changePasswordFormData?.NewPassword.length < 1 && (
               <div
                 style={{
-                  width: "100%",
+                  width: width <= 480 ? "95%" : "100%",
                 }}
               >
                 <span
@@ -333,7 +342,7 @@ function ResetPassword() {
               </div>
             )}
           <FormControl
-            sx={{ marginTop: "24px", width: "100%" }}
+            sx={{ marginTop: "24px", width: width <= 480 ? "95%" : "100%" }}
             variant="outlined"
           >
             <InputLabel
@@ -416,7 +425,7 @@ function ResetPassword() {
             changePasswordFormData?.ConfirmNewPassword.length < 1 && (
               <div
                 style={{
-                  width: "100%",
+                  width: width <= 480 ? "95%" : "100%",
                 }}
               >
                 <span
@@ -435,7 +444,7 @@ function ResetPassword() {
           {passwordMatchError && (
             <div
               style={{
-                width: "100%",
+                width: width <= 480 ? "95%" : "100%",
               }}
             >
               <span
@@ -455,7 +464,7 @@ function ResetPassword() {
             changePasswordFormData?.ConfirmNewPassword.length < 1 && (
               <div
                 style={{
-                  width: "100%",
+                  width: width <= 480 ? "95%" : "100%",
                 }}
               >
                 <span
@@ -499,9 +508,10 @@ function ResetPassword() {
               backgroundColor: "black",
               color: "white",
               borderRadius: "9999px",
-              width: "100%",
+              width: width <= 480 ? "95%" : "100%",
               marginTop: "24px",
               fontSize: "16px",
+              marginTop: "20px",
               pointerEvents:
                 !changePasswordFormData?.NewPassword?.length ||
                 !changePasswordFormData?.ConfirmNewPassword?.length ||

@@ -26,6 +26,13 @@ function CollectorProfileArtists() {
   const { width } = useWindowDimensions();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const refreshCollector = async () => {
     try {
       const result = await axios.get(
@@ -91,7 +98,11 @@ function CollectorProfileArtists() {
     });
   };
 
+  const [addingArtistToCollection, setAddingArtistToCollection] =
+    useState(false);
+
   const addArtistToCollection = async () => {
+    setAddingArtistToCollection(true);
     try {
       const result = await axios.post(
         `${API_URL}/collectors/${collectorInfo?._id}/collection`,
@@ -105,7 +116,14 @@ function CollectorProfileArtists() {
         }
       );
 
-      refreshCollector();
+      if (result.status === 200) {
+        setTimeout(() => {
+          setAddingArtistToCollection(false);
+        }, 750);
+        setTimeout(() => {
+          refreshCollector();
+        }, 850);
+      }
 
       console.log("result after selection artist:", result);
     } catch (error) {
@@ -259,6 +277,17 @@ function CollectorProfileArtists() {
   };
 
   console.log("current items:", currentItems);
+
+  const [artistLoading, setArtistLoading] = useState(false);
+  const [closeSearchedResults, setCloseSearchedResults] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const getQueryFromInput = (data) => {
+    console.log("data query:", data);
+    if (data.length) {
+      setCloseSearchedResults(false);
+    }
+  };
 
   return (
     <>
@@ -525,9 +554,10 @@ function CollectorProfileArtists() {
             <div className="box-20-px-m-top"></div>
             <div
               style={{
-                height: "360px",
+                maxHeight: "50%",
                 overflowY: "auto",
                 margin: width > 768 && "0px 20px",
+                padding: "0px 5px",
               }}
             >
               {artists?.length > 0 && (
@@ -687,8 +717,16 @@ function CollectorProfileArtists() {
                   textColor="white"
                   fontSize="16px"
                   lineHeight="26px"
-                  opacity={selectedArtistIds.length > 0 ? "1" : "0.3"}
-                  pointerEvents={selectedArtistIds?.length < 1 && "none"}
+                  opacity={
+                    selectedArtistIds.length > 0 && !addingArtistToCollection
+                      ? "1"
+                      : "0.3"
+                  }
+                  pointerEvents={
+                    selectedArtistIds?.length < 1 || addingArtistToCollection
+                      ? "none"
+                      : "auto"
+                  }
                 />
               </div>
             </div>
@@ -718,7 +756,7 @@ function CollectorProfileArtists() {
               style={{
                 display: "flex",
                 gap: width <= 768 ? "10px" : "20px",
-                alignItems: width <= 768 ? "flex-start" : "center",
+                alignItems: "flex-start",
                 justifyContent: "space-between",
                 padding: width <= 768 && "0px 20px",
                 flexDirection: width <= 768 && "column",
@@ -748,7 +786,11 @@ function CollectorProfileArtists() {
                 }
                 iconPositionRight={true}
               />
-              <div>
+              <div
+                style={{
+                  marginTop: width <= 768 && "10px",
+                }}
+              >
                 <Button
                   onClick={openSelectAnArtistModal}
                   className="unica-regular-font hover_bg_color_effect_white_text"
@@ -768,10 +810,10 @@ function CollectorProfileArtists() {
                 />
               </div>
             </div>{" "}
-            {width <= 768 ? (
-              <div className="box-40-px-m-top"></div>
-            ) : (
+            {width > 768 ? (
               <div className="box-60-px-m-top"></div>
+            ) : (
+              <div className="box-30-px-m-top"></div>
             )}
             <div className="collector-profile-artists-wrapper-after-input-List unica-regular-font display-none-bp-768px">
               <div>Artist</div>
@@ -823,8 +865,8 @@ function CollectorProfileArtists() {
               <div>Follow artist</div>
               <div>More</div>
             </div>
-            <div className="box-20-px-m-top"></div>
-            {collectorInfo?.collection?.length < 1 || allArtistsDeleted ? (
+            {width > 768 && <div className="box-20-px-m-top"></div>}
+            {allArtistsDeleted ? (
               <div className="nothing-yet-info unica-regular-font">
                 <div>
                   <span>Nothing yet.</span>
@@ -832,7 +874,7 @@ function CollectorProfileArtists() {
               </div>
             ) : (
               <div>
-                {currentItems?.map((eachCollection) => {
+                {currentItems?.map((eachCollection, index) => {
                   return (
                     <>
                       {eachCollection.artist &&
@@ -840,7 +882,7 @@ function CollectorProfileArtists() {
                         !allArtistsDeleted && (
                           <div
                             style={{
-                              padding: "32px 0px",
+                              padding: width <= 768 ? "24px 0px" : "32px 0px",
                               margin: width <= 768 && "0px 20px",
                             }}
                             key={eachCollection?.artist?._id}

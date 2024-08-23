@@ -15,6 +15,13 @@ function CollectorProfile() {
   const navigate = useNavigate();
   const [collectedArtworks, setCollectedArtworks] = useState([]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const refreshCollector = async () => {
     try {
       const result = await axios.get(
@@ -753,7 +760,6 @@ function CollectorProfile() {
                                     display: "flex",
                                     justifyContent: "space-between",
                                     boxSizing: "border-box",
-                                    maxWidth: "321.25px",
                                     marginTop: "4px",
                                   }}
                                 >
@@ -762,6 +768,10 @@ function CollectorProfile() {
                                     style={{
                                       fontSize: "16px",
                                       lineHeight: "20px",
+                                      maxWidth: "321.25px",
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                      whiteSpace: "nowrap",
                                     }}
                                   >
                                     {artworks?.artistName}

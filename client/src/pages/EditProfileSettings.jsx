@@ -23,6 +23,14 @@ function EditProfileSettings() {
   const { width } = useWindowDimensions();
   const { updateCollector, collectorInfo, getToken } =
     useContext(CollectorContext);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const {
     contextHolder,
     showErrorMessage,

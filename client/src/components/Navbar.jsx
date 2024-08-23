@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaintBrush } from "@fortawesome/free-solid-svg-icons";
 import {
   Modal,
   TextField,

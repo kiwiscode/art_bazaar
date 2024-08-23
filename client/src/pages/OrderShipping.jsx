@@ -42,6 +42,13 @@ function OrdersShipping() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const sortedCountries = getCountries().sort((a, b) => {
     if (a < b) return -1;
     if (a > b) return 1;
@@ -1543,8 +1550,16 @@ function OrdersShipping() {
                             ? `styled-input-label filled-input-label unica-regular-font`
                             : `styled-input-label unica-regular-font`
                         }
-                        labelHtmlFor={"State, province, or region"}
-                        labelText={"State, province, or region"}
+                        labelHtmlFor={
+                          width <= 480
+                            ? "State, province ..."
+                            : "State, province, or region"
+                        }
+                        labelText={
+                          width <= 480
+                            ? "State, province ..."
+                            : "State, province, or region"
+                        }
                       />
                     </div>
                   </div>
@@ -1767,12 +1782,103 @@ function OrdersShipping() {
                       borderRadius="999px"
                       border="none"
                       pointerEvents={
-                        deliveryAddressSavingProcess ? "none" : "auto"
+                        deliveryAddressSavingProcess ||
+                        !formData?.fullName ||
+                        !formData.country ||
+                        !formData?.addressLine1 ||
+                        !formData?.city ||
+                        !formData.phoneNumber ||
+                        !formData.state_provinence_or_region ||
+                        !formData.postalCode
+                          ? "none"
+                          : "auto"
                       }
                       cursor={
-                        deliveryAddressSavingProcess ? "default" : "pointer"
+                        deliveryAddressSavingProcess ||
+                        !formData?.fullName ||
+                        !formData.country ||
+                        !formData?.addressLine1 ||
+                        !formData?.city ||
+                        !formData.phoneNumber ||
+                        !formData.state_provinence_or_region ||
+                        !formData.postalCode
+                          ? "default"
+                          : "pointer"
                       }
-                      opacity={deliveryAddressSavingProcess ? "0.3" : "1"}
+                      opacity={
+                        deliveryAddressSavingProcess ||
+                        !formData?.fullName ||
+                        !formData.country ||
+                        !formData?.addressLine1 ||
+                        !formData?.city ||
+                        !formData.phoneNumber ||
+                        !formData.state_provinence_or_region ||
+                        !formData.postalCode
+                          ? "0.3"
+                          : "1"
+                      }
+                      loadingScenario={
+                        deliveryAddressSavingProcess ? true : false
+                      }
+                      text="Save and Continue"
+                      textColor="white"
+                      fontSize="16px"
+                      lineHeight="20px"
+                      onClick={() => {
+                        saveDeliveryAddressAndContinue(formData);
+                      }}
+                    />
+                  </>
+                )}
+                {width <= 768 && (
+                  <>
+                    <div className="box-20-px-m-top"></div>
+                    <Button
+                      className="hover_bg_color_effect_white_text"
+                      backgroundColor="black"
+                      height="100dvh"
+                      maxHeight="50px"
+                      width="100%"
+                      maxWidth="100%"
+                      padding="1px 25px"
+                      borderRadius="999px"
+                      border="none"
+                      pointerEvents={
+                        deliveryAddressSavingProcess ||
+                        !formData?.fullName ||
+                        !formData.country ||
+                        !formData?.addressLine1 ||
+                        !formData?.city ||
+                        !formData.phoneNumber ||
+                        !formData.state_provinence_or_region ||
+                        !formData.postalCode
+                          ? "none"
+                          : "auto"
+                      }
+                      cursor={
+                        deliveryAddressSavingProcess ||
+                        !formData?.fullName ||
+                        !formData.country ||
+                        !formData?.addressLine1 ||
+                        !formData?.city ||
+                        !formData.phoneNumber ||
+                        !formData.state_provinence_or_region ||
+                        !formData.postalCode
+                          ? "default"
+                          : "pointer"
+                      }
+                      opacity={
+                        deliveryAddressSavingProcess ||
+                        !formData?.fullName ||
+                        !formData.country ||
+                        !formData?.addressLine1 ||
+                        !formData?.city ||
+                        !formData.phoneNumber ||
+                        !formData.state_provinence_or_region ||
+                        !formData.postalCode
+                          ? "0.3"
+                          : "1"
+                      }
                       loadingScenario={
                         deliveryAddressSavingProcess ? true : false
                       }
@@ -1843,7 +1949,6 @@ function OrdersShipping() {
                           onClick={() => setAsDefault(eachAddress)}
                           style={{
                             borderRadius: "50%",
-
                             width: "20px",
                             height: "20px",
                             backgroundColor: eachAddress.settedAsDefault
@@ -1893,6 +1998,7 @@ function OrdersShipping() {
                           <div
                             style={{
                               display: "flex",
+                              flexDirection: width <= 768 ? "column" : "row",
                               color: "rgb(112,112,112)",
                               gap: "5px",
                             }}
@@ -1906,16 +2012,18 @@ function OrdersShipping() {
                           </div>
                         </div>
                       </div>
-                      <div
-                        onClick={() => {
-                          grabTheAddressToEdit(eachAddress);
-                        }}
-                        className="hover_td_kinda_blue"
-                        style={{
-                          color: "rgb(16,35,215)",
-                        }}
-                      >
-                        Edit
+                      <div>
+                        <span
+                          onClick={() => {
+                            grabTheAddressToEdit(eachAddress);
+                          }}
+                          className="hover_td_kinda_blue"
+                          style={{
+                            color: "rgb(16,35,215)",
+                          }}
+                        >
+                          Edit
+                        </span>
                       </div>
                     </div>
                   </>
@@ -1924,7 +2032,21 @@ function OrdersShipping() {
               <div className="box-20-px-m-top"></div>
               <div>
                 <span
-                  onClick={() => setShowNewAddressModal(true)}
+                  onClick={() => {
+                    setFormData({
+                      fullName: "",
+                      country: "DE",
+                      addressLine1: "",
+                      addressLine2: "",
+                      city: "",
+                      state_provinence_or_region: "",
+                      postalCode: "",
+                      phoneNumber: "",
+                      save_shipping_address_for_later_use: "",
+                      settedAsDefault: false,
+                    });
+                    setShowNewAddressModal(true);
+                  }}
                   style={{
                     textDecoration: "underline",
                   }}
@@ -2409,12 +2531,41 @@ function OrdersShipping() {
                     borderRadius="999px"
                     border="none"
                     pointerEvents={
-                      deliveryAddressSavingProcess ? "none" : "auto"
+                      deliveryAddressSavingProcess ||
+                      !formData?.fullName ||
+                      !formData.country ||
+                      !formData?.addressLine1 ||
+                      !formData?.city ||
+                      !formData.phoneNumber ||
+                      !formData.state_provinence_or_region ||
+                      !formData.postalCode
+                        ? "none"
+                        : "auto"
                     }
                     cursor={
-                      deliveryAddressSavingProcess ? "default" : "pointer"
+                      deliveryAddressSavingProcess ||
+                      !formData?.fullName ||
+                      !formData.country ||
+                      !formData?.addressLine1 ||
+                      !formData?.city ||
+                      !formData.phoneNumber ||
+                      !formData.state_provinence_or_region ||
+                      !formData.postalCode
+                        ? "default"
+                        : "pointer"
                     }
-                    opacity={deliveryAddressSavingProcess ? "0.3" : "1"}
+                    opacity={
+                      deliveryAddressSavingProcess ||
+                      !formData?.fullName ||
+                      !formData.country ||
+                      !formData?.addressLine1 ||
+                      !formData?.city ||
+                      !formData.phoneNumber ||
+                      !formData.state_provinence_or_region ||
+                      !formData.postalCode
+                        ? "0.3"
+                        : "1"
+                    }
                     loadingScenario={
                       deliveryAddressSavingProcess ? true : false
                     }
@@ -2613,9 +2764,42 @@ function OrdersShipping() {
               padding="1px 25px"
               borderRadius="999px"
               border="none"
-              pointerEvents={deliveryAddressSavingProcess ? "none" : "auto"}
-              cursor={deliveryAddressSavingProcess ? "default" : "pointer"}
-              opacity={deliveryAddressSavingProcess ? "0.3" : "1"}
+              pointerEvents={
+                deliveryAddressSavingProcess ||
+                !formData?.fullName ||
+                !formData.country ||
+                !formData?.addressLine1 ||
+                !formData?.city ||
+                !formData.phoneNumber ||
+                !formData.state_provinence_or_region ||
+                !formData.postalCode
+                  ? "none"
+                  : "auto"
+              }
+              cursor={
+                deliveryAddressSavingProcess ||
+                !formData?.fullName ||
+                !formData.country ||
+                !formData?.addressLine1 ||
+                !formData?.city ||
+                !formData.phoneNumber ||
+                !formData.state_provinence_or_region ||
+                !formData.postalCode
+                  ? "default"
+                  : "pointer"
+              }
+              opacity={
+                deliveryAddressSavingProcess ||
+                !formData?.fullName ||
+                !formData.country ||
+                !formData?.addressLine1 ||
+                !formData?.city ||
+                !formData.phoneNumber ||
+                !formData.state_provinence_or_region ||
+                !formData.postalCode
+                  ? "0.3"
+                  : "1"
+              }
               loadingScenario={deliveryAddressSavingProcess ? true : false}
               text="Save and Continue"
               textColor="white"

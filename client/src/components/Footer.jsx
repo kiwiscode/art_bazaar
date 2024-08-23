@@ -58,7 +58,7 @@ function Footer() {
                   color: "rgb(112, 112, 112)",
                 }}
               >
-                © 2024 Art Bazaar
+                © 2024 Art Bazaar | Designed & Developed by Aykut Kav
               </div>
               <div>Terms and Conditions</div>
               <div>Auction Supplement </div>
@@ -106,7 +106,7 @@ function Footer() {
                   color: "rgb(112, 112, 112)",
                 }}
               >
-                © Aykut Kav 2024 Art Bazaar
+                © 2024 Art Bazaar | Designed & Developed by Aykut Kav
               </div>
               <div>Terms and Conditions</div>
               <div>Auction Supplement </div>

@@ -20,6 +20,14 @@ function Saves() {
   const { width } = useWindowDimensions();
   const { collectorInfo, getToken, updateCollector } =
     useContext(CollectorContext);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const {
     contextHolder,
     showCustomMessageArtworkSave,

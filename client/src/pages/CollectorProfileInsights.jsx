@@ -15,6 +15,13 @@ function CollectorProfileInsights() {
   const navigate = useNavigate();
   const [collectedArtworks, setCollectedArtworks] = useState([]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const refreshCollector = async () => {
     try {
       const result = await axios.get(

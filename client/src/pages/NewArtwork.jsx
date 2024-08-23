@@ -13,11 +13,19 @@ import ArtistProfileImage from "../components/ArtistProfileImage";
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 function NewArtwork() {
+  const scrollRef = useRef(null);
   const { collectorInfo, getToken, updateCollector } =
     useContext(CollectorContext);
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const [artists, setArtists] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
 
   const handleArtistsUpdate = (newArtists) => {
     setArtists(newArtists);
@@ -146,6 +154,17 @@ function NewArtwork() {
     const formattedName = artistName.toLowerCase().replace(/ /g, "-");
     navigate(`/artist/${formattedName}`);
   };
+
+  useEffect(() => {
+    if (tabIndex === 3) {
+      setTimeout(() => {
+        scrollRef?.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+    }
+  }, [tabIndex]);
 
   return (
     <>
@@ -343,7 +362,8 @@ function NewArtwork() {
             </div>
           </div>
         </Modal>
-      </>
+      </>{" "}
+      <div ref={scrollRef}></div>
       <div
         style={{
           position: "sticky",
@@ -362,10 +382,12 @@ function NewArtwork() {
             <div>
               {" "}
               <div
+                onClick={() => navigate("/")}
                 className="dflex"
                 style={{
                   flexDirection: "column",
                   alignItems: "flex-start",
+                  cursor: "pointer",
                 }}
               >
                 <div>Art</div>
@@ -480,6 +502,7 @@ function NewArtwork() {
                 />
               </div>
             )}
+
             {tabIndex === 3 && width > 768 && (
               <div
                 style={{
@@ -531,7 +554,7 @@ function NewArtwork() {
               </div>
             )}
           </div>
-        </div>
+        </div>{" "}
         <div className="box-20-px-m-top"></div>
         <div
           style={{
@@ -865,6 +888,7 @@ function NewArtwork() {
                 lineHeight: "20px",
               }}
             >
+              {" "}
               <span>Or skip ahead to</span>{" "}
               <span
                 className="pointer"
@@ -1056,6 +1080,12 @@ function NewArtwork() {
           />
         </>
       ) : null}
+      <div
+        style={{
+          padding: width > 768 && "0px 40px",
+          marginBottom: width <= 768 ? "100px" : "60px",
+        }}
+      ></div>
     </>
   );
 }

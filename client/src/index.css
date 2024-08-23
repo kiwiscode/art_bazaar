@@ -689,8 +689,25 @@ body {
 }
 
 @media (max-width: 768px) {
+  .about-work-body,
+  .about-work-header,
+  .artist-info-wrapper,
+  .artist-info-second-wrapper {
+    padding: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .about-work-body,
+  .about-work-header,
+  .artist-info-wrapper,
+  .artist-info-second-wrapper {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
   .about-work-body-title-descriptions span {
-    max-width: 250px;
+    max-width: 200px;
     width: 100%;
   }
 }
@@ -708,8 +725,12 @@ body {
 }
 
 .artist-profile-pic-wrapper {
-  width: 45px;
-  height: 45px;
+  min-height: 45px;
+  min-width: 45px;
+  max-height: 45px;
+  max-width: 45px;
+  width: 100%;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -1033,6 +1054,12 @@ body {
   .collection-artist-detail-wrapper div:first-child {
     grid-column: span 12;
   }
+
+  .about-work-body-title-descriptions {
+    color: rgb(112, 112, 112);
+    margin-left: 10px;
+    max-width: 100%;
+  }
 }
 
 /* pagination component style */
@@ -1103,7 +1130,7 @@ body {
   }
 }
 .container-for-artworks-render-saves {
-  column-count: 3;
+  column-count: 4;
   column-gap: 20px;
 }
 
@@ -1437,6 +1464,13 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 26px;
     line-height: 32px;
   }
+
+  .insights-detail-collected-artworks .total-artists,
+  .insights-detail-collected-artworks .total-artworks {
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .insight-detailed-wrapper-from-artworks-grid-container
@@ -1611,7 +1645,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .featured-wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -1629,13 +1664,10 @@ input[type="number"]::-webkit-outer-spin-button {
   .main-wrapper-sections {
     padding: 0px 20px;
   }
-  .featured-wrapper {
-    flex-direction: column;
-    overflow: hidden;
-  }
   .parent-featured-wrapper-div {
     flex-direction: row;
     gap: 12px;
+    grid-column: span 12;
   }
 }
 
@@ -1917,4 +1949,32 @@ input[type="number"]::-webkit-outer-spin-button {
   .orders-wrapper-detailed-orders-detail {
     grid-column: span 12;
   }
+}
+
+.responsive-filters-header-wrapper {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 10px;
+  height: 53px;
+  align-items: center;
+  border-bottom: 1px solid rgb(231, 231, 231);
+}
+
+.responsive-filters-absolute-result-btn {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70px;
+}
+
+.responsive-filters-absolute-result-btn button {
+  width: 100%;
+  padding: 10px;
+  margin: 0px 10px;
+  border-radius: 9999px;
 }

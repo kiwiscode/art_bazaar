@@ -22,6 +22,13 @@ function EditArtwork() {
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   // upload artwork
   const [formData, setFormData] = useState(null);
   const [uploadedImages, setUploadedImages] = useState(null);
@@ -325,11 +332,13 @@ function EditArtwork() {
             <div>
               {" "}
               <div
+                onClick={() => navigate("/")}
                 className="dflex"
                 style={{
                   justifyContent: "center",
                   flexDirection: "column",
                   alignItems: "flex-start",
+                  cursor: "pointer",
                 }}
               >
                 <div>Art</div>

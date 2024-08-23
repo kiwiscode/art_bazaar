@@ -423,15 +423,15 @@ function Main({ sendDataToParent }) {
           >
             <div
               ref={showFiltersRef}
-              className=""
+              className="unica-regular-font"
               style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
-                width: width <= 768 ? "98%" : 410,
+                width: width <= 768 ? "100%" : 410,
                 maxHeight: "95vh",
-                height: width <= 768 && "95vh",
+                minHeight: width <= 768 && "100%",
                 backgroundColor: "white",
                 outlineStyle: "none",
                 overflowY: "auto",
@@ -439,15 +439,1692 @@ function Main({ sendDataToParent }) {
                   "0 0 15px rgba(101, 119, 134, 0.2),0 0 5px 3px rgba(101, 119, 134, 0.15)",
               }}
             >
+              <div className="responsive-filters-header-wrapper">
+                <div>
+                  <button
+                    onClick={handleClose}
+                    style={{
+                      border: "none",
+                      backgroundColor: "transparent",
+                      height: "30px",
+                      borderRadius: "9999px",
+                      padding: "1px 25px",
+                      fontSize: "13px",
+                      lineHeight: "1px",
+                    }}
+                    className="hover_effect_transparent_btn"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "20px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Filter
+                </div>
+                <div>
+                  <button
+                    onClick={() => {
+                      setPriceFilter((prevOptions) => ({
+                        ...prevOptions,
+                        minValue: "",
+                        maxValue: "",
+                      }));
+                      setMediumFilteredOptions([]);
+                      setRarityFilteredOptions([]);
+                      setMinValue(0);
+                      setMaxValue(50000);
+                      setIsPriceRangeChanging(false);
+                    }}
+                    style={{
+                      border: "none",
+                      backgroundColor: "#e7e7e7",
+                      height: "30px",
+                      borderRadius: "9999px",
+                      padding: "1px 25px",
+                      fontSize: "13px",
+                      lineHeight: "1px",
+                    }}
+                    className="hover_effect_transparent_btn"
+                  >
+                    Clear all
+                  </button>
+                </div>
+              </div>
               <div
                 style={{
-                  textAlign: "center",
-                  fontSize: "32px",
-                  marginTop: "40px",
+                  maxHeight: "81vh",
+                  overflowY: "auto",
+                  padding: "0px 20px",
                 }}
-                className="unica-regular-font"
               >
-                Work in progress...
+                <div
+                  className="box-20-px-m-top"
+                  style={{
+                    borderBottom: "1px solid rgb(0,0,0)",
+                  }}
+                ></div>
+                <div className="box-20-px-m-top"></div>
+                <div
+                  onClick={() => {
+                    setHideRarity(!hideRarity);
+                  }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    cursor: "pointer",
+                  }}
+                >
+                  <div>Rarity</div>
+                  <div className="pointer">
+                    {hideRarity ? (
+                      <svg
+                        width={14}
+                        height={14}
+                        viewBox="0 0 18 18"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M9.00006 12.88L2.06006 5.94001L2.94006 5.06001L9.00006 11.12L15.0601 5.06001L15.9401 5.94001L9.00006 12.88Z"
+                        ></path>
+                      </svg>
+                    ) : (
+                      <svg
+                        width={14}
+                        height={14}
+                        viewBox="0 0 18 18"
+                        fill="currentColor"
+                      >
+                        <path d="M15.0601 12.94L9.00006 6.88001L2.94006 12.94L2.06006 12.06L9.00006 5.12001L15.9401 12.06L15.0601 12.94Z"></path>
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <div className="box-20-px-m-top"></div>
+                {!hideRarity && (
+                  <div className="rarity-filter-options">
+                    <div
+                      onClick={() => {
+                        setRarityFilteredOptions((prevRarityOptions) => {
+                          if (prevRarityOptions.includes("Unique")) {
+                            return prevRarityOptions.filter(
+                              (option) => option !== "Unique"
+                            );
+                          } else {
+                            return [...prevRarityOptions, "Unique"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setUniqeOptionHovered(true)}
+                      onMouseLeave={() => setUniqeOptionHovered(false)}
+                      className="parent-rarity-filter-options pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            uniqeOptionHovered &&
+                            !rarityFilteredOptions?.includes("Unique")
+                              ? "1px solid rgb(16,35,215)"
+                              : uniqeOptionHovered &&
+                                rarityFilteredOptions?.includes("Unique")
+                              ? "1px solid rgb(16,35,215)"
+                              : !uniqeOptionHovered &&
+                                !rarityFilteredOptions?.includes("Unique")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            rarityFilteredOptions?.includes("Unique") &&
+                            !uniqeOptionHovered
+                              ? "black"
+                              : rarityFilteredOptions?.includes("Unique") &&
+                                uniqeOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {rarityFilteredOptions?.includes("Unique") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        Unique
+                      </div>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setRarityFilteredOptions((prevRarityOptions) => {
+                          if (prevRarityOptions.includes("Limited Edition")) {
+                            return prevRarityOptions.filter(
+                              (option) => option !== "Limited Edition"
+                            );
+                          } else {
+                            return [...prevRarityOptions, "Limited Edition"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setLimitedEditionHovered(true)}
+                      onMouseLeave={() => setLimitedEditionHovered(false)}
+                      className="parent-rarity-filter-options pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            limitedEditionHovered &&
+                            !rarityFilteredOptions?.includes("Limited Edition")
+                              ? "1px solid rgb(16,35,215)"
+                              : limitedEditionHovered &&
+                                rarityFilteredOptions?.includes(
+                                  "Limited Edition"
+                                )
+                              ? "1px solid rgb(16,35,215)"
+                              : !limitedEditionHovered &&
+                                !rarityFilteredOptions?.includes(
+                                  "Limited Edition"
+                                )
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            rarityFilteredOptions?.includes(
+                              "Limited Edition"
+                            ) && !limitedEditionHovered
+                              ? "black"
+                              : rarityFilteredOptions?.includes(
+                                  "Limited Edition"
+                                ) && limitedEditionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {rarityFilteredOptions?.includes("Limited Edition") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        Limited Edition
+                      </div>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setRarityFilteredOptions((prevRarityOptions) => {
+                          if (prevRarityOptions.includes("Open Edition")) {
+                            return prevRarityOptions.filter(
+                              (option) => option !== "Open Edition"
+                            );
+                          } else {
+                            return [...prevRarityOptions, "Open Edition"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setOpenEditionHovered(true)}
+                      onMouseLeave={() => setOpenEditionHovered(false)}
+                      className="parent-rarity-filter-options pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            openEditionHovered &&
+                            !rarityFilteredOptions?.includes("Open Edition")
+                              ? "1px solid rgb(16,35,215)"
+                              : openEditionHovered &&
+                                rarityFilteredOptions?.includes("Open Edition")
+                              ? "1px solid rgb(16,35,215)"
+                              : !openEditionHovered &&
+                                !rarityFilteredOptions?.includes("Open Edition")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            rarityFilteredOptions?.includes("Open Edition") &&
+                            !openEditionHovered
+                              ? "black"
+                              : rarityFilteredOptions?.includes(
+                                  "Open Edition"
+                                ) && openEditionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {rarityFilteredOptions?.includes("Open Edition") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        Open Edition
+                      </div>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setRarityFilteredOptions((prevRarityOptions) => {
+                          if (prevRarityOptions.includes("Unknown Edition")) {
+                            return prevRarityOptions.filter(
+                              (option) => option !== "Unknown Edition"
+                            );
+                          } else {
+                            return [...prevRarityOptions, "Unknown Edition"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setUnknowEditionHovered(true)}
+                      onMouseLeave={() => setUnknowEditionHovered(false)}
+                      className="parent-rarity-filter-options  pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            unknowEditionHovered &&
+                            !rarityFilteredOptions?.includes("Unknown Edition")
+                              ? "1px solid rgb(16,35,215)"
+                              : unknowEditionHovered &&
+                                rarityFilteredOptions?.includes(
+                                  "Unknown Edition"
+                                )
+                              ? "1px solid rgb(16,35,215)"
+                              : !unknowEditionHovered &&
+                                !rarityFilteredOptions?.includes(
+                                  "Unknown Edition"
+                                )
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            rarityFilteredOptions?.includes(
+                              "Unknown Edition"
+                            ) && !unknowEditionHovered
+                              ? "black"
+                              : rarityFilteredOptions?.includes(
+                                  "Unknown Edition"
+                                ) && unknowEditionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {rarityFilteredOptions?.includes("Unknown Edition") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        Unknown Edition
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div
+                  className="box-60-px-m-top"
+                  style={{
+                    borderBottom: "1px solid rgb(0,0,0)",
+                  }}
+                ></div>
+                <div className="box-20-px-m-top"></div>
+                <div
+                  onClick={() => {
+                    setHideMedium(!hideMedium);
+                  }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    cursor: "pointer",
+                  }}
+                >
+                  <div>Medium</div>
+                  <div className="pointer">
+                    {hideMedium ? (
+                      <svg
+                        width={14}
+                        height={14}
+                        viewBox="0 0 18 18"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M9.00006 12.88L2.06006 5.94001L2.94006 5.06001L9.00006 11.12L15.0601 5.06001L15.9401 5.94001L9.00006 12.88Z"
+                        ></path>
+                      </svg>
+                    ) : (
+                      <svg
+                        width={14}
+                        height={14}
+                        viewBox="0 0 18 18"
+                        fill="currentColor"
+                      >
+                        <path d="M15.0601 12.94L9.00006 6.88001L2.94006 12.94L2.06006 12.06L9.00006 5.12001L15.9401 12.06L15.0601 12.94Z"></path>
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <div className="box-20-px-m-top"></div>
+                {!hideMedium && (
+                  <div className="medium-filter-options">
+                    <div
+                      onClick={() => {
+                        setMediumFilteredOptions((prevMediumOptions) => {
+                          if (prevMediumOptions.includes("Painting")) {
+                            return prevMediumOptions.filter(
+                              (option) => option !== "Painting"
+                            );
+                          } else {
+                            return [...prevMediumOptions, "Painting"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setpaintingOptionHovered(true)}
+                      onMouseLeave={() => setpaintingOptionHovered(false)}
+                      className="parent-medium-filter-options pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            paintingOptionHovered &&
+                            !mediumFilteredOptions?.includes("Painting")
+                              ? "1px solid rgb(16,35,215)"
+                              : paintingOptionHovered &&
+                                mediumFilteredOptions?.includes("Painting")
+                              ? "1px solid rgb(16,35,215)"
+                              : !paintingOptionHovered &&
+                                !mediumFilteredOptions?.includes("Painting")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Painting") &&
+                            !paintingOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes("Painting") &&
+                                paintingOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {mediumFilteredOptions?.includes("Painting") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        Painting
+                      </div>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setMediumFilteredOptions((prevMediumOptions) => {
+                          if (prevMediumOptions.includes("Photography")) {
+                            return prevMediumOptions.filter(
+                              (option) => option !== "Photography"
+                            );
+                          } else {
+                            return [...prevMediumOptions, "Photography"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setphotographyOptionHovered(true)}
+                      onMouseLeave={() => setphotographyOptionHovered(false)}
+                      className="parent-medium-filter-options pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            photographyOptionHovered &&
+                            !mediumFilteredOptions?.includes("Photography")
+                              ? "1px solid rgb(16,35,215)"
+                              : photographyOptionHovered &&
+                                mediumFilteredOptions?.includes("Photography")
+                              ? "1px solid rgb(16,35,215)"
+                              : !photographyOptionHovered &&
+                                !mediumFilteredOptions?.includes("Photography")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Photography") &&
+                            !photographyOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes(
+                                  "Photography"
+                                ) && photographyOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {" "}
+                        {mediumFilteredOptions?.includes("Photography") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        Photography
+                      </div>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setMediumFilteredOptions((prevMediumOptions) => {
+                          if (prevMediumOptions.includes("Sculpture")) {
+                            return prevMediumOptions.filter(
+                              (option) => option !== "Sculpture"
+                            );
+                          } else {
+                            return [...prevMediumOptions, "Sculpture"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setsculptureOptionHovered(true)}
+                      onMouseLeave={() => setsculptureOptionHovered(false)}
+                      className="parent-medium-filter-options pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            sculptureOptionHovered &&
+                            !mediumFilteredOptions?.includes("Sculpture")
+                              ? "1px solid rgb(16,35,215)"
+                              : sculptureOptionHovered &&
+                                mediumFilteredOptions?.includes("Sculpture")
+                              ? "1px solid rgb(16,35,215)"
+                              : !sculptureOptionHovered &&
+                                !mediumFilteredOptions?.includes("Sculpture")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Sculpture") &&
+                            !sculptureOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes("Sculpture") &&
+                                sculptureOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {" "}
+                        {mediumFilteredOptions?.includes("Sculpture") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        Sculpture
+                      </div>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setMediumFilteredOptions((prevMediumOptions) => {
+                          if (prevMediumOptions.includes("Prints")) {
+                            return prevMediumOptions.filter(
+                              (option) => option !== "Prints"
+                            );
+                          } else {
+                            return [...prevMediumOptions, "Prints"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setprintsOptionHovered(true)}
+                      onMouseLeave={() => setprintsOptionHovered(false)}
+                      className="parent-medium-filter-options  pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            printsOptionHovered &&
+                            !mediumFilteredOptions?.includes("Prints")
+                              ? "1px solid rgb(16,35,215)"
+                              : printsOptionHovered &&
+                                mediumFilteredOptions?.includes("Prints")
+                              ? "1px solid rgb(16,35,215)"
+                              : !printsOptionHovered &&
+                                !mediumFilteredOptions?.includes("Prints")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Prints") &&
+                            !printsOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes("Prints") &&
+                                printsOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {" "}
+                        {mediumFilteredOptions?.includes("Prints") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        Prints
+                      </div>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setMediumFilteredOptions((prevMediumOptions) => {
+                          if (prevMediumOptions.includes("Work on Paper")) {
+                            return prevMediumOptions.filter(
+                              (option) => option !== "Work on Paper"
+                            );
+                          } else {
+                            return [...prevMediumOptions, "Work on Paper"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setworkOnPaperOptionHovered(true)}
+                      onMouseLeave={() => setworkOnPaperOptionHovered(false)}
+                      className="parent-medium-filter-options  pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            workOnPaperOptionHovered &&
+                            !mediumFilteredOptions?.includes("Work on Paper")
+                              ? "1px solid rgb(16,35,215)"
+                              : workOnPaperOptionHovered &&
+                                mediumFilteredOptions?.includes("Work on Paper")
+                              ? "1px solid rgb(16,35,215)"
+                              : !workOnPaperOptionHovered &&
+                                !mediumFilteredOptions?.includes(
+                                  "Work on Paper"
+                                )
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("Work on Paper") &&
+                            !workOnPaperOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes(
+                                  "Work on Paper"
+                                ) && workOnPaperOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {" "}
+                        {mediumFilteredOptions?.includes("Work on Paper") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        Work on Paper
+                      </div>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setMediumFilteredOptions((prevMediumOptions) => {
+                          if (prevMediumOptions.includes("NFT")) {
+                            return prevMediumOptions.filter(
+                              (option) => option !== "NFT"
+                            );
+                          } else {
+                            return [...prevMediumOptions, "NFT"];
+                          }
+                        });
+                      }}
+                      onMouseEnter={() => setNFTOptionHovered(true)}
+                      onMouseLeave={() => setNFTOptionHovered(false)}
+                      className="parent-medium-filter-options  pointer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          border:
+                            NFTOptionHovered &&
+                            !mediumFilteredOptions?.includes("NFT")
+                              ? "1px solid rgb(16,35,215)"
+                              : NFTOptionHovered &&
+                                mediumFilteredOptions?.includes("NFT")
+                              ? "1px solid rgb(16,35,215)"
+                              : !NFTOptionHovered &&
+                                !mediumFilteredOptions?.includes("NFT")
+                              ? "1px solid rgb(231,231,231)"
+                              : "1px solid black",
+                          backgroundColor:
+                            mediumFilteredOptions?.includes("NFT") &&
+                            !NFTOptionHovered
+                              ? "black"
+                              : mediumFilteredOptions?.includes("NFT") &&
+                                NFTOptionHovered
+                              ? "rgb(16,35,215)"
+                              : "white",
+                          transition: "border 0.3s ease-in-out",
+                        }}
+                      >
+                        {mediumFilteredOptions?.includes("NFT") && (
+                          <svg
+                            viewBox="0 0 18 18"
+                            fill="white"
+                            width={18}
+                            height={18}
+                          >
+                            <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                          </svg>
+                        )}
+                      </div>
+                      <div
+                        className="hover_color_effect hover_color_effect_t-d pointer"
+                        style={{
+                          color: "rgb(112,112,112)",
+                        }}
+                      >
+                        NFT
+                      </div>
+                    </div>
+                    {!showMoreMediumOptions && (
+                      <>
+                        <div className="box-20-px-m-top"></div>
+                        <div
+                          onClick={() => setShowMoreMediumOptions(true)}
+                          style={{
+                            fontSize: "13px",
+                            lineHeight: "16px",
+                            textDecoration: "underline",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Show more
+                        </div>
+                      </>
+                    )}
+
+                    {showMoreMediumOptions && (
+                      <>
+                        <div
+                          onClick={() => {
+                            setMediumFilteredOptions((prevMediumOptions) => {
+                              if (prevMediumOptions.includes("Design")) {
+                                return prevMediumOptions.filter(
+                                  (option) => option !== "Design"
+                                );
+                              } else {
+                                return [...prevMediumOptions, "Design"];
+                              }
+                            });
+                          }}
+                          onMouseEnter={() => setdesignOptionHovered(true)}
+                          onMouseLeave={() => setdesignOptionHovered(false)}
+                          className="parent-medium-filter-options  pointer"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              border:
+                                designOptionHovered &&
+                                !mediumFilteredOptions?.includes("Design")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : designOptionHovered &&
+                                    mediumFilteredOptions?.includes("Design")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !designOptionHovered &&
+                                    !mediumFilteredOptions?.includes("Design")
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes("Design") &&
+                                !designOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes("Design") &&
+                                    designOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
+                              transition: "border 0.3s ease-in-out",
+                            }}
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes("Design") && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
+                          <div
+                            className="hover_color_effect hover_color_effect_t-d pointer"
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Design
+                          </div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            setMediumFilteredOptions((prevMediumOptions) => {
+                              if (prevMediumOptions.includes("Drawing")) {
+                                return prevMediumOptions.filter(
+                                  (option) => option !== "Drawing"
+                                );
+                              } else {
+                                return [...prevMediumOptions, "Drawing"];
+                              }
+                            });
+                          }}
+                          onMouseEnter={() => setdrawingOptionHovered(true)}
+                          onMouseLeave={() => setdrawingOptionHovered(false)}
+                          className="parent-medium-filter-options  pointer"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              border:
+                                drawingOptionHovered &&
+                                !mediumFilteredOptions?.includes("Drawing")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : drawingOptionHovered &&
+                                    mediumFilteredOptions?.includes("Drawing")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !drawingOptionHovered &&
+                                    !mediumFilteredOptions?.includes("Drawing")
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes("Drawing") &&
+                                !drawingOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Drawing"
+                                    ) && drawingOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
+                              transition: "border 0.3s ease-in-out",
+                            }}
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes("Drawing") && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
+                          <div
+                            className="hover_color_effect hover_color_effect_t-d pointer"
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Drawing
+                          </div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            setMediumFilteredOptions((prevMediumOptions) => {
+                              if (prevMediumOptions.includes("Installation")) {
+                                return prevMediumOptions.filter(
+                                  (option) => option !== "Installation"
+                                );
+                              } else {
+                                return [...prevMediumOptions, "Installation"];
+                              }
+                            });
+                          }}
+                          onMouseEnter={() =>
+                            setinstallationOptionHovered(true)
+                          }
+                          onMouseLeave={() =>
+                            setinstallationOptionHovered(false)
+                          }
+                          className="parent-medium-filter-options  pointer"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              border:
+                                installationOptionHovered &&
+                                !mediumFilteredOptions?.includes("Installation")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : installationOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Installation"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !installationOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Installation"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes(
+                                  "Installation"
+                                ) && !installationOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Installation"
+                                    ) && installationOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
+                              transition: "border 0.3s ease-in-out",
+                            }}
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes(
+                              "Installation"
+                            ) && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
+                          <div
+                            className="hover_color_effect hover_color_effect_t-d pointer"
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Installation
+                          </div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            setMediumFilteredOptions((prevMediumOptions) => {
+                              if (prevMediumOptions.includes("Film/Video")) {
+                                return prevMediumOptions.filter(
+                                  (option) => option !== "Film/Video"
+                                );
+                              } else {
+                                return [...prevMediumOptions, "Film/Video"];
+                              }
+                            });
+                          }}
+                          onMouseEnter={() => setfilmdVideoOptionHovered(true)}
+                          onMouseLeave={() => setfilmdVideoOptionHovered(false)}
+                          className="parent-medium-filter-options  pointer"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              border:
+                                filmdVideoOptionHovered &&
+                                !mediumFilteredOptions?.includes("Film/Video")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : filmdVideoOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Film/Video"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !filmdVideoOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Film/Video"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes("Film/Video") &&
+                                !filmdVideoOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Film/Video"
+                                    ) && filmdVideoOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
+                              transition: "border 0.3s ease-in-out",
+                            }}
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes("Film/Video") && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
+                          <div
+                            className="hover_color_effect hover_color_effect_t-d pointer"
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Film/Video
+                          </div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            setMediumFilteredOptions((prevMediumOptions) => {
+                              if (prevMediumOptions.includes("Jewelry")) {
+                                return prevMediumOptions.filter(
+                                  (option) => option !== "Jewelry"
+                                );
+                              } else {
+                                return [...prevMediumOptions, "Jewelry"];
+                              }
+                            });
+                          }}
+                          onMouseEnter={() => setjewelryOptionHovered(true)}
+                          onMouseLeave={() => setjewelryOptionHovered(false)}
+                          className="parent-medium-filter-options  pointer"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              border:
+                                jewelryOptionHovered &&
+                                !mediumFilteredOptions?.includes("Jewelry")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : jewelryOptionHovered &&
+                                    mediumFilteredOptions?.includes("Jewelry")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !jewelryOptionHovered &&
+                                    !mediumFilteredOptions?.includes("Jewelry")
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes("Jewelry") &&
+                                !jewelryOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Jewelry"
+                                    ) && jewelryOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
+                              transition: "border 0.3s ease-in-out",
+                            }}
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes("Jewelry") && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
+                          <div
+                            className="hover_color_effect hover_color_effect_t-d pointer"
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Jewelry
+                          </div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            setMediumFilteredOptions((prevMediumOptions) => {
+                              if (
+                                prevMediumOptions.includes("Performance Art")
+                              ) {
+                                return prevMediumOptions.filter(
+                                  (option) => option !== "Performance Art"
+                                );
+                              } else {
+                                return [
+                                  ...prevMediumOptions,
+                                  "Performance Art",
+                                ];
+                              }
+                            });
+                          }}
+                          onMouseEnter={() =>
+                            setperformanceArtOptionHovered(true)
+                          }
+                          onMouseLeave={() =>
+                            setperformanceArtOptionHovered(false)
+                          }
+                          className="parent-medium-filter-options  pointer"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              border:
+                                performanceArtOptionHovered &&
+                                !mediumFilteredOptions?.includes(
+                                  "Performance Art"
+                                )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : performanceArtOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Performance Art"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !performanceArtOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Performance Art"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes(
+                                  "Performance Art"
+                                ) && !performanceArtOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Performance Art"
+                                    ) && performanceArtOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
+                              transition: "border 0.3s ease-in-out",
+                            }}
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes(
+                              "Performance Art"
+                            ) && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
+                          <div
+                            className="hover_color_effect hover_color_effect_t-d pointer"
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Performance Art
+                          </div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            setMediumFilteredOptions((prevMediumOptions) => {
+                              if (prevMediumOptions.includes("Reproduction")) {
+                                return prevMediumOptions.filter(
+                                  (option) => option !== "Reproduction"
+                                );
+                              } else {
+                                return [...prevMediumOptions, "Reproduction"];
+                              }
+                            });
+                          }}
+                          onMouseEnter={() =>
+                            setreproductionOptionHovered(true)
+                          }
+                          onMouseLeave={() =>
+                            setreproductionOptionHovered(false)
+                          }
+                          className="parent-medium-filter-options  pointer"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              border:
+                                reproductionOptionHovered &&
+                                !mediumFilteredOptions?.includes("Reproduction")
+                                  ? "1px solid rgb(16,35,215)"
+                                  : reproductionOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Reproduction"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !reproductionOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Reproduction"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes(
+                                  "Reproduction"
+                                ) && !reproductionOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Reproduction"
+                                    ) && reproductionOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
+                              transition: "border 0.3s ease-in-out",
+                            }}
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes(
+                              "Reproduction"
+                            ) && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
+                          <div
+                            className="hover_color_effect hover_color_effect_t-d pointer"
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Reproduction
+                          </div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            setMediumFilteredOptions((prevMediumOptions) => {
+                              if (
+                                prevMediumOptions.includes(
+                                  "Ephemera or Merchandise"
+                                )
+                              ) {
+                                return prevMediumOptions.filter(
+                                  (option) =>
+                                    option !== "Ephemera or Merchandise"
+                                );
+                              } else {
+                                return [
+                                  ...prevMediumOptions,
+                                  "Ephemera or Merchandise",
+                                ];
+                              }
+                            });
+                          }}
+                          onMouseEnter={() =>
+                            setephemeraOrMerchandiseOptionHovered(true)
+                          }
+                          onMouseLeave={() =>
+                            setephemeraOrMerchandiseOptionHovered(false)
+                          }
+                          className="parent-medium-filter-options  pointer"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              border:
+                                ephemeraOrMerchandiseOptionHovered &&
+                                !mediumFilteredOptions?.includes(
+                                  "Ephemera or Merchandise"
+                                )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : ephemeraOrMerchandiseOptionHovered &&
+                                    mediumFilteredOptions?.includes(
+                                      "Ephemera or Merchandise"
+                                    )
+                                  ? "1px solid rgb(16,35,215)"
+                                  : !ephemeraOrMerchandiseOptionHovered &&
+                                    !mediumFilteredOptions?.includes(
+                                      "Ephemera or Merchandise"
+                                    )
+                                  ? "1px solid rgb(231,231,231)"
+                                  : "1px solid black",
+                              backgroundColor:
+                                mediumFilteredOptions?.includes(
+                                  "Ephemera or Merchandise"
+                                ) && !ephemeraOrMerchandiseOptionHovered
+                                  ? "black"
+                                  : mediumFilteredOptions?.includes(
+                                      "Ephemera or Merchandise"
+                                    ) && ephemeraOrMerchandiseOptionHovered
+                                  ? "rgb(16,35,215)"
+                                  : "white",
+                              transition: "border 0.3s ease-in-out",
+                            }}
+                          >
+                            {" "}
+                            {mediumFilteredOptions?.includes(
+                              "Ephemera or Merchandise"
+                            ) && (
+                              <svg
+                                viewBox="0 0 18 18"
+                                fill="white"
+                                width={18}
+                                height={18}
+                              >
+                                <path d="M6.93608 12.206L14.5761 4.576L15.4241 5.425L6.93208 13.905L2.68408 9.623L3.53608 8.777L6.93608 12.206Z"></path>
+                              </svg>
+                            )}
+                          </div>
+                          <div
+                            className="hover_color_effect hover_color_effect_t-d pointer"
+                            style={{
+                              color: "rgb(112,112,112)",
+                            }}
+                          >
+                            Ephemera or Merchandise
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    {showMoreMediumOptions && (
+                      <>
+                        <div className="box-20-px-m-top"></div>
+                        <div
+                          onClick={() => setShowMoreMediumOptions(false)}
+                          style={{
+                            fontSize: "13px",
+                            lineHeight: "16px",
+                            textDecoration: "underline",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Hide
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+                <div
+                  className="box-60-px-m-top"
+                  style={{
+                    borderBottom: "1px solid rgb(0,0,0)",
+                  }}
+                ></div>
+                <div className="box-20-px-m-top"></div>
+                <div
+                  onClick={() => {
+                    setHidePrice(!hidePrice);
+                  }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    cursor: "pointer",
+                  }}
+                >
+                  <div>Price</div>
+                  <div className="pointer">
+                    {hidePrice ? (
+                      <svg
+                        width={14}
+                        height={14}
+                        viewBox="0 0 18 18"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M9.00006 12.88L2.06006 5.94001L2.94006 5.06001L9.00006 11.12L15.0601 5.06001L15.9401 5.94001L9.00006 12.88Z"
+                        ></path>
+                      </svg>
+                    ) : (
+                      <svg
+                        width={14}
+                        height={14}
+                        viewBox="0 0 18 18"
+                        fill="currentColor"
+                      >
+                        <path d="M15.0601 12.94L9.00006 6.88001L2.94006 12.94L2.06006 12.06L9.00006 5.12001L15.9401 12.06L15.0601 12.94Z"></path>
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <div className="box-20-px-m-top"></div>
+                {!hidePrice && (
+                  <>
+                    <div className="price-filter-options">
+                      <div className="range-track">
+                        <div
+                          className="range-track-first-left-ball"
+                          style={clipStyle}
+                        ></div>
+
+                        <input
+                          className="range-slider"
+                          type="range"
+                          min={0}
+                          max={50000}
+                          step={100}
+                          value={minValue}
+                          onChange={handleMinChange}
+                          style={{}}
+                        />
+                        <input
+                          className="range-slider"
+                          type="range"
+                          min={0}
+                          max={50000}
+                          step={100}
+                          value={maxValue}
+                          onChange={handleMaxChange}
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        fontSize: "13px",
+                        lineHeight: "16px",
+                        color: "rgb(112,112,112)",
+                      }}
+                    >
+                      <p>${0}</p>
+                      <p>${50000}+</p>
+                    </div>
+                    <div className="box-40-px-m-top"></div>
+                    <div
+                      className="input-wrapper-min-max-value"
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(12,1fr)",
+                        width: "100%",
+                        gap: "20px",
+                      }}
+                    >
+                      {/* min value input */}
+                      <div
+                        style={{
+                          gridColumn: "span 12",
+                          width: "100%",
+                        }}
+                      >
+                        <Input
+                          wrapperWidth={"100%"}
+                          width={"100%"}
+                          inputType={"text"}
+                          icon={"$USD"}
+                          iconPositionRight={true}
+                          height={"100dvh"}
+                          maxHeight={"50px"}
+                          onChange={handleMinChange}
+                          labelClassName={
+                            priceFilter?.minValue || minValue
+                              ? `styled-input-label filled-input-label unica-regular-font`
+                              : `styled-input-label unica-regular-font`
+                          }
+                          labelHtmlFor={"Min"}
+                          labelText={"Min"}
+                          className={"styled-input-with-label"}
+                          borderRadius={"3px"}
+                          value={minValue}
+                          name={"minValue"}
+                          withLabel={true}
+                          iconAsText={true}
+                        />
+                      </div>
+                      {/* max value input */}
+                      <div
+                        style={{
+                          gridColumn: "span 12",
+                        }}
+                      >
+                        <Input
+                          wrapperWidth={"100%"}
+                          width={"100%"}
+                          inputType={"text"}
+                          icon={"$USD"}
+                          iconPositionRight={true}
+                          height={"100dvh"}
+                          maxHeight={"50px"}
+                          onChange={handleMaxChange}
+                          labelClassName={
+                            priceFilter?.maxValue || maxValue
+                              ? `styled-input-label filled-input-label unica-regular-font`
+                              : `styled-input-label unica-regular-font`
+                          }
+                          labelHtmlFor={"Max"}
+                          labelText={"Max"}
+                          className={"styled-input-with-label"}
+                          borderRadius={"3px"}
+                          value={maxValue}
+                          name={"maxValue"}
+                          withLabel={true}
+                          iconAsText={true}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="responsive-filters-absolute-result-btn">
+                <button
+                  style={{
+                    backgroundColor: "black",
+                    border: "none",
+                    color: "white",
+                    outlineStyle: "none",
+                    height: "50px",
+                    fontSize: "16px",
+                    opacity: "0.3",
+                    pointerEvents: "none",
+                    cursor: "default",
+                  }}
+                  className="hover_bg_color_effect_white_text"
+                >
+                  Show Results
+                </button>
               </div>
             </div>
           </Modal>
@@ -6402,6 +8079,7 @@ function Main({ sendDataToParent }) {
                 height: "auto",
                 width: "100%",
                 // overflowX: "hidden",
+                display: width <= 768 && "none",
               }}
             >
               {/* slider  */}
@@ -6854,6 +8532,7 @@ function Main({ sendDataToParent }) {
                   fontSize: "26px",
                   lineHeight: "32px",
                   letterSpacing: "-0.01em",
+                  marginTop: width <= 768 && "20px",
                 }}
               >
                 Featured
@@ -9456,33 +11135,59 @@ function Main({ sendDataToParent }) {
                     </div>
                   </>
                 ) : (
-                  <div
-                    style={{
-                      padding: "4px",
-                      display: "flex",
-                      gap: "5px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <svg
-                      width={18}
-                      height={18}
-                      viewBox="0 0 18 18"
-                      fill="currentColor"
-                    >
-                      <path d="M10.006 11V9.99997H11.006V13H10.006V12H4V11H10.006ZM7.996 6.99997V7.99997H6.996V4.99997H7.996V5.99997H14V6.99997H7.996ZM6 5.99997V6.99997H4V5.99997H6ZM12 12V11H14V12H12Z"></path>
-                    </svg>
-                    <span
+                  <>
+                    <div
                       style={{
-                        fontSize: "13px",
-                        lineHeight: "20px",
+                        display: "flex",
+                        gap: "5px",
+                        alignItems: "center",
                       }}
-                      onClick={() => setShowFiltersDetail(true)}
-                      className="pointer"
                     >
-                      Sort & Filter
-                    </span>
-                  </div>
+                      <svg
+                        width={18}
+                        height={18}
+                        viewBox="0 0 18 18"
+                        fill="currentColor"
+                      >
+                        <path d="M10.006 11V9.99997H11.006V13H10.006V12H4V11H10.006ZM7.996 6.99997V7.99997H6.996V4.99997H7.996V5.99997H14V6.99997H7.996ZM6 5.99997V6.99997H4V5.99997H6ZM12 12V11H14V12H12Z"></path>
+                      </svg>
+                      <span
+                        style={{
+                          fontSize: "13px",
+                          lineHeight: "20px",
+                        }}
+                        onClick={() => setShowFiltersDetail(true)}
+                        className="pointer"
+                      >
+                        <span>Sort & Filter</span>
+                        <span
+                          style={{
+                            fontSize: "13px",
+                            lineHeight: "20px",
+                            color: "rgb(16,35,215)",
+                            marginLeft: "2px",
+                          }}
+                        >
+                          <span>•</span>
+                          <span
+                            style={{
+                              marginLeft: "2px",
+                            }}
+                          >
+                            {rarityFilteredOptions.length +
+                              mediumFilteredOptions.length}
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        marginTop: "10px",
+                        borderBottom: "1px solid rgb(231,231,231)",
+                        width: "100%",
+                      }}
+                    ></div>
+                  </>
                 )}
               </div>
             </div>
@@ -9545,7 +11250,7 @@ function Main({ sendDataToParent }) {
                           display: "flex",
                           justifyContent: "space-between",
                           boxSizing: "border-box",
-                          maxWidth: "321.25px",
+
                           marginTop: "4px",
                         }}
                       >
@@ -9554,6 +11259,10 @@ function Main({ sendDataToParent }) {
                           style={{
                             fontSize: "16px",
                             lineHeight: "20px",
+                            maxWidth: "321.25px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
                           }}
                         >
                           {eachWork?.creator}

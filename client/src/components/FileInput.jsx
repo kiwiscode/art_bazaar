@@ -34,19 +34,24 @@ function FileInput({
 
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     setError("");
-    if (fileRejections.length > 0) {
-      setError("Sadece PNG dosyalarına izin verilmektedir.");
-    }
+    console.log("file rejections:", fileRejections);
+    console.log("accepted files:", acceptedFiles);
+    const validExtensions = ["image/jpeg", "image/png", "image/heic"];
 
-    const mappedFiles = acceptedFiles.map((file) =>
-      Object.assign(file, {
-        _id: uuidv4(), // unique id for remove helper
-        preview: URL.createObjectURL(file),
-      })
-    );
+    acceptedFiles.forEach((file) => {
+      if (!validExtensions.includes(file.type)) {
+        setError(
+          "File format not supported. Please upload files with supported formats."
+        );
+      } else {
+        const mappedFile = Object.assign(file, {
+          _id: uuidv4(), // unique id for remove helper
+          preview: URL.createObjectURL(file),
+        });
 
-    setFiles((prevFiles) => [...prevFiles, ...mappedFiles]);
-    setError(null);
+        setFiles((prevFiles) => [...prevFiles, mappedFile]);
+      }
+    });
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -134,6 +139,7 @@ function FileInput({
 
   return (
     <div>
+      {" "}
       <div
         className="unica-regular-font"
         style={{
@@ -212,7 +218,19 @@ function FileInput({
           )}
         </div>
       </div>
-
+      {error && (
+        <div
+          className="unica-regular-font"
+          style={{
+            marginBottom: "20px",
+            fontSize: "13px",
+            lineHeight: "20px",
+            color: "rgb(200,36,0)",
+          }}
+        >
+          {error}
+        </div>
+      )}
       <div
         style={{
           marginBottom: "40px",

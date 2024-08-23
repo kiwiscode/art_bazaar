@@ -2,16 +2,26 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import Footer from "../components/Footer";
 import HeaderNavBar from "../components/HeaderNavBar";
+import { useContext, useEffect } from "react";
+import { CollectorContext } from "../components/CollectorContext";
 
 function SavesAlerts() {
   const { width } = useWindowDimensions();
   const location = useLocation();
   const navigate = useNavigate();
+  const { collectorInfo } = useContext(CollectorContext);
   const navItems = [
     { label: "Saves", path: "/favorites/saves" },
     { label: "Follows", path: "/favorites/follows" },
     { label: "Alerts", path: "/favorites/alerts" },
   ];
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
 
   return (
     <>

@@ -19,6 +19,13 @@ function EditProfile() {
   const { collectorInfo, getToken, updateCollector } =
     useContext(CollectorContext);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const { contextHolder, showCustomMessageDarkBg, showCustomMessage } =
     useAntdMessageHandler();
   const location = useLocation();

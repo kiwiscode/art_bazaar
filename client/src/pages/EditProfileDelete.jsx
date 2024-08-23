@@ -19,6 +19,7 @@ import {
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 function EditProfileDelete() {
+  const scrollRef = useRef(null);
   const { collectorInfo, getToken, logout } = useContext(CollectorContext);
   const { contextHolder, showErrorMessage, showCustomMessage } =
     useAntdMessageHandler();
@@ -27,6 +28,13 @@ function EditProfileDelete() {
   const navigate = useNavigate();
   const [clicked, setClicked] = useState(null);
   const [deleteIUnderstand, setDeleteIUnderstand] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
 
   const navItems = [
     { label: "Edit Profile", path: "/settings/edit-profile" },
@@ -131,6 +139,15 @@ function EditProfileDelete() {
     console.log("form data:", formData);
   }, [formData]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      scrollRef?.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100);
+  }, []);
+
   return (
     <>
       {contextHolder}
@@ -177,7 +194,7 @@ function EditProfileDelete() {
         >
           Settings
         </div>
-
+        <div ref={scrollRef}></div>
         {width <= 768 ? (
           <div className="box-20-px-m-top"></div>
         ) : (
@@ -486,7 +503,8 @@ function EditProfileDelete() {
               deleteProgressStarted ||
               !formData.permanentDeleteConfirmed ||
               !formData?.accountDeletionReason ||
-              !formData.password
+              !formData.password ||
+              !clicked
                 ? 0.3
                 : 1
             }
@@ -494,7 +512,8 @@ function EditProfileDelete() {
               deleteProgressStarted ||
               !formData.permanentDeleteConfirmed ||
               !formData?.accountDeletionReason ||
-              !formData.password
+              !formData.password ||
+              !clicked
                 ? "none"
                 : "auto"
             }

@@ -1,8 +1,19 @@
+import { useContext, useEffect } from "react";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import { CollectorContext } from "../components/CollectorContext";
 
 function No_Message() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { collectorInfo } = useContext(CollectorContext);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   return (
     <>
       <div
@@ -37,29 +48,31 @@ function No_Message() {
             <br />
             artworks, they will appear here.
           </div>
-          <div style={{
-            marginTop: "20px"
-          }}></div>
+          <div
+            style={{
+              marginTop: "20px",
+            }}
+          ></div>
           <Button
-              className="hover_bg_color_effect_white_text"
-              backgroundColor="black"
-              height="50px" 
-              width="100%"
-              maxHeight="50px"
-              maxWidth="200px"
-              padding="1px 25px"
-              margin="0"
-              borderRadius="9999px"
-              border="none"
-              pointerEvents="auto"
-              cursor="pointer"
-              opacity="1"
-              text="Browse Works"
-              textColor="white"
-              fontSize="16px"
-              lineHeight="20px"
-              onClick={() => navigate(`/`)}
-            />
+            className="hover_bg_color_effect_white_text"
+            backgroundColor="black"
+            height="50px"
+            width="100%"
+            maxHeight="50px"
+            maxWidth="200px"
+            padding="1px 25px"
+            margin="0"
+            borderRadius="9999px"
+            border="none"
+            pointerEvents="auto"
+            cursor="pointer"
+            opacity="1"
+            text="Browse Works"
+            textColor="white"
+            fontSize="16px"
+            lineHeight="20px"
+            onClick={() => navigate(`/`)}
+          />
         </div>
       </div>
     </>

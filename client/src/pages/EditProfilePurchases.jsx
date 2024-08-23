@@ -20,6 +20,13 @@ function EditProfilePurchases() {
     { label: "Order History", path: "/settings/purchases" },
   ];
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   // get orders
   const [orders, setOrders] = useState([]);
   const getOrders = async () => {

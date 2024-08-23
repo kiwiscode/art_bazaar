@@ -11,6 +11,13 @@ function Conversations() {
   const { collectorInfo, getToken } = useContext(CollectorContext);
   const [conversations, setConversations] = useState([]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
+
   const getConversations = async () => {
     try {
       const result = await axios.get(

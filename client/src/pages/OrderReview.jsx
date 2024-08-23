@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import HeaderNavBar from "../components/HeaderNavBar";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import { useContext, useEffect, useState } from "react";
@@ -12,15 +12,24 @@ const API_URL = import.meta.env.VITE_APP_API_URL;
 function OrderReview() {
   const { artworkToOrder } = useParams();
   const { getToken, collectorInfo } = useContext(CollectorContext);
+  const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const location = useLocation();
   console.log("artwork to oder:", artworkToOrder);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
 
   const navItems = [
     { label: "Shipping", path: `/orders/${artworkToOrder}/shipping/done` },
     { label: "Payment", path: `/orders/${artworkToOrder}/payment/done` },
     { label: "Review", path: `/orders/${artworkToOrder}/review` },
   ];
+
   // delivery context infos
   const {
     allDeliveryData,
@@ -99,7 +108,7 @@ function OrderReview() {
         <div className="shipping-navigation">
           <HeaderNavBar
             wrapperMargin={width <= 768 ? "0px" : "0px 0px"}
-            responsivePadding={"0px 20px"}
+            responsivePadding={width > 768 && "0px 20px"}
             items={navItems}
             currentPath={location.pathname}
             width={width}

@@ -189,14 +189,15 @@ function ArtistProfile({ sendDataToParent }) {
                       <span>b. {artist.born}</span>
                     </div>
                   ) : null}
-                  <div className="box-20-px-m-top"></div>
+
+                  {width > 768 && <div className="box-20-px-m-top"></div>}
                   <FollowButton
                     sendDataToParent={sendDataToParent}
                     artist={artist}
                     showFollowerNum={true}
                     followerCount={artist.followers.length}
                   />
-                  <div className="box-20-px-m-top"></div>
+                  {width > 768 && <div className="box-20-px-m-top"></div>}
                   {artist.description && (
                     <div>
                       <div className="artist-description">
@@ -447,7 +448,18 @@ function ArtistProfile({ sendDataToParent }) {
                       border="1px solid rgb(0,0,0)"
                       cursor="pointer"
                       fontSize="13px"
-                      onClick={() => setAlertCreated(!alertCreated)}
+                      onClick={() => {
+                        if (collectorInfo && getToken()) {
+                          setAlertCreated(!alertCreated);
+                        } else {
+                          alert(
+                            "You need to log in to create an alert. Please log in or sign up to continue."
+                          );
+                          setTimeout(() => {
+                            navigate("/");
+                          }, 600);
+                        }
+                      }}
                       svgIcon={
                         !alertCreated ? (
                           <svg
@@ -479,7 +491,7 @@ function ArtistProfile({ sendDataToParent }) {
         {/* artworks */}
         <div
           style={{
-            padding: "0px 40px",
+            padding: width <= 768 ? "0px 20px" : "0px 40px",
           }}
           className="container-for-artworks-render"
         >
@@ -530,7 +542,6 @@ function ArtistProfile({ sendDataToParent }) {
                       display: "flex",
                       justifyContent: "space-between",
                       boxSizing: "border-box",
-                      maxWidth: "321.25px",
                       marginTop: "4px",
                     }}
                   >
@@ -539,6 +550,10 @@ function ArtistProfile({ sendDataToParent }) {
                       style={{
                         fontSize: "16px",
                         lineHeight: "20px",
+                        maxWidth: "321.25px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       {artist?.name}

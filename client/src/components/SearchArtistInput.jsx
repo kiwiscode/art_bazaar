@@ -62,7 +62,9 @@ function SearchArtistInput({
   }, [closeSearchedResults]);
 
   useEffect(() => {
-    sendQueryToParent(query);
+    if (sendQueryToParent) {
+      sendQueryToParent(query);
+    }
   }, [query]);
 
   return (

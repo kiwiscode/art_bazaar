@@ -7,13 +7,22 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import { FaRegCreditCard } from "react-icons/fa";
 import { Modal } from "@mui/material";
+import { CollectorContext } from "../components/CollectorContext";
 
 function OrderPayment() {
   const { artworkToOrder } = useParams();
   const { width } = useWindowDimensions();
+  const { collectorInfo } = useContext(CollectorContext);
   const location = useLocation();
   const navigate = useNavigate();
   console.log("artwork to oder:", artworkToOrder);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, collectorInfo]);
 
   const navItems = [
     { label: "Shipping", path: `/orders/${artworkToOrder}/shipping/done` },
@@ -309,7 +318,7 @@ function OrderPayment() {
         <div className="shipping-navigation">
           <HeaderNavBar
             wrapperMargin={width <= 768 ? "0px" : "0px 0px"}
-            responsivePadding={"0px 20px"}
+            responsivePadding={width > 768 && "0px 20px"}
             items={navItems}
             currentPath={location.pathname}
             width={width}

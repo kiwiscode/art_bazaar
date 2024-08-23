@@ -126,6 +126,8 @@ function Artwork({ sendDataToParent }) {
     navigate(`/artist/${formattedName}`);
   };
 
+  console.log("artwork artist:", artwork);
+
   return (
     <>
       {contextHolder}
@@ -283,6 +285,7 @@ function Artwork({ sendDataToParent }) {
                         <div
                           style={{
                             padding: "6px",
+                            display: width <= 480 && "none",
                           }}
                         >
                           Save
@@ -319,6 +322,7 @@ function Artwork({ sendDataToParent }) {
                       <div
                         style={{
                           padding: "6px",
+                          display: width <= 480 && "none",
                         }}
                       >
                         View in room
@@ -358,6 +362,7 @@ function Artwork({ sendDataToParent }) {
                       <div
                         style={{
                           padding: "6px",
+                          display: width <= 480 && "none",
                         }}
                       >
                         Download
@@ -385,7 +390,7 @@ function Artwork({ sendDataToParent }) {
                       }}
                       className="hover_color_effect_t-d hover_color_effect artwork-creator-name unica-regular-font pointer"
                     >
-                      {artwork.artist.name}
+                      {artwork?.artist?.name}
                     </span>
                   </div>
                   <div className="artwork-info unica-italic-font">
@@ -405,79 +410,89 @@ function Artwork({ sendDataToParent }) {
                   </div>
                   {/* inside this you can add more detail about the work before purchase or offer btn */}
                   {/* <div></div> */}
-                  {!artwork.is_sold &&
-                  artwork.is_sold === false &&
-                  !artwork.unsellable_artwork ? (
-                    <div className="artwork-btns-wrapper">
-                      <div className="purchase-btn">
-                        <Button
-                          className="hover_bg_color_effect_white_text"
-                          backgroundColor="black"
-                          height="100dvh"
-                          maxHeight="50px"
-                          width="100%"
-                          maxWidth="100%"
-                          padding="1px 25px"
-                          borderRadius="999px"
-                          pointerEvents={purchaseOnProcess ? "none" : "auto"}
-                          cursor={purchaseOnProcess ? "default" : "pointer"}
-                          opacity={purchaseOnProcess ? "0.3" : "1"}
-                          text="Purchase"
-                          textColor="white"
-                          fontSize="16px"
-                          lineHeight="20px"
-                          loadingScenario={purchaseOnProcess}
-                          strokeColorLoadingSpinner={!purchaseOnProcess}
-                          onClick={() => {
-                            navigateToShipping(artwork._id);
-                          }}
-                        />
-                      </div>
-                      <div className="box-10-px-m-top"></div>
-                      {artwork.an_offer_can_be_made && (
+                  {collectorInfo && getToken() ? (
+                    <>
+                      {!artwork.is_sold &&
+                      artwork.is_sold === false &&
+                      !artwork.unsellable_artwork ? (
+                        <div className="artwork-btns-wrapper">
+                          <div className="purchase-btn">
+                            <Button
+                              className="hover_bg_color_effect_white_text"
+                              backgroundColor="black"
+                              height="100dvh"
+                              maxHeight="50px"
+                              width="100%"
+                              maxWidth="100%"
+                              padding="1px 25px"
+                              borderRadius="999px"
+                              pointerEvents={
+                                purchaseOnProcess ? "none" : "auto"
+                              }
+                              cursor={purchaseOnProcess ? "default" : "pointer"}
+                              opacity={purchaseOnProcess ? "0.3" : "1"}
+                              text="Purchase"
+                              textColor="white"
+                              fontSize="16px"
+                              lineHeight="20px"
+                              loadingScenario={purchaseOnProcess}
+                              strokeColorLoadingSpinner={!purchaseOnProcess}
+                              onClick={() => {
+                                navigateToShipping(artwork._id);
+                              }}
+                            />
+                          </div>
+                          <div className="box-10-px-m-top"></div>
+                          {artwork.an_offer_can_be_made && (
+                            <div
+                              onMouseEnter={() => setHoveredOfferBtn(true)}
+                              onMouseLeave={() => setHoveredOfferBtn(false)}
+                              className="make-an-offer-btn"
+                            >
+                              <Button
+                                className="hover_bg_color_effect_white_text"
+                                backgroundColor="white"
+                                height="100dvh"
+                                maxHeight="50px"
+                                width="100%"
+                                maxWidth="100%"
+                                padding="1px 25px"
+                                borderRadius="999px"
+                                pointerEvents={offerOnProcess ? "none" : "auto"}
+                                cursor={offerOnProcess ? "default" : "pointer"}
+                                opacity={offerOnProcess ? "0.3" : "1"}
+                                text="Make an Offer"
+                                textColor="black"
+                                fontSize="16px"
+                                lineHeight="20px"
+                                border="1px solid rgb(0,0,0)"
+                                onClick={offerToAnArtwork}
+                                loadingScenario={offerOnProcess}
+                                colorCustom={
+                                  hoveredOfferBtn ? "white" : "black"
+                                }
+                              />
+                            </div>
+                          )}
+                        </div>
+                      ) : (
                         <div
-                          onMouseEnter={() => setHoveredOfferBtn(true)}
-                          onMouseLeave={() => setHoveredOfferBtn(false)}
-                          className="make-an-offer-btn"
+                          style={{
+                            fontWeight: "900",
+                          }}
+                          className="unica-italic-font"
                         >
-                          <Button
-                            className="hover_bg_color_effect_white_text"
-                            backgroundColor="white"
-                            height="100dvh"
-                            maxHeight="50px"
-                            width="100%"
-                            maxWidth="100%"
-                            padding="1px 25px"
-                            borderRadius="999px"
-                            pointerEvents={offerOnProcess ? "none" : "auto"}
-                            cursor={offerOnProcess ? "default" : "pointer"}
-                            opacity={offerOnProcess ? "0.3" : "1"}
-                            text="Make an Offer"
-                            textColor="black"
-                            fontSize="16px"
-                            lineHeight="20px"
-                            border="1px solid rgb(0,0,0)"
-                            onClick={offerToAnArtwork}
-                            loadingScenario={offerOnProcess}
-                            colorCustom={hoveredOfferBtn ? "white" : "black"}
-                          />
+                          Sold
                         </div>
                       )}
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        fontWeight: "900",
-                      }}
-                      className="unica-italic-font"
-                    >
-                      Sold
-                    </div>
-                  )}
+                    </>
+                  ) : null}
                   <div className="box-40-px-m-top"></div>
                   <div className="footer-artwork-second-grid unica-regular-font">
                     <span>Want to sell a work by this artist?</span>{" "}
-                    <span>Sell with Art Bazaar</span>
+                    <span onClick={() => navigate("/sell")}>
+                      Sell with Art Bazaar
+                    </span>
                   </div>
                 </div>
               </div>
@@ -573,49 +588,113 @@ function Artwork({ sendDataToParent }) {
                     <div className="about-work-body-title-descriptions">
                       {artwork?.aboutTheWork?.materials &&
                         artwork.aboutTheWork.materials.trim() && (
-                          <span>{artwork.aboutTheWork.materials}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.materials}{" "}
+                          </span>
                         )}
                       {artwork?.aboutTheWork?.size &&
                         artwork.aboutTheWork.size.trim() && (
-                          <span>{artwork.aboutTheWork.size}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.size}{" "}
+                          </span>
                         )}
                       {artwork?.aboutTheWork?.rarity &&
                         artwork.aboutTheWork.rarity.trim() && (
-                          <span>{artwork.aboutTheWork.rarity}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.rarity}{" "}
+                          </span>
                         )}
                       {artwork?.aboutTheWork?.medium &&
                         artwork.aboutTheWork.medium.trim() && (
-                          <span>{artwork.aboutTheWork.medium}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.medium}{" "}
+                          </span>
                         )}
                       {artwork?.aboutTheWork?.condition &&
                         artwork.aboutTheWork.condition.trim() && (
-                          <span>{artwork.aboutTheWork.condition}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.condition}{" "}
+                          </span>
                         )}
                       {artwork?.aboutTheWork?.signature &&
                         artwork.aboutTheWork.signature.trim() && (
-                          <span>{artwork.aboutTheWork.signature}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.signature}
+                          </span>
                         )}
                       {artwork?.aboutTheWork?.certificateOfAuthenticity &&
                         artwork.aboutTheWork.certificateOfAuthenticity.trim() && (
-                          <span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
                             {artwork.aboutTheWork.certificateOfAuthenticity}
                           </span>
                         )}
                       {artwork?.aboutTheWork?.frame &&
                         artwork.aboutTheWork.frame.trim() && (
-                          <span>{artwork.aboutTheWork.frame}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.frame}{" "}
+                          </span>
                         )}
                       {artwork?.aboutTheWork?.series &&
                         artwork.aboutTheWork.series.trim() && (
-                          <span>{artwork.aboutTheWork.series}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.series}
+                          </span>
                         )}
                       {artwork?.aboutTheWork?.publisher &&
                         artwork.aboutTheWork.publisher.trim() && (
-                          <span>{artwork.aboutTheWork.publisher}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.publisher}{" "}
+                          </span>
                         )}
                       {artwork?.aboutTheWork?.imageRights &&
                         artwork.aboutTheWork.imageRights.trim() && (
-                          <span>{artwork.aboutTheWork.imageRights}</span>
+                          <span
+                            style={{
+                              maxWidth: width <= 768 && "260px",
+                            }}
+                          >
+                            {artwork.aboutTheWork.imageRights}{" "}
+                          </span>
                         )}
                     </div>
                   </div>
