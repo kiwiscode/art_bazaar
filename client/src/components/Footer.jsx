@@ -58,7 +58,7 @@ function Footer() {
                   color: "rgb(112, 112, 112)",
                 }}
               >
-                © 2024 Art Bazaar | Designed & Developed by Aykut Kav
+                © 2024 Art Bazaar | Designed & Developed by kiwisc0de
               </div>
               <div>Terms and Conditions</div>
               <div>Auction Supplement </div>
@@ -87,18 +87,33 @@ function Footer() {
               alignItems: "center",
             }}
           >
-            <div
-              className="dflex"
-              style={{
-                justifyContent: "center",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
+            <svg
+              width="60"
+              height="60"
+              viewBox="0 0 100 100"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <div>Art</div>
-              <div>Bazaar</div>
-            </div>
+              {/* Arka Plan  */}
+              <rect width="100" height="100" fill="#f5f5f5" />
 
+              {/* Sanat Figürü */}
+              <circle cx="50" cy="50" r="30" fill="#FF6347" />
+
+              {/* Çizgi  */}
+              <line
+                x1="20"
+                y1="20"
+                x2="80"
+                y2="80"
+                stroke="#333"
+                strokeWidth="3"
+              />
+
+              {/* Yazı  */}
+              <text x="50" y="90" fontSize="12" textAnchor="middle" fill="#333">
+                Art Bazaar
+              </text>
+            </svg>
             <div className="footer-text-wrapper display-none-bp-768px ">
               <div
                 style={{
@@ -106,7 +121,7 @@ function Footer() {
                   color: "rgb(112, 112, 112)",
                 }}
               >
-                © 2024 Art Bazaar | Designed & Developed by Aykut Kav
+                © 2024 Art Bazaar | Designed & Developed by kiwisc0de
               </div>
               <div>Terms and Conditions</div>
               <div>Auction Supplement </div>

@@ -229,8 +229,6 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
 
         if (status === 501) {
           setExistEmailError("Email need to be unique. Provide a valid email.");
-        } else {
-          setUniqueEmailError(null);
         }
       });
   };
@@ -551,17 +549,36 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                     >
                       <div>
                         {" "}
-                        <div
-                          className="dflex unica-regular-font"
-                          style={{
-                            justifyContent: "center",
-                            flexDirection: "column",
-                            alignItems: "flex-start",
-                          }}
+                        <svg
+                          width="60"
+                          height="60"
+                          viewBox="0 0 100 100"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <div>Art</div>
-                          <div>Bazaar</div>
-                        </div>
+                          {/* Arka Plan  */}
+                          <rect width="100" height="100" fill="#f5f5f5" />
+                          {/* Sanat Figürü */}
+                          <circle cx="50" cy="50" r="30" fill="#FF6347" />
+                          {/* Çizgi  */}
+                          <line
+                            x1="20"
+                            y1="20"
+                            x2="80"
+                            y2="80"
+                            stroke="#333"
+                            strokeWidth="3"
+                          />
+                          {/* Yazı  */}
+                          <text
+                            x="50"
+                            y="90"
+                            fontSize="12"
+                            textAnchor="middle"
+                            fill="#333"
+                          >
+                            Art Bazaar
+                          </text>{" "}
+                        </svg>
                       </div>
                       <div
                         className="chirp-regular-font unica-regular-font"
@@ -966,7 +983,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                           x="0px"
                           y="0px"
                           viewBox="0 0 18 18"
-                          xml:space="preserve"
+                          xmlSpace="preserve"
                           fill="currentColor"
                         >
                           <g transform="translate(1184.583 765.171)">
@@ -1031,8 +1048,9 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       }}
                     >
                       <span>
-                        By clicking Sign Up or Continue with Email, Apple,
-                        Google, or Facebook, you agree to Art Bazaar's
+                        {
+                          "By clicking Sign Up or Continue with Email, Apple,Google, or Facebook, you agree to Art Bazaar's"
+                        }
                       </span>{" "}
                       <span
                         style={{
@@ -1148,17 +1166,36 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                     >
                       <div>
                         {" "}
-                        <div
-                          className="dflex unica-regular-font"
-                          style={{
-                            justifyContent: "center",
-                            flexDirection: "column",
-                            alignItems: "flex-start",
-                          }}
+                        <svg
+                          width="60"
+                          height="60"
+                          viewBox="0 0 100 100"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <div>Art</div>
-                          <div>Bazaar</div>
-                        </div>
+                          {/* Arka Plan  */}
+                          <rect width="100" height="100" fill="#f5f5f5" />
+                          {/* Sanat Figürü */}
+                          <circle cx="50" cy="50" r="30" fill="#FF6347" />
+                          {/* Çizgi  */}
+                          <line
+                            x1="20"
+                            y1="20"
+                            x2="80"
+                            y2="80"
+                            stroke="#333"
+                            strokeWidth="3"
+                          />
+                          {/* Yazı  */}
+                          <text
+                            x="50"
+                            y="90"
+                            fontSize="12"
+                            textAnchor="middle"
+                            fill="#333"
+                          >
+                            Art Bazaar
+                          </text>{" "}
+                        </svg>
                       </div>
                       <div
                         className="unica-regular-font"
@@ -1481,7 +1518,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                           x="0px"
                           y="0px"
                           viewBox="0 0 18 18"
-                          xml:space="preserve"
+                          xmlSpace="preserve"
                           fill="currentColor"
                         >
                           <g transform="translate(1184.583 765.171)">
@@ -1518,7 +1555,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                         marginTop: "12px",
                       }}
                     >
-                      <span>Don't have an account?</span>
+                      <span>{"Don't have an account?"}</span>
                       <span
                         onClick={() => {
                           setSignUpOn(true);
@@ -1594,17 +1631,36 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                     >
                       <div>
                         {" "}
-                        <div
-                          className="dflex unica-regular-font"
-                          style={{
-                            justifyContent: "center",
-                            flexDirection: "column",
-                            alignItems: "flex-start",
-                          }}
+                        <svg
+                          width="60"
+                          height="60"
+                          viewBox="0 0 100 100"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <div>Art</div>
-                          <div>Bazaar</div>
-                        </div>
+                          {/* Arka Plan  */}
+                          <rect width="100" height="100" fill="#f5f5f5" />
+                          {/* Sanat Figürü */}
+                          <circle cx="50" cy="50" r="30" fill="#FF6347" />
+                          {/* Çizgi  */}
+                          <line
+                            x1="20"
+                            y1="20"
+                            x2="80"
+                            y2="80"
+                            stroke="#333"
+                            strokeWidth="3"
+                          />
+                          {/* Yazı  */}
+                          <text
+                            x="50"
+                            y="90"
+                            fontSize="12"
+                            textAnchor="middle"
+                            fill="#333"
+                          >
+                            Art Bazaar
+                          </text>{" "}
+                        </svg>
                       </div>
                       <div
                         className="unica-regular-font"
@@ -1707,8 +1763,9 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                             fontWeight: "400",
                           }}
                         >
-                          We've sent a link to reset your password if an account
-                          is associated with this email.
+                          {
+                            "We've sent a link to reset your password if an account is associated with this email."
+                          }
                         </span>
                       </div>
                     )}
@@ -1832,18 +1889,34 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
               gap: "10px",
             }}
           >
-            <div
-              className="pointer unica-regular-font"
-              onClick={() => {
-                navigate("/");
-              }}
+            <svg
               style={{
-                textAlign: "center",
+                cursor: "pointer",
               }}
+              onClick={() => navigate("/")}
+              width="70"
+              height="70"
+              viewBox="0 0 100 100"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <div>Art</div>
-              <div>Bazaar</div>
-            </div>
+              {/* Arka Plan  */}
+              <rect width="100" height="100" fill="#f5f5f5" />
+              {/* Sanat Figürü */}
+              <circle cx="50" cy="50" r="30" fill="#FF6347" />
+              {/* Çizgi  */}
+              <line
+                x1="20"
+                y1="20"
+                x2="80"
+                y2="80"
+                stroke="#333"
+                strokeWidth="3"
+              />
+              {/* Yazı  */}
+              <text x="50" y="90" fontSize="12" textAnchor="middle" fill="#333">
+                Art Bazaar
+              </text>{" "}
+            </svg>
 
             <div
               style={{
@@ -2029,6 +2102,11 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       fontSize: "13px",
                       lineHeight: "13px",
                       marginRight: width <= 768 ? "4px" : "12px",
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
                     Log In
@@ -2048,6 +2126,10 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       padding: "1px 25px",
                       fontSize: "13px",
                       lineHeight: "13px",
+                      whiteSpace: "nowrap",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
                     Sign Up

@@ -234,7 +234,6 @@ body {
 }
 
 .header_modal_pass_reset_modal {
-  height: 100px;
   background-color: white;
   position: relative;
   transition: box-shadow 250ms ease 0s;
@@ -1862,11 +1861,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .shipping-header-wrapper {
   padding: 0px 40px;
-}
-
-.brand-wrapper {
-  max-width: 75px;
-  text-align: center;
 }
 
 .delivery-address-form-wrapper {

@@ -3855,17 +3855,36 @@ function Main({ sendDataToParent }) {
                     display: welcomeModalTabIndex === 5 && "none",
                   }}
                 >
-                  <div
-                    className="dflex"
-                    style={{
-                      justifyContent: "center",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
+                  <svg
+                    width="60"
+                    height="60"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <div>Art</div>
-                    <div>Bazaar</div>
-                  </div>
+                    {/* Arka Plan  */}
+                    <rect width="100" height="100" fill="#f5f5f5" />
+                    {/* Sanat Figürü */}
+                    <circle cx="50" cy="50" r="30" fill="#FF6347" />
+                    {/* Çizgi  */}
+                    <line
+                      x1="20"
+                      y1="20"
+                      x2="80"
+                      y2="80"
+                      stroke="#333"
+                      strokeWidth="3"
+                    />
+                    {/* Yazı  */}
+                    <text
+                      x="50"
+                      y="90"
+                      fontSize="12"
+                      textAnchor="middle"
+                      fill="#333"
+                    >
+                      Art Bazaar
+                    </text>{" "}
+                  </svg>
                 </div>
                 {/* progress bar welcome modal  */}
                 <button
