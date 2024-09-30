@@ -258,11 +258,12 @@ function OrderPayment() {
                   }}
                 >
                   <span>
-                    Note: The information provided here is for testing purposes
-                    only with Stripe's test API. Please use these details for
-                    testing in the development environment only.
+                    {
+                      "Note: The information provided here is for testing purposes only with Stripe's test API. Please use these details for testing in the development environment only."
+                    }
                   </span>
                   <a
+                    rel="noreferrer"
                     className="hover_color_effect stripe-test-info pointer"
                     style={{
                       fontSize: "13px",
@@ -291,9 +292,10 @@ function OrderPayment() {
                     wordBreak: "break-word",
                   }}
                 >
-                  {testCardInfo.map((eachInfo) => {
+                  {testCardInfo.map((eachInfo, index) => {
                     return (
                       <div
+                        key={index}
                         style={{
                           margin: "10px",
                         }}
@@ -323,7 +325,14 @@ function OrderPayment() {
           {/* Çizgi  */}
           <line x1="20" y1="20" x2="80" y2="80" stroke="#333" strokeWidth="3" />
           {/* Yazı  */}
-          <text x="50" y="90" fontSize="12" textAnchor="middle" fill="#333">
+          <text
+            x="50"
+            y="95"
+            fontSize="16"
+            textAnchor="middle"
+            fill="#333"
+            className="unica-regular-font"
+          >
             Art Bazaar
           </text>{" "}
         </svg>
@@ -403,7 +412,7 @@ function OrderPayment() {
                         x="0px"
                         y="0px"
                         viewBox="0 0 18 18"
-                        xml:space="preserve"
+                        xmlSpace="preserve"
                         fill="currentColor"
                       >
                         <path d="M17,3H1C0.4,3,0,3.4,0,4v10c0,0.6,0.4,1,1,1h16c0.6,0,1-0.4,1-1V4C18,3.4,17.6,3,17,3z M6.3,10.4H3.9C3.4,10.4,3,10,3,9.5 s0.4-0.9,0.9-0.9h2.4c0.5,0,0.9,0.4,0.9,0.9S6.8,10.4,6.3,10.4z M14.1,7.4H3.9C3.4,7.4,3,7,3,6.5C3,6,3.4,5.6,3.9,5.6h10.2 C14.6,5.6,15,6,15,6.5C15,7,14.6,7.4,14.1,7.4z"></path>

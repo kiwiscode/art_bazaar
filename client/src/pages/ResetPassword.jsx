@@ -195,7 +195,14 @@ function ResetPassword() {
               strokeWidth="3"
             />
             {/* Yazı  */}
-            <text x="50" y="90" fontSize="12" textAnchor="middle" fill="#333">
+            <text
+              x="50"
+              y="95"
+              fontSize="16"
+              textAnchor="middle"
+              fill="#333"
+              className="unica-regular-font"
+            >
               Art Bazaar
             </text>{" "}
           </svg>

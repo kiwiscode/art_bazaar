@@ -406,6 +406,42 @@ function Main({ sendDataToParent }) {
       {contextHolder}
       {/* all filters modal */}
 
+      {/* <div
+        onClick={() => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }}
+        className="unica-medium-font"
+        style={{
+          position: "fixed",
+          bottom: 15,
+          right: 15,
+          zIndex: 1,
+          width: "50px",
+          height: "50px",
+          borderRadius: "50%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          background: "#ffffff",
+          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.3)",
+          border: "0.5px solid rgba(202, 219, 226, 0.4)",
+          color: "black",
+          cursor: "pointer",
+        }}
+      >
+        <svg
+          width={18}
+          height={18}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 12 6"
+        >
+          <path d="M12 6H0l6-6z" />
+        </svg>
+      </div> */}
+
       <>
         {width <= 768 && (
           <Modal
@@ -530,8 +566,8 @@ function Main({ sendDataToParent }) {
                         fill="currentColor"
                       >
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
                           d="M9.00006 12.88L2.06006 5.94001L2.94006 5.06001L9.00006 11.12L15.0601 5.06001L15.9401 5.94001L9.00006 12.88Z"
                         ></path>
                       </svg>
@@ -3877,10 +3913,11 @@ function Main({ sendDataToParent }) {
                     {/* Yazı  */}
                     <text
                       x="50"
-                      y="90"
-                      fontSize="12"
+                      y="95"
+                      fontSize="16"
                       textAnchor="middle"
                       fill="#333"
+                      className="unica-regular-font"
                     >
                       Art Bazaar
                     </text>{" "}

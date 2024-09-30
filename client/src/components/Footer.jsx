@@ -110,7 +110,14 @@ function Footer() {
               />
 
               {/* Yazı  */}
-              <text x="50" y="90" fontSize="12" textAnchor="middle" fill="#333">
+              <text
+                x="50"
+                y="95"
+                fontSize="16"
+                textAnchor="middle"
+                fill="#333"
+                className="unica-regular-font"
+              >
                 Art Bazaar
               </text>
             </svg>
@@ -148,7 +155,7 @@ function Footer() {
                   x="0px"
                   y="0px"
                   viewBox="0 0 18 18"
-                  xml:space="preserve"
+                  xmlSpace="preserve"
                   fill="currentColor"
                 >
                   <polygon points="9.1,8.2 6.6,4.6 5.3,4.6 8.4,9.1 8.7,9.6 8.7,9.6 11.4,13.4 12.7,13.4 9.5,8.8  "></polygon>
@@ -206,6 +213,7 @@ function Footer() {
             </div>
             <div>
               <a
+                rel="noreferrer"
                 target="_blank"
                 href="https://www.tiktok.com"
                 style={{
@@ -227,6 +235,7 @@ function Footer() {
             </div>
             <div>
               <a
+                rel="noreferrer"
                 target="_blank"
                 href="https://open.spotify.com"
                 style={{

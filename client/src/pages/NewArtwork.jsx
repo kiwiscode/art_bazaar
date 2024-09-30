@@ -403,10 +403,11 @@ function NewArtwork() {
                 {/* Yazı  */}
                 <text
                   x="50"
-                  y="90"
-                  fontSize="12"
+                  y="95"
+                  fontSize="16"
                   textAnchor="middle"
                   fill="#333"
+                  className="unica-regular-font"
                 >
                   Art Bazaar
                 </text>{" "}

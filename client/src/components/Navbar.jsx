@@ -571,10 +571,11 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                           {/* Yazı  */}
                           <text
                             x="50"
-                            y="90"
-                            fontSize="12"
+                            y="95"
+                            fontSize="16"
                             textAnchor="middle"
                             fill="#333"
+                            className="unica-regular-font"
                           >
                             Art Bazaar
                           </text>{" "}
@@ -1188,10 +1189,11 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                           {/* Yazı  */}
                           <text
                             x="50"
-                            y="90"
-                            fontSize="12"
+                            y="95"
+                            fontSize="16"
                             textAnchor="middle"
                             fill="#333"
+                            className="unica-regular-font"
                           >
                             Art Bazaar
                           </text>{" "}
@@ -1653,10 +1655,11 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                           {/* Yazı  */}
                           <text
                             x="50"
-                            y="90"
-                            fontSize="12"
+                            y="95"
+                            fontSize="16"
                             textAnchor="middle"
                             fill="#333"
+                            className="unica-regular-font"
                           >
                             Art Bazaar
                           </text>{" "}
@@ -1892,10 +1895,12 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
             <svg
               style={{
                 cursor: "pointer",
+                overflow: "hidden",
+                flexShrink: 0,
               }}
               onClick={() => navigate("/")}
-              width="70"
-              height="70"
+              width="50"
+              height="50"
               viewBox="0 0 100 100"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -1913,7 +1918,14 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                 strokeWidth="3"
               />
               {/* Yazı  */}
-              <text x="50" y="90" fontSize="12" textAnchor="middle" fill="#333">
+              <text
+                x="50"
+                y="95"
+                fontSize="16"
+                textAnchor="middle"
+                fill="#333"
+                className="unica-regular-font"
+              >
                 Art Bazaar
               </text>{" "}
             </svg>

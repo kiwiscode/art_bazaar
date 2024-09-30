@@ -152,8 +152,8 @@ function Saves() {
           >
             <svg width={18} height={14} viewBox="0 0 18 18" fill="currentColor">
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M12.0601 15.94L5.12012 9L12.0601 2.06L12.9401 2.94L6.88012 9L12.9401 15.06L12.0601 15.94Z"
               ></path>
             </svg>
@@ -261,9 +261,7 @@ function Saves() {
                       style={{
                         width: "100px",
                         height: "100px",
-                        backgroundColor: collectorSaves4Piece[0]
-                          ? "white"
-                          : "red",
+
                         border: "1px solid rgb(216, 216, 216)",
                         display: "flex",
                         justifyContent: "center",
@@ -306,9 +304,7 @@ function Saves() {
                       style={{
                         width: "100px",
                         height: "100px",
-                        backgroundColor: collectorSaves4Piece[1]
-                          ? "white"
-                          : "red",
+
                         border: "1px solid rgb(216, 216, 216)",
                         display: "flex",
                         justifyContent: "center",
@@ -359,9 +355,7 @@ function Saves() {
                       style={{
                         width: "100px",
                         height: "100px",
-                        backgroundColor: collectorSaves4Piece[2]
-                          ? "white"
-                          : "red",
+
                         border: "1px solid rgb(216, 216, 216)",
                         display: "flex",
                         justifyContent: "center",
@@ -404,9 +398,7 @@ function Saves() {
                       style={{
                         width: "100px",
                         height: "100px",
-                        backgroundColor: collectorSaves4Piece[3]
-                          ? "white"
-                          : "red",
+
                         border: "1px solid rgb(216, 216, 216)",
                         display: "flex",
                         justifyContent: "center",
@@ -547,7 +539,7 @@ function Saves() {
                         }
                       >
                         <>
-                          <option value="" diabled selected hidden></option>
+                          <option value="" disabled selected hidden></option>
                           <option value="Recently Added">Recently Added</option>
                           <option value="First Added">First Added</option>
                         </>
@@ -622,7 +614,7 @@ function Saves() {
                         }
                       >
                         <>
-                          <option value="" diabled selected hidden></option>
+                          <option value="" disabled selected hidden></option>
                           {/* <option value="Select">Select</option> */}
                           <option value="Recently Added">Recently Added</option>
                           <option value="First Added">First Added</option>

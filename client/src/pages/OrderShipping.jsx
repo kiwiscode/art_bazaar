@@ -1913,7 +1913,14 @@ function OrdersShipping() {
           {/* Çizgi  */}
           <line x1="20" y1="20" x2="80" y2="80" stroke="#333" strokeWidth="3" />
           {/* Yazı  */}
-          <text x="50" y="90" fontSize="12" textAnchor="middle" fill="#333">
+          <text
+            x="50"
+            y="95"
+            fontSize="16"
+            textAnchor="middle"
+            fill="#333"
+            className="unica-regular-font"
+          >
             Art Bazaar
           </text>{" "}
         </svg>

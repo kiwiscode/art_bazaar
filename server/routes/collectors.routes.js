@@ -329,8 +329,14 @@ const uploadImages = async (base64Images) => {
       return cloudinary.uploader.upload(image, {
         folder: `collections-artwork-upload`,
         allowed_formats: ["jpg", "png", "heic"],
-        height: 1000,
-        crop: "limit",
+        width: 1920, // For large screens, ensure the image width is sufficient
+        // height: 200, // Match your CSS maxHeight
+        height: 1920, // Match your CSS maxHeight
+        crop: "fill", // To fill the space and ensure no white space
+        gravity: "auto", // To let Cloudinary auto-crop based on content
+        quality: "auto:good", // Adjust the quality for performance optimization
+        fetch_format: "jpg",
+        format: "jpg",
       });
     });
 
@@ -687,13 +693,16 @@ router.post("/:collectorId/change_profile_image", async (req, res) => {
 
     if (image) {
       const imageInfo = await cloudinary.uploader.upload(image, {
-        folder: "chat_app",
-        allowed_formats: ["jpg", "png"],
+        folder: "art_bazaar/profile_images",
+        allowed_formats: ["ogv", "jpg", "png", "webm", "webp"],
         gravity: "face",
-        width: 133,
-        height: 133,
+        // width: 133,
+        // height: 133,
         radius: "max",
         crop: "fill",
+        quality: "auto:good",
+        fetch_format: "jpg",
+        format: "jpg",
       });
 
       collector.profileImage = imageInfo.url;
