@@ -116,7 +116,7 @@ router.post("/signup", (req, res, next) => {
 });
 
 const sendVerificationEmail = ({ _id, email }, res, token) => {
-  const baseURL = "http://localhost:3000";
+  const baseURL = process.env.BACKEND_URL;
 
   const mailOptions = {
     from: process.env.AUTH_EMAIL,
@@ -345,7 +345,7 @@ router.post("/logout", authenticateToken, async (req, res, next) => {
 });
 
 const sendForgotPasswordEmail = (email, res, token) => {
-  const baseURL = "http://localhost:5173";
+  const baseURL = process.env.FRONTEND_URL;
 
   const mailOptions = {
     from: process.env.AUTH_EMAIL,

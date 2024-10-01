@@ -1035,17 +1035,6 @@ router.get("/:collectorId/conversations", async (req, res) => {
   try {
     const { collectorId } = req.params;
 
-    // // collector'ın konuşmalarını al for future
-    // const conversations = await Conversation.find({ collectorId: collectorId })
-    //   .populate("participants")
-    //   .populate({
-    //     path: "participants",
-    //     populate: {
-    //       path: "user",
-    //       model: "User",
-    //     },
-    //   });
-
     const collector = await Collector.findById(collectorId);
 
     if (!collector) {

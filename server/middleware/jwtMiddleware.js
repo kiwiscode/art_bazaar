@@ -5,7 +5,10 @@ module.exports = (req, res, next) => {
   const token = authHeader && authHeader.split(" ")[1];
 
   if (token || !token) {
-    res.clearCookie("connect.sid", { host: "localhost", path: "/" });
+    res.clearCookie("connect.sid", {
+      host: process.env.FRONTEND_URL ? process.env.FRONTEND_URL : "localhost",
+      path: "/",
+    });
   }
 
   if (!token) {

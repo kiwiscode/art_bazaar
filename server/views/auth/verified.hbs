@@ -23,7 +23,13 @@
         />
       </svg>
     </div>
-    <a href="http://localhost:5173" class="login-link">Login to start exploring
+    <a 
+    href="
+    {{!-- on deployment version --}}
+    https://art-bazaar.vercel.app"
+  {{!-- on local version --}}
+  {{!-- "http://localhost:5173" --}}
+     class="login-link">Login to start exploring
       Art Bazaar</a>
   </div>
 {{/if}}

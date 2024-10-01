@@ -52,5 +52,3 @@ export const removeFromFavorites = async (collectorInfo, artwork, getToken) => {
     throw error;
   }
 };
-
-export const getFavorites = (collectorId) => {};
