@@ -68,8 +68,6 @@ function ArtistProfile({ sendDataToParent }) {
     try {
       const result = await axios.get(`${API_URL}/artist/${artist_name}`);
 
-      "result artist:", result;
-
       if (result.status === 200) {
         const { artist, artworks } = result.data;
         setArtist(artist);
@@ -521,8 +519,6 @@ function ArtistProfile({ sendDataToParent }) {
                         hoveredIndex === index && transformOrigin,
                       transform:
                         hoveredIndex === index && `scale(${scaleNumber})`,
-                      transition:
-                        "transform 0.15s,transform-origin 100ms,opacity 0.25s",
                       objectFit: "cover",
                       opacity: 1,
                     }}

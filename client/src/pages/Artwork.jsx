@@ -47,7 +47,6 @@ function Artwork({ sendDataToParent }) {
           },
         }
       );
-      "collector:", result.data;
       updateCollector(
         { favoriteArtworks: result.data.favoriteArtworks },
         { followedArtists: result.data.followedArtists },
@@ -83,7 +82,7 @@ function Artwork({ sendDataToParent }) {
   }, [artworkName]);
 
   const handleZoomIn = () => {
-    ("works together with handlezoomableimagecanvasdata !!!");
+    console.log("works together with handlezoomableimagecanvasdata !!!");
     setIsZoomed(true);
   };
 
@@ -126,7 +125,7 @@ function Artwork({ sendDataToParent }) {
     navigate(`/artist/${formattedName}`);
   };
 
-  "artwork artist:", artwork;
+  console.log("artwork artist:", artwork);
 
   return (
     <>

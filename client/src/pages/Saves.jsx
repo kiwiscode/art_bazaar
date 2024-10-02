@@ -661,8 +661,6 @@ function Saves() {
                             hoveredIndex === index && transformOrigin,
                           transform:
                             hoveredIndex === index && `scale(${scaleNumber})`,
-                          transition:
-                            "transform 0.15s,transform-origin 100ms,opacity 0.25s",
                           objectFit: "cover",
                           opacity: 1,
                         }}

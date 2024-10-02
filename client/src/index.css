@@ -385,8 +385,8 @@ body {
 .zoom {
   width: 100%;
   box-sizing: border-box;
-  transition: transform 0.15s ease 0s, transform-origin 100ms ease 0s,
-    opacity 0.25s ease 0s;
+  transition: transform 0.15s;
+  overflow: visible;
 }
 
 /* artist profile */

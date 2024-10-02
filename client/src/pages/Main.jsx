@@ -912,8 +912,8 @@ function Main({ sendDataToParent }) {
                         fill="currentColor"
                       >
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
                           d="M9.00006 12.88L2.06006 5.94001L2.94006 5.06001L9.00006 11.12L15.0601 5.06001L15.9401 5.94001L9.00006 12.88Z"
                         ></path>
                       </svg>
@@ -11100,6 +11100,7 @@ function Main({ sendDataToParent }) {
                             (eachRarityOption, index) => {
                               return (
                                 <div
+                                  key={index}
                                   onClick={() => {
                                     setRarityFilteredOptions(
                                       (prevRarityOptions) =>
@@ -11131,6 +11132,7 @@ function Main({ sendDataToParent }) {
                             (eachMediumOption, index) => {
                               return (
                                 <div
+                                  key={index}
                                   onClick={() => {
                                     setMediumFilteredOptions(
                                       (prevMediumOptions) =>
@@ -11301,8 +11303,6 @@ function Main({ sendDataToParent }) {
                             hoveredIndex === index && transformOrigin,
                           transform:
                             hoveredIndex === index && `scale(${scaleNumber})`,
-                          transition:
-                            "transform 0.15s,transform-origin 100ms,opacity 0.25s",
                           objectFit: "cover",
                           opacity: 1,
                         }}
