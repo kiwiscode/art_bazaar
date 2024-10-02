@@ -942,20 +942,31 @@ function CollectorProfileArtists() {
                                       {eachCollection?.artist?.name}
                                     </div>
                                     {eachCollection?.artist?.nationality &&
-                                      eachCollection?.artist?.born &&
-                                      eachCollection?.artist?.died && (
-                                        <div
-                                          style={{
-                                            fontSize: "13px",
-                                            lineHeight: "20px",
-                                            color: "rgb(112,112,112)",
-                                          }}
-                                        >
+                                    eachCollection?.artist?.born &&
+                                    eachCollection?.artist?.died ? (
+                                      <div className="artist-info">
+                                        <span>
                                           {eachCollection?.artist?.nationality},{" "}
+                                        </span>
+                                        <span>
                                           {eachCollection?.artist?.born}-
+                                        </span>
+                                        <span>
                                           {eachCollection?.artist?.died}
-                                        </div>
-                                      )}
+                                        </span>
+                                      </div>
+                                    ) : eachCollection?.artist?.nationality &&
+                                      eachCollection?.artist?.born &&
+                                      !eachCollection?.artist?.died ? (
+                                      <div className="artist-info">
+                                        <span>
+                                          {eachCollection?.artist?.nationality},{" "}
+                                        </span>
+                                        <span>
+                                          b. {eachCollection?.artist?.born}
+                                        </span>
+                                      </div>
+                                    ) : null}
                                   </div>
                                 </div>
                               </a>
