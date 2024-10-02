@@ -115,7 +115,7 @@ router.post("/signup", (req, res, next) => {
 });
 
 const sendVerificationEmail = ({ _id, email }, res, token) => {
-  const baseURL = process.env.BACKEND_URL;
+  const baseURL = process.env.FRONTEND_URL;
 
   const mailOptions = {
     from: process.env.AUTH_EMAIL,
