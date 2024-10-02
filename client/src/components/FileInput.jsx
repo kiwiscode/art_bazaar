@@ -34,8 +34,6 @@ function FileInput({
 
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     setError("");
-    "file rejections:", fileRejections;
-    "accepted files:", acceptedFiles;
     const validExtensions = ["image/jpeg", "image/png", "image/heic"];
 
     acceptedFiles.forEach((file) => {

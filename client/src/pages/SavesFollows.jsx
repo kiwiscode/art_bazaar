@@ -41,15 +41,11 @@ function SavesFollows() {
         }
       );
 
-      "result collector followed artists :", result;
-
       setFollowedArtists(result.data.followedArtists);
     } catch (error) {
       console.error("error:", error);
     }
   };
-
-  "collector followed artists:", followedArtists;
 
   useEffect(() => {
     if (collectorInfo?._id) {
@@ -66,7 +62,6 @@ function SavesFollows() {
   const getArtistArtworks = async (artist_name) => {
     try {
       const result = await axios.get(`${API_URL}/artist/${artist_name}`);
-      "result artist:", result;
 
       if (result.status === 200) {
         const { artworks } = result.data;

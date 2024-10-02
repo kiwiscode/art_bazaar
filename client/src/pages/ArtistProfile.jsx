@@ -26,7 +26,6 @@ function ArtistProfile({ sendDataToParent }) {
   const [artist, setArtist] = useState(null);
   const [artworks, setArtWorks] = useState(null);
   const [showAuctionRecord, setShowAuctionRecord] = useState(null);
-  const [showSecondaryMarket, setShowSecondaryMarket] = useState(null);
   const [showCriticallyAcclaimed, setShowCriticallyAcclaimed] = useState(null);
   const [showShows, setShowShows] = useState(null);
   const { width } = useWindowDimensions();
@@ -45,8 +44,6 @@ function ArtistProfile({ sendDataToParent }) {
   };
 
   const refreshCollector = async () => {
-    const { collectorInfo, getToken, updateCollector } =
-      useContext(CollectorContext);
     try {
       const result = await axios.get(
         `${API_URL}/collectors/${collectorInfo?._id}`,

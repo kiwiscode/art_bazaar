@@ -11,10 +11,8 @@ import FollowButton from "../components/FollowButton";
 import Paginator from "../components/Paginator";
 import { useAntdMessageHandler } from "../../utils/useAntdMessageHandler";
 import Checkbox from "../components/Checkbox";
-import LoadingSpinner from "../components/LoadingSpinner";
 import SearchArtistInput from "../components/SearchArtistInput";
 import { useNavigate } from "react-router-dom";
-import ProfileImage from "../components/ProfileImage";
 import ArtistProfileImage from "../components/ArtistProfileImage";
 // when working on local version
 const API_URL = import.meta.env.VITE_APP_API_URL;
@@ -46,7 +44,6 @@ function CollectorProfileArtists() {
       updateCollector({ favoriteArtworks: result.data.favoriteArtworks });
       updateCollector({ followedArtists: result.data.followedArtists });
       updateCollector({ collection: result.data.collection });
-      "result collector profile:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -124,8 +121,6 @@ function CollectorProfileArtists() {
           refreshCollector();
         }, 850);
       }
-
-      "result after selection artist:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -140,17 +135,12 @@ function CollectorProfileArtists() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  "index first:", indexOfFirstItem;
-  "index last:", indexOfLastItem;
-
   const currentItems =
     collectorInfo?.collection?.slice(indexOfFirstItem, indexOfLastItem) || [];
 
   const allArtistsDeleted = currentItems.every(
     (item) => item.artistDeletedFromCollection === true
   );
-
-  "all artists deleted:", allArtistsDeleted;
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -163,7 +153,6 @@ function CollectorProfileArtists() {
   );
 
   const shareWithGalleries = async (collectionId, share) => {
-    ("works!");
     try {
       const result = await axios.patch(
         `${API_URL}/collectors/${collectorInfo?._id}/collection/share_gallery_status`,
@@ -177,7 +166,6 @@ function CollectorProfileArtists() {
           },
         }
       );
-      "result:", result;
       showCustomMessage("Updated artist", 6);
 
       if (share) {
@@ -234,7 +222,6 @@ function CollectorProfileArtists() {
   const removeArtistFromCollection = async () => {
     setLoading(true);
     try {
-      "artist to remove:", artistToRemove;
       const result = await axios.patch(
         `${API_URL}/collectors/${collectorInfo?._id}/collection/${collectionIdToUpdate}/remove_artist`,
         {
@@ -267,7 +254,6 @@ function CollectorProfileArtists() {
   const [artists, setArtists] = useState([]);
 
   const handleArtistsUpdate = (newArtists) => {
-    "new artists:", newArtists;
     setArtists(newArtists);
   };
 
@@ -276,14 +262,11 @@ function CollectorProfileArtists() {
     navigate(`/artist/${formattedName}`);
   };
 
-  "current items:", currentItems;
-
   const [artistLoading, setArtistLoading] = useState(false);
   const [closeSearchedResults, setCloseSearchedResults] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const getQueryFromInput = (data) => {
-    "data query:", data;
     if (data.length) {
       setCloseSearchedResults(false);
     }

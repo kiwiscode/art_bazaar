@@ -3,7 +3,6 @@ import useWindowDimensions from "../../utils/useWindowDimensions";
 import Footer from "../components/Footer";
 import HeaderNavBar from "../components/HeaderNavBar";
 import { useContext, useEffect, useRef, useState } from "react";
-import Input from "../components/Input";
 import axios from "axios";
 import { CollectorContext } from "../components/CollectorContext";
 import { useAntdMessageHandler } from "../../utils/useAntdMessageHandler";
@@ -89,7 +88,6 @@ function EditProfileDelete() {
     e.preventDefault();
   };
   const handleFocus = () => {
-    ("focused ...");
     setIsFocused(true);
   };
 
@@ -112,7 +110,6 @@ function EditProfileDelete() {
         }
       );
 
-      "result after delete:", result;
       if (result.status === 200) {
         setTimeout(() => {
           showCustomMessage("", 12, true);
@@ -135,9 +132,7 @@ function EditProfileDelete() {
     }
   };
 
-  useEffect(() => {
-    "form data:", formData;
-  }, [formData]);
+  useEffect(() => {}, [formData]);
 
   useEffect(() => {
     setTimeout(() => {

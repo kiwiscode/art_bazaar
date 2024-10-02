@@ -182,8 +182,6 @@ function EditProfileSettings() {
     }
   }, [collectorInfo]);
 
-  "form data:", formData;
-
   // save changes
   const [changesOn, setChangesOn] = useState(false);
   const [changesOnPasswordChange, setChangesOnPasswordChange] = useState(false);
@@ -202,8 +200,6 @@ function EditProfileSettings() {
           },
         }
       );
-
-      "result:", result;
 
       if (result.status === 200) {
         setTimeout(() => {
@@ -254,8 +250,6 @@ function EditProfileSettings() {
 
   const handleChangePasswordData = (e) => {
     const { name, value } = e.target;
-    "name:", name;
-    "value:", value;
 
     if (name === "NewPassword") {
       setValuesBeenEnteredIntoThePasswordField(true);
@@ -285,7 +279,6 @@ function EditProfileSettings() {
   }, [changePasswordFormData.NewPassword]);
 
   const handleFocus = () => {
-    ("focused ...");
     setIsFocused(true);
   };
 
@@ -298,8 +291,6 @@ function EditProfileSettings() {
   };
 
   useEffect(() => {
-    "new password:", changePasswordFormData?.NewPassword;
-    "confirm new password:", changePasswordFormData?.ConfirmNewPassword;
     if (
       changePasswordFormData?.NewPassword?.length &&
       changePasswordFormData?.ConfirmNewPassword?.length &&

@@ -10,8 +10,6 @@ router.get("/all-artworks", async (req, res) => {
       return res.status(404).json({ message: "No artworks found" });
     }
 
-    "artworks:", artworks;
-
     return res.status(200).json(artworks);
   } catch (error) {
     console.error(error);
@@ -38,8 +36,6 @@ router.get("/all-artworks/with_id/:artworkId", async (req, res) => {
 router.get("/:artworkName", async (req, res) => {
   try {
     let { artworkName } = req.params;
-
-    "artworkname:", artworkName;
 
     const artwork = await Artwork.findOne({
       urlName: { $regex: new RegExp("^" + artworkName + "$", "i") },

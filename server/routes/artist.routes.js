@@ -24,12 +24,9 @@ router.get("/:artistName", async (req, res) => {
     const artist = await Artist.findOne({
       name: { $regex: new RegExp("^" + artistName + "$", "i") },
     });
-    "artist id:", artist._id;
     const artworks = await Artwork.find({
       creator: artist.name,
     });
-
-    "artwork:", artworks;
 
     if (!artist) {
       return res.status(404).json({ error: "Artist not found" });
@@ -48,8 +45,6 @@ router.post(
   async (req, res) => {
     try {
       const { collectorId, artistId } = req.params;
-
-      "collector id:", collectorId, "artist id:", artistId;
 
       const collector = await Collector.findById(collectorId);
       const artist = await Artist.findById(artistId);
@@ -87,8 +82,6 @@ router.post(
     try {
       const { collectorId, artistId } = req.params;
 
-      "collector id:", collectorId, "artist id:", artistId;
-
       const collector = await Collector.findById(collectorId);
       const artist = await Artist.findById(artistId);
 
@@ -124,7 +117,6 @@ router.get("/", async (req, res) => {
   let searchQuery = req.query.q;
   searchQuery = searchQuery.replace(/\s+/g, "").toLowerCase();
   const regex = new RegExp(searchQuery, "i");
-  "search query:", searchQuery;
   try {
     const artists = await Artist.find({});
     const filteredArtists = artists.filter((artist) => {

@@ -32,8 +32,6 @@ function CollectorProfileInsights() {
           },
         }
       );
-
-      "result collector profile:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -51,7 +49,6 @@ function CollectorProfileInsights() {
       );
 
       setCollectedArtworks(result.data);
-      "result Collector's collected artworks:", result;
     } catch (error) {
       console.error("error:", error);
     }

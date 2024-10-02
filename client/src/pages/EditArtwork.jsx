@@ -40,10 +40,6 @@ function EditArtwork() {
     setUploadedImages(uploadedImages);
   };
 
-  "collected artwork:", collectedArtwork;
-  "upload images:", uploadedImages;
-  "form data:", formData;
-
   // upload artwork
   const [saveOn, setSaveOn] = useState(false);
   const saveChanges = async () => {
@@ -62,7 +58,6 @@ function EditArtwork() {
         }
       );
 
-      "result after edit:", result;
       if (result.status === 200) {
         navigate(
           `/collector-profile/my-collection/artwork/${collectedArtworkId}`

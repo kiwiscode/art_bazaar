@@ -9,6 +9,7 @@ const Presentation = ({
   // Array.from ile HTML öğeleri içeren bir dizi oluşturuyoruz
   const presentation = Array.from({ length: totalIndex }, (_, index) => (
     <div
+      key={index}
       onClick={() => sendClickedIndexToParent(index)}
       style={{
         width: "100%",

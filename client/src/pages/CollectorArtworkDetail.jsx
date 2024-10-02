@@ -32,10 +32,7 @@ function CollectorArtworkDetail() {
   const collectedArtworkUploadedPhotosTotalIndex =
     collectedArtwork?.uploadedPhotos.length - 1;
 
-  "length:", collectedArtworkUploadedPhotosTotalIndex;
-
   const getClickedIndexFromPresentation = (data) => {
-    "clicked index from presentation:", data;
     setShowIndexImage(data);
   };
   const [alertCreated, setAlertCreated] = useState(null);
@@ -55,9 +52,6 @@ function CollectorArtworkDetail() {
     }
   };
 
-  "image index:", showIndexImage;
-  "total index means last index:", collectedArtworkUploadedPhotosTotalIndex;
-
   const getCollectedArtwork = async () => {
     try {
       const result = await axios.get(
@@ -68,8 +62,6 @@ function CollectorArtworkDetail() {
         setCollection(result.data.collection);
         setCollectedArtwork(result.data.artwork);
       }
-
-      "result:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -80,8 +72,6 @@ function CollectorArtworkDetail() {
       getCollectedArtwork();
     }
   }, [collectedArtworkId]);
-
-  "collected artwork:", collectedArtwork;
 
   return (
     <>

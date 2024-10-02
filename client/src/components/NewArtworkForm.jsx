@@ -399,8 +399,6 @@ function NewArtworkForm({
     }));
   };
 
-  "form data:", formData;
-
   return (
     <div
       style={{

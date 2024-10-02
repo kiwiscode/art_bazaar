@@ -54,13 +54,10 @@ function Saves() {
 
       setCollectorSaves(result.data.favoriteArtworks);
       setCollectorSaves4Piece(result.data.favoriteArtworks.slice(0, 4));
-      "result saves:", result;
     } catch (error) {
       console.error("error:", error);
     }
   };
-
-  "collector saves:", collectorSaves;
 
   useEffect(() => {
     if (collectorInfo?._id) {

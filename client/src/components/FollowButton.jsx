@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { CollectorContext } from "../components/CollectorContext";
 import { addFollow, undoFollow } from "../../utils/artistFollowUtils";
 import { extractIds } from "../../utils/extractIds";
+import axios from "axios";
 
 // when working on local version
 const API_URL = import.meta.env.VITE_APP_API_URL;
@@ -14,12 +15,10 @@ function FollowButton({
 }) {
   const { collectorInfo, getToken, updateCollector } =
     useContext(CollectorContext);
-  const [followerIds, setFollowerIds] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
   const followedArtistIds = extractIds(collectorInfo?.followedArtists, "_id");
+
   const refreshCollector = async () => {
-    const { collectorInfo, getToken, updateCollector } =
-      useContext(CollectorContext);
     try {
       const result = await axios.get(
         `${API_URL}/collectors/${collectorInfo?._id}`,
@@ -45,7 +44,6 @@ function FollowButton({
           onClick={(e) => {
             e.stopPropagation();
             if (collectorInfo?.active) {
-              "artist:", artist;
               if (sendDataToParent) {
                 sendDataToParent(false);
               }

@@ -25,11 +25,11 @@ const ShareButton = ({ artwork, text }) => {
     const artworkTitle = artwork.title;
 
     const originalReferer = encodeURIComponent(
-      `https://www.artbazaar.net/artwork/{${artworkName}`
+      `https://art-bazaar.vercel.app/artwork/{${artworkName}`
     );
     const text = encodeURIComponent(`Check out ${artistName}, ${artworkTitle}`);
     const url = encodeURIComponent(
-      `https://www.artbazaar.net/artwork/${artworkName}`
+      `https://art-bazaar.vercel.app/artwork/${artworkName}`
     );
     const via = encodeURIComponent("artbazaar");
     let shareUrl;

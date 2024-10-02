@@ -41,7 +41,7 @@ passport.use(
             active: true,
           });
 
-          ("collector created");
+          console.log("collector created");
         } else {
           collector.active = true;
           await collector.save();
@@ -62,7 +62,7 @@ passport.serializeUser((collector, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const collector = await Collector.findById(id);
-    "collector:", collector;
+    console.log("collector:", collector);
     done(null, collector);
   } catch (err) {
     done(err, null);

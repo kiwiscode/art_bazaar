@@ -103,8 +103,6 @@ function OrdersShipping() {
     });
   };
 
-  "form data:", formData;
-
   useEffect(() => {
     const handleFocusBuyerNameInputRef = () =>
       setFocusedInput("shippingAddressBuyerNameInputRef");
@@ -284,13 +282,6 @@ function OrdersShipping() {
     }
   }, [artworkToOrderDetail]);
 
-  "Chosen artwork to purchase:",
-    chosenArtworkToPurchase,
-    "Chosen address to shipping:",
-    chosenAddress,
-    "All delivery data current:",
-    allDeliveryData;
-
   // save delivery address to the database
   const [deliveryAddressSavingProcess, setDeliveryAddressSavingProcess] =
     useState(false);
@@ -347,8 +338,6 @@ function OrdersShipping() {
         });
         setDeliveryAddressSavingProcess(false);
       }, 600);
-
-      "result after saving address:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -455,8 +444,6 @@ function OrdersShipping() {
       setTimeout(() => {
         setEditExistShippingAddressProcess(false);
       }, 600);
-
-      "result after editing address:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -465,9 +452,6 @@ function OrdersShipping() {
   const handleChangeAddressToEditData = (e) => {
     const { name, value } = e.target;
 
-    "name:", name;
-    "value:", value;
-
     setAddressToEditData({
       ...addressToEditData,
       [name]: value,
@@ -475,7 +459,6 @@ function OrdersShipping() {
   };
   useEffect(() => {
     if (getCountryCode(addressToEditData.country) !== "Unknown Code") {
-      ("you have code");
       setAddressToEditData({
         ...addressToEditData,
         country: getCountryCode(addressToEditData.country),
@@ -535,8 +518,6 @@ function OrdersShipping() {
           },
         }
       );
-
-      "Default address set successfully:", response.data;
 
       updateCollector({
         deliveryAddresses: response.data.collector.deliveryAddresses,

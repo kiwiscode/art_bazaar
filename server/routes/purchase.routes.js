@@ -14,11 +14,7 @@ router.post(
       const { allDeliveryData } = req.body;
       const { collectorId } = req.params;
 
-      "req.body:", req.body;
-
       allDeliveryDataFromSession = { collectorId, allDeliveryData };
-
-      "before session data:", allDeliveryDataFromSession;
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -70,15 +66,6 @@ router.post("/stripe-webhook", express.json(), async (request, response) => {
 
     switch (event.type) {
       case "payment_intent.succeeded":
-        "payment successfull";
-        "success delivery data:", allDeliveryDataFromSession;
-
-        "collector id:", allDeliveryDataFromSession.collectorId;
-        "artwork id:",
-          allDeliveryDataFromSession.allDeliveryData.artworkToPurchase._id;
-        "shipping address:",
-          allDeliveryDataFromSession.allDeliveryData.shippingAddress;
-
         await Order.create({
           collectorId: allDeliveryDataFromSession.collectorId,
           artworkToPurchase:
@@ -96,8 +83,6 @@ router.post("/stripe-webhook", express.json(), async (request, response) => {
           { is_sold: true }
         );
 
-        "Order saved successfully";
-
         setTimeout(() => {
           allDeliveryDataFromSession = undefined;
         }, 1000);
@@ -110,8 +95,6 @@ router.post("/stripe-webhook", express.json(), async (request, response) => {
         });
         break;
       case "payment_intent.payment_failed":
-        "payment failed";
-
         response.status(400).json({
           message: {
             success: false,
@@ -121,23 +104,16 @@ router.post("/stripe-webhook", express.json(), async (request, response) => {
 
         break;
       default:
-        "default delivery data:", allDeliveryDataFromSession;
-
         setTimeout(() => {
           allDeliveryDataFromSession = undefined;
         }, 1000);
-
-        `Unhandled event type ${event.type}`;
     }
     response.status(200).end();
   } catch (error) {
-    "error delivery data:", allDeliveryDataFromSession;
-
     setTimeout(() => {
       allDeliveryDataFromSession = undefined;
     }, 1000);
 
-    ("Subscription process could not be completed. -1");
     response.status(500).json({
       errorMessage:
         "An error occurred. Subscription process could not be completed. -1",

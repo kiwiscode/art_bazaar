@@ -219,9 +219,6 @@ function Main({ sendDataToParent }) {
   const [mediumFilteredOptions, setMediumFilteredOptions] = useState([]);
   const [showMoreMediumOptions, setShowMoreMediumOptions] = useState(false);
 
-  console.log("rarity filtered options:", rarityFilteredOptions);
-  console.log("medium filtered options:", mediumFilteredOptions);
-
   const [uniqeOptionHovered, setUniqeOptionHovered] = useState(false);
   const [limitedEditionHovered, setLimitedEditionHovered] = useState(false);
   const [openEditionHovered, setOpenEditionHovered] = useState(false);
@@ -259,8 +256,6 @@ function Main({ sendDataToParent }) {
     minValue: minValue,
     maxValue: maxValue,
   });
-
-  console.log("price filter:", priceFilter);
 
   const [isPriceRangeChanging, setIsPriceRangeChanging] = useState(false);
 
@@ -389,7 +384,6 @@ function Main({ sendDataToParent }) {
       });
 
       setArtworks(result.data);
-      console.log("result artworks:", result);
     } catch (error) {
       console.error("error:", error);
     }
@@ -2024,8 +2018,8 @@ function Main({ sendDataToParent }) {
                         fill="currentColor"
                       >
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
                           d="M9.00006 12.88L2.06006 5.94001L2.94006 5.06001L9.00006 11.12L15.0601 5.06001L15.9401 5.94001L9.00006 12.88Z"
                         ></path>
                       </svg>

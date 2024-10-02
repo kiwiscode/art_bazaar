@@ -125,8 +125,6 @@ function Artwork({ sendDataToParent }) {
     navigate(`/artist/${formattedName}`);
   };
 
-  console.log("artwork artist:", artwork);
-
   return (
     <>
       {contextHolder}

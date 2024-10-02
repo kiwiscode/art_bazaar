@@ -44,7 +44,6 @@ router.post("/check-email", async (req, res) => {
   try {
     const { email } = req.body;
     const collector = await Collector.find({ email: email });
-    "collector:", collector;
     if (collector?.length) {
       return res.status(409).json({ exists: true });
     } else {
@@ -301,7 +300,6 @@ router.get("/google/callback", (req, res, next) => {
     if (!collector)
       return res.redirect(`${process.env.FRONTEND_URL}/login/failed`);
 
-    "collector:", collector.name;
     req.logIn(collector, (err) => {
       if (err) return next(err);
 
@@ -325,7 +323,6 @@ router.get("/google/callback", (req, res, next) => {
 router.post("/logout", authenticateToken, async (req, res, next) => {
   try {
     const { collectorId } = req.collector;
-    "collectorId:", collectorId;
 
     const updatedCollector = await Collector.findByIdAndUpdate(
       collectorId,
@@ -396,7 +393,6 @@ const sendForgotPasswordEmail = (email, res, token) => {
 router.post("/reset_password", async (req, res) => {
   try {
     const { email } = req.body.forgotPasswordFormData;
-    "email:", email;
     const collector = await Collector.findOne({ email: email });
 
     if (!collector) {
@@ -420,7 +416,6 @@ router.post("/reset_password", async (req, res) => {
 router.post("/change_password", async (req, res) => {
   try {
     const { email, password, token } = req.body;
-    email, password, token;
 
     if (!email || !password || !token) {
       return res
@@ -453,7 +448,6 @@ router.post("/change_password", async (req, res) => {
     collector.resetPasswordExpires = undefined;
 
     await collector.save();
-    "updated collector:", collector;
     res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
     console.error("error:", error);

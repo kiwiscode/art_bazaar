@@ -53,8 +53,6 @@ const ZoomableImageCanvas = ({ image, sendDataToParent }) => {
     setSliderValue(newScale);
   };
 
-  "scale:", scale;
-
   // animation frame
   const animateCanvas = () => {
     if (animationRef.current) {

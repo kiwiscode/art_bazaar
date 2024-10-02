@@ -71,15 +71,11 @@ router.post("/:collectorId/favorite", authenticateToken, async (req, res) => {
     const { artworkId } = req.body.artworkInformation;
     const collector = await Collector.findById(collectorId);
 
-    "found collector:", collector;
-
     if (!collector) {
       return res.status(404).json({ error: "Collector not found" });
     }
 
     let favoriteArtworkIds = [];
-
-    "collector favorite art works", collector.favoriteArtworks;
 
     if (collector.favoriteArtworks && collector.favoriteArtworks.length > 0) {
       favoriteArtworkIds = collector.favoriteArtworks.map((artwork) =>
@@ -87,13 +83,9 @@ router.post("/:collectorId/favorite", authenticateToken, async (req, res) => {
       );
     }
 
-    "favorite artwork ids:", favoriteArtworkIds;
-
     if (favoriteArtworkIds.includes(artworkId)) {
       return res.status(400).json({ error: "Artwork already in favorites" });
     }
-
-    "artwork id:", artworkId;
 
     collector.favoriteArtworks.unshift(artworkId);
 
@@ -185,9 +177,6 @@ router.post("/:collectorId/collection", async (req, res) => {
       return res.status(404).json({ message: "Collector not found" });
     }
 
-    "collectorId:", collectorId;
-    "selected artist ids:", selectedArtistIds;
-
     for (const artistId of selectedArtistIds) {
       const existingCollection = await Collection.findOne({
         artist: artistId,
@@ -201,7 +190,6 @@ router.post("/:collectorId/collection", async (req, res) => {
           collector: collectorId,
           artworksUploaded: [],
         });
-        "Created collection:", collection;
         collector.collection.unshift(collection._id);
       } else if (
         existingCollection &&
@@ -249,17 +237,11 @@ router.patch(
         return res.status(404).json({ message: "Collector not found" });
       }
 
-      "collection:", collection.artist;
-      "collector:", collector;
-
       if (!collector.collection.includes(collectionId)) {
         return res
           .status(400)
           .json({ message: "Collection does not belong to collector" });
       }
-
-      ("Collection does belong to collector");
-      "share option:", share;
 
       collection.shareWithGalleries = share;
       await collection.save();
@@ -281,10 +263,6 @@ router.patch(
   async (req, res) => {
     const { collectorId, collectionId } = req.params;
     const { artistId } = req.body;
-
-    "collector id:", collectorId;
-    "collection id:", collectionId;
-    "artist id:", artistId;
 
     try {
       const collection = await Collection.findById(collectionId);
@@ -356,8 +334,6 @@ router.post("/:collectorId/collection/add-artwork", async (req, res) => {
       req.body;
 
     let imageUrls = [];
-
-    "form data:", formData;
 
     if (selectedArtwork) {
       imageUrls.push(selectedArtwork.imageUrl);
@@ -527,10 +503,6 @@ router.patch(
       if (formData?.uploadedPhotos?.length) {
         imageUrls = formData.uploadedPhotos;
       }
-
-      "new updated form data:", formData;
-      "new uploaded images:", uploadedImages;
-      "image urls array:", imageUrls;
 
       const collection = await Collection.findOne({
         collector: collectorId,
@@ -795,9 +767,6 @@ router.patch(`/:collectorId/change-password`, async (req, res) => {
     const { collectorId } = req.params;
     const { changePasswordFormData, currentPassword } = req.body;
 
-    "change password form data:", changePasswordFormData;
-    "current password:", currentPassword;
-
     const collector = await Collector.findById(collectorId);
     if (!collector) {
       return res.status(404).json({ errorMessage: "Collector not found!" });
@@ -831,16 +800,10 @@ router.post(`/:collectorId/delete-account`, async (req, res) => {
     const { collectorId } = req.params;
     const { formData } = req.body;
 
-    "form data:", formData;
-    "collectorId:", collectorId;
-
     const collector = await Collector.findById(collectorId);
     if (!collector) {
       return res.status(404).json({ errorMessage: "Collector not found!" });
     }
-
-    "collector password:", collector.password;
-    "form data password:", formData.password;
 
     const isMatch = await bcrypt.compare(formData.password, collector.password);
     if (!isMatch) {
@@ -891,8 +854,6 @@ router.post("/:collectorId/add-delivery-address", async (req, res) => {
       phoneNumber: formData.phoneNumber,
       settedAsDefault: formData.settedAsDefault,
     };
-
-    "new delivery address:", newDeliveryAddress;
 
     const collector = await Collector.findById(collectorId);
     if (!collector) {

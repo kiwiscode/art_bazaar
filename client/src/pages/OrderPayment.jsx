@@ -15,7 +15,6 @@ function OrderPayment() {
   const { collectorInfo } = useContext(CollectorContext);
   const location = useLocation();
   const navigate = useNavigate();
-  "artwork to oder:", artworkToOrder;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -42,13 +41,6 @@ function OrderPayment() {
     setChosenPaymentInfo,
     cleanAllDeliveryData,
   } = useContext(DeliveryContext);
-
-  "Chosen artwork to purchase:",
-    chosenArtworkToPurchase,
-    "Chosen address to shipping:",
-    chosenAddress,
-    "All delivery data current:",
-    allDeliveryData;
 
   const [
     billing_and_shipping_addresses_are_the_same,

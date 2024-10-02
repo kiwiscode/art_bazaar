@@ -6,7 +6,7 @@ mongoose
   .connect(MONGO_URI)
   .then((x) => {
     const databaseName = x.connections[0].name;
-    `Connected to Mongo! Database Online => DB name:"${databaseName}"`;
+    console.log("connected to the database:", databaseName);
   })
   .catch((err) => {
     console.error("Error connecting to mongo: ", err);

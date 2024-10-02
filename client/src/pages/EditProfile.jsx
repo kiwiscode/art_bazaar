@@ -134,8 +134,6 @@ function EditProfile() {
     });
   };
 
-  "form data for edit collector:", formData;
-
   // save changes
   const [changesOn, setChangesOn] = useState(false);
 
@@ -201,8 +199,6 @@ function EditProfile() {
     }
   }, [collectorInfo]);
 
-  "form data for edit:", formData;
-
   // change profile image
   const [changeProfileImageProcess, setChangeProfileImageProcess] =
     useState(false);
@@ -214,12 +210,10 @@ function EditProfile() {
     reader.onloadend = () => {
       setprofileImage(reader.result);
     };
-    "reader result:", reader.result;
   };
 
   const handleChangeProfileImage = (e) => {
     const file = e.target.files[0];
-    "target value for file :", e.target.files[0];
     handleChangeProfileImageSetFileToBase(file);
   };
 

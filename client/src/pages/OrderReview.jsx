@@ -15,7 +15,6 @@ function OrderReview() {
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const location = useLocation();
-  "artwork to oder:", artworkToOrder;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -42,13 +41,6 @@ function OrderReview() {
     setChosenPaymentInfo,
     cleanAllDeliveryData,
   } = useContext(DeliveryContext);
-
-  "Chosen artwork to purchase:",
-    chosenArtworkToPurchase,
-    "Chosen address to shipping:",
-    chosenAddress,
-    "All delivery data current:",
-    allDeliveryData;
 
   // redirect to stripe
   const [purchaseProcessing, setPurchaseProcessing] = useState(false);

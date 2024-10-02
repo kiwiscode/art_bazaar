@@ -49,7 +49,6 @@ function CollectorProfile() {
       );
 
       setCollectedArtworks(result.data);
-      "result Collector's collected artworks:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -77,8 +76,6 @@ function CollectorProfile() {
     );
   };
 
-  "collectedArtworks:", collectedArtworks;
-
   return (
     <>
       {width <= 768 ? (
@@ -93,19 +90,19 @@ function CollectorProfile() {
           <div className="box-40-px-m-top"></div>
           {!collectedArtworks?.length ? (
             <>
-              <div class="grid-container unica-regular-font">
+              <div className="grid-container unica-regular-font">
                 {width <= 768 ? (
                   <>
-                    <div class="col-6">
-                      <div class="img-container">
+                    <div className="col-6">
+                      <div className="img-container">
                         <img
                           src="https://d7hftxdivxxvm.cloudfront.net?height=770&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=910"
-                          srcset="https://d7hftxdivxxvm.cloudfront.net?height=770&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=910 1x, https://d7hftxdivxxvm.cloudfront.net?height=1540&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=1820 2x"
+                          srcSet="https://d7hftxdivxxvm.cloudfront.net?height=770&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=910 1x, https://d7hftxdivxxvm.cloudfront.net?height=1540&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=1820 2x"
                           alt=""
                         />
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div className="col-6">
                       <div
                         style={{
                           fontSize: width < 1280 ? "40px" : "60px",
@@ -160,7 +157,7 @@ function CollectorProfile() {
                   </>
                 ) : (
                   <>
-                    <div class="col-6">
+                    <div className="col-6">
                       <div
                         style={{
                           fontSize: width < 1280 ? "40px" : "60px",
@@ -208,11 +205,11 @@ function CollectorProfile() {
                         </button>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="img-container">
+                    <div className="col-6">
+                      <div className="img-container">
                         <img
                           src="https://d7hftxdivxxvm.cloudfront.net?height=770&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=910"
-                          srcset="https://d7hftxdivxxvm.cloudfront.net?height=770&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=910 1x, https://d7hftxdivxxvm.cloudfront.net?height=1540&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=1820 2x"
+                          srcSet="https://d7hftxdivxxvm.cloudfront.net?height=770&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=910 1x, https://d7hftxdivxxvm.cloudfront.net?height=1540&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-get-app-img.jpg&width=1820 2x"
                           alt=""
                         />
                       </div>
@@ -229,12 +226,12 @@ function CollectorProfile() {
                 style={{
                   alignItems: "flex-start",
                 }}
-                class="grid-container unica-regular-font"
+                className="grid-container unica-regular-font"
               >
                 {width <= 768 ? (
                   <>
                     {" "}
-                    <div class="col-6">
+                    <div className="col-6">
                       <div
                         style={{
                           fontSize: width < 1280 ? "26px" : "40px",
@@ -292,11 +289,11 @@ function CollectorProfile() {
                         career news and auction results.
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="img-container">
+                    <div className="col-6">
+                      <div className="img-container">
                         <img
                           src="https://d7hftxdivxxvm.cloudfront.net/?height=652&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=910"
-                          srcset="https://d7hftxdivxxvm.cloudfront.net?height=652&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=910 1x, https://d7hftxdivxxvm.cloudfront.net?height=1304&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=1820 2x"
+                          srcSet="https://d7hftxdivxxvm.cloudfront.net?height=652&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=910 1x, https://d7hftxdivxxvm.cloudfront.net?height=1304&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=1820 2x"
                           alt=""
                         />
                       </div>
@@ -304,21 +301,21 @@ function CollectorProfile() {
                   </>
                 ) : (
                   <>
-                    <div class="col-6">
+                    <div className="col-6">
                       <div
                         style={{
                           aspectRatio: "910 / 652",
                         }}
-                        class="img-container"
+                        className="img-container"
                       >
                         <img
                           src="https://d7hftxdivxxvm.cloudfront.net/?height=652&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=910"
-                          srcset="https://d7hftxdivxxvm.cloudfront.net?height=652&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=910 1x, https://d7hftxdivxxvm.cloudfront.net?height=1304&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=1820 2x"
+                          srcSet="https://d7hftxdivxxvm.cloudfront.net?height=652&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=910 1x, https://d7hftxdivxxvm.cloudfront.net?height=1304&quality=80&resize_to=fit&src=https%3A%2F%2Ffiles.artsy.net%2Fimages%2Fmy-coll-benefits-img.jpg&width=1820 2x"
                           alt=""
                         />
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div className="col-6">
                       <div
                         style={{
                           fontSize: width < 1280 ? "40px" : "40px",

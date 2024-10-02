@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const ReadMoreLess = ({ text, maxLength, artworkPage }) => {
   const [showFullText, setShowFullText] = useState(false);
