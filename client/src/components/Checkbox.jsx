@@ -27,6 +27,7 @@ export default function Checkbox({
         className={flexBoxWrapperClassName}
         style={{
           gap: "10px",
+          cursor: "pointer",
         }}
       >
         <div
