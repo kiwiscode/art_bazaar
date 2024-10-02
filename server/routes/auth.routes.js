@@ -121,7 +121,6 @@ const sendVerificationEmail = ({ _id, email }, res, token) => {
     from: process.env.AUTH_EMAIL,
     to: email,
     subject: "Verify Your Art Bazaar Account",
-
     html: `
     <div style="background-color: #f6f8fa; style="font-size: 16px; line-height: 22px;" text-align: left; font-family: Times New Roman", Times, serif">
     <div style="width: 40%; height: 100%; background-color: white; margin: 0 auto; text-align: left; color: #333; padding: 20px;">
@@ -181,13 +180,6 @@ router.post("/login", (req, res, next) => {
     return;
   }
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-  if (!regex.test(password) || password.length < 8) {
-    res.status(402).json({
-      errorMessage:
-        "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
-    });
-    return;
-  }
 
   Collector.findOne({ email })
     .populate("favoriteArtworks")
@@ -348,7 +340,6 @@ const sendForgotPasswordEmail = (email, res, token) => {
     from: process.env.AUTH_EMAIL,
     to: email,
     subject: "Reset password instructions",
-
     html: `
     <div style="background-color: #f6f8fa; text-align: left; font-size: 16px; line-height: 22px; font-family: Times New Roman", Times, serif">
     <div style="width: 40%; height: 100%; background-color: white; margin: 0 auto; text-align: left; color: #333; padding: 20px;">
