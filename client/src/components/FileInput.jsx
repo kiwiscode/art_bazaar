@@ -135,6 +135,8 @@ function FileInput({
     sendUploadedPhotosBase64Version(uploadedPhotosBase64Version);
   }, [uploadedPhotosBase64Version]);
 
+  console.log("files:", uploadedPhotosBase64Version);
+
   return (
     <div>
       {" "}
@@ -271,7 +273,7 @@ function FileInput({
                   Automatically added
                 </div>
               </div>
-              <div
+              {/* <div
                 className="preview-wrapper-grid-container second-grid-flex-auto-pic"
                 style={{
                   fontSize: "13px",
@@ -288,7 +290,7 @@ function FileInput({
                 >
                   Delete
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         )}
