@@ -37,7 +37,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [artists, setArtists] = useState([]);
   const handleArtistsUpdate = (newArtists) => {
-    console.log("new artists:", newArtists);
+    "new artists:", newArtists;
     setArtists(newArtists);
   };
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -431,7 +431,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
   const { isOutsideClicked: isOutsideClickedPopupRef } =
     useOutsideClick(popupRef);
 
-  console.log("is outside click:", isOutsideClickedPopupRef);
+  "is outside click:", isOutsideClickedPopupRef;
 
   useEffect(() => {
     if (isOutsideClickedPopupRef) {
@@ -454,7 +454,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
   const [closeSearchedResults, setCloseSearchedResults] = useState(false);
 
   const getQueryFromInput = (data) => {
-    console.log("data query:", data);
+    "data query:", data;
     if (data.length) {
       setCloseSearchedResults(false);
     }

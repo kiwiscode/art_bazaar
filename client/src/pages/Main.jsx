@@ -399,14 +399,27 @@ function Main({ sendDataToParent }) {
     getAllArtworks();
   }, []);
 
-  // filter modal
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setVisible(currentScrollY > 200);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
       {contextHolder}
       {/* all filters modal */}
 
-      {/* <div
+      <div
         onClick={() => {
           window.scrollTo({
             top: 0,
@@ -430,6 +443,9 @@ function Main({ sendDataToParent }) {
           border: "0.5px solid rgba(202, 219, 226, 0.4)",
           color: "black",
           cursor: "pointer",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 0.3s ease",
+          pointerEvents: visible ? "auto" : "none",
         }}
       >
         <svg
@@ -440,7 +456,7 @@ function Main({ sendDataToParent }) {
         >
           <path d="M12 6H0l6-6z" />
         </svg>
-      </div> */}
+      </div>
 
       <>
         {width <= 768 && (

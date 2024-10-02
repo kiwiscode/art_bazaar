@@ -44,8 +44,8 @@ function ResetPassword() {
     const token = searchParams.get("token");
     setEmail(email);
     setResetToken(token);
-    console.log("email:", email);
-    console.log("token:", token);
+    "email:", email;
+    "token:", token;
     if (!token) {
       navigate("/");
     }
@@ -58,7 +58,7 @@ function ResetPassword() {
         password: changePasswordFormData.NewPassword,
         token: resetToken,
       });
-      console.log("result:", result);
+      "result:", result;
       const { status } = result;
       if (status === 200) {
         showCustomMessage("Password successfully reset. Redirecting...", 100);
@@ -87,7 +87,7 @@ function ResetPassword() {
   };
 
   const handleFocus = () => {
-    console.log("focused ...");
+    ("focused ...");
     setIsFocused(true);
   };
 
@@ -97,8 +97,8 @@ function ResetPassword() {
 
   const handleChangePasswordData = (e) => {
     const { name, value } = e.target;
-    console.log("name:", name);
-    console.log("value:", value);
+    "name:", name;
+    "value:", value;
     if (name === "NewPassword") {
       setValuesBeenEnteredIntoThePasswordField(true);
     }
@@ -118,11 +118,8 @@ function ResetPassword() {
   };
 
   useEffect(() => {
-    console.log("new password:", changePasswordFormData?.NewPassword);
-    console.log(
-      "confirm new password:",
-      changePasswordFormData?.ConfirmNewPassword
-    );
+    "new password:", changePasswordFormData?.NewPassword;
+    "confirm new password:", changePasswordFormData?.ConfirmNewPassword;
     if (
       changePasswordFormData?.NewPassword?.length &&
       changePasswordFormData?.ConfirmNewPassword?.length &&

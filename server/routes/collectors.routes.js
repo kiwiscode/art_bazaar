@@ -71,7 +71,7 @@ router.post("/:collectorId/favorite", authenticateToken, async (req, res) => {
     const { artworkId } = req.body.artworkInformation;
     const collector = await Collector.findById(collectorId);
 
-    console.log("found collector:", collector);
+    "found collector:", collector;
 
     if (!collector) {
       return res.status(404).json({ error: "Collector not found" });
@@ -79,7 +79,7 @@ router.post("/:collectorId/favorite", authenticateToken, async (req, res) => {
 
     let favoriteArtworkIds = [];
 
-    console.log("collector favorite art works", collector.favoriteArtworks);
+    "collector favorite art works", collector.favoriteArtworks;
 
     if (collector.favoriteArtworks && collector.favoriteArtworks.length > 0) {
       favoriteArtworkIds = collector.favoriteArtworks.map((artwork) =>
@@ -87,13 +87,13 @@ router.post("/:collectorId/favorite", authenticateToken, async (req, res) => {
       );
     }
 
-    console.log("favorite artwork ids:", favoriteArtworkIds);
+    "favorite artwork ids:", favoriteArtworkIds;
 
     if (favoriteArtworkIds.includes(artworkId)) {
       return res.status(400).json({ error: "Artwork already in favorites" });
     }
 
-    console.log("artwork id:", artworkId);
+    "artwork id:", artworkId;
 
     collector.favoriteArtworks.unshift(artworkId);
 
@@ -185,8 +185,8 @@ router.post("/:collectorId/collection", async (req, res) => {
       return res.status(404).json({ message: "Collector not found" });
     }
 
-    console.log("collectorId:", collectorId);
-    console.log("selected artist ids:", selectedArtistIds);
+    "collectorId:", collectorId;
+    "selected artist ids:", selectedArtistIds;
 
     for (const artistId of selectedArtistIds) {
       const existingCollection = await Collection.findOne({
@@ -201,7 +201,7 @@ router.post("/:collectorId/collection", async (req, res) => {
           collector: collectorId,
           artworksUploaded: [],
         });
-        console.log("Created collection:", collection);
+        "Created collection:", collection;
         collector.collection.unshift(collection._id);
       } else if (
         existingCollection &&
@@ -249,8 +249,8 @@ router.patch(
         return res.status(404).json({ message: "Collector not found" });
       }
 
-      console.log("collection:", collection.artist);
-      console.log("collector:", collector);
+      "collection:", collection.artist;
+      "collector:", collector;
 
       if (!collector.collection.includes(collectionId)) {
         return res
@@ -258,8 +258,8 @@ router.patch(
           .json({ message: "Collection does not belong to collector" });
       }
 
-      console.log("Collection does belong to collector");
-      console.log("share option:", share);
+      ("Collection does belong to collector");
+      "share option:", share;
 
       collection.shareWithGalleries = share;
       await collection.save();
@@ -282,9 +282,9 @@ router.patch(
     const { collectorId, collectionId } = req.params;
     const { artistId } = req.body;
 
-    console.log("collector id:", collectorId);
-    console.log("collection id:", collectionId);
-    console.log("artist id:", artistId);
+    "collector id:", collectorId;
+    "collection id:", collectionId;
+    "artist id:", artistId;
 
     try {
       const collection = await Collection.findById(collectionId);
@@ -357,7 +357,7 @@ router.post("/:collectorId/collection/add-artwork", async (req, res) => {
 
     let imageUrls = [];
 
-    console.log("form data:", formData);
+    "form data:", formData;
 
     if (selectedArtwork) {
       imageUrls.push(selectedArtwork.imageUrl);
@@ -528,9 +528,9 @@ router.patch(
         imageUrls = formData.uploadedPhotos;
       }
 
-      console.log("new updated form data:", formData);
-      console.log("new uploaded images:", uploadedImages);
-      console.log("image urls array:", imageUrls);
+      "new updated form data:", formData;
+      "new uploaded images:", uploadedImages;
+      "image urls array:", imageUrls;
 
       const collection = await Collection.findOne({
         collector: collectorId,
@@ -795,8 +795,8 @@ router.patch(`/:collectorId/change-password`, async (req, res) => {
     const { collectorId } = req.params;
     const { changePasswordFormData, currentPassword } = req.body;
 
-    console.log("change password form data:", changePasswordFormData);
-    console.log("current password:", currentPassword);
+    "change password form data:", changePasswordFormData;
+    "current password:", currentPassword;
 
     const collector = await Collector.findById(collectorId);
     if (!collector) {
@@ -831,16 +831,16 @@ router.post(`/:collectorId/delete-account`, async (req, res) => {
     const { collectorId } = req.params;
     const { formData } = req.body;
 
-    console.log("form data:", formData);
-    console.log("collectorId:", collectorId);
+    "form data:", formData;
+    "collectorId:", collectorId;
 
     const collector = await Collector.findById(collectorId);
     if (!collector) {
       return res.status(404).json({ errorMessage: "Collector not found!" });
     }
 
-    console.log("collector password:", collector.password);
-    console.log("form data password:", formData.password);
+    "collector password:", collector.password;
+    "form data password:", formData.password;
 
     const isMatch = await bcrypt.compare(formData.password, collector.password);
     if (!isMatch) {
@@ -892,7 +892,7 @@ router.post("/:collectorId/add-delivery-address", async (req, res) => {
       settedAsDefault: formData.settedAsDefault,
     };
 
-    console.log("new delivery address:", newDeliveryAddress);
+    "new delivery address:", newDeliveryAddress;
 
     const collector = await Collector.findById(collectorId);
     if (!collector) {

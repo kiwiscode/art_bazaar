@@ -109,7 +109,7 @@ function NewArtwork() {
     }
   }, [tabIndex]);
 
-  console.log("selected artist:", selectedArtist);
+  "selected artist:", selectedArtist;
   // upload artwork
   const [uploadOn, setUploadOn] = useState(false);
   const artworkUpload = async () => {
@@ -136,19 +136,19 @@ function NewArtwork() {
           setUploadOn(false);
         }, 300);
       }
-      console.log("result upload artwork:", result);
+      "result upload artwork:", result;
     } catch (error) {
       console.error("error:", error);
     }
   };
 
-  console.log("form data from new art work parent:", formData);
+  "form data from new art work parent:", formData;
 
   const handleSearchArtistInputQueryData = (searchQuery) => {
-    console.log("artist query parent gets the value:", searchQuery);
+    "artist query parent gets the value:", searchQuery;
   };
 
-  console.log("collector collection:", collectorInfo?.collection);
+  "collector collection:", collectorInfo?.collection;
 
   const handleArtistClick = (artistName) => {
     const formattedName = artistName.toLowerCase().replace(/ /g, "-");

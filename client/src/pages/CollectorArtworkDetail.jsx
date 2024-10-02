@@ -32,10 +32,10 @@ function CollectorArtworkDetail() {
   const collectedArtworkUploadedPhotosTotalIndex =
     collectedArtwork?.uploadedPhotos.length - 1;
 
-  console.log("length:", collectedArtworkUploadedPhotosTotalIndex);
+  "length:", collectedArtworkUploadedPhotosTotalIndex;
 
   const getClickedIndexFromPresentation = (data) => {
-    console.log("clicked index from presentation:", data);
+    "clicked index from presentation:", data;
     setShowIndexImage(data);
   };
   const [alertCreated, setAlertCreated] = useState(null);
@@ -55,11 +55,8 @@ function CollectorArtworkDetail() {
     }
   };
 
-  console.log("image index:", showIndexImage);
-  console.log(
-    "total index means last index:",
-    collectedArtworkUploadedPhotosTotalIndex
-  );
+  "image index:", showIndexImage;
+  "total index means last index:", collectedArtworkUploadedPhotosTotalIndex;
 
   const getCollectedArtwork = async () => {
     try {
@@ -72,7 +69,7 @@ function CollectorArtworkDetail() {
         setCollectedArtwork(result.data.artwork);
       }
 
-      console.log("result:", result);
+      "result:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -84,7 +81,7 @@ function CollectorArtworkDetail() {
     }
   }, [collectedArtworkId]);
 
-  console.log("collected artwork:", collectedArtwork);
+  "collected artwork:", collectedArtwork;
 
   return (
     <>

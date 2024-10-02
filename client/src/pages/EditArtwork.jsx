@@ -40,9 +40,9 @@ function EditArtwork() {
     setUploadedImages(uploadedImages);
   };
 
-  console.log("collected artwork:", collectedArtwork);
-  console.log("upload images:", uploadedImages);
-  console.log("form data:", formData);
+  "collected artwork:", collectedArtwork;
+  "upload images:", uploadedImages;
+  "form data:", formData;
 
   // upload artwork
   const [saveOn, setSaveOn] = useState(false);
@@ -62,7 +62,7 @@ function EditArtwork() {
         }
       );
 
-      console.log("result after edit:", result);
+      "result after edit:", result;
       if (result.status === 200) {
         navigate(
           `/collector-profile/my-collection/artwork/${collectedArtworkId}`

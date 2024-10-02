@@ -68,7 +68,7 @@ function ArtistProfile({ sendDataToParent }) {
     try {
       const result = await axios.get(`${API_URL}/artist/${artist_name}`);
 
-      console.log("result artist:", result);
+      "result artist:", result;
 
       if (result.status === 200) {
         const { artist, artworks } = result.data;

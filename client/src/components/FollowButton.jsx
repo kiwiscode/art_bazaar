@@ -45,7 +45,7 @@ function FollowButton({
           onClick={(e) => {
             e.stopPropagation();
             if (collectorInfo?.active) {
-              console.log("artist:", artist);
+              "artist:", artist;
               if (sendDataToParent) {
                 sendDataToParent(false);
               }

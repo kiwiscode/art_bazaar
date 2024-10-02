@@ -103,7 +103,7 @@ function OrdersShipping() {
     });
   };
 
-  console.log("form data:", formData);
+  "form data:", formData;
 
   useEffect(() => {
     const handleFocusBuyerNameInputRef = () =>
@@ -221,7 +221,7 @@ function OrdersShipping() {
   };
 
   const prepareFormData = (data) => {
-    console.log("data:", data);
+    "data:", data;
     return {
       ...data,
       country: formatCountry(data.country),
@@ -284,14 +284,12 @@ function OrdersShipping() {
     }
   }, [artworkToOrderDetail]);
 
-  console.log(
-    "Chosen artwork to purchase:",
+  "Chosen artwork to purchase:",
     chosenArtworkToPurchase,
     "Chosen address to shipping:",
     chosenAddress,
     "All delivery data current:",
-    allDeliveryData
-  );
+    allDeliveryData;
 
   // save delivery address to the database
   const [deliveryAddressSavingProcess, setDeliveryAddressSavingProcess] =
@@ -350,7 +348,7 @@ function OrdersShipping() {
         setDeliveryAddressSavingProcess(false);
       }, 600);
 
-      console.log("result after saving address:", result);
+      "result after saving address:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -458,7 +456,7 @@ function OrdersShipping() {
         setEditExistShippingAddressProcess(false);
       }, 600);
 
-      console.log("result after editing address:", result);
+      "result after editing address:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -467,8 +465,8 @@ function OrdersShipping() {
   const handleChangeAddressToEditData = (e) => {
     const { name, value } = e.target;
 
-    console.log("name:", name);
-    console.log("value:", value);
+    "name:", name;
+    "value:", value;
 
     setAddressToEditData({
       ...addressToEditData,
@@ -477,7 +475,7 @@ function OrdersShipping() {
   };
   useEffect(() => {
     if (getCountryCode(addressToEditData.country) !== "Unknown Code") {
-      console.log("you have code");
+      ("you have code");
       setAddressToEditData({
         ...addressToEditData,
         country: getCountryCode(addressToEditData.country),
@@ -538,7 +536,7 @@ function OrdersShipping() {
         }
       );
 
-      console.log("Default address set successfully:", response.data);
+      "Default address set successfully:", response.data;
 
       updateCollector({
         deliveryAddresses: response.data.collector.deliveryAddresses,

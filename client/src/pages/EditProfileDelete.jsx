@@ -89,7 +89,7 @@ function EditProfileDelete() {
     e.preventDefault();
   };
   const handleFocus = () => {
-    console.log("focused ...");
+    ("focused ...");
     setIsFocused(true);
   };
 
@@ -112,7 +112,7 @@ function EditProfileDelete() {
         }
       );
 
-      console.log("result after delete:", result);
+      "result after delete:", result;
       if (result.status === 200) {
         setTimeout(() => {
           showCustomMessage("", 12, true);
@@ -136,7 +136,7 @@ function EditProfileDelete() {
   };
 
   useEffect(() => {
-    console.log("form data:", formData);
+    "form data:", formData;
   }, [formData]);
 
   useEffect(() => {

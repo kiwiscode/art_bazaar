@@ -15,7 +15,7 @@ function OrderReview() {
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const location = useLocation();
-  console.log("artwork to oder:", artworkToOrder);
+  "artwork to oder:", artworkToOrder;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -43,14 +43,12 @@ function OrderReview() {
     cleanAllDeliveryData,
   } = useContext(DeliveryContext);
 
-  console.log(
-    "Chosen artwork to purchase:",
+  "Chosen artwork to purchase:",
     chosenArtworkToPurchase,
     "Chosen address to shipping:",
     chosenAddress,
     "All delivery data current:",
-    allDeliveryData
-  );
+    allDeliveryData;
 
   // redirect to stripe
   const [purchaseProcessing, setPurchaseProcessing] = useState(false);
@@ -85,7 +83,7 @@ function OrderReview() {
           },
         }
       );
-      console.log("result:", result);
+      "result:", result;
       setTimeout(() => {
         if (result.data.url) {
           window.location.href = result.data.url;

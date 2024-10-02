@@ -41,7 +41,7 @@ function SavesFollows() {
         }
       );
 
-      console.log("result collector followed artists :", result);
+      "result collector followed artists :", result;
 
       setFollowedArtists(result.data.followedArtists);
     } catch (error) {
@@ -49,7 +49,7 @@ function SavesFollows() {
     }
   };
 
-  console.log("collector followed artists:", followedArtists);
+  "collector followed artists:", followedArtists;
 
   useEffect(() => {
     if (collectorInfo?._id) {
@@ -66,11 +66,11 @@ function SavesFollows() {
   const getArtistArtworks = async (artist_name) => {
     try {
       const result = await axios.get(`${API_URL}/artist/${artist_name}`);
-      console.log("result artist:", result);
+      "result artist:", result;
 
       if (result.status === 200) {
         const { artworks } = result.data;
-        console.log(`${artist_name} artworks:`, artworks);
+        `${artist_name} artworks:`, artworks;
         return artworks;
       } else {
         console.error("Error fetching artist. Status:", result.status);

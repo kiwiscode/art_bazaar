@@ -49,7 +49,7 @@ function CollectorProfile() {
       );
 
       setCollectedArtworks(result.data);
-      console.log("result Collector's collected artworks:", result);
+      "result Collector's collected artworks:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -77,7 +77,7 @@ function CollectorProfile() {
     );
   };
 
-  console.log("collectedArtworks:", collectedArtworks);
+  "collectedArtworks:", collectedArtworks;
 
   return (
     <>

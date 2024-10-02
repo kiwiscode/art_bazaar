@@ -33,7 +33,7 @@ function CollectorProfileInsights() {
         }
       );
 
-      console.log("result collector profile:", result);
+      "result collector profile:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -51,7 +51,7 @@ function CollectorProfileInsights() {
       );
 
       setCollectedArtworks(result.data);
-      console.log("result Collector's collected artworks:", result);
+      "result Collector's collected artworks:", result;
     } catch (error) {
       console.error("error:", error);
     }

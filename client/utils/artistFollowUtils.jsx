@@ -4,7 +4,7 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 export const addFollow = async (collectorInfo, getToken, artist) => {
-  console.log("artist add follow:", artist);
+  "artist add follow:", artist;
   try {
     await axios.post(
       `${API_URL}/artist/collectors/${collectorInfo?._id}/follow/${artist?._id}`,
@@ -21,7 +21,7 @@ export const addFollow = async (collectorInfo, getToken, artist) => {
 };
 
 export const undoFollow = async (collectorInfo, getToken, artist) => {
-  console.log("artist undo follow:", artist);
+  "artist undo follow:", artist;
   try {
     await axios.post(
       `${API_URL}/artist/collectors/${collectorInfo?._id}/unfollow/${artist?._id}`,

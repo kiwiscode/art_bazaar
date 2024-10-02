@@ -14,11 +14,11 @@ router.post(
       const { allDeliveryData } = req.body;
       const { collectorId } = req.params;
 
-      console.log("req.body:", req.body);
+      "req.body:", req.body;
 
       allDeliveryDataFromSession = { collectorId, allDeliveryData };
 
-      console.log("before session data:", allDeliveryDataFromSession);
+      "before session data:", allDeliveryDataFromSession;
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -70,18 +70,14 @@ router.post("/stripe-webhook", express.json(), async (request, response) => {
 
     switch (event.type) {
       case "payment_intent.succeeded":
-        console.log("payment successfull");
-        console.log("success delivery data:", allDeliveryDataFromSession);
+        "payment successfull";
+        "success delivery data:", allDeliveryDataFromSession;
 
-        console.log("collector id:", allDeliveryDataFromSession.collectorId);
-        console.log(
-          "artwork id:",
-          allDeliveryDataFromSession.allDeliveryData.artworkToPurchase._id
-        );
-        console.log(
-          "shipping address:",
-          allDeliveryDataFromSession.allDeliveryData.shippingAddress
-        );
+        "collector id:", allDeliveryDataFromSession.collectorId;
+        "artwork id:",
+          allDeliveryDataFromSession.allDeliveryData.artworkToPurchase._id;
+        "shipping address:",
+          allDeliveryDataFromSession.allDeliveryData.shippingAddress;
 
         await Order.create({
           collectorId: allDeliveryDataFromSession.collectorId,
@@ -100,7 +96,7 @@ router.post("/stripe-webhook", express.json(), async (request, response) => {
           { is_sold: true }
         );
 
-        console.log("Order saved successfully");
+        "Order saved successfully";
 
         setTimeout(() => {
           allDeliveryDataFromSession = undefined;
@@ -114,7 +110,7 @@ router.post("/stripe-webhook", express.json(), async (request, response) => {
         });
         break;
       case "payment_intent.payment_failed":
-        console.log("payment failed");
+        "payment failed";
 
         response.status(400).json({
           message: {
@@ -125,23 +121,23 @@ router.post("/stripe-webhook", express.json(), async (request, response) => {
 
         break;
       default:
-        console.log("default delivery data:", allDeliveryDataFromSession);
+        "default delivery data:", allDeliveryDataFromSession;
 
         setTimeout(() => {
           allDeliveryDataFromSession = undefined;
         }, 1000);
 
-        console.log(`Unhandled event type ${event.type}`);
+        `Unhandled event type ${event.type}`;
     }
     response.status(200).end();
   } catch (error) {
-    console.log("error delivery data:", allDeliveryDataFromSession);
+    "error delivery data:", allDeliveryDataFromSession;
 
     setTimeout(() => {
       allDeliveryDataFromSession = undefined;
     }, 1000);
 
-    console.log("Subscription process could not be completed. -1");
+    ("Subscription process could not be completed. -1");
     response.status(500).json({
       errorMessage:
         "An error occurred. Subscription process could not be completed. -1",

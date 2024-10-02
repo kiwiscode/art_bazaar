@@ -33,12 +33,12 @@ function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   function handleDataFromChild(data) {
-    console.log("data:", data);
+    "data:", data;
     setShowAuthModal(data);
   }
 
   function handleDataFromChildNavbar(data) {
-    console.log("data navigation bar:", data);
+    "data navigation bar:", data;
     setShowAuthModal(data);
   }
 

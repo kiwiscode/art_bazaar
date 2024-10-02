@@ -30,7 +30,7 @@ function Conversations() {
       );
 
       setConversations(result.data);
-      console.log("result conversations:", result);
+      "result conversations:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -45,7 +45,7 @@ function Conversations() {
   useEffect(() => {
     if (collectorInfo?._id && conversations.length === 0) {
       navigate("/user/conversations/no-messages");
-      console.log("hello world");
+      ("hello world");
     }
   }, [conversations, collectorInfo, navigate]);
 

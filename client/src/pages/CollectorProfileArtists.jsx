@@ -46,7 +46,7 @@ function CollectorProfileArtists() {
       updateCollector({ favoriteArtworks: result.data.favoriteArtworks });
       updateCollector({ followedArtists: result.data.followedArtists });
       updateCollector({ collection: result.data.collection });
-      console.log("result collector profile:", result);
+      "result collector profile:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -125,7 +125,7 @@ function CollectorProfileArtists() {
         }, 850);
       }
 
-      console.log("result after selection artist:", result);
+      "result after selection artist:", result;
     } catch (error) {
       console.error("error:", error);
     }
@@ -140,8 +140,8 @@ function CollectorProfileArtists() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  console.log("index first:", indexOfFirstItem);
-  console.log("index last:", indexOfLastItem);
+  "index first:", indexOfFirstItem;
+  "index last:", indexOfLastItem;
 
   const currentItems =
     collectorInfo?.collection?.slice(indexOfFirstItem, indexOfLastItem) || [];
@@ -150,7 +150,7 @@ function CollectorProfileArtists() {
     (item) => item.artistDeletedFromCollection === true
   );
 
-  console.log("all artists deleted:", allArtistsDeleted);
+  "all artists deleted:", allArtistsDeleted;
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -163,7 +163,7 @@ function CollectorProfileArtists() {
   );
 
   const shareWithGalleries = async (collectionId, share) => {
-    console.log("works!");
+    ("works!");
     try {
       const result = await axios.patch(
         `${API_URL}/collectors/${collectorInfo?._id}/collection/share_gallery_status`,
@@ -177,7 +177,7 @@ function CollectorProfileArtists() {
           },
         }
       );
-      console.log("result:", result);
+      "result:", result;
       showCustomMessage("Updated artist", 6);
 
       if (share) {
@@ -234,7 +234,7 @@ function CollectorProfileArtists() {
   const removeArtistFromCollection = async () => {
     setLoading(true);
     try {
-      console.log("artist to remove:", artistToRemove);
+      "artist to remove:", artistToRemove;
       const result = await axios.patch(
         `${API_URL}/collectors/${collectorInfo?._id}/collection/${collectionIdToUpdate}/remove_artist`,
         {
@@ -267,7 +267,7 @@ function CollectorProfileArtists() {
   const [artists, setArtists] = useState([]);
 
   const handleArtistsUpdate = (newArtists) => {
-    console.log("new artists:", newArtists);
+    "new artists:", newArtists;
     setArtists(newArtists);
   };
 
@@ -276,14 +276,14 @@ function CollectorProfileArtists() {
     navigate(`/artist/${formattedName}`);
   };
 
-  console.log("current items:", currentItems);
+  "current items:", currentItems;
 
   const [artistLoading, setArtistLoading] = useState(false);
   const [closeSearchedResults, setCloseSearchedResults] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const getQueryFromInput = (data) => {
-    console.log("data query:", data);
+    "data query:", data;
     if (data.length) {
       setCloseSearchedResults(false);
     }
@@ -980,7 +980,7 @@ function CollectorProfileArtists() {
                                   </svg>
                                 }
                                 onClick={() => {
-                                  console.log("clicked checkbox !");
+                                  ("clicked checkbox !");
                                   shareWithGalleries(
                                     eachCollection?._id,
                                     gallerySharedCollectionIds?.includes(

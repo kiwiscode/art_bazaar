@@ -399,7 +399,7 @@ function NewArtworkForm({
     }));
   };
 
-  console.log("form data:", formData);
+  "form data:", formData;
 
   return (
     <div

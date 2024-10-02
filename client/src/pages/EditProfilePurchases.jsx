@@ -34,7 +34,7 @@ function EditProfilePurchases() {
       const result = await axios.get(
         `${API_URL}/collectors/${collectorInfo?._id}/orders`
       );
-      console.log("result:", result);
+      "result:", result;
 
       setOrders(result.data);
     } catch (error) {

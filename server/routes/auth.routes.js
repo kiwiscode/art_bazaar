@@ -34,9 +34,9 @@ let transporter = nodemailer.createTransport({
 
 transporter.verify((error, success) => {
   if (error) {
-    console.log(error);
+    error;
   } else {
-    console.log(success);
+    success;
   }
 });
 
@@ -44,7 +44,7 @@ router.post("/check-email", async (req, res) => {
   try {
     const { email } = req.body;
     const collector = await Collector.find({ email: email });
-    console.log("collector:", collector);
+    "collector:", collector;
     if (collector?.length) {
       return res.status(409).json({ exists: true });
     } else {
@@ -301,7 +301,7 @@ router.get("/google/callback", (req, res, next) => {
     if (!collector)
       return res.redirect(`${process.env.FRONTEND_URL}/login/failed`);
 
-    console.log("collector:", collector.name);
+    "collector:", collector.name;
     req.logIn(collector, (err) => {
       if (err) return next(err);
 
@@ -325,7 +325,7 @@ router.get("/google/callback", (req, res, next) => {
 router.post("/logout", authenticateToken, async (req, res, next) => {
   try {
     const { collectorId } = req.collector;
-    console.log("collectorId:", collectorId);
+    "collectorId:", collectorId;
 
     const updatedCollector = await Collector.findByIdAndUpdate(
       collectorId,
@@ -396,7 +396,7 @@ const sendForgotPasswordEmail = (email, res, token) => {
 router.post("/reset_password", async (req, res) => {
   try {
     const { email } = req.body.forgotPasswordFormData;
-    console.log("email:", email);
+    "email:", email;
     const collector = await Collector.findOne({ email: email });
 
     if (!collector) {
@@ -420,7 +420,7 @@ router.post("/reset_password", async (req, res) => {
 router.post("/change_password", async (req, res) => {
   try {
     const { email, password, token } = req.body;
-    console.log(email, password, token);
+    email, password, token;
 
     if (!email || !password || !token) {
       return res
@@ -453,7 +453,7 @@ router.post("/change_password", async (req, res) => {
     collector.resetPasswordExpires = undefined;
 
     await collector.save();
-    console.log("updated collector:", collector);
+    "updated collector:", collector;
     res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
     console.error("error:", error);
