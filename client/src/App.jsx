@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Main from "./pages/Main";
 import ResetPassword from "./pages/ResetPassword";
 import ArtistProfile from "./pages/ArtistProfile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Artwork from "./pages/Artwork";
 import CollectorProfile from "./pages/CollectorProfile";
 import CollectorProfileArtists from "./pages/CollectorProfileArtists";
@@ -33,14 +33,22 @@ function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   function handleDataFromChild(data) {
-    "data:", data;
     setShowAuthModal(data);
   }
 
   function handleDataFromChildNavbar(data) {
-    "data navigation bar:", data;
     setShowAuthModal(data);
   }
+
+  useEffect(() => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+      window.scrollTo({
+        top: 0,
+        behavior: "instant",
+      });
+    }
+  }, [path]);
 
   return (
     <CollectorProvider>
