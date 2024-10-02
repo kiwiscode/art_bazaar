@@ -964,7 +964,12 @@ function CollectorProfileArtists() {
                               {eachCollection?.artworksUploaded?.length}{" "}
                               artworks
                             </div>
-                            <div className="display-none-bp-768px">
+                            <div
+                              style={{
+                                cursor: "pointer",
+                              }}
+                              className="display-none-bp-768px"
+                            >
                               <Checkbox
                                 width={"20px"}
                                 height={"20px"}
