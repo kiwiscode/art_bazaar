@@ -2024,8 +2024,26 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                                         color: "rgb(112,112,112)",
                                       }}
                                     >
-                                      {eachArtist?.nationality},{" "}
-                                      {eachArtist?.born}-{eachArtist?.died}
+                                      {eachArtist?.nationality &&
+                                      eachArtist?.born &&
+                                      eachArtist?.died ? (
+                                        <div className="artist-info">
+                                          <span>
+                                            {eachArtist?.nationality},{" "}
+                                          </span>
+                                          <span>{eachArtist?.born}-</span>
+                                          <span>{eachArtist?.died}</span>
+                                        </div>
+                                      ) : eachArtist?.nationality &&
+                                        eachArtist?.born &&
+                                        !eachArtist?.died ? (
+                                        <div className="artist-info">
+                                          <span>
+                                            {eachArtist?.nationality},{" "}
+                                          </span>
+                                          <span>b. {eachArtist?.born}</span>
+                                        </div>
+                                      ) : null}
                                     </div>
                                   </div>
                                 </div>

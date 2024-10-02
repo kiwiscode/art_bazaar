@@ -614,8 +614,24 @@ function CollectorProfileArtists() {
                                   color: "rgb(112,112,112)",
                                 }}
                               >
-                                {eachArtist?.nationality}, {eachArtist?.born}-
-                                {eachArtist?.died}
+                                {/* test start to check */}
+                                {eachArtist?.nationality &&
+                                eachArtist?.born &&
+                                eachArtist?.died ? (
+                                  <div className="artist-info">
+                                    <span>{eachArtist?.nationality}, </span>
+                                    <span>{eachArtist?.born}-</span>
+                                    <span>{eachArtist?.died}</span>
+                                  </div>
+                                ) : eachArtist?.nationality &&
+                                  eachArtist?.born &&
+                                  !eachArtist?.died ? (
+                                  <div className="artist-info">
+                                    <span>{eachArtist?.nationality}, </span>
+                                    <span>b. {eachArtist?.born}</span>
+                                  </div>
+                                ) : null}
+                                {/* test finish to check */}
                               </div>
                             </div>
                           </div>

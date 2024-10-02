@@ -522,8 +522,22 @@ function EditArtwork() {
                       lineHeight: "20px",
                     }}
                   >
-                    {collectedArtist?.nationality}, {collectedArtist?.born}-
-                    {collectedArtist?.died}
+                    {collectedArtist?.nationality &&
+                    collectedArtist?.born &&
+                    collectedArtist?.died ? (
+                      <div className="artist-info">
+                        <span>{collectedArtist?.nationality}, </span>
+                        <span>{collectedArtist?.born}-</span>
+                        <span>{collectedArtist?.died}</span>
+                      </div>
+                    ) : collectedArtist?.nationality &&
+                      collectedArtist?.born &&
+                      !collectedArtist?.died ? (
+                      <div className="artist-info">
+                        <span>{collectedArtist?.nationality}, </span>
+                        <span>b. {collectedArtist?.born}</span>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>

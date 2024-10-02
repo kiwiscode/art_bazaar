@@ -245,9 +245,26 @@ function SavesFollows() {
                                 color: "rgb(112,112,112)",
                               }}
                             >
-                              {eachFollowedArtist?.nationality},{" "}
-                              {eachFollowedArtist?.born}-
-                              {eachFollowedArtist?.died}
+                              {eachFollowedArtist?.nationality &&
+                              eachFollowedArtist?.born &&
+                              eachFollowedArtist?.died ? (
+                                <div className="artist-info">
+                                  <span>
+                                    {eachFollowedArtist?.nationality},{" "}
+                                  </span>
+                                  <span>{eachFollowedArtist?.born}-</span>
+                                  <span>{eachFollowedArtist?.died}</span>
+                                </div>
+                              ) : eachFollowedArtist?.nationality &&
+                                eachFollowedArtist?.born &&
+                                !eachFollowedArtist?.died ? (
+                                <div className="artist-info">
+                                  <span>
+                                    {eachFollowedArtist?.nationality},{" "}
+                                  </span>
+                                  <span>b. {eachFollowedArtist?.born}</span>
+                                </div>
+                              ) : null}
                             </div>
                           </div>
                         </div>

@@ -674,8 +674,22 @@ function NewArtwork() {
                                   color: "rgb(112,112,112)",
                                 }}
                               >
-                                {eachArtist?.nationality}, {eachArtist?.born}-
-                                {eachArtist?.died}
+                                {eachArtist?.nationality &&
+                                eachArtist?.born &&
+                                eachArtist?.died ? (
+                                  <div className="artist-info">
+                                    <span>{eachArtist?.nationality}, </span>
+                                    <span>{eachArtist?.born}-</span>
+                                    <span>{eachArtist?.died}</span>
+                                  </div>
+                                ) : eachArtist?.nationality &&
+                                  eachArtist?.born &&
+                                  !eachArtist?.died ? (
+                                  <div className="artist-info">
+                                    <span>{eachArtist?.nationality}, </span>
+                                    <span>b. {eachArtist?.born}</span>
+                                  </div>
+                                ) : null}
                               </div>
                             </div>
                           </div>
@@ -862,8 +876,22 @@ function NewArtwork() {
                       lineHeight: "20px",
                     }}
                   >
-                    {selectedArtist?.nationality}, {selectedArtist?.born}-
-                    {selectedArtist?.died}
+                    {selectedArtist?.nationality &&
+                    selectedArtist?.born &&
+                    selectedArtist?.died ? (
+                      <div className="artist-info">
+                        <span>{selectedArtist?.nationality}, </span>
+                        <span>{selectedArtist?.born}-</span>
+                        <span>{selectedArtist?.died}</span>
+                      </div>
+                    ) : selectedArtist?.nationality &&
+                      selectedArtist?.born &&
+                      !selectedArtist?.died ? (
+                      <div className="artist-info">
+                        <span>{selectedArtist?.nationality}, </span>
+                        <span>b. {selectedArtist?.born}</span>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -1074,8 +1102,22 @@ function NewArtwork() {
                           lineHeight: "20px",
                         }}
                       >
-                        {selectedArtist?.nationality}, {selectedArtist?.born}-
-                        {selectedArtist?.died}
+                        {selectedArtist?.nationality &&
+                        selectedArtist?.born &&
+                        selectedArtist?.died ? (
+                          <div className="artist-info">
+                            <span>{selectedArtist?.nationality}, </span>
+                            <span>{selectedArtist?.born}-</span>
+                            <span>{selectedArtist?.died}</span>
+                          </div>
+                        ) : selectedArtist?.nationality &&
+                          selectedArtist?.born &&
+                          !selectedArtist?.died ? (
+                          <div className="artist-info">
+                            <span>{selectedArtist?.nationality}, </span>
+                            <span>b. {selectedArtist?.born}</span>
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   </div>

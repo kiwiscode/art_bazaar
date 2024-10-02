@@ -727,9 +727,25 @@ function Artwork({ sendDataToParent }) {
                             color: "rgb(112, 112, 112)",
                           }}
                         >
-                          <span>{artwork?.artist?.nationality},</span>{" "}
                           <span>
-                            {artwork?.artist?.born}-{artwork?.artist?.born}
+                            {/* test start to check */}
+                            {artwork?.artist?.nationality &&
+                            artwork?.artist?.born &&
+                            artwork?.artist?.died ? (
+                              <div className="artist-info">
+                                <span>{artwork?.artist?.nationality}, </span>
+                                <span>{artwork?.artist?.born}-</span>
+                                <span>{artwork?.artist?.died}</span>
+                              </div>
+                            ) : artwork?.artist?.nationality &&
+                              artwork?.artist?.born &&
+                              !artwork?.artist?.died ? (
+                              <div className="artist-info">
+                                <span>{artwork?.artist?.nationality}, </span>
+                                <span>b. {artwork?.artist?.born}</span>
+                              </div>
+                            ) : null}
+                            {/* test finish to check */}
                           </span>
                         </div>
                       </div>
