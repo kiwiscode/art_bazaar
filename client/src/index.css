@@ -1972,3 +1972,10 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0px 10px;
   border-radius: 9999px;
 }
+
+.kiwisc0de-- {
+  transition: all 0.15s ease-in-out;
+}
+.kiwisc0de--:hover {
+  color: rgb(16, 35, 215) !important;
+}
