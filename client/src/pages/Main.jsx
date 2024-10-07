@@ -408,6 +408,7 @@ function Main({ sendDataToParent }) {
     };
   }, []);
 
+  // show alert
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
@@ -434,7 +435,6 @@ function Main({ sendDataToParent }) {
 
       {showAlert && (
         <div
-          className="unica-regular-font"
           id="alert-overlay "
           onClick={handleOutsideClick}
           style={{
