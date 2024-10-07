@@ -435,6 +435,7 @@ function Main({ sendDataToParent }) {
 
       {showAlert && (
         <div
+          className="unica-regular-font"
           id="alert-overlay "
           onClick={handleOutsideClick}
           style={{
