@@ -179,7 +179,16 @@ router.post("/login", (req, res, next) => {
 
     return;
   }
-  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+  // no need to check password regex during login
+  // const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+  // if (!regex.test(password) || password.length < 8) {
+  //   res.status(402).json({
+  //     errorMessage:
+  //       "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
+  //   });
+  //   return;
+  // }
 
   Collector.findOne({ email })
     .populate("favoriteArtworks")
@@ -383,15 +392,24 @@ const sendForgotPasswordEmail = (email, res, token) => {
 
 router.post("/reset_password", async (req, res) => {
   try {
+    console.log("here is working 1");
+
     const { email } = req.body.forgotPasswordFormData;
+    console.log("here is working 2");
+
     const collector = await Collector.findOne({ email: email });
+
+    console.log("here is working 3");
 
     if (!collector) {
       return res.status(404).json({ message: "Collector not found!" });
     }
+    console.log("here is working 4");
 
     const token = createResetToken();
     const tokenExpiration = Date.now() + 86400000; // 24h valid token for password reset
+
+    console.log("here is working 5");
 
     collector.resetPasswordToken = token;
     collector.resetPasswordExpires = tokenExpiration;

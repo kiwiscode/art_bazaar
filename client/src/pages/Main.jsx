@@ -408,8 +408,77 @@ function Main({ sendDataToParent }) {
     };
   }, []);
 
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    const hasSeenAlert = localStorage.getItem("hasSeenAlert");
+    if (!hasSeenAlert) {
+      setShowAlert(true);
+    }
+  }, []);
+
+  const closeAlert = () => {
+    setShowAlert(false);
+    localStorage.setItem("hasSeenAlert", "true");
+  };
+
+  const handleOutsideClick = (e) => {
+    if (e.target.id === "alert-overlay") {
+      closeAlert();
+    }
+  };
+
   return (
     <>
+      {/* free server msg */}
+
+      {showAlert && (
+        <div
+          className="unica-regular-font"
+          id="alert-overlay "
+          onClick={handleOutsideClick}
+          style={{
+            position: "fixed",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+            zIndex: 1,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.3)", // Arka plan saydam
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "20px",
+              borderRadius: "8px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+              maxWidth: "90%",
+              width: "400px",
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%,-50%)",
+              zIndex: 2,
+            }}
+          >
+            🚨 Attention! This project is hosted on a free server, so server
+            response times may occasionally be delayed. Thank you for your
+            patience! 🚀
+            <br />
+            <button
+              className="unica-regular-font"
+              onClick={closeAlert}
+              style={{ marginTop: "20px", padding: "10px", cursor: "pointer" }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {contextHolder}
       {/* all filters modal */}
 
