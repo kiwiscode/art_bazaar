@@ -8958,7 +8958,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148677/art_bazaar/filter%20%C3%BCzeri/download_qjnijt.webp"
+                        src="https://res.cloudinary.com/dlpnpty2g/image/upload/v1741985110/download_qjnijt_db9n62.webp"
                         alt=""
                       />
                     </div>
@@ -8972,7 +8972,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148676/art_bazaar/filter%20%C3%BCzeri/download_2_cfaug0.webp"
+                        src="https://res.cloudinary.com/dlpnpty2g/image/upload/v1741985111/download_2_cfaug0_vaox9t.webp"
                       />
                     </div>
                     <div>Painting</div>
@@ -8985,7 +8985,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148676/art_bazaar/filter%20%C3%BCzeri/download_4_djdak1.webp"
+                        src="https://res.cloudinary.com/dlpnpty2g/image/upload/v1741985112/download_4_djdak1_ys474a.webp"
                         alt=""
                       />
                     </div>
@@ -8999,7 +8999,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148677/art_bazaar/filter%20%C3%BCzeri/download_6_ju7hd8.webp"
+                        src="https://res.cloudinary.com/dlpnpty2g/image/upload/v1741985110/download_6_ju7hd8_v3jcly.webp"
                         alt=""
                       />
                     </div>
@@ -9013,7 +9013,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148677/art_bazaar/filter%20%C3%BCzeri/download_8_kmpf9f.webp"
+                        src="https://res.cloudinary.com/dlpnpty2g/image/upload/v1741985111/download_8_kmpf9f_o7dduh.webp"
                         alt=""
                       />
                     </div>
@@ -9027,7 +9027,7 @@ function Main({ sendDataToParent }) {
                         style={{
                           objectFit: "cover",
                         }}
-                        src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1723148677/art_bazaar/filter%20%C3%BCzeri/download_10_uejr8u.webp"
+                        src="https://res.cloudinary.com/dlpnpty2g/image/upload/v1741985110/download_10_uejr8u_htmfvy.webp"
                         alt=""
                       />
                     </div>
