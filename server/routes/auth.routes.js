@@ -11,18 +11,15 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const crypto = require("crypto");
 
+const jwt = require("jsonwebtoken");
+const authenticateToken = require("../middleware/jwtMiddleware");
+const mongoose = require("mongoose");
+const Collector = require("../models/Collector.model");
+const nodemailer = require("nodemailer");
+
 function createResetToken() {
   return crypto.randomBytes(32).toString("hex");
 }
-
-const jwt = require("jsonwebtoken");
-const authenticateToken = require("../middleware/jwtMiddleware");
-
-const mongoose = require("mongoose");
-
-const Collector = require("../models/Collector.model");
-
-const nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport({
   service: "gmail",
@@ -295,6 +292,7 @@ router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
+
 router.get("/google/callback", (req, res, next) => {
   passport.authenticate("google", (err, collector, info) => {
     if (err) return next(err);

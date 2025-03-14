@@ -75,7 +75,7 @@ function OrderReview() {
           },
         }
       );
-      "result:", result;
+
       setTimeout(() => {
         if (result.data.url) {
           window.location.href = result.data.url;

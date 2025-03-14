@@ -912,7 +912,7 @@ function Artwork({ sendDataToParent }) {
                     marginTop: "-120px",
                     marginLeft: "-3289px",
                   }}
-                  src="https://res.cloudinary.com/ddqbb9yqj/image/upload/v1720648930/museum_room/view_room_nkmzzm.jpg"
+                  src="https://res.cloudinary.com/dlpnpty2g/image/upload/v1741985231/view_room_vuyzum.jpg"
                   alt=""
                 />
               </div>
