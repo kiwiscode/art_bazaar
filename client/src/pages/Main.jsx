@@ -119,6 +119,7 @@ function Main({ sendDataToParent }) {
       setLoading(true);
       localStorage.setItem("token", token);
       localStorage.setItem("collectorInfo", JSON.stringify(collector));
+      updateCollector(collector);
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -134,6 +135,7 @@ function Main({ sendDataToParent }) {
     collectorInfo,
     loading,
     location.pathname,
+    updateCollector,
   ]);
 
   const handleClickOutside = (event) => {
@@ -261,7 +263,6 @@ function Main({ sendDataToParent }) {
 
   const handleMinChange = (event) => {
     setIsPriceRangeChanging(true);
-    console.log("event target value:", event.target.value);
     const value = Math.min(Number(event.target.value), maxValue - 100);
     setMinValue(value);
     setPriceFilter((prevPriceFilter) => ({
