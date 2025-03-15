@@ -135,8 +135,6 @@ function FileInput({
     sendUploadedPhotosBase64Version(uploadedPhotosBase64Version);
   }, [uploadedPhotosBase64Version]);
 
-  console.log("files:", uploadedPhotosBase64Version);
-
   return (
     <div>
       {" "}
