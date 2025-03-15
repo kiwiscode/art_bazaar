@@ -4,7 +4,7 @@ import CopyTextButton from "./CopyTextButton";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 
 const ShareButton = ({ artwork, text }) => {
-  const artworkName = artwork.title.replace(/\s+/g, "-").toLowerCase();
+  const artworkUrlName = artwork.urlName;
   const [showShareOptions, setShowShareOptions] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
   const currentUrl = window.location.href;
@@ -25,11 +25,11 @@ const ShareButton = ({ artwork, text }) => {
     const artworkTitle = artwork.title;
 
     const originalReferer = encodeURIComponent(
-      `https://art-bazaar.vercel.app/artwork/{${artworkName}`
+      `https://art-bazaar.vercel.app/artwork/{${artworkUrlName}`
     );
     const text = encodeURIComponent(`Check out ${artistName}, ${artworkTitle}`);
     const url = encodeURIComponent(
-      `https://art-bazaar.vercel.app/artwork/${artworkName}`
+      `https://art-bazaar.vercel.app/artwork/${artworkUrlName}`
     );
     const via = encodeURIComponent("artbazaar");
     let shareUrl;
@@ -325,7 +325,7 @@ const ShareButton = ({ artwork, text }) => {
                       x="0px"
                       y="0px"
                       viewBox="0 0 18 18"
-                      xml:space="preserve"
+                      xmlSpace="preserve"
                       fill="currentColor"
                       height={18}
                       width={18}
@@ -381,7 +381,7 @@ const ShareButton = ({ artwork, text }) => {
                       x="0px"
                       y="0px"
                       viewBox="0 0 18 18"
-                      xml:space="preserve"
+                      xmlSpace="preserve"
                       fill="currentColor"
                       width={18}
                       height={18}
@@ -410,7 +410,7 @@ const ShareButton = ({ artwork, text }) => {
                       x="0px"
                       y="0px"
                       viewBox="0 0 18 18"
-                      xml:space="preserve"
+                      xmlSpace="preserve"
                       fill="currentColor"
                       width={18}
                       height={18}
