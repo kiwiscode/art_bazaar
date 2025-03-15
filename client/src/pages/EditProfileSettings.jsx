@@ -527,17 +527,15 @@ function EditProfileSettings() {
                 setSelectMediumBorder("1px solid rgb(194, 194, 194)")
               }
             >
-              <>
-                <option value="" diabled selected hidden></option>
-                <option value="Under $500">Under $500</option>
-                <option value="Under $2,500">Under $2,500</option>
-                <option value="Under $5,000">Under $5,000</option>
-                <option value="Under $10,000">Under $10,000</option>
-                <option value="Under $25,000">Under $25,000</option>
-                <option value="Under $50,000">Under $50,000</option>
-                <option value="Under $100,000">Under $100,000</option>
-                <option value="No budget in mind">No budget in mind</option>
-              </>
+              <option value="" disabled hidden></option>
+              <option value="Under $500">Under $500</option>
+              <option value="Under $2,500">Under $2,500</option>
+              <option value="Under $5,000">Under $5,000</option>
+              <option value="Under $10,000">Under $10,000</option>
+              <option value="Under $25,000">Under $25,000</option>
+              <option value="Under $50,000">Under $50,000</option>
+              <option value="Under $100,000">Under $100,000</option>
+              <option value="No budget in mind">No budget in mind</option>
             </select>
           </div>
           <div className="box-40-px-m-top"></div>
