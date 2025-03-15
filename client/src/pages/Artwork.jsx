@@ -82,7 +82,6 @@ function Artwork({ sendDataToParent }) {
   }, [artworkName]);
 
   const handleZoomIn = () => {
-    console.log("works together with handlezoomableimagecanvasdata !!!");
     setIsZoomed(true);
   };
 
@@ -124,6 +123,8 @@ function Artwork({ sendDataToParent }) {
     const formattedName = artistName.toLowerCase().replace(/ /g, "-");
     navigate(`/artist/${formattedName}`);
   };
+
+  console.log("artwork:", artwork);
 
   return (
     <>
