@@ -5,10 +5,10 @@ const artworkSchema = new Schema(
     title: { type: String, required: true },
     artist: { type: Schema.Types.ObjectId, ref: "Artist", required: true },
     imageUrl: { type: String, required: true },
-    description: { type: String, required: true },
-    price: { type: Number },
+    urlName: { type: String, required: true },
+    headerDescription: { type: String },
     creator: { type: String, required: true },
-    artworkName: { type: String, required: true },
+    price: { type: String },
     header: { type: String },
     aboutTheWork: {
       materials: { type: String },
@@ -22,7 +22,6 @@ const artworkSchema = new Schema(
       series: { type: String },
       publisher: { type: String },
       currentLocation: { type: String },
-      currentCountry: { type: String },
     },
     category: {
       type: String,
@@ -34,6 +33,7 @@ const artworkSchema = new Schema(
         "Photography",
         "Emerging Art",
         "20th-Century Art",
+        "",
       ],
     },
     is_sold: {
