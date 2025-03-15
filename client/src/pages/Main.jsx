@@ -117,9 +117,25 @@ function Main({ sendDataToParent }) {
 
     if (token && collector) {
       setLoading(true);
+
+      const refreshCollector = async () => {
+        try {
+          const result = await axios.get(
+            `${API_URL}/collectors/${collector._id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${getToken()}`,
+              },
+            }
+          );
+          updateCollector(result.data);
+        } catch (error) {
+          console.error("error:", error);
+        }
+      };
+      refreshCollector();
       localStorage.setItem("token", token);
-      localStorage.setItem("collectorInfo", JSON.stringify(collector));
-      updateCollector(collector);
+
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -135,6 +151,7 @@ function Main({ sendDataToParent }) {
     collectorInfo,
     loading,
     location.pathname,
+    getToken,
     updateCollector,
   ]);
 

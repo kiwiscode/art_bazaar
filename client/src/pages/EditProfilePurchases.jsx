@@ -42,10 +42,11 @@ function EditProfilePurchases() {
   };
 
   useEffect(() => {
-    if (collectorInfo) {
+    if (collectorInfo && collectorInfo?._id) {
       getOrders();
     }
-  }, [collectorInfo]);
+  }, [collectorInfo, collectorInfo?._id]);
+
   const handleArtistClick = (artistName) => {
     const formattedName = artistName.toLowerCase().replace(/ /g, "-");
     navigate(`/artist/${formattedName}`);

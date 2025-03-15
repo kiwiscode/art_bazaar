@@ -621,7 +621,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       name="name"
                       id="outlined-basic"
                       variant={"outlined"}
-                      placeholder={isFocused && `Enter your full name`}
+                      placeholder={isFocused ? `Enter your full name` : ""}
                       label={`Name`}
                       style={{
                         width: "100%",
@@ -674,7 +674,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       name="email"
                       id="outlined-basic"
                       variant={"outlined"}
-                      placeholder={isFocused && `Enter your email address`}
+                      placeholder={isFocused ? `Enter your email address` : ""}
                       label={`Email`}
                       style={{
                         width: "100%",
@@ -789,7 +789,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                             )}
                           </InputAdornment>
                         }
-                        placeholder={isFocused && `Enter your password`}
+                        placeholder={isFocused ? `Enter your password` : ""}
                         label="Password"
                       />
                     </FormControl>
@@ -1239,7 +1239,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       name="email"
                       id="outlined-basic"
                       variant={"outlined"}
-                      placeholder={isFocused && `Enter your email address`}
+                      placeholder={isFocused ? `Enter your email address` : ""}
                       label={`Email`}
                       style={{
                         width: "100%",
@@ -1358,7 +1358,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                             )}
                           </InputAdornment>
                         }
-                        placeholder={isFocused && `Enter your password`}
+                        placeholder={isFocused ? `Enter your password` : ""}
                         label="Password"
                       />
                     </FormControl>
@@ -1705,7 +1705,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       name="email"
                       id="outlined-basic"
                       variant={"outlined"}
-                      placeholder={isFocused && `Enter your email address`}
+                      placeholder={isFocused ? `Enter your email address` : ""}
                       label={`Email`}
                       style={{
                         width: "100%",

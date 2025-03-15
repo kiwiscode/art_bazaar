@@ -301,58 +301,46 @@ router.get("/google/callback", async (req, res, next) => {
         return res.redirect(`${process.env.FRONTEND_URL}/login/failed`);
       }
 
-      const populatedUser = await collector.populate([
-        "favoriteArtworks",
-        "followedArtists",
-        "collection",
-        {
-          path: "collection",
-          populate: [
-            {
-              path: "artist",
-              model: "Artist",
-            },
-            {
-              path: "collector",
-              model: "Collector",
-            },
-          ],
-        },
-      ]);
+      // This is causing the request header to be too large. BUG
+      // const populatedCollector = await collector.populate([
+      //   "favoriteArtworks",
+      //   "followedArtists",
+      //   "collection",
+      //   {
+      //     path: "collection",
+      //     populate: [
+      //       {
+      //         path: "artist",
+      //         model: "Artist",
+      //       },
+      //       {
+      //         path: "collector",
+      //         model: "Collector",
+      //       },
+      //     ],
+      //   },
+      // ]);
 
-      // .populate({
-      //   path: "collection",
-      //   populate: {
-      //     path: "artist",
-      //     model: "Artist",
-      //   },
-      // })
-      // .populate({
-      //   path: "collection",
-      //   populate: {
-      //     path: "collector",
-      //     model: "Collector",
-      //   },
-      // });
+      const populatedCollector = collector;
 
       await req.logIn(collector, (err) => {
         if (err) throw err;
       });
 
       const token = jwt.sign(
-        { collectorId: populatedUser._id },
+        { collectorId: populatedCollector._id },
         process.env.JWT_SECRET,
         {
           expiresIn: "24h",
         }
       );
 
-      console.log("populated collector:", populatedUser);
+      console.log("populated collector:", populatedCollector);
 
       // Kullanıcıyı frontend'e yönlendir
       return res.redirect(
         `${process.env.FRONTEND_URL}/?token=${token}&collector=${JSON.stringify(
-          populatedUser
+          populatedCollector
         )}`
       );
     })(req, res, next);
