@@ -293,30 +293,72 @@ router.get(
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-router.get("/google/callback", (req, res, next) => {
-  passport.authenticate("google", (err, collector, info) => {
-    if (err) return next(err);
-    if (!collector)
-      return res.redirect(`${process.env.FRONTEND_URL}/login/failed`);
+router.get("/google/callback", async (req, res, next) => {
+  try {
+    await passport.authenticate("google", async (err, collector, info) => {
+      if (err) throw err;
+      if (!collector) {
+        return res.redirect(`${process.env.FRONTEND_URL}/login/failed`);
+      }
 
-    req.logIn(collector, (err) => {
-      if (err) return next(err);
+      const populatedUser = await collector.populate([
+        "favoriteArtworks",
+        "followedArtists",
+        "collection",
+        {
+          path: "collection",
+          populate: [
+            {
+              path: "artist",
+              model: "Artist",
+            },
+            {
+              path: "collector",
+              model: "Collector",
+            },
+          ],
+        },
+      ]);
+
+      // .populate({
+      //   path: "collection",
+      //   populate: {
+      //     path: "artist",
+      //     model: "Artist",
+      //   },
+      // })
+      // .populate({
+      //   path: "collection",
+      //   populate: {
+      //     path: "collector",
+      //     model: "Collector",
+      //   },
+      // });
+
+      await req.logIn(collector, (err) => {
+        if (err) throw err;
+      });
 
       const token = jwt.sign(
-        { collectorId: collector._id },
+        { collectorId: populatedUser._id },
         process.env.JWT_SECRET,
         {
           expiresIn: "24h",
         }
       );
 
-      res.redirect(
+      console.log("populated collector:", populatedUser);
+
+      // Kullanıcıyı frontend'e yönlendir
+      return res.redirect(
         `${process.env.FRONTEND_URL}/?token=${token}&collector=${JSON.stringify(
-          collector
+          populatedUser
         )}`
       );
-    });
-  })(req, res, next);
+    })(req, res, next);
+  } catch (err) {
+    return next(err);
+  }
 });
 
 router.post("/logout", authenticateToken, async (req, res, next) => {
