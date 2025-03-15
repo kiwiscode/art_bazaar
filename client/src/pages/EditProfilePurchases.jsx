@@ -71,8 +71,8 @@ function EditProfilePurchases() {
           >
             <svg width={18} height={14} viewBox="0 0 18 18" fill="currentColor">
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M12.0601 15.94L5.12012 9L12.0601 2.06L12.9401 2.94L6.88012 9L12.9401 15.06L12.0601 15.94Z"
               ></path>
             </svg>
@@ -128,130 +128,127 @@ function EditProfilePurchases() {
           </div>
         ) : (
           <div className="orders-wrapper-detailed-orders">
-            {orders.map((eachOrder) => {
+            {orders.map((eachOrder, eachOrderIndex) => {
               return (
-                <>
+                <div
+                  key={eachOrderIndex}
+                  onClick={() =>
+                    navigate(`/artwork/${eachOrder?.artworkToPurchase.urlName}`)
+                  }
+                  className="orders-wrapper-detailed-orders-detail"
+                >
                   <div
-                    onClick={() =>
-                      navigate(
-                        `/artwork/${eachOrder?.artworkToPurchase.urlName}`
-                      )
-                    }
-                    className="orders-wrapper-detailed-orders-detail"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    style={{
+                      display: "flex",
+                      gap: "12px",
+                    }}
                   >
                     <div
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                      style={{
-                        display: "flex",
-                        gap: "12px",
-                      }}
+                      className="pointer"
+                      onClick={() =>
+                        navigate(
+                          `/artwork/${eachOrder?.artworkToPurchase.urlName}`
+                        )
+                      }
                     >
                       <div
-                        className="pointer"
-                        onClick={() =>
-                          navigate(
-                            `/artwork/${eachOrder?.artworkToPurchase.urlName}`
-                          )
-                        }
+                        style={{
+                          maxWidth: "200px",
+                          width: "100%",
+                          maxHeight: "200px",
+                          height: "100dvh",
+                        }}
                       >
-                        <div
+                        <img
                           style={{
-                            maxWidth: "200px",
                             width: "100%",
-                            maxHeight: "200px",
-                            height: "100dvh",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                          src={eachOrder?.artworkToPurchase.imageUrl}
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        lineHeight: "16px",
+                      }}
+                    >
+                      <div>
+                        <span
+                          style={{
+                            color: "rgb(112,112,112)",
+                            cursor: "default",
                           }}
                         >
-                          <img
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                            }}
-                            src={eachOrder?.artworkToPurchase.imageUrl}
-                            alt=""
-                          />
-                        </div>
+                          From:
+                        </span>{" "}
+                        <span
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleArtistClick(
+                              eachOrder?.artworkToPurchase.creator
+                            );
+                          }}
+                          className="hover_color_effect pointer hover_color_effect_t-d"
+                        >
+                          {eachOrder?.artworkToPurchase.creator}
+                        </span>
                       </div>
                       <div
                         style={{
-                          fontSize: "13px",
-                          lineHeight: "16px",
+                          cursor: "default",
                         }}
                       >
-                        <div>
-                          <span
-                            style={{
-                              color: "rgb(112,112,112)",
-                              cursor: "default",
-                            }}
-                          >
-                            From:
-                          </span>{" "}
-                          <span
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleArtistClick(
-                                eachOrder?.artworkToPurchase.creator
-                              );
-                            }}
-                            className="hover_color_effect pointer hover_color_effect_t-d"
-                          >
-                            {eachOrder?.artworkToPurchase.creator}
-                          </span>
-                        </div>
-                        <div
+                        <span
                           style={{
-                            cursor: "default",
+                            color: "rgb(112,112,112)",
                           }}
                         >
-                          <span
-                            style={{
-                              color: "rgb(112,112,112)",
-                            }}
-                          >
-                            Medium:
-                          </span>{" "}
-                          <span>
-                            {eachOrder?.artworkToPurchase.aboutTheWork.medium}
-                          </span>
-                        </div>
-                        <div
+                          Medium:
+                        </span>{" "}
+                        <span>
+                          {eachOrder?.artworkToPurchase.aboutTheWork.medium}
+                        </span>
+                      </div>
+                      <div
+                        style={{
+                          cursor: "default",
+                        }}
+                      >
+                        <span
                           style={{
-                            cursor: "default",
+                            color: "rgb(112,112,112)",
                           }}
                         >
-                          <span
-                            style={{
-                              color: "rgb(112,112,112)",
-                            }}
-                          >
-                            Title:
-                          </span>{" "}
-                          <span>{eachOrder?.artworkToPurchase.title}</span>
-                        </div>
-                        <div
+                          Title:
+                        </span>{" "}
+                        <span>{eachOrder?.artworkToPurchase.title}</span>
+                      </div>
+                      <div
+                        style={{
+                          cursor: "default",
+                        }}
+                      >
+                        <span
                           style={{
-                            cursor: "default",
+                            color: "rgb(112,112,112)",
                           }}
                         >
-                          <span
-                            style={{
-                              color: "rgb(112,112,112)",
-                            }}
-                          >
-                            Size:
-                          </span>{" "}
-                          <span>
-                            {eachOrder?.artworkToPurchase.aboutTheWork.size}
-                          </span>
-                        </div>
+                          Size:
+                        </span>{" "}
+                        <span>
+                          {eachOrder?.artworkToPurchase.aboutTheWork.size}
+                        </span>
                       </div>
                     </div>
                   </div>
-                </>
+                </div>
               );
             })}
           </div>

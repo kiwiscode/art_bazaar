@@ -165,8 +165,8 @@ function EditProfileDelete() {
           >
             <svg width={18} height={14} viewBox="0 0 18 18" fill="currentColor">
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M12.0601 15.94L5.12012 9L12.0601 2.06L12.9401 2.94L6.88012 9L12.9401 15.06L12.0601 15.94Z"
               ></path>
             </svg>

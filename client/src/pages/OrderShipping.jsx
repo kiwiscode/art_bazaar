@@ -852,7 +852,7 @@ function OrdersShipping() {
                     >
                       <option value="">{en["ZZ"]}</option>
                       {sortedCountries.map((country, index) => (
-                        <option key={country._id} value={country}>
+                        <option key={country._id || index} value={country}>
                           {en[country]}
                         </option>
                       ))}
@@ -1381,7 +1381,7 @@ function OrdersShipping() {
                     >
                       <option value="">{en["ZZ"]}</option>
                       {sortedCountries.map((country, index) => (
-                        <option key={country._id} value={country}>
+                        <option key={country._id || index} value={country}>
                           {en[country]}
                         </option>
                       ))}
@@ -1927,10 +1927,11 @@ function OrdersShipping() {
         <div className="delivery-address-form-wrapper">
           {collectorInfo?.deliveryAddresses.length > 0 ? (
             <div className="delivery-address-form-wrapper first-section-delivery-shipping">
-              {collectorInfo?.deliveryAddresses.map((eachAddress) => {
-                return (
-                  <>
+              {collectorInfo?.deliveryAddresses.map(
+                (eachAddress, eachAddressIndex) => {
+                  return (
                     <div
+                      key={eachAddressIndex}
                       style={{
                         border: "1px solid rgb(231,231,231)",
                         padding: "20px",
@@ -2025,9 +2026,9 @@ function OrdersShipping() {
                         </span>
                       </div>
                     </div>
-                  </>
-                );
-              })}
+                  );
+                }
+              )}
               <div className="box-20-px-m-top"></div>
               <div>
                 <span
@@ -2167,7 +2168,7 @@ function OrdersShipping() {
                   >
                     <option value="">{en["ZZ"]}</option>
                     {sortedCountries.map((country, index) => (
-                      <option key={country._id} value={country}>
+                      <option key={country._id || index} value={country}>
                         {en[country]}
                       </option>
                     ))}

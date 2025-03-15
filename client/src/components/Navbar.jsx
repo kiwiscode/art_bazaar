@@ -2676,7 +2676,7 @@ function Navbar({ showAuthModal, setShowAuthModal }) {
                       handleArtistClick(eachArtist.name);
                     }}
                     className="unica-regular-font each-artist"
-                    key={eachArtist.id}
+                    key={eachArtist._id}
                     style={{
                       flex: "0 0 calc(20% - 10px)",
                       margin: "0 5px 10px 0",

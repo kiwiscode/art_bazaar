@@ -625,13 +625,13 @@ function CollectorProfile() {
                 }}
                 className="container-for-artworks-render"
               >
-                {collectedArtworks?.map((eachWork) => {
+                {collectedArtworks?.map((eachWork, index) => {
                   return (
-                    <div key={eachWork._id}>
-                      <>
-                        {eachWork?.artworksUploaded.map((artworks, index) => {
+                    <div key={eachWork._id || index}>
+                      {eachWork?.artworksUploaded.map(
+                        (artworks, artworksIndex) => {
                           return (
-                            <div key={artworks._id}>
+                            <div key={artworks._id || artworksIndex}>
                               {artworks.uploadedPhotos.length ? (
                                 <div
                                   onClick={() => {
@@ -794,8 +794,8 @@ function CollectorProfile() {
                               ></div>
                             </div>
                           );
-                        })}
-                      </>
+                        }
+                      )}
                     </div>
                   );
                 })}

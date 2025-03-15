@@ -875,7 +875,7 @@ function CollectorProfileArtists() {
               <div>
                 {currentItems?.map((eachCollection, index) => {
                   return (
-                    <>
+                    <div key={index}>
                       {eachCollection.artist &&
                         !eachCollection.artistDeletedFromCollection &&
                         !allArtistsDeleted && (
@@ -1097,7 +1097,7 @@ function CollectorProfileArtists() {
                             </div>
                           </div>
                         )}
-                    </>
+                    </div>
                   );
                 })}
 

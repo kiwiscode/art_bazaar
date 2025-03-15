@@ -329,10 +329,11 @@ function ArtistProfile({ sendDataToParent }) {
                       </div>{" "}
                       {showShows && (
                         <>
-                          {artist.recentSoloShows.map((eachShow) => {
-                            return (
-                              <div>
+                          {artist.recentSoloShows.map(
+                            (eachShow, eachShowIndex) => {
+                              return (
                                 <div
+                                  key={eachShowIndex}
                                   className="unica-regular-font"
                                   style={{
                                     paddingBottom: "12px",
@@ -344,9 +345,9 @@ function ArtistProfile({ sendDataToParent }) {
                                 >
                                   {eachShow.title}, {eachShow.institution}
                                 </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            }
+                          )}
                         </>
                       )}
                     </div>
@@ -492,7 +493,7 @@ function ArtistProfile({ sendDataToParent }) {
         >
           {artworks?.map((eachWork, index) => {
             return (
-              <div key={eachWork.id}>
+              <div key={eachWork._id}>
                 <div
                   onClick={() => {
                     navigate(`/artwork/${eachWork.urlName}`);

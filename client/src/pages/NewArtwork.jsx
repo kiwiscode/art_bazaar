@@ -623,84 +623,81 @@ function NewArtwork() {
                 <>
                   {artists.map((eachArtist, index) => {
                     return (
-                      <>
+                      <div
+                        onClick={() => {
+                          setSelectedArtist(eachArtist);
+                          setTabIndex(tabIndex + 1);
+                        }}
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
+                        key={eachArtist._id}
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          padding: "10px",
+                          cursor: "pointer",
+                          backgroundColor: hoveredIndex === index && "#f7f7f7",
+                        }}
+                      >
                         <div
-                          onClick={() => {
-                            setSelectedArtist(eachArtist);
-                            setTabIndex(tabIndex + 1);
-                          }}
-                          onMouseEnter={() => setHoveredIndex(index)}
-                          onMouseLeave={() => setHoveredIndex(null)}
-                          key={eachArtist._id}
                           style={{
                             display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            padding: "10px",
-                            cursor: "pointer",
-                            backgroundColor:
-                              hoveredIndex === index && "#f7f7f7",
+                            gap: "10px",
                           }}
                         >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <div>
-                              <img
-                                style={{
-                                  objectFit: "cover",
-                                }}
-                                width={50}
-                                height={50}
-                                src={eachArtist?.profilePic}
-                                alt=""
-                              />
-                            </div>
-                            <div>
-                              <div>{eachArtist?.name}</div>
-                              <div
-                                style={{
-                                  color: "rgb(112,112,112)",
-                                }}
-                              >
-                                {eachArtist?.nationality &&
-                                eachArtist?.born &&
-                                eachArtist?.died ? (
-                                  <div className="artist-info">
-                                    <span>{eachArtist?.nationality}, </span>
-                                    <span>{eachArtist?.born}-</span>
-                                    <span>{eachArtist?.died}</span>
-                                  </div>
-                                ) : eachArtist?.nationality &&
-                                  eachArtist?.born &&
-                                  !eachArtist?.died ? (
-                                  <div className="artist-info">
-                                    <span>{eachArtist?.nationality}, </span>
-                                    <span>b. {eachArtist?.born}</span>
-                                  </div>
-                                ) : null}
-                              </div>
-                            </div>
+                          <div>
+                            <img
+                              style={{
+                                objectFit: "cover",
+                              }}
+                              width={50}
+                              height={50}
+                              src={eachArtist?.profilePic}
+                              alt=""
+                            />
                           </div>
                           <div>
-                            <svg
-                              width={18}
-                              height={18}
-                              viewBox="0 0 18 18"
-                              fill="currentColor"
+                            <div>{eachArtist?.name}</div>
+                            <div
+                              style={{
+                                color: "rgb(112,112,112)",
+                              }}
                             >
-                              <path
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M5.94006 15.94L5.06006 15.06L11.1201 8.99999L5.06006 2.93999L5.94006 2.05999L12.8801 8.99999L5.94006 15.94Z"
-                              ></path>
-                            </svg>
+                              {eachArtist?.nationality &&
+                              eachArtist?.born &&
+                              eachArtist?.died ? (
+                                <div className="artist-info">
+                                  <span>{eachArtist?.nationality}, </span>
+                                  <span>{eachArtist?.born}-</span>
+                                  <span>{eachArtist?.died}</span>
+                                </div>
+                              ) : eachArtist?.nationality &&
+                                eachArtist?.born &&
+                                !eachArtist?.died ? (
+                                <div className="artist-info">
+                                  <span>{eachArtist?.nationality}, </span>
+                                  <span>b. {eachArtist?.born}</span>
+                                </div>
+                              ) : null}
+                            </div>
                           </div>
                         </div>
-                      </>
+                        <div>
+                          <svg
+                            width={18}
+                            height={18}
+                            viewBox="0 0 18 18"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M5.94006 15.94L5.06006 15.06L11.1201 8.99999L5.06006 2.93999L5.94006 2.05999L12.8801 8.99999L5.94006 15.94Z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
                     );
                   })}
                 </>
@@ -758,7 +755,7 @@ function NewArtwork() {
                     .map((eachCollection) => {
                       return (
                         <div
-                          key={eachCollection.id}
+                          key={eachCollection._id}
                           className="collection-detail-container-in"
                         >
                           <div
@@ -946,7 +943,7 @@ function NewArtwork() {
             <div className="container-for-artworks-render">
               {selectedArtistArtworks?.map((eachWork, index) => {
                 return (
-                  <div key={eachWork.id}>
+                  <div key={eachWork._id}>
                     <div
                       onClick={() => {
                         setSelectedArtwork(eachWork);

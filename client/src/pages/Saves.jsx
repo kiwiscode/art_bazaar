@@ -220,8 +220,10 @@ function Saves() {
               listStyle: "none",
               whiteSpace: "nowrap",
               marginBottom: width <= 768 ? "20px" : "60px",
+              marginTop: "0",
+              marginLeft: "0",
+              marginRight: "0",
               padding: "0",
-              margin: "0",
               height: "100%",
               width: "100%",
             }}
@@ -535,11 +537,11 @@ function Saves() {
                           setSelectMediumBorder("1px solid rgb(194, 194, 194)")
                         }
                       >
-                        <>
-                          <option value="" disabled selected hidden></option>
-                          <option value="Recently Added">Recently Added</option>
-                          <option value="First Added">First Added</option>
-                        </>
+                        <option value="" disabled hidden>
+                          Select an option
+                        </option>
+                        <option value="Recently Added">Recently Added</option>
+                        <option value="First Added">First Added</option>
                       </select>
                     </div>
                   </div>
@@ -610,12 +612,11 @@ function Saves() {
                           setSelectMediumBorder("1px solid rgb(194, 194, 194)")
                         }
                       >
-                        <>
-                          <option value="" disabled selected hidden></option>
-                          {/* <option value="Select">Select</option> */}
-                          <option value="Recently Added">Recently Added</option>
-                          <option value="First Added">First Added</option>
-                        </>
+                        <option value="" disabled hidden>
+                          Select an option
+                        </option>
+                        <option value="Recently Added">Recently Added</option>
+                        <option value="First Added">First Added</option>
                       </select>
                     </div>
                   </div>
