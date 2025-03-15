@@ -8217,10 +8217,10 @@ function Main({ sendDataToParent }) {
         {loading ? (
           <div
             style={{
-              position: "absolute",
-              height: "100%",
-              width: "100%",
-              top: "50%",
+              height: "674px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <LoadingSpinner outsidebtnloading></LoadingSpinner>
