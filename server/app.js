@@ -4,6 +4,7 @@ const path = require("path");
 
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
 const app = express();
 const passport = require("passport");
 const session = require("express-session");
@@ -31,6 +32,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+app.use(morgan("dev"));
 
 app.set("views", path.join(__dirname, "./", "views"));
 app.set("view engine", "hbs");
