@@ -386,7 +386,7 @@ const sendForgotPasswordEmail = (email, res, token) => {
       You're registered on Art Bazaar with the following e-mail: ayktkav@gmail.com. Someone has requested a link to change your password, and you can do this through the link below.
       </p>
       <div style="background-color: black; border-radius: 3px; min-height: 50px; width: 100%; cursor: pointer;">
-        <a href="${baseURL}/reset_password?email=${email}&token=${token}&utm_campaign=accounts&utm_content=reset_password&utm_medium=email&utm_source=sendgrid" style="text-decoration: none; color: white; background-color: black; display: block; text-align: center; font-size: 16px; line-height: 22px; padding: 15px 0;">
+        <a href="${baseURL}/reset_password?email=${email}&token=${token}" style="text-decoration: none; color: white; background-color: black; display: block; text-align: center; font-size: 16px; line-height: 22px; padding: 15px 0;">
         Update my password</a>
       </div>
       <p>This link is valid for 24 hours. If you didn't request this, please ignore this email.
