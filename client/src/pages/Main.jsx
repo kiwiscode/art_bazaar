@@ -16,6 +16,7 @@ import { useAntdMessageHandler } from "../../utils/useAntdMessageHandler";
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 function Main({ sendDataToParent }) {
+  const currentYear = new Date().getFullYear();
   const { collectorInfo, getToken, updateCollector } =
     useContext(CollectorContext);
   const {
@@ -8416,7 +8417,7 @@ function Main({ sendDataToParent }) {
                       overflow: "hidden",
                     }}
                   >
-                    Artem Proot, Tennis courts. Orange/Yellow, 2025.
+                    Artem Proot, Tennis courts. Orange/Yellow, {currentYear}.
                   </div>
                 </div>
                 <div
@@ -8459,7 +8460,7 @@ function Main({ sendDataToParent }) {
                         color: "rgb(0,0,0)",
                       }}
                     >
-                      Foundations Summer 2025
+                      Foundations Summer {currentYear}
                     </div>
                     <div
                       style={{
@@ -8788,7 +8789,7 @@ function Main({ sendDataToParent }) {
                         }}
                       >
                         10 Emerging Artists to Discover at Foundations Summer
-                        2025
+                        {currentYear}
                       </div>
                     </div>
                   ) : (
@@ -8813,7 +8814,7 @@ function Main({ sendDataToParent }) {
                         }}
                       >
                         10 Emerging Artists to <br /> Discover at Foundations{" "}
-                        <br /> Summer 2025
+                        <br /> Summer {currentYear}
                       </div>
                     </>
                   )}
@@ -11587,7 +11588,7 @@ function Main({ sendDataToParent }) {
           pointerEvents: "none",
         }}
       >
-        © Aykut Kav 2025
+        © Aykut Kav {currentYear}
       </div> */}
       <Footer />
     </>

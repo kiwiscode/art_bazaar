@@ -2,6 +2,7 @@ import useWindowDimensions from "../../utils/useWindowDimensions";
 
 function Footer() {
   const { width } = useWindowDimensions();
+  const currentYear = new Date().getFullYear();
   return (
     <>
       <div className="box-20-px-m-top"></div>
@@ -58,7 +59,7 @@ function Footer() {
                   color: "rgb(112, 112, 112)",
                 }}
               >
-                <span>© 2025 Art Bazaar | Designed & Developed by</span>{" "}
+                <span>© {currentYear} Art Bazaar | Designed & Developed by</span>{" "}
                 <a
                   style={{
                     textDecoration: "none",
@@ -140,7 +141,9 @@ function Footer() {
                   color: "rgb(112, 112, 112)",
                 }}
               >
-                <span>© 2025 Art Bazaar | Designed & Developed by</span>{" "}
+                <span>
+                  © {currentYear} Art Bazaar | Designed & Developed by
+                </span>{" "}
                 <a
                   style={{
                     textDecoration: "none",
