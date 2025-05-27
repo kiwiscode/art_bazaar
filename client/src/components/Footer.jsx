@@ -58,7 +58,7 @@ function Footer() {
                   color: "rgb(112, 112, 112)",
                 }}
               >
-                <span>© 2024 Art Bazaar | Designed & Developed by</span>{" "}
+                <span>© 2025 Art Bazaar | Designed & Developed by</span>{" "}
                 <a
                   style={{
                     textDecoration: "none",
@@ -140,7 +140,7 @@ function Footer() {
                   color: "rgb(112, 112, 112)",
                 }}
               >
-                <span>© 2024 Art Bazaar | Designed & Developed by</span>{" "}
+                <span>© 2025 Art Bazaar | Designed & Developed by</span>{" "}
                 <a
                   style={{
                     textDecoration: "none",

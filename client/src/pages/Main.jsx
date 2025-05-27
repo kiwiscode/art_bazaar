@@ -8416,7 +8416,7 @@ function Main({ sendDataToParent }) {
                       overflow: "hidden",
                     }}
                   >
-                    Artem Proot, Tennis courts. Orange/Yellow, 2024.
+                    Artem Proot, Tennis courts. Orange/Yellow, 2025.
                   </div>
                 </div>
                 <div
@@ -8459,7 +8459,7 @@ function Main({ sendDataToParent }) {
                         color: "rgb(0,0,0)",
                       }}
                     >
-                      Foundations Summer 2024
+                      Foundations Summer 2025
                     </div>
                     <div
                       style={{
@@ -8788,7 +8788,7 @@ function Main({ sendDataToParent }) {
                         }}
                       >
                         10 Emerging Artists to Discover at Foundations Summer
-                        2024
+                        2025
                       </div>
                     </div>
                   ) : (
@@ -8813,7 +8813,7 @@ function Main({ sendDataToParent }) {
                         }}
                       >
                         10 Emerging Artists to <br /> Discover at Foundations{" "}
-                        <br /> Summer 2024
+                        <br /> Summer 2025
                       </div>
                     </>
                   )}
@@ -11587,7 +11587,7 @@ function Main({ sendDataToParent }) {
           pointerEvents: "none",
         }}
       >
-        © Aykut Kav 2024
+        © Aykut Kav 2025
       </div> */}
       <Footer />
     </>
