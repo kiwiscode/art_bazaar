@@ -511,7 +511,7 @@ function Main({ sendDataToParent }) {
         className="unica-medium-font"
         style={{
           position: "fixed",
-          bottom: 15,
+          bottom: 75,
           right: 15,
           zIndex: 1,
           width: "50px",
