@@ -2,7 +2,7 @@
 
 **Art Bazaar** is an online marketplace where users can discover, buy, and manage unique artworks from various artists. The platform offers personalized art recommendations, detailed artist insights, and secure Stripe payment integration.
 
-[🌐 Live Demo](https://art-bazaar.vercel.app) • [📂 Source Code](https://github.com/kiwiscode/art_bazaar)
+[🌐 Live Demo](https://art-market-place.work.aykutkav.com) • [📂 Source Code](https://art-market-place.work.aykutkav.com)
 
 ---
 
